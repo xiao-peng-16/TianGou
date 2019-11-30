@@ -7,7 +7,6 @@
           <div class="left box">
 
 
-
             <ul v-if="flag_enter" >
               <router-link :to="{name:'home'}" tag="li"   id="TianGou">
                 <span class="iconfont" style="color: #FF0036">&#xe867;</span>
@@ -33,6 +32,9 @@
 
           <div >
             <ul class="right box">
+
+              <li style="display: none;">{{innerWidth}}</li>
+
               <router-link :to="{name:'shop_car'}" tag="li">
                 <span class="iconfont" style="font-size: 12px; color:#FF4400" >&#xe63a;</span>
                 <span>购物车</span>
@@ -86,6 +88,12 @@
             return shopCarNumber;
           else return '';
         },
+        innerWidth(){
+          var innerWidth = this.$store.state.innerWidth;
+          if (undefined != innerWidth && undefined != this.$refs.nav_top)
+            this.$refs.nav_top.style.width = innerWidth  +"px";
+          return innerWidth;
+        }
       },
       watch:{
         maxWidth(){
@@ -109,7 +117,6 @@
           },
         },
         created() {
-
             this.$axios.post('/user/selUserByUserId')
               .then(res=>{
                 if (res.data.success){
@@ -124,18 +131,10 @@
                 }
 
             });
-
         },
       mounted() {
-          //这样 滚动条的出现和消失 不会影响 总宽度  影响布局
-          this.$refs.nav_top.style.width = window.innerWidth +"px";
-          window.onresize = () => {
-            return (() => {
-              this.$refs.nav_top.style.width = window.innerWidth +"px";
-            })()
-          }
+        this.$refs.nav_top.style.width = window.innerWidth  +"px";
       }
-
     }
 </script>
 
