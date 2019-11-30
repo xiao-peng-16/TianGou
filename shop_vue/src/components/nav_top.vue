@@ -1,5 +1,6 @@
 <template>
-    <div class="nav_top" ref="nav_top" :class="{flag_fixed:flag_fixed}">
+    <div style="width: 100%;overflow: hidden">
+      <div class="nav_top" ref="nav_top" :class="{flag_fixed:flag_fixed}">
 
         <div class="container">
 
@@ -46,8 +47,8 @@
               </router-link>
               <router-link :to="{name:'store_center'}" tag="li"><span>卖家中心</span></router-link>
 
-<!--              <router-link :to="{name:'service'}" tag="li"><span>联系客服</span></router-link>-->
-<!--              <li><span>联系客服</span></li>-->
+              <!--              <router-link :to="{name:'service'}" tag="li"><span>联系客服</span></router-link>-->
+              <!--              <li><span>联系客服</span></li>-->
 
               <transition leave-active-class="animated hinge">
                 <li v-show="flag_tou_su" @click="flag_tou_su=false" ><span>投诉</span></li>
@@ -60,6 +61,7 @@
 
 
 
+      </div>
     </div>
 </template>
 
