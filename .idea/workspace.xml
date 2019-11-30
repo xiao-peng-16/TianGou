@@ -9,11 +9,10 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DefaultGradleProjectSettings">
-    <option name="testRunner" value="GRADLE" />
-    <option name="delegatedBuild" value="true" />
+    <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/数据库文件.sql">
           <provider selected="true" editor-type-id="text-editor">
@@ -50,6 +49,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -57,22 +57,10 @@
               <item name="shop_vue_springcloud" type="b2602c69:ProjectViewProjectNode" />
               <item name="shop_vue_springcloud" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="shop_vue_springcloud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shop_vue_springcloud" type="462c0819:PsiDirectoryNode" />
-              <item name="shop_vue" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shop_vue_springcloud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shop_vue_springcloud" type="462c0819:PsiDirectoryNode" />
-              <item name="shop_vue" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -115,6 +103,7 @@
       <workItem from="1575093906115" duration="219000" />
       <workItem from="1575094209669" duration="11000" />
       <workItem from="1575094290516" duration="2005000" />
+      <workItem from="1575096476888" duration="128000" />
     </task>
     <task id="LOCAL-00001" summary="shop">
       <created>1575094500813</created>
@@ -151,16 +140,24 @@
       <option name="project" value="LOCAL" />
       <updated>1575095570491</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="cxp_shop">
+      <created>1575096517456</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1575096517456</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2235000" />
+    <option name="totallyTimeSpent" value="2363000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25637585" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25973153" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
