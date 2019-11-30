@@ -33,6 +33,7 @@
           <div >
             <ul class="right box">
 
+<!--              这样 监听器 使用-->
               <li style="display: none;">{{innerWidth}}</li>
 
               <router-link :to="{name:'shop_car'}" tag="li">
