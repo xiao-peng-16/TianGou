@@ -32,10 +32,6 @@
 
           <div >
             <ul class="right box">
-
-<!--              这样 监听器 使用-->
-              <li style="display: none;">{{innerWidth}}</li>
-
               <router-link :to="{name:'shop_car'}" tag="li">
                 <span class="iconfont" style="font-size: 12px; color:#FF4400" >&#xe63a;</span>
                 <span>购物车</span>
@@ -71,7 +67,7 @@
 <script>
     export default {
         name: "nav_top",
-        props:['flag_fixed',   'maxWidth'],
+        props:['flag_fixed','flag_scroll',   'maxWidth'],
         data(){
           return{
             flag_tou_su:true,
@@ -134,7 +130,16 @@
             });
         },
       mounted() {
-        this.$refs.nav_top.style.width = window.innerWidth  +"px";
+          if (undefined != this.flag_scroll && this.flag_scroll) {
+              //这样 滚动条的出现和消失 不会影响 总宽度  影响布局
+              this.$refs.nav_top.style.width = window.innerWidth +"px";
+              window.onresize = () => {
+                return (() => {
+                  this.$refs.nav_top.style.width = window.innerWidth +"px";
+                })()
+            }
+          }
+
       }
     }
 </script>

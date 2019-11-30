@@ -1,6 +1,6 @@
 <template>
     <div>
-      <nav_top :flag_fixed="true"/><br/>
+      <nav_top :flag_fixed="true" :flag_scroll="true"/><br/>
       <div style="position: fixed;width: 100%;height: 70px; background: white;z-index: 100;padding-top: 10px;border-bottom: 1px solid #DADADA">
 <!--      <div style="width: 100%;height: 70px; background: white;z-index: 100;padding-top: 10px;border-bottom: 1px solid #DADADA">-->
         <img  src="../assets/tmall.jpg">

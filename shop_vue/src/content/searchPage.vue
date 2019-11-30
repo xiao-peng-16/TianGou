@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav_top />
+        <nav_top :flag_scroll="true"/>
         <nav_right/>
 
         <div class="topFixed_serarch" ref="topFixed_serarch">

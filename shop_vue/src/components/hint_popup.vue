@@ -11,13 +11,6 @@
 <script>
     export default {
         name: "hint_popup",
-      props:['innerWidth'],
-      watch:{
-        innerWidth(val){
-          //nav_top 要用
-            this.$store.state.innerWidth  = val;
-         }
-      },
       computed:{
         hint_popup_flag(){
           return this.$store.state.status != 0;
