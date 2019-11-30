@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.cxp.shop_favorite.mapper.FavoriteMapper">
+
+    <insert id="addFavorite">
+        insert ignore favorite(user_id,commodity_id)
+        values
+        <foreach collection="commodityIdList" item="item" separator=",">
+            (#{userId}, #{item})
+        </foreach>
+    </insert>
+
+
+    <delete id="delFavorite">
+        delete from favorite
+        where user_id = #{userId}
+        and commodity_id in
+        <foreach collection="commodityIdList" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>

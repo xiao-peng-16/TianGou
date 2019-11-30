@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.cxp.shop_order.mapper.OrderIdKeyMapper">
+
+
+    <select id="selOrderIdCommodityId" parameterType="map" resultType="com.cxp.shop_order.pojo.OrderIdCommodityId">
+        select p.order_id ,  commodity_id
+        from order_parent p inner join order_son s on p.order_id = s.order_id
+        where  store_id = #{storeId} and p.order_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item.orderId}
+        </foreach>
+    </select>
+    
+</mapper>

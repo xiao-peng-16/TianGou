@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.cxp.shop_order.mapper.OrderMapper">
+
+
+
+<!--        mybaits 插入数据 将自增id返回注入到 keyProperty    -->
+    <insert id="insOrderParent" useGeneratedKeys="true" keyProperty="orderId">
+        insert order_parent(user_id) values(#{userId})
+    </insert>
+
+
+
+    <insert id="insOrderSon">
+        insert ignore order_son
+            (order_id,store_id,commodity_id,choose_number,commodity_price,order_sum_price)
+        values
+        <foreach collection="orderSonList" item="item" separator=",">
+            (#{orderId},#{item.storeId},#{item.commodityId},#{item.chooseNumber},#{item.commodityPrice},#{item.orderSumPrice})
+        </foreach>
+    </insert>
+
+
+
+
+    <select id="selUserMoneyChangeByOrderId" resultType="com.cxp.shop_api.dto.MoneyChange">
+        select user_id ,sum(order_sum_price) userMoneyChange from order_parent
+        inner join order_son on order_parent.order_id = order_son.order_id
+        where order_parent.order_id = #{orderId} and order_submit = false
+    </select>
+
+
+    <select id="selAllMoneyChangeByOrderId" resultType="com.cxp.shop_api.dto.MoneyChange">
+        select store_id userId,sum(order_sum_price) userMoneyChange from order_parent
+        inner join order_son on order_parent.order_id = order_son.order_id
+        where order_parent.order_id = #{orderId}
+        group by store_id
+    </select>
+
+    <select id="selChooseNumber" resultType="com.cxp.shop_api.dto.CommodityNumberChange">
+        select commodity_id,choose_number  from order_parent
+        inner join order_son on order_parent.order_id = order_son.order_id
+        where order_parent.order_id = #{orderId}
+    </select>
+
+
+
+    <select id="selStoreSalesCurrentMonth" resultType="com.cxp.shop_api.vo.StoreStatusBeanVO">
+        select sum(choose_number) as SalesVolume, sum(order_sum_price) as Earnings
+        from order_parent p inner join order_son s on p.order_id = s.order_id
+        where store_id = #{storeId} and DATE_FORMAT(order_time,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
+    </select>
+
+    <select id="selStoreSalesEarnings" resultType="com.cxp.shop_api.vo.StoreStatusBeanVO">
+        select sum(choose_number) as SalesVolume, sum(order_sum_price) as Earnings
+        from order_son
+        where store_id = #{storeId}
+    </select>
+
+
+
+<!--    总体大致订单信息-->
+
+    <select id="listStoreOrderGeneraVO" resultType="com.cxp.shop_api.vo.OrderGeneraVO">
+        select  p.order_id, sum(choose_number) chooseNumber, sum(order_sum_price) orderSumPrice
+        from order_parent p inner join order_son s on p.order_id = s.order_id
+        where store_id = #{storeId}
+		group by p.order_id
+        order by p.order_id desc
+    </select>
+
+    <select id="listUserOrderGeneraVO" resultType="com.cxp.shop_api.vo.OrderGeneraVO">
+        select  order_id, sum(choose_number) chooseNumber, sum(order_sum_price) orderSumPrice
+        from order_son
+        where user_id = #{userId}
+		group by order_id
+        order by order_id desc
+
+    </select>
+
+
+    <select id="selOrderParentMap" resultType="com.cxp.shop_api.entity.OrderParent">
+        select order_id ,user_id,order_time,order_submit
+        from order_parent
+        where order_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item.orderId}
+        </foreach>
+    </select>
+
+<!--    详细订单信息-->
+
+    <resultMap id="OrderParentMap" type="com.cxp.shop_api.entity.OrderParent" autoMapping="true">
+        <id column="order_id" property="orderId"/>
+        <collection property="orderSonList" ofType="com.cxp.shop_api.entity.OrderSon" autoMapping="true">
+            <id column="commodity_id" property="commodityId"/>
+        </collection>
+    </resultMap>
+
+    <select id="selStoreOrderParent" resultMap="OrderParentMap">
+        select p.order_id ,user_id,order_time,order_submit,
+        commodity_id,store_id,choose_number,commodity_price,order_sum_price
+        from order_parent p inner join order_son s on p.order_id = s.order_id
+        where p.order_id = #{orderId} and store_id = #{storeId}
+    </select>
+
+    <select id="selUserOrderParent" resultMap="OrderParentMap">
+        select p.order_id ,user_id,order_time,order_submit,
+        commodity_id,store_id,choose_number,commodity_price,order_sum_price
+        from order_parent p inner join order_son s on p.order_id = s.order_id
+        where p.order_id = #{orderId} and user_id = #{userId}
+    </select>
+</mapper>

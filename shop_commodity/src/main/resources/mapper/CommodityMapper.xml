@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+
+	<mapper namespace="com.cxp.shop_commodity.mapper.CommodityMapper">
+
+
+
+    <!--    查询购物车商品信息-->
+    <select id="mapShopCarCommodityVO" resultType="com.cxp.shop_api.vo.ShopCarCommodityVO">
+        select commodity_id,commodity_name,commodity_describe,commodity_price,bao_you,commodity_photoname
+        from commodity
+        where commodity_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+
+    <!--    查询商品简单信息  用于  订单-->
+    <select id="mapOrderCommodityVO" resultType="com.cxp.shop_api.vo.OrderCommodityVO">
+        select commodity_id , commodity_name , commodity_photoname ,  commodity_price
+        from commodity
+        where commodity_id  in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!--    查询商品简单信息  用于 收藏夹 -->
+    <select id="mapFavoriteCommodityVO" resultType="com.cxp.shop_api.vo.FavoriteCommodityVO">
+        select commodity_id , commodity_name , commodity_photoname ,  commodity_price
+        from commodity
+        where commodity_id  in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!--    查询商品信息用于形成订单-->
+    <select id="selCommodityToOrderMap" resultType="com.cxp.shop_api.dto.CommodityToOrder">
+        select commodity_id , store_id  , commodity_price , commodity_stock
+        from commodity
+        where commodity_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item.commodityId}
+        </foreach>
+    </select>
+
+
+
+<!--***********************搜索页   开始*****************************-->
+
+
+    <sql id="selSearchCommodityVO">
+        select store_id, commodity_id, commodity_name, commodity_describe,
+        commodity_photoname, bao_you, commodity_price, commodity_sales
+        from commodity
+    </sql>
+
+
+    <!--    查询搜索页  根据商品名字-->
+    <select id="selSearchCountByCommodityName" resultType="Integer">
+        select count(*) from commodity
+        <bind name="searchWord" value="'%'+searchWord+'%'"/>
+        where commodity_name like #{searchWord}
+    </select>
+
+    <select id="selSearchCommodityVOByCommodityName" resultType="com.cxp.shop_api.vo.SearchCommodityVO">
+        <include refid="selSearchCommodityVO"/>
+        <bind name="searchWord" value="'%'+searchWord+'%'"/>
+        where commodity_name like #{searchWord}
+        limit #{pageStartLen} ,#{pageStepSize}
+    </select>
+
+
+
+
+    <!--    查询搜索页  根据种类的名字-->
+    <select id="selSearchCountBySortName" resultType="Integer">
+        select count(*) from commodity
+        inner join sort  on commodity.sort_id  = sort.sort_id
+        <bind name="searchWord" value="'%'+searchWord+'%'"/>
+        where sort_name like #{searchWord}
+    </select>
+
+    <select id="selSearchCommodityVOBySortName" resultType="com.cxp.shop_api.vo.SearchCommodityVO">
+        <include refid="selSearchCommodityVO"/>
+        inner join sort  on commodity.sort_id  = sort.sort_id
+        <bind name="searchWord" value="'%'+searchWord+'%'"/>
+        where sort_name like #{searchWord}
+        limit #{pageStartLen} ,#{pageStepSize}
+    </select>
+
+
+
+    <!--    查询搜索页  根据店铺id-->
+    <select id="selSearchCountByStoreId" resultType="Integer">
+        select count(*) from commodity
+        where store_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selSearchCommodityVOByStoreId" resultType="com.cxp.shop_api.vo.SearchCommodityVO">
+        <include refid="selSearchCommodityVO"/>
+        where store_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        limit #{searchPage_request.pageStartLen} ,#{searchPage_request.pageStepSize}
+    </select>
+
+
+
+
+    <!--***********************搜索页   开始*****************************-->
+
+
+
+    <select id="selStoreCommodityByUserId" resultType="com.cxp.shop_api.vo.StoreCommodityVO">
+         select commodity_id,commodity_name,commodity_photoname,commodity_price,commodity_sales,commodity_stock
+         from commodity
+         where store_id = #{storeID}
+         order by store_id desc
+    </select>
+
+
+    <select id="SelCommoditySimplePage" resultType="com.cxp.shop_api.vo.OrderCommodityVO">
+        select commodity_id , commodity_name , commodity_photoname
+        from commodity
+        where commodity_id  in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+
+    </mapper>

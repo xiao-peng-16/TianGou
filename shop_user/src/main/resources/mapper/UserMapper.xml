@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.cxp.shop_user.mapper.UserMapper">
+
+
+
+    <select id="mapUserNameByUserId" resultType="com.cxp.shop_user.pojo.UserIdName">
+            select user_id, user_name from user
+            where user_id in
+            <foreach collection="list" item="item" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+    </select>
+
+
+    <update id="addMoneyByUserId">
+        update user
+        set user_money=
+        <foreach collection="list" item="item" index="index"
+                 separator=" " open="case user_id" close="end">
+            when #{item.userId} then user_money +#{item.userMoneyChange}
+        </foreach>
+        where user_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item.userId}
+        </foreach>
+    </update>
+
+</mapper>
