@@ -1,98 +1,98 @@
 <template>
-    <div>
+  <div>
 
-      <div class="container">
-        <img src="../assets/tmall.jpg" height="38">
-      </div>
-      <div class="body">
-        <div class="container content">
-          <div class="offset-md-7">
-            <div class="fromBox">
-              <div v-if="flag_hint" class="hintBox">
-                <span id="hint_icon" class="iconfont">&#xeb65;</span>
-                <span id="hint_msg">{{this.hint}}</span>
+    <div class="container">
+      <img src="../assets/tmall.jpg" height="38">
+    </div>
+    <div class="body">
+      <div class="container content">
+        <div class="offset-md-7">
+          <div class="fromBox">
+            <div v-if="flag_hint" class="hintBox">
+              <span id="hint_icon" class="iconfont">&#xeb65;</span>
+              <span id="hint_msg">{{this.hint}}</span>
+            </div>
+            <span v-else style="font-weight: bold">密码登录</span>
+            <div class="from">
+              <br/>
+              <div class="inputBox">
+                <div class="iconfontBox"><span class="iconfont">&#xe7ae;</span></div>
+                <input v-my-focus v-model="userName" @keyup.enter="focusPassword"  type="text" placeholder=" 用户名/邮箱/手机号">
               </div>
-              <span v-else style="font-weight: bold">密码登录</span>
-              <div class="from">
-                <br/>
-                <div class="inputBox">
-                  <div class="iconfontBox"><span class="iconfont">&#xe7ae;</span></div>
-                  <input v-my-focus v-model="userName" @keyup.enter="focusPassword"  type="text" placeholder=" 用户名/邮箱/手机号">
-                </div>
 
-                <br/>
-                <div class="inputBox">
-                  <div class="iconfontBox"><span class="iconfont">&#xe7c9;</span></div>
-                  <input v-model="userPassword" @keyup.enter="getTokenByPassword" ref="el_userPassword" type="password" placeholder="密码">
-                </div>
-
-                <br/><button id="enter" @click="getTokenByPassword">登录</button>
-                <br/><br/>
-                <router-link class="buttom" :to="{name:'register'}">免费注册</router-link>
-                <router-link class="buttom" :to="{name:'drop_password'}">忘记密码</router-link>
+              <br/>
+              <div class="inputBox">
+                <div class="iconfontBox"><span class="iconfont">&#xe7c9;</span></div>
+                <input v-model="userPassword" @keyup.enter="getTokenByPassword" ref="el_userPassword" type="password" placeholder="密码">
               </div>
+
+              <br/><button id="enter" @click="getTokenByPassword">登录</button>
+              <br/><br/>
+              <router-link class="buttom" :to="{name:'register'}">免费注册</router-link>
+              <router-link class="buttom" :to="{name:'drop_password'}">忘记密码</router-link>
             </div>
           </div>
         </div>
       </div>
-
     </div>
+
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "login",
-        data(){
-          return{
-            userName:"",
-            userPassword:"",
-            flag_hint:false,
-            hint:"提示"
-          }
-        },
-        created(){
+  export default {
+    name: "login",
+    data(){
+      return{
+        userName:"",
+        userPassword:"",
+        flag_hint:false,
+        hint:"提示"
+      }
+    },
+    created(){
 
-        },
-        methods:{
-          focusPassword(){
-            this.$refs.el_userPassword.focus();
-          },
-          getTokenByPassword(){
-            if (this.userName=="" && this.userPassword==""){
-                this.flag_hint=true;
-                this.hint="请输入账户名和密码";
-            } else if (this.userName==""){
-              this.flag_hint=true;
-              this.hint="请填写账户名";
-            }else if (this.userPassword==""){
-              this.flag_hint=true;
-              this.hint="请输入密码";
+    },
+    methods:{
+      focusPassword(){
+        this.$refs.el_userPassword.focus();
+      },
+      getTokenByPassword(){
+        if (this.userName=="" && this.userPassword==""){
+          this.flag_hint=true;
+          this.hint="请输入账户名和密码";
+        } else if (this.userName==""){
+          this.flag_hint=true;
+          this.hint="请填写账户名";
+        }else if (this.userPassword==""){
+          this.flag_hint=true;
+          this.hint="请输入密码";
+        } else {
+
+          this.$axios.post('user/getTokenByPassword',{
+            userName : this.userName,
+            userPassword : this.userPassword
+          }).then(res=>{
+            if (res.data.success){
+              this.user_Login(res.data.data)
+              this.$router.go(-1);
+              this.$router.push({name:'home'});//防止没上一级页面
             } else {
-
-              this.$axios.post('user/getTokenByPassword',{
-                userName : this.userName,
-                userPassword : this.userPassword
-              }).then(res=>{
-                if (res.data.success){
-                    this.user_Login(res.data.data)
-                    this.$router.go(-1);
-                    this.$router.push({name:'home'});//防止没上一级页面
-                } else {
-                  this.flag_hint=true;
-                  this.hint="你输入的密码和账户名不匹配";
-                }
-              })
+              this.flag_hint=true;
+              this.hint="你输入的密码和账户名不匹配";
             }
-          }
-
-
-
+          })
         }
-
+      }
 
 
 
     }
+
+
+
+
+  }
 </script>
 
 <style scoped>
@@ -178,11 +178,11 @@
     width: 300px;
     background: #FEF2F2;
   }
-#hint_icon{
-  margin: 0px 5px 0px 10px;
-  color: #D64848;
-  font-size: 15px;
-}
+  #hint_icon{
+    margin: 0px 5px 0px 10px;
+    color: #D64848;
+    font-size: 15px;
+  }
   #hint_msg{
     font-size: 13px;
     color: #6C6C6C;
