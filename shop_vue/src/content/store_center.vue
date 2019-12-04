@@ -1,8 +1,7 @@
 <template>
     <div>
-      <nav_top :flag_fixed="true" :flag_scroll="true"/><br/>
+      <nav_top :flag_fixed="true" :flag_scroll="true" />
       <div style="position: fixed;width: 100%;height: 70px; background: white;z-index: 100;padding-top: 10px;border-bottom: 1px solid #DADADA">
-<!--      <div style="width: 100%;height: 70px; background: white;z-index: 100;padding-top: 10px;border-bottom: 1px solid #DADADA">-->
         <img  src="../assets/tmall.jpg">
         <span id="title">— 卖家中心 —</span>
       </div>
@@ -37,19 +36,23 @@
       data(){
           return{
             options:1,
-            optionsComponents:'StoreHome',
-            background:'while'
           }
         },
-        watch:{
-          options(val){
-            switch (val) {
-              case 1: this.optionsComponents='StoreHome'; this.background = 'while'; break;
-              case 2: this.optionsComponents='StoreCommodityManage'; this.background = '#FCFCFC'; break;
-              case 3: this.optionsComponents='StoreOrderManage'; this.background = '#FCFCFC'; break;
-            }
+      computed:{
+        optionsComponents(){
+          switch (this.options) {
+            case 1: return  'StoreHome';
+            case 2: return  'StoreCommodityManage';
+            case 3: return  'StoreOrderManage';
           }
         }
+      },
+      created() {
+          var store_center_options = this.$route.params.store_center_options;
+          if (undefined != store_center_options) {
+            this.options = store_center_options;
+          }
+      }
     }
 </script>
 

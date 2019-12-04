@@ -1,26 +1,26 @@
 <template>
-    <div style="width: 100%;overflow: hidden">
+    <div class="nav_top_box">
       <div class="nav_top" ref="nav_top" :class="{flag_fixed:flag_fixed}">
 
         <div class="container">
 
-          <div class="left box">
 
 
-            <ul v-if="flag_enter" >
+            <ul class="left" v-if="flag_enter" >
+<!--              <router-link :to="{name:'home'}" tag="li"   id="TianGou" v-if=" 'home'!= this.$route.name ">-->
               <router-link :to="{name:'home'}" tag="li"   id="TianGou">
-                <span class="iconfont" style="color: #FF0036">&#xe867;</span>
-                <span>天狗首页</span>
+                  <span class="iconfont" style="color: #FF0036">&#xe867;</span>
+                  <span>天狗首页</span>
               </router-link>
 
               <li><span>Hi, {{this.user.userName}}</span></li>
               <li><span>余额{{(this.user.userMoney).toFixed(2)}}</span></li>
               <li><span @click="outenter">退出</span></li>
             </ul>
-            <ul v-else>
+            <ul class="left" v-else>
               <router-link :to="{name:'home'}" tag="li">
-                <span class="iconfont" style="color: #FF0036">&#xe867;</span>
-                <span>天狗首页</span>
+                  <span class="iconfont" style="color: #FF0036">&#xe867;</span>
+                  <span>天狗首页</span>
               </router-link>
 
               <li><span>汪，欢迎来到天狗</span></li>
@@ -28,32 +28,47 @@
               <router-link :to="{name:'register'}" tag="li"><span>免费注册</span></router-link>
             </ul>
 
-          </div>
 
           <div >
-            <ul class="right box">
+            <ul class="right">
               <router-link :to="{name:'shop_car'}" tag="li">
-                <span class="iconfont" style="font-size: 12px; color:#FF4400" >&#xe63a;</span>
-                <span>购物车</span>
-                <span style="color: #FF4400;font-weight: 700; color:#FF4400 ">
+                  <span class="iconfont" style="font-size: 12px; color:#FF4400" >&#xe63a;</span>
+                  <span>购物车</span>
+                  <span style="color: #FF4400;font-weight: 700; color:#FF4400 ">
                   {{shopCarNumber}}
                 </span>
               </router-link>
 
               <router-link :to="{name:'favorite'}" tag="li">
-                <span class="iconfont" style="font-size: 12px;">&#xe636;</span>
-                <span>收藏夹</span>
+                  <span class="iconfont" style="font-size: 12px;">&#xe636;</span>
+                  <span>收藏夹</span>
               </router-link>
-              <router-link :to="{name:'store_center'}" tag="li"><span>卖家中心</span></router-link>
 
-              <!--              <router-link :to="{name:'service'}" tag="li"><span>联系客服</span></router-link>-->
-              <!--              <li><span>联系客服</span></li>-->
+
+              <li class="options_list">
+                <div>
+                  <div class="options_list_title"><span>卖家中心</span></div>
+                  <ul>
+                    <li @click="to_store_center(1)"><span>店铺概况</span></li>
+                    <li @click="to_store_center(2)"><span>商品管理</span></li>
+                    <li @click="to_store_center(3)"><span>订单管理</span></li>
+                  </ul>
+                </div>
+              </li>
+
+
 
               <transition leave-active-class="animated hinge">
                 <li v-show="flag_tou_su" @click="flag_tou_su=false" ><span>投诉</span></li>
               </transition>
-
             </ul>
+
+
+
+
+
+
+
           </div>
 
         </div>
@@ -70,6 +85,9 @@
         props:['flag_fixed','flag_scroll',   'maxWidth'],
         data(){
           return{
+            flag_store_center_list:false,
+            store_center_options:1,
+
             flag_tou_su:true,
             flag_enter:false,
             user:{
@@ -101,6 +119,9 @@
         }
       },
       methods:{
+          to_store_center(store_center_options){
+            this.$router.push({name:'store_center',params:{store_center_options:store_center_options}});
+          },
           outenter(){
             this.$axios.post('/user/outLoginByToken')
               .then(res=>{
@@ -131,11 +152,11 @@
         },
       mounted() {
           if (undefined != this.flag_scroll && this.flag_scroll) {
-              //这样 滚动条的出现和消失 不会影响 总宽度  影响布局
-              this.$refs.nav_top.style.width = window.innerWidth +"px";
+              //这样 滚动条的出现和消失 不会影响 总宽度  影响布局   一直减去滚动条宽度
+              this.$refs.nav_top.style.width = window.innerWidth -20   +"px";
               window.onresize = () => {
                 return (() => {
-                  this.$refs.nav_top.style.width = window.innerWidth +"px";
+                  this.$refs.nav_top.style.width = window.innerWidth -20 +"px";
                 })()
             }
           }
@@ -150,11 +171,19 @@
     position: fixed;
   }
 
-  .nav_top{
-    height: 35px;
+  .nav_top_box{
     width: 100%;
+    height: 35px;
+    background:#f5f5f5;
+    font: 12px/1.5 tahoma,arial,'Hiragino Sans GB','\5b8b\4f53',sans-serif;
+  }
+
+  .nav_top{
+    width: 100%;
+    height: 35px;
+    background:#f5f5f5;
+
     z-index: 999;
-    background-color: #f5f5f5;
     border-bottom: 1px solid #eee;
   }
 
@@ -170,10 +199,27 @@
     color: #6c6c6c;
     font: 12px/1.5 tahoma,arial,'Hiragino Sans GB','\5b8b\4f53',sans-serif;
   }
-  ul{
-    position: absolute;
-    bottom: 8px;
+
+  ul,li{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    display: inline-block;
   }
+  ul{
+    height: 100%;
+  }
+  li{
+    cursor: pointer;
+    height: 100%;
+    padding-top: 8px;
+  }
+  li:not(.options_list):hover span{
+    color: #f40;
+  }
+
+
+
 
   .left{
     float: left;
@@ -188,17 +234,51 @@
   }
   .right li{
     margin-left: 20px;
+    float: left;/*脱离文档流*/
   }
-
-ul,li{
-  margin: 0px;
-  padding: 0px;
-  list-style: none;
-  display: inline-block;
-
-}
   span{
     font-style: normal;
-    cursor: pointer;
   }
+
+
+
+
+
+
+
+  .options_list{
+    width: 60px;
+    padding-top: 8px;
+  }
+  .options_list:hover{
+    background: white;
+  }
+  .options_list div{
+    width: 60px;
+  }
+  .options_list:hover  div:not(.options_list_title){
+    background: white;
+    border: 1px solid #f5f5f5;
+    border-top: none;
+    margin-left: -1px;
+  }
+  .options_list_title{
+    padding: 0px 5px;
+  }
+  .options_list ul{
+    margin-top: 9px;
+  }
+  .options_list li{
+    padding: 0px 5px;
+    margin: 0px;
+    line-height: 28px;
+    display: none;
+  }
+  .options_list:hover li{
+    display: block;
+  }
+  .options_list li:hover{
+    background: #f5f5f5;
+  }
+
 </style>

@@ -1,13 +1,13 @@
 <template>
   <div>
-    <nav_top :flag_fixed="true"/><br/>
+    <nav_top :flag_fixed="true"/>
 
 
-    <div style="position: fixed;width: 100%;height: 70px;padding-top: 20px; background: white;z-index: 250">
+    <div style="position: fixed;width: 100%;height: 60px;padding-top: 10px; background: white;z-index: 250">
       <img id="tiangou" src="../assets/tmall.jpg">
       <span id="shop_car">购物车</span>
     </div>
-    <div style="height: 40px;"></div>
+    <div style="height: 30px;"></div>
 
 
 

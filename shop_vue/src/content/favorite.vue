@@ -1,11 +1,11 @@
 <template>
   <div>
     <nav_top :flag_fixed="true"/>
-    <div style="position: fixed;width: 100%;height: 90px; background: white;z-index: 100;padding-top: 40px">
+    <div style="position: fixed;width: 100%;height: 60px; background: white;z-index: 100;padding-top: 10px">
       <img id="tiangou" src="../assets/tmall.jpg">
       <span id="favorite">收藏夹</span>
     </div>
-    <div style="height: 70px;"></div>
+    <div style="height: 50px;"></div>
 
 
 
