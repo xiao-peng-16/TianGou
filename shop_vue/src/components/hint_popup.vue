@@ -23,14 +23,17 @@
               return "亲，请先登录";
             case this.GLOBAL.ResultStatus.USER_MONEY_INSUFFICIENT:
               return "亲，您用户的余额不足";
+            case this.GLOBAL.ResultStatus.USER_CHANGE_PASSWORD_ERROR:
+              return "亲，您的原密码不对";
             //店铺 3xx
             case this.GLOBAL.ResultStatus.STORE_EQUAL_USER_ERROR:
               return "亲，您不能购买自己店铺的商品哦";
             //商品 4xx
             case this.GLOBAL.ResultStatus.COMMODITY_STOCK_INSUFFICIENT:
-              return "亲，您选购的商品的库存不足";
+              return "亲，您选购的商品的库存不足";1
+            //this.$store.state.status 也可以是字符串
             default:
-              return  ">>  "+this.$store.state.status+"错误  <<";
+              return  this.$store.state.status;
           }
         }
 

@@ -8,6 +8,7 @@ import com.cxp.shop_api.result.ResultStatus;
 import com.cxp.shop_api.util.TokenUtil;
 import com.cxp.shop_user.exception.MoneyInsufficientException;
 import com.cxp.shop_user.exception.TransactionalException;
+import com.cxp.shop_user.pojo.ChangeUserPassword;
 import com.cxp.shop_user.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ public class UserController {
     static final ResultBean USER_NAME_DISABLED = ResultFactory.createFailResult(ResultStatus.USER_NAME_DISABLED);
     static final ResultBean USER_Add_ERROR = ResultFactory.createFailResult(ResultStatus.USER_Add_ERROR);
     static final ResultBean USER_LOGIN_ERROR = ResultFactory.createFailResult(ResultStatus.USER_LOGIN_ERROR);
+    static final ResultBean USER_CHANGE_PASSWORD_ERROR = ResultFactory.createFailResult(ResultStatus.USER_CHANGE_PASSWORD_ERROR);
     static final ResultBean USER_ID_ERROR = ResultFactory.createFailResult(ResultStatus.USER_ID_ERROR);
     static final ResultBean USER_MONEY_INSUFFICIENT = ResultFactory.createFailResult(ResultStatus.USER_MONEY_INSUFFICIENT);
     static final ResultBean USER_MONEY_CHANGE_ERROE = ResultFactory.createFailResult(ResultStatus.USER_MONEY_CHANGE_ERROE);
@@ -76,6 +78,12 @@ public class UserController {
     @RequestMapping("/selUserNameByUserId")
     public String  selUserNameByUserId(Integer userId){
         return userService.selUserNameByUserId(userId);
+    }
+
+    //修改密码
+    @PostMapping("/changeUserPasswordByUserId")
+    public ResultBean  changeUserPasswordByUserId(Integer userId, @RequestBody ChangeUserPassword changeUserPassword){
+        return userService.changeUserPasswordByUserId(userId, changeUserPassword)? successResult : USER_CHANGE_PASSWORD_ERROR;
     }
 
     //退出登录

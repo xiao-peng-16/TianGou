@@ -5,7 +5,7 @@
 
           <div class="titleBox"><span>修改密码</span></div>
 
-          <br/><input v-my-focus v-model.lazy="oldUserPassword" @keyup.enter="focusPassword_1" type="text" placeholder="原密码">
+          <br/><input v-my-focus v-model.lazy="oldUserPassword" @keyup.enter="focusPassword_1" type="password" placeholder="原密码">
           <!--        <span v-show="flag_oldUserPassword" class="iconfont right">&#xed1d;</span>-->
           <div class="hintBox">
             <div v-show="hint_oldUserPassword!=''">
@@ -54,7 +54,30 @@
 
         hint_oldUserPassword:"",
         hint_newUserPassword:"",
-        hint_sureUserPassword:""
+        hint_sureUserPassword:"",
+
+        //等于0 开始监听
+        flag_watch : 0
+      }
+    },
+    watch:{
+      oldUserPassword() {
+        if (this.flag_watch > 0)
+          return (--this.flag_watch);
+        this.check_oldUserPassword();
+      },
+      newUserPassword() {
+        if (this.flag_watch > 0)
+          return (--this.flag_watch);
+        this.check_newUserPassword();
+        if (this.sureUserPassword!=""){
+          this.check_sureUserPassword();
+        }
+      },
+      sureUserPassword() {
+        if (this.flag_watch > 0)
+          return (--this.flag_watch);
+        this.check_sureUserPassword();
       }
     },
     methods:{
@@ -68,7 +91,19 @@
         this.check_oldUserPassword();
         this.check_newUserPassword();
         if (this.flag_oldUserPassword && this.flag_newUserPassword && this.flag_sureUserPassword){
-          alert("ok")
+          this.$refs.Password_2.blur();
+          this.$axios.post('/user/changeUserPasswordByUserId',{
+            oldUserPassword : this.oldUserPassword,
+            newUserPassword : this.newUserPassword
+          }).then(res=>{
+            if (res.data.success){
+              this.$store.state.status = "亲，您的密码修改成功"
+              this.init();
+            } else {
+              this.$store.getters.getResultDispose(res);
+              this.hint_oldUserPassword = "原密码不对";
+            }
+          });
         }
       },
       check_oldUserPassword(){
@@ -97,22 +132,25 @@
           this.flag_sureUserPassword=false;
           this.hint_sureUserPassword = "两次密码不一致";
         }
+      },
+      init(){
+        this.flag_watch = 3;
+
+        this.oldUserPassword = "";
+        this.newUserPassword = "";
+        this.sureUserPassword = "";
+
+        this.flag_oldUserPassword = false;
+        this.flag_newUserPassword = false;
+        this.flag_sureUserPassword = false;
+
+        this.hint_oldUserPassword = "";
+        this.hint_newUserPassword = "";
+        this.hint_sureUserPassword = "";
       }
+
     },
-    watch:{
-      oldUserPassword() {
-        this.check_oldUserPassword();
-      },
-      newUserPassword() {
-        this.check_newUserPassword();
-        if (this.sureUserPassword!=""){
-          this.check_sureUserPassword();
-        }
-      },
-      sureUserPassword() {
-        this.check_sureUserPassword();
-      }
-    }
+
 
   }
 </script>

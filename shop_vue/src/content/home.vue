@@ -126,7 +126,6 @@
 
     import home_user_1 from "@/assets/home_user_1.png";
     import home_user_2 from "@/assets/home_user_2.png";
-    import defaultHead from "@/assets/defaultHead.jpg";
     import Long_swiper from "@/components/long_swiper";
     import Countdown from "@/components/countdown";
 
@@ -179,12 +178,8 @@
             return userName;
           }
         },
-        userPhotonameURL(){
-          var img = this.$store.state.userPhotoname;
-          if (undefined == img)
-            return defaultHead;
-          else
-            return this.GLOBAL.userPhotonameUrl + img;
+        userPhotonameURL() {
+          return this.$store.getters.getUserPhotonameURL();
         }
       },
       methods:{

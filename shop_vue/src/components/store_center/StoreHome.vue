@@ -50,7 +50,6 @@
 </template>
 
 <script>
-  import defaultHead from "@/assets/defaultHead.jpg";
   export default {
         name: "StoreHome",
       data(){
@@ -72,11 +71,7 @@
       },
       computed:{
         userPhotonameURL(){
-          var img = this.$store.state.userPhotoname;
-          if (undefined == img)
-            return defaultHead;
-          else
-            return this.GLOBAL.userPhotonameUrl + img;
+          return this.$store.getters.getUserPhotonameURL();
         }
       },
       methods:{

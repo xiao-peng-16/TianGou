@@ -1,3 +1,6 @@
+import globalVariable from '@/components/global_variable'
+import defaultHead from "@/assets/defaultHead.jpg";
+
 //引入vue和Vuex
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -20,6 +23,16 @@ export const store = new Vuex.Store({
         return function (res) {
           state.status = res.data.status;
           return res.data.success;
+        }
+      },
+      getUserPhotonameURL:function(state,getters){
+        //返回匿名函数
+        return function () {
+          var img = state.userPhotoname;
+          if (undefined == img)
+            return defaultHead;
+          else
+            return globalVariable.userPhotonameUrl + img;
         }
       },
   },

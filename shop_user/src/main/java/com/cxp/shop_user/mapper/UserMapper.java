@@ -2,10 +2,12 @@ package com.cxp.shop_user.mapper;
 
 import com.cxp.shop_api.dto.MoneyChange;
 import com.cxp.shop_api.entity.User;
+import com.cxp.shop_user.pojo.ChangeUserPassword;
 import com.cxp.shop_user.pojo.UserIdName;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -41,6 +43,11 @@ public interface UserMapper {
     //查询一组用户名 根据id
     @Select("select user_name from user where user_id = #{userId}")
     public String  selUserNameByUserId(@Param("userId") Integer userId);
+
+    //修改密码
+    @Update("update user set user_password = #{newUserPassword} where user_id = #{userId} and  user_password= #{oldUserPassword}")
+    public int changeUserPasswordByUserId(@Param("userId") Integer userId, @Param("oldUserPassword") String oldUserPassword, @Param("newUserPassword") String newUserPassword);
+
 
     // 增加余额   负数代表扣钱
     public int addMoneyByUserId(List<MoneyChange> moneyChangeList);

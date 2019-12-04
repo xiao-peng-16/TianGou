@@ -5,6 +5,7 @@ import com.cxp.shop_api.entity.User;
 import com.cxp.shop_user.exception.MoneyInsufficientException;
 import com.cxp.shop_user.exception.TransactionalException;
 import com.cxp.shop_user.mapper.UserMapper;
+import com.cxp.shop_user.pojo.ChangeUserPassword;
 import com.cxp.shop_user.pojo.UserIdName;
 import com.cxp.shop_user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public String selUserNameByUserId(Integer userId) {
         return userMapper.selUserNameByUserId(userId);
+    }
+
+    @Override
+    public boolean changeUserPasswordByUserId(Integer userId, ChangeUserPassword changeUserPassword) {
+        return 0 != userMapper.changeUserPasswordByUserId(userId, changeUserPassword.getOldUserPassword(), changeUserPassword.getNewUserPassword());
     }
 
 
