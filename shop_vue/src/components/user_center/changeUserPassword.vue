@@ -1,39 +1,39 @@
 <template>
   <div>
 
-        <div class="titleBox">
-          <span id="first">欢迎注册天狗</span>
-          <span id="second"> 每一天，乐在消费</span>
-        </div>
+        <div class="fromBox">
 
-        <br/><input v-my-focus v-model.lazy="oldUserPassword" @keyup.enter="focusPassword_1" type="text" placeholder="原密码">
-<!--        <span v-show="flag_oldUserPassword" class="iconfont right">&#xed1d;</span>-->
-        <div class="hintBox">
-          <div v-show="hint_oldUserPassword!=''">
-            <span class="hint_icon iconfont">&#xeb65;</span>
-            <span class="hint_msg">{{this.hint_oldUserPassword}}</span>
+          <div class="titleBox"><span>修改密码</span></div>
+
+          <br/><input v-my-focus v-model.lazy="oldUserPassword" @keyup.enter="focusPassword_1" type="text" placeholder="原密码">
+          <!--        <span v-show="flag_oldUserPassword" class="iconfont right">&#xed1d;</span>-->
+          <div class="hintBox">
+            <div v-show="hint_oldUserPassword!=''">
+              <span class="hint_icon iconfont">&#xeb65;</span>
+              <span class="hint_msg">{{this.hint_oldUserPassword}}</span>
+            </div>
           </div>
-        </div>
 
-        <br/><input v-model.lazy="newUserPassword" @keyup.enter="focusPassword_2" ref="Password_1" type="password" placeholder="新密码">
-        <span v-show="flag_newUserPassword" class="iconfont right">&#xed1d;</span>
-        <div class="hintBox">
-          <div v-show="hint_newUserPassword!=''">
-            <span class="hint_icon iconfont">&#xeb65;</span>
-            <span class="hint_msg">{{this.hint_newUserPassword}}</span>
+          <br/><input v-model.lazy="newUserPassword" @keyup.enter="focusPassword_2" ref="Password_1" type="password" placeholder="新密码">
+          <span v-show="flag_newUserPassword" class="iconfont right">&#xed1d;</span>
+          <div class="hintBox">
+            <div v-show="hint_newUserPassword!=''">
+              <span class="hint_icon iconfont">&#xeb65;</span>
+              <span class="hint_msg">{{this.hint_newUserPassword}}</span>
+            </div>
           </div>
-        </div>
 
-        <br/><input v-model.lazy="sureUserPassword" @keyup.enter="addUser" ref="Password_2" type="password" placeholder="确认密码">
-        <span v-show="flag_sureUserPassword" class="iconfont right">&#xed1d;</span>
-        <div class="hintBox">
-          <div v-show="hint_sureUserPassword!=''">
-            <span class="hint_icon iconfont">&#xeb65;</span>
-            <span class="hint_msg">{{this.hint_sureUserPassword}}</span>
+          <br/><input v-model.lazy="sureUserPassword" @keyup.enter="changeUserPassword" ref="Password_2" type="password" placeholder="确认密码">
+          <span v-show="flag_sureUserPassword" class="iconfont right">&#xed1d;</span>
+          <div class="hintBox">
+            <div v-show="hint_sureUserPassword!=''">
+              <span class="hint_icon iconfont">&#xeb65;</span>
+              <span class="hint_msg">{{this.hint_sureUserPassword}}</span>
+            </div>
           </div>
-        </div>
-        <br/><button id="login" @click="changeUserPassword">更改密码</button>
+          <br/><button id="login" @click="changeUserPassword">修改密码</button>
 
+        </div>
 
 
   </div>
@@ -121,42 +121,21 @@
   span{
     font-weight: bold;
   }
-  .bj{
-    float: left;
-    background-repeat:no-repeat ;
-  }
-  .bj img{
-    width: 425px;
-  }
-
   .fromBox{
-    background: white;
-    height: 600px;
     width: 550px;
-    position: relative;
-    right: 10px;
-    top: 90px;
+    margin-top: 20px;
+    margin-left: 26%;
   }
   .titleBox{
-    width: 500px;
-    height: 110px;
-    margin-bottom: 50px;
+    padding-left: 140px;
+    height: 100px;
   }
   .titleBox span{
     display: block;
     font-weight: normal;
-  }
-  #first{
     font-size: 44px;
-    margin-bottom: 20px;
     color: black;
-  }
-  #second{
-    font-size: 28px;
-    margin-bottom: 64px;
-    line-height: 1.2;
-    color: #333;
-    margin-left: 20px;
+
   }
   input[type=text],input[type=password]{
     border: 1px #aaa solid;

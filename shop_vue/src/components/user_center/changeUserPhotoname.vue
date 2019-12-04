@@ -1,6 +1,6 @@
 <template>
     <div>
-      更改头像
+      更换头像
     </div>
 </template>
 

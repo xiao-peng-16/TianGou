@@ -9,8 +9,8 @@
 
     <div class="buttom" style="margin-top: 70px">
       <div class="left">
-        <div @click="options=0" :class="{optionsBox:options==0,not_optionsBox:options!=0}"><span>更改头像</span></div>
-        <div @click="options=1" :class="{optionsBox:options==1,not_optionsBox:options!=1}"><span>更改密码</span></div>
+        <div @click="options=0" :class="{optionsBox:options==0,not_optionsBox:options!=0}"><span>更换头像</span></div>
+        <div @click="options=1" :class="{optionsBox:options==1,not_optionsBox:options!=1}"><span>修改密码</span></div>
       </div>
       <div class="right">
         <component :is="optionsComponents" style="z-index:0;padding-left: 280px"/>
