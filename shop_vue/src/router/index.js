@@ -11,6 +11,7 @@ import searchPage from '@/content/searchPage'
 import  commodityPage from '@/content/commodityPage'
 import  shop_success from '@/content/shop_success'
 import  store_center from '@/content/store_center'
+import  user_center from '@/content/user_center'
 Vue.use(Router)
 
 export default new Router({
@@ -73,7 +74,12 @@ export default new Router({
       path:'/store_center',
       name:'store_center',
       component:store_center
-    }
+    },
+    {
+      path:'/user_center',
+      name:'user_center',
+      component:user_center
+    },
 
 
 

@@ -34,7 +34,7 @@
     </div>
 
     <div class="storeLable">
-      <img src="../assets/StoreHomeLable.jpg">
+      <img src="../../assets/StoreHomeLable.jpg">
       <br/>
       <div class="lable_1"><span >{{fullStoreSales.currentMonth.salesVolume}}</span></div>
       <div class="lable_2"><span >{{fullStoreSales.totality.salesVolume}}</span></div>

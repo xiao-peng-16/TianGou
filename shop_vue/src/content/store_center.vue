@@ -26,9 +26,9 @@
 
 <script>
     import Nav_top from "@/components/nav_top";
-    import StoreCommodityManage from "@/components/StoreCommodityManage";
-    import StoreHome from "@/components/StoreHome";
-    import StoreOrderManage from "@/components/StoreOrderManage";
+    import StoreCommodityManage from "@/components/store_center/StoreCommodityManage";
+    import StoreHome from "@/components/store_center/StoreHome";
+    import StoreOrderManage from "@/components/store_center/StoreOrderManage";
     import Hint_popup from "@/components/hint_popup";
     export default {
         name: "store_center",

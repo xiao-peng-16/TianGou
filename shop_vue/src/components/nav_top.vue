@@ -13,7 +13,7 @@
                   <span>天狗首页</span>
               </router-link>
 
-              <li><span>Hi, {{this.user.userName}}</span></li>
+              <router-link :to="{name:'user_center'}" tag="li"><span>Hi, {{this.user.userName}}</span></router-link>
               <li id="userMoney"><span>余额{{(this.user.userMoney).toFixed(2)}}</span></li>
               <li><span @click="outenter">退出</span></li>
             </ul>
