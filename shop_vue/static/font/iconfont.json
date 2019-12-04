@@ -221,6 +221,13 @@
       "font_class": "fenxiangfangshi",
       "unicode": "ed2e",
       "unicode_decimal": 60718
+    },
+    {
+      "icon_id": "9512486",
+      "name": "下箭头",
+      "font_class": "arrowBottom-fill",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
     }
   ]
 }

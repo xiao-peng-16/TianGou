@@ -12,7 +12,7 @@ export const store = new Vuex.Store({
       userName:undefined,
       userPhotoname:undefined,
 
-      store_center_options:1
+      store_center_options:0
     },
   getters:{
       getResultDispose:function(state,getters){

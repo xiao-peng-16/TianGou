@@ -46,12 +46,15 @@
 
 
               <li class="options_list">
-                <div>
-                  <div class="options_list_title" @click="to_store_center(1)"><span>卖家中心</span></div>
+                <div class="options_list_title" @click="to_store_center(0)">
+                  <span>卖家中心</span>
+                  <span style="font-size: 8px" class="iconfont">&#xe60f;</span>
+                </div>
+                <div class="options_list_content">
                   <ul>
-                    <li @click="to_store_center(1)"><span>店铺概况</span></li>
-                    <li @click="to_store_center(2)"><span>商品管理</span></li>
-                    <li @click="to_store_center(3)"><span>订单管理</span></li>
+                    <li @click="to_store_center(0)"><span>店铺概况</span></li>
+                    <li @click="to_store_center(1)"><span>商品管理</span></li>
+                    <li @click="to_store_center(2)"><span>订单管理</span></li>
                   </ul>
                 </div>
               </li>
@@ -59,7 +62,7 @@
 
 
               <transition leave-active-class="animated hinge">
-                <li v-show="flag_tou_su" @click="flag_tou_su=false" ><span>投诉</span></li>
+                <li v-show="flag_tou_su" @click="flag_tou_su=false" style="margin-left: 15px" ><span>投诉</span></li>
               </transition>
             </ul>
 
@@ -253,25 +256,21 @@
 
 
 
-
   .options_list{
-    width: 60px;
-    padding-top: 8px;
+    border: 1px solid #f5f5f5;
+  }
+  .options_list_title{
+    padding: 0px 5px;
+    width: 75px;
   }
   .options_list:hover{
     background: white;
   }
-  .options_list div{
+  .options_list_content{
     width: 60px;
   }
-  .options_list:hover  div:not(.options_list_title){
+  .options_list:hover  div{
     background: white;
-    border: 1px solid #f5f5f5;
-    border-top: none;
-    margin-left: -1px;
-  }
-  .options_list_title{
-    padding: 0px 5px;
   }
   .options_list ul{
     margin-top: 9px;

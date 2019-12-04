@@ -9,9 +9,9 @@
 
       <div class="buttom" style="margin-top: 70px">
         <div class="left">
-            <div @click="change_options(1)" :class="{optionsBox:options==1,not_optionsBox:options!=1}"><span>店铺概况</span></div>
-            <div @click="change_options(2)" :class="{optionsBox:options==2,not_optionsBox:options!=2}"><span>商品管理</span></div>
-            <div @click="change_options(3)" :class="{optionsBox:options==3,not_optionsBox:options!=3}"><span>订单管理</span></div>
+            <div @click="change_options(0)" :class="{optionsBox:options==0,not_optionsBox:options!=0}"><span>店铺概况</span></div>
+            <div @click="change_options(1)" :class="{optionsBox:options==1,not_optionsBox:options!=1}"><span>商品管理</span></div>
+            <div @click="change_options(2)" :class="{optionsBox:options==2,not_optionsBox:options!=2}"><span>订单管理</span></div>
         </div>
         <div class="right">
           <component :is="optionsComponents" style="z-index:0;padding-left: 280px"/>
@@ -39,9 +39,9 @@
         },
         optionsComponents(){
           switch (this.options) {
-            case 1: return  'StoreHome';
-            case 2: return  'StoreCommodityManage';
-            case 3: return  'StoreOrderManage';
+            case 0: return  'StoreHome';
+            case 1: return  'StoreCommodityManage';
+            case 2: return  'StoreOrderManage';
             default :return 'StoreHome';
           }
         }
