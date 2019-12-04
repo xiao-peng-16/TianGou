@@ -10,7 +10,9 @@ export const store = new Vuex.Store({
       shopCarNumber:0,
       search_word:'',
       userName:undefined,
-      userPhotoname:undefined
+      userPhotoname:undefined,
+
+      store_center_options:1
     },
   getters:{
       getResultDispose:function(state,getters){

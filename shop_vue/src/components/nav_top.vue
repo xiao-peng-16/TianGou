@@ -14,7 +14,7 @@
               </router-link>
 
               <li><span>Hi, {{this.user.userName}}</span></li>
-              <li><span>余额{{(this.user.userMoney).toFixed(2)}}</span></li>
+              <li id="userMoney"><span>余额{{(this.user.userMoney).toFixed(2)}}</span></li>
               <li><span @click="outenter">退出</span></li>
             </ul>
             <ul class="left" v-else>
@@ -47,7 +47,7 @@
 
               <li class="options_list">
                 <div>
-                  <div class="options_list_title"><span>卖家中心</span></div>
+                  <div class="options_list_title" @click="to_store_center(1)"><span>卖家中心</span></div>
                   <ul>
                     <li @click="to_store_center(1)"><span>店铺概况</span></li>
                     <li @click="to_store_center(2)"><span>商品管理</span></li>
@@ -120,7 +120,8 @@
       },
       methods:{
           to_store_center(store_center_options){
-            this.$router.push({name:'store_center',params:{store_center_options:store_center_options}});
+            this.$store.state.store_center_options = store_center_options;
+            this.$router.push({name:'store_center'});
           },
           outenter(){
             this.$axios.post('/user/outLoginByToken')
@@ -216,6 +217,13 @@
   }
   li:not(.options_list):hover span{
     color: #f40;
+  }
+
+  #userMoney{
+    cursor: default;
+  }
+  #userMoney:hover span{
+    color: #6c6c6c;
   }
 
 

@@ -9,9 +9,9 @@
 
       <div class="buttom" style="margin-top: 70px">
         <div class="left">
-            <div @click="options=1" :class="{optionsBox:options==1,not_optionsBox:options!=1}"><span>店铺概况</span></div>
-            <div @click="options=2" :class="{optionsBox:options==2,not_optionsBox:options!=2}"><span>商品管理</span></div>
-            <div @click="options=3" :class="{optionsBox:options==3,not_optionsBox:options!=3}"><span>订单管理</span></div>
+            <div @click="change_options(1)" :class="{optionsBox:options==1,not_optionsBox:options!=1}"><span>店铺概况</span></div>
+            <div @click="change_options(2)" :class="{optionsBox:options==2,not_optionsBox:options!=2}"><span>商品管理</span></div>
+            <div @click="change_options(3)" :class="{optionsBox:options==3,not_optionsBox:options!=3}"><span>订单管理</span></div>
         </div>
         <div class="right">
           <component :is="optionsComponents" style="z-index:0;padding-left: 280px"/>
@@ -33,24 +33,22 @@
     export default {
         name: "store_center",
       components: {Hint_popup, StoreHome, StoreCommodityManage, StoreOrderManage, Nav_top},
-      data(){
-          return{
-            options:1,
-          }
-        },
       computed:{
+        options(){
+          return this.$store.state.store_center_options;
+        },
         optionsComponents(){
           switch (this.options) {
             case 1: return  'StoreHome';
             case 2: return  'StoreCommodityManage';
             case 3: return  'StoreOrderManage';
+            default :return 'StoreHome';
           }
         }
       },
-      created() {
-          var store_center_options = this.$route.params.store_center_options;
-          if (undefined != store_center_options) {
-            this.options = store_center_options;
+      methods:{
+          change_options(options){
+            this.$store.state.store_center_options = options;
           }
       }
     }
