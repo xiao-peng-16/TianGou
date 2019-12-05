@@ -47,13 +47,46 @@
         },
         click_submit(){
           if (undefined == this.imgFile){
-            this.$store.state.status = '请先点击“浏览”添加图片'
-          }else {
-
-
-            this.imgFile = undefined;
+            this.$store.state.status = '请先点击“浏览”添加图片';
+            return;
           }
-        }
+
+          let formData = new FormData();
+          formData.append('file', this.imgFile);
+
+          let config = {
+            headers:{'Content-Type':'multipart/form-data'}
+          };
+
+
+          this.$axios.post('/images/addUserPhotoByUserId', formData, config)
+            .then(res=>{
+              if (this.$store.getters.getResultDispose(res)){
+                var store_userPhoto = this.$store.state.userPhoto;
+                var userPhoto = res.data.data;
+                if (undefined == store_userPhoto || '' == store_userPhoto){
+                  this.$axios.get('/user/changeUserPhotoByUserId',{
+                    params:{
+                      userPhoto:userPhoto
+                    }
+                  }).then(res=>{
+                      if (this.$store.getters.getResultDispose(res)){
+                        window.location.reload();
+                      }
+                    });
+                } else {
+                  window.location.reload();
+                }
+              }
+            });
+
+
+
+
+
+
+
+        },
       }
     }
 </script>

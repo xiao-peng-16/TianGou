@@ -26,7 +26,7 @@ public class OrderController {
 
 
     //添加订单
-    @PostMapping("/addOrder")
+    @RequestMapping("/addOrder")
     public  ResultBean addOrder(@RequestBody OrderParent orderParent){
         try {
             return orderService.addOrder(orderParent);
@@ -37,8 +37,8 @@ public class OrderController {
 
     // 前端接口
     //支付订单
-    @PostMapping("/payOrderByUserId")
-    public ResultBean payOrderByUserId(@RequestParam Integer userId, @RequestBody Integer orderId){
+    @RequestMapping("/payOrderByUserId")
+    public ResultBean payOrderByUserId(Integer userId, Integer orderId){
         return orderService.payOrderByUserId(userId, orderId);
     }
 
@@ -58,8 +58,8 @@ public class OrderController {
 
     //前端接口
     //店铺中心 所有某一个订单 详细内容
-    @PostMapping("/selStoreOrderParentByUserId")
-    public ResultBean selStoreOrderParentByUserId(@RequestParam Integer userId,@RequestBody Integer orderId){
+    @RequestMapping("/selStoreOrderParentByUserId")
+    public ResultBean selStoreOrderParentByUserId(Integer userId, Integer orderId){
         return ResultFactory.createSuccessResult(orderService.selStoreOrderParent(userId, orderId));
     }
 

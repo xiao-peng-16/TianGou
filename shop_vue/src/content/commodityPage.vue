@@ -134,8 +134,11 @@
           }]).then(res=>{
 
             if (this.$store.getters.getResultDispose(res)){
-              var orderId = res.data.data;
-              this.$axios.post('/order/payOrderByUserId',orderId).then(res=>{
+              this.$axios.post('/order/payOrderByUserId',{
+                params:{
+                  orderId:res.data.data
+                }
+              }).then(res=>{
                 if (this.$store.getters.getResultDispose(res))
                   this.$router.push({name:'shop_success'});
               })

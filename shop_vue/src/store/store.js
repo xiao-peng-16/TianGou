@@ -29,7 +29,7 @@ export const store = new Vuex.Store({
         //返回匿名函数
         return function () {
           var img = state.userPhoto;
-          if (undefined == img)
+          if (undefined == img || '' == img)
             return defaultHead;
           else
             return img;

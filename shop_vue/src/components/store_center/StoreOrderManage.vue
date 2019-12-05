@@ -118,8 +118,11 @@
               return;
             }
 
-          this.$axios.post('/order/selStoreOrderParentByUserId',orderId)
-            .then(res=>{
+          this.$axios.get('/order/selStoreOrderParentByUserId',{
+            params:{
+              orderId:orderId
+            }
+          }).then(res=>{
               if (this.$store.getters.getResultDispose(res)) {
                 this.orderParent = res.data.data;
                 this.cacheList_orderParent.push(res.data.data);

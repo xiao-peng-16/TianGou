@@ -88,8 +88,8 @@ public class UserController {
     }
 
     //更换头像
-    @PostMapping("/changeUserPhotoByUserId")
-    public ResultBean  changeUserPhotoByUserId(Integer userId, @RequestBody String userPhoto){
+    @RequestMapping("/changeUserPhotoByUserId")
+    public ResultBean  changeUserPhotoByUserId(Integer userId, String userPhoto){
         return userService.changeUserPhotoByUserId(userId, userPhoto)? successResult : USER_PHOTO_CHANGE_ERROE;
     }
 

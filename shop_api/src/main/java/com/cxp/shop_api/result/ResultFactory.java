@@ -6,11 +6,11 @@ import java.util.Map;
 public class ResultFactory {
 
     private static final ResultBean successResult = new ResultBean(true);
+    private static final ResultBean templateSuccessResult = new ResultBean(true);
     private static final Map<Integer,ResultBean> ResultBeanMap = new HashMap<>();
 
 
 
-    public static ResultBean createSuccessResult(Object data){ return new ResultBean(true,data); }
 
 
     public static ResultBean createFailResult(int status, Object data){
@@ -20,6 +20,13 @@ public class ResultFactory {
     public static ResultBean createSuccessResult(){
         return successResult;
     }
+
+    public static ResultBean createSuccessResult(Object data){
+        templateSuccessResult.setData(data);
+        return templateSuccessResult;
+    }
+
+
 
     public static ResultBean createFailResult(int status){
         ResultBean resultBean = ResultBeanMap.get(status);

@@ -5,7 +5,7 @@ spring:
     name: car
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/cxpshop
+    url: jdbc:mysql://127.0.0.1:3306/cxpshop
     username: root
     password: 123456
 
@@ -18,7 +18,7 @@ mybatis:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:7000/eureka
+      defaultZone: http://127.0.0.1:7000/eureka
 
 ### Hystrix 配置
 hystrix:

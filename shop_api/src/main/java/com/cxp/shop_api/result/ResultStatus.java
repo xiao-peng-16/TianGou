@@ -11,7 +11,8 @@ public class ResultStatus {
     public final static int USER_ID_LOGIN_OVERDUE = 206;        //用户过期或未登录
     public final static int USER_MONEY_INSUFFICIENT = 207;      //买家购物余额不足
     public final static int USER_MONEY_CHANGE_ERROE = 208;      //用户余额改变失败
-    public final static int USER_PHOTO_CHANGE_ERROE = 209;      //用户头像改变失败
+    public final static int USER_PHOTO_UPLOAD_ERROE = 209;      //用户头像上传失败
+    public final static int USER_PHOTO_CHANGE_ERROE = 210;      //用户头像改变失败
 
     //店铺 3xx
     public final static int STORE_NOT_QUALIFICATION = 301;      //未开通 卖家功能

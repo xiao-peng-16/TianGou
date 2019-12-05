@@ -37,7 +37,7 @@ public class TokenFilter extends ZuulFilter {
         HttpServletRequest request = ctx.getRequest();
         HttpServletResponse response = ctx.getResponse();
 
-//        response.setHeader("Access-Control-Allow-Origin","http://localhost:8000");
+//        response.setHeader("Access-Control-Allow-Origin","http://127.0.0.1:8000");
         response.setHeader("Access-Control-Allow-Origin",request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Headers","token, content-type");
         response.setHeader("Access-Control-Allow-Credentials","true");
@@ -53,13 +53,13 @@ public class TokenFilter extends ZuulFilter {
             if (userId == null ){
                 return true;
             }else {
-//                request.getParameterMap();    //必须加这句 不然ctx.getRequestQueryParams()失败
-//                Map<String, List<String>> requestQueryParams = ctx.getRequestQueryParams();//参数键值对map
-                //如果一开始请求头里没参数 那么requestQueryParams为空
-//                if (requestQueryParams==null) requestQueryParams=new HashMap<>();
+                request.getParameterMap();    //必须加这句 不然ctx.getRequestQueryParams()失败
+                Map<String, List<String>> requestQueryParams = ctx.getRequestQueryParams();//参数键值对map
+//                如果一开始请求头里没参数 那么requestQueryParams为空
+                if (requestQueryParams==null) requestQueryParams=new HashMap<>();
 
                 //为了提高性能 ，其他参数都放请求体了，用post请求
-                Map<String, List<String>> requestQueryParams=new HashMap<>();
+//                Map<String, List<String>> requestQueryParams=new HashMap<>();
                 List<String> arrayList = new ArrayList<>();
                 arrayList.add(userId);      //添加 对应的values
                 requestQueryParams.put("userId", arrayList); //把参数键值对放入map

@@ -1,0 +1,19 @@
+server:
+  port: 7080
+spring:
+  application:
+    name: images
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:7000/eureka
+
+UserPhotoLocalPath: C:/cxp_cxp_cxp/cxp_studio/nginx-1.14.2/html/TianGou/resource/userPhoto/
+CommodityPhotoLocalPath: C:/cxp_cxp_cxp/cxp_studio/nginx-1.14.2/html/TianGou/resource/userPhoto/
+CommodityVideoLocalPath: C:/cxp_cxp_cxp/cxp_studio/nginx-1.14.2/html/TianGou/resource/userPhoto/
+
+userPhotoUriPrifix: /TianGou/resource/userPhoto/
+commodityPhotoUriPrifix: /TianGou/resource/commodity/images/
+commodityVideoUriPrifix: /TianGou/resource/commodity/video/
