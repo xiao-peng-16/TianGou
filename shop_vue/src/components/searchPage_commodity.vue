@@ -1,7 +1,7 @@
 <template>
     <div class="box"  @click="gotoCommodityPage">
         <div class="top">
-          <img :src="this.GLOBAL.commodityImagesUrl + props_CommodityMessage.commodityPhotoname">
+          <img :src="props_CommodityMessage.commodityPhoto">
         </div>
         <div class="bottom">
             <div class="bottomBox">

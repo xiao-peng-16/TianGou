@@ -21,7 +21,7 @@
         <div v-if="options == 1" >
           <div class="itemBox" v-for="item in shopCarList">
             <div class="imgBox">
-              <img :src="item.commodityPhotoname" @click="gotoCommodityPage(item.shopCar.commodityId)">
+              <img :src="item.commodityPhoto" @click="gotoCommodityPage(item.shopCar.commodityId)">
             </div>
             <div class="commodityNameBox"  @click="gotoCommodityPage(item.shopCar.commodityId)">
               <span>{{item.commodityName}}</span>
@@ -35,7 +35,7 @@
         <div v-else-if="options == 2">
           <div class="itemBox"  v-for="item in favoriteList">
             <div class="imgBox">
-              <img :src="item.commodityPhotoname" @click="gotoCommodityPage(item.commodityId)">
+              <img :src="item.commodityPhoto" @click="gotoCommodityPage(item.commodityId)">
             </div>
             <div class="commodityNameBox"  @click="gotoCommodityPage(item.commodityId)">
               <span>{{item.commodityName}}</span>
@@ -159,8 +159,6 @@
               .then(res=>{
                 if (this.$store.getters.getResultDispose(res)){
                   this.shopCarList=res.data.data;
-                  for (var i=0;i<this.shopCarList.length;i++)
-                    this.shopCarList[i].commodityPhotoname=this.GLOBAL.commodityImagesUrl+this.shopCarList[i].commodityPhotoname;
                 }
               });
           }
@@ -172,9 +170,6 @@
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)){
                 this.favoriteList = res.data.data;
-                for (var i=0;i<this.favoriteList.length;i++) {
-                  this.favoriteList[i].commodityPhotoname=this.GLOBAL.commodityImagesUrl+this.favoriteList[i].commodityPhotoname;
-                }
               }
             });
           this.$refs.right_navBox.style.transform = "translate(-280px)"

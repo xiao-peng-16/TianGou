@@ -14,7 +14,7 @@
       <div class="listBox">
         <div class="itemBox" v-for="item in dataList"   @click="gotoCommodityPage(item.commodityId)">
           <div style="width: 100%;border: 1px solid gray" >
-            <img :src="item.commodityPhotoname" style="height: 164px;width:164px" >
+            <img :src="item.commodityPhoto" style="height: 164px;width:164px" >
           </div>
           <div class="commodityNameBox"><span>{{item.commodityName}}</span></div>
           <div><span style="color: #FF4400">￥{{(item.commodityPrice).toFixed(2)}}</span></div>
@@ -71,9 +71,6 @@
         .then(res=>{
           if (this.$store.getters.getResultDispose(res)){
             this.dataList = res.data.data;
-            for (var i=0;i<this.dataList.length;i++) {
-              this.dataList[i].commodityPhotoname=this.GLOBAL.commodityImagesUrl+this.dataList[i].commodityPhotoname;
-            }
           }
         });
 

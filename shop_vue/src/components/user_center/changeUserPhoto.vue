@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="box">
-          <img :src="show_userPhotonameURL">
+          <img :src="show_userPhotoURL">
           <div style="margin-top: 5px;width: 175px;transform: translate(50%);position: absolute;right: 50%">
             <span class="btn btn-info fileinput-button" @click="click_browse">
               <span>浏览</span>
@@ -16,19 +16,19 @@
 
 <script>
     export default {
-        name: "changeUserPhotoname",
+        name: "changeUserPhoto",
       data(){
           return{
             imgFile:undefined,
-            userPhotoname_URL:undefined
+            userPhoto_URL:undefined
           }
       },
       computed:{
-        show_userPhotonameURL(){
-          if (undefined == this.userPhotoname_URL)
-            return this.$store.getters.getUserPhotonameURL();
+        show_userPhotoURL(){
+          if (undefined == this.userPhoto_URL)
+            return this.$store.getters.getUserPhotoURL();
           else {
-            return this.userPhotoname_URL;
+            return this.userPhoto_URL;
           }
         }
       },
@@ -41,7 +41,7 @@
           var tempThis = this;
           var reader = new FileReader();
           reader.onload = function (e) {
-            tempThis.userPhotoname_URL = e.target.result;
+            tempThis.userPhoto_URL = e.target.result;
           };
           reader.readAsDataURL(this.imgFile)
         },

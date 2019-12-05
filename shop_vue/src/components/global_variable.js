@@ -3,9 +3,6 @@
 export default {
 
   baseURL: "http://localhost:7010",
-  userPhotonameUrl: "http://localhost/TianGou/resource/userPhotoname/",
-  commodityImagesUrl: "http://localhost/TianGou/resource/commodity/images/",
-  commodityVideoUrl: "http://localhost/TianGou/resource/commodity/video/",
 
   store_center_background: '#F8F8F8',
 

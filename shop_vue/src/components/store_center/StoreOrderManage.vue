@@ -17,11 +17,11 @@
         <div class="listBox">
           <div class="itemBox" v-for="item in orderGeneraList" @click="enterOrderParent(item.orderId)">
             <div class="only_imgBox"  v-if="item.only_img">
-              <img :src="returnCommodityImageURL(item.orderCommodityVOList[0].commodityPhotoname)">
+              <img :src="item.orderCommodityVOList[0].commodityPhoto">
             </div>
             <div class="multi_imgBox" v-else  >
               <div v-for="orderCommodityVO in item.orderCommodityVOList">
-                <img :src="returnCommodityImageURL(orderCommodityVO.commodityPhotoname)">
+                <img :src="orderCommodityVO.commodityPhoto">
               </div>
             </div>
 
@@ -63,7 +63,7 @@
             </div>
             <div style="height: 50px"></div>
             <div class="orderSon_itemBox" v-for="item in orderParent.orderSonList">
-              <img class="orderSon_img" :src="returnCommodityImageURL(item.orderCommodityVO.commodityPhotoname)">
+              <img class="orderSon_img" :src="item.orderCommodityVO.commodityPhoto">
               <div  class="orderSon_CommodityName">
                 <span>{{item.orderCommodityVO.commodityName}}</span>
               </div>
@@ -108,9 +108,6 @@
       methods:{
         click_img(commodityId){
           this.$router.push({name:'commodityPage',query:{commodityId}})
-        },
-        returnCommodityImageURL(commodityPhotoname){
-          return this.GLOBAL.commodityImagesUrl + commodityPhotoname;
         },
         enterOrderParent(orderId){
           //如果之前 访问过了 缓存列表有里记录

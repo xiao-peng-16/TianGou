@@ -29,10 +29,11 @@ public class UserController {
     static final ResultBean USER_NAME_DISABLED = ResultFactory.createFailResult(ResultStatus.USER_NAME_DISABLED);
     static final ResultBean USER_Add_ERROR = ResultFactory.createFailResult(ResultStatus.USER_Add_ERROR);
     static final ResultBean USER_LOGIN_ERROR = ResultFactory.createFailResult(ResultStatus.USER_LOGIN_ERROR);
-    static final ResultBean USER_CHANGE_PASSWORD_ERROR = ResultFactory.createFailResult(ResultStatus.USER_CHANGE_PASSWORD_ERROR);
+    static final ResultBean USER_PASSWORD_CHANGE_ERROR = ResultFactory.createFailResult(ResultStatus.USER_PASSWORD_CHANGE_ERROR);
     static final ResultBean USER_ID_ERROR = ResultFactory.createFailResult(ResultStatus.USER_ID_ERROR);
     static final ResultBean USER_MONEY_INSUFFICIENT = ResultFactory.createFailResult(ResultStatus.USER_MONEY_INSUFFICIENT);
     static final ResultBean USER_MONEY_CHANGE_ERROE = ResultFactory.createFailResult(ResultStatus.USER_MONEY_CHANGE_ERROE);
+    static final ResultBean USER_PHOTO_CHANGE_ERROE = ResultFactory.createFailResult(ResultStatus.USER_PHOTO_CHANGE_ERROE);
 
 
     //判断用户名是否可以注册 (防止已经有人注册过了)
@@ -83,7 +84,13 @@ public class UserController {
     //修改密码
     @PostMapping("/changeUserPasswordByUserId")
     public ResultBean  changeUserPasswordByUserId(Integer userId, @RequestBody ChangeUserPassword changeUserPassword){
-        return userService.changeUserPasswordByUserId(userId, changeUserPassword)? successResult : USER_CHANGE_PASSWORD_ERROR;
+        return userService.changeUserPasswordByUserId(userId, changeUserPassword)? successResult : USER_PASSWORD_CHANGE_ERROR;
+    }
+
+    //更换头像
+    @PostMapping("/changeUserPhotoByUserId")
+    public ResultBean  changeUserPhotoByUserId(Integer userId, @RequestBody String userPhoto){
+        return userService.changeUserPhotoByUserId(userId, userPhoto)? successResult : USER_PHOTO_CHANGE_ERROE;
     }
 
     //退出登录

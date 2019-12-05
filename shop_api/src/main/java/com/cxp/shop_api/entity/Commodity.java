@@ -17,8 +17,8 @@ public class Commodity {
     Sort sort; //商品所属种类
     String commodityDescribe;   //商品描述
     Boolean baoYou;     //是否包邮
-    String commodityPhotoname;  //商品图片
-    String commodityVideoname;   //商品视频'
+    String commodityPhoto;  //商品图片
+    String commodityVideo;   //商品视频'
     double commodityPrice;      //价格
 
     int commoditySales;   //销量

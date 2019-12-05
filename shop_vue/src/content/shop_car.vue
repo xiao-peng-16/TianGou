@@ -31,7 +31,7 @@
         <div class="itemBox row" v-for="(item,index) in dataList">
           <input  v-model="checkIndexList" :value="index" type="checkbox" >
           <div class="col-lg-1 col-md-2">
-            <img :src="item.commodityPhotoname" @click="gotoCommodityPage(item.shopCar.commodityId)" style="cursor: pointer;">
+            <img :src="item.commodityPhoto" @click="gotoCommodityPage(item.shopCar.commodityId)" style="cursor: pointer;">
           </div>
           <div class="col-3 cNameBox"  @click="gotoCommodityPage(item.shopCar.commodityId)">
             <span>{{item.commodityName}}</span>
@@ -245,8 +245,6 @@
               if (this.$store.getters.getResultDispose(res)){
                 this.dataList=res.data.data;
                 this.checkAllFlag = true;
-                for (var i=0;i<this.dataList.length;i++)
-                  this.dataList[i].commodityPhotoname=this.GLOBAL.commodityImagesUrl+this.dataList[i].commodityPhotoname;
               }
             });
         }

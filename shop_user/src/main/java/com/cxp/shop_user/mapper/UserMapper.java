@@ -48,6 +48,9 @@ public interface UserMapper {
     @Update("update user set user_password = #{newUserPassword} where user_id = #{userId} and  user_password= #{oldUserPassword}")
     public int changeUserPasswordByUserId(@Param("userId") Integer userId, @Param("oldUserPassword") String oldUserPassword, @Param("newUserPassword") String newUserPassword);
 
+    //更换头像
+    @Update("update user set user_photo = #{user_photo} where user_id = #{userId}")
+    public int changeUserPhotoByUserId(@Param("userId") Integer userId, @Param("userPhoto") String userPhoto);
 
     // 增加余额   负数代表扣钱
     public int addMoneyByUserId(List<MoneyChange> moneyChangeList);

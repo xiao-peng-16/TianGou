@@ -13,7 +13,7 @@ export const store = new Vuex.Store({
       shopCarNumber:0,
       search_word:'',
       userName:undefined,
-      userPhotoname:undefined,
+      userPhoto:undefined,
 
       store_center_options:0
     },
@@ -25,21 +25,21 @@ export const store = new Vuex.Store({
           return res.data.success;
         }
       },
-      getUserPhotonameURL:function(state,getters){
+      getUserPhotoURL:function(state,getters){
         //返回匿名函数
         return function () {
-          var img = state.userPhotoname;
+          var img = state.userPhoto;
           if (undefined == img)
             return defaultHead;
           else
-            return globalVariable.userPhotonameUrl + img;
+            return img;
         }
       },
   },
   mutations:{
     user_Leave(state){
       state.userName = undefined;
-      state.userPhotoname = undefined;
+      state.userPhoto = undefined;
       sessionStorage.clear();
       localStorage.clear();
     }

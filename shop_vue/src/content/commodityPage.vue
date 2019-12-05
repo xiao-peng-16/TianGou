@@ -12,7 +12,7 @@
       
       <div class="row" style="margin-top: 50px;height: 460px">
         <div class="col-6">
-          <div v-if="undefined != this.commodity.commodityVideoname" class="videoBox"><video_component :resource="resource"/></div>
+          <div v-if="undefined != this.commodity.commodityVideo" class="videoBox"><video_component :resource="resource"/></div>
           <div v-else style="position: relative">
             <img_amplifier :img-src="resource.poster" style="position: absolute;left: 50%;transform: translate(-50%)"/>
           </div>
@@ -20,7 +20,7 @@
         </div>
 
         <div class=" offset-1 col-5" style="position: relative">
-          <div class="messageBox" :class="{flag_img_messageBox:undefined == this.commodity.commodityVideoname}">
+          <div class="messageBox" :class="{flag_img_messageBox:undefined == this.commodity.commodityVideo}">
             <div class="topBox">
               <span class="cName">{{commodity.commodityName}}</span><br/>
               <div class="beizhu"><span>{{commodity.commodityDescribe}}</span></div>
@@ -151,10 +151,9 @@
               }
             }).then(res=>{
               this.commodity = res.data;
-              this.resource.poster = this.GLOBAL.commodityImagesUrl+this.commodity.commodityPhotoname;
-              this.resource.src = this.GLOBAL.commodityVideoUrl + this.commodity.commodityVideoname;
+              this.resource.poster = this.commodity.commodityPhoto;
+              this.resource.src = this.commodity.commodityVideo;
             })
-        // this.resource.src = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
       },
       watch:{
         chooseNumber:function (val) {

@@ -145,7 +145,7 @@
                   this.flag_enter = true;
                   this.user=res.data.data;
                   this.$store.state.userName = res.data.data.userName;
-                  this.$store.state.userPhotoname = res.data.data.userPhotoname;
+                  this.$store.state.userPhoto = res.data.data.userPhoto;
                   this.$axios.post('/car/selShopCarNumberByUserId')
                     .then(res=>{
                       this.$store.state.shopCarNumber = res.data.data;

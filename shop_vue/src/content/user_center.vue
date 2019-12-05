@@ -26,12 +26,12 @@
 <script>
   import Nav_top from "@/components/nav_top";
   import Hint_popup from "@/components/hint_popup";
-  import changeUserPhotoname from "@/components/user_center/changeUserPhotoname";
+  import changeUserPhoto from "@/components/user_center/changeUserPhoto";
   import changeUserPassword from "@/components/user_center/changeUserPassword";
 
   export default {
     name: "user_center",
-    components: {Hint_popup,  Nav_top, changeUserPhotoname, changeUserPassword},
+    components: {Hint_popup,  Nav_top, changeUserPhoto, changeUserPassword},
     data(){
       return{
         options:0
@@ -40,9 +40,9 @@
     computed:{
       optionsComponents(){
         switch (this.options) {
-          case 0: return  'changeUserPhotoname';
+          case 0: return  'changeUserPhoto';
           case 1: return  'changeUserPassword';
-          default :return 'changeUserPhotoname';
+          default :return 'changeUserPhoto';
         }
       }
     },

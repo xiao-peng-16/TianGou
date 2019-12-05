@@ -63,7 +63,7 @@
               <div class="col-3">
                 <div class="home_user_Box">
                   <img  class="home_user_bj"  :src="home_user_bj">
-                  <img  class="home_user_Head" :src="show_userPhotonameURL">
+                  <img  class="home_user_Head" :src="show_userPhotoURL">
                   <span class="home_userName">Hi! {{userName}}</span>
                   <div class="home_user_bottom" v-if="undefined == this.$store.state.userName">
                     <div @click="$router.push({name:'login'})">登录</div>
@@ -178,8 +178,8 @@
             return userName;
           }
         },
-        show_userPhotonameURL() {
-          return this.$store.getters.getUserPhotonameURL();
+        show_userPhotoURL() {
+          return this.$store.getters.getUserPhotoURL();
         }
       },
       methods:{

@@ -12,7 +12,7 @@
 
       <div class="itemBox" v-for="item in StoreCommodityList" >
         <div class="imgBox" @click="click_img(item.commodityId)">
-          <img :src="item.commodityPhotoname">
+          <img :src="item.commodityPhoto">
         </div>
         <div class="cNameBox" @click="click_img(item.commodityId)">
           <span>{{item.commodityName}}</span>
@@ -51,10 +51,8 @@
       created() {
           this.$axios.get('/commodity/selStoreCommodityVOByUserId')
             .then(res=>{
-              if (this.$store.getters.getResultDispose(res)){
-                this.StoreCommodityList=res.data.data;
-                for (var i=0;i<this.StoreCommodityList.length;i++)
-                  this.StoreCommodityList[i].commodityPhotoname=this.GLOBAL.commodityImagesUrl+this.StoreCommodityList[i].commodityPhotoname;
+              if (this.$store.getters.getResultDispose(res)) {
+                this.StoreCommodityList = res.data.data;
               }
             });
       }

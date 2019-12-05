@@ -73,6 +73,12 @@ public class UserServiceImpl implements UserService {
         return 0 != userMapper.changeUserPasswordByUserId(userId, changeUserPassword.getOldUserPassword(), changeUserPassword.getNewUserPassword());
     }
 
+    @Override
+    public boolean changeUserPhotoByUserId(Integer userId, String userPhoto) {
+        return 0 != userMapper.changeUserPhotoByUserId(userId, userPhoto);
+
+    }
+
 
     // 转账  第一个是付钱方  剩下的都是收钱方  ，付钱方要判断余额是否足够付款
     @Transactional(rollbackFor = {MoneyInsufficientException.class,TransactionalException.class})

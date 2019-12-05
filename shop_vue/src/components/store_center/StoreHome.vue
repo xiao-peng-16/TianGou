@@ -2,7 +2,7 @@
   <div style="padding-top: 1px;width: 1360px">
 
     <div class="top">
-      <img :src="show_userPhotonameURL" style="padding-left: 13px;">
+      <img :src="show_userPhotoURL" style="padding-left: 13px;">
       <div class="left_message">
         <span style="font-weight: 600;font-size: 25px;letter-spacing:5px;">{{getUserName()}}</span>
         <div style="margin-top: 33px">
@@ -70,8 +70,8 @@
         }
       },
       computed:{
-        show_userPhotonameURL(){
-          return this.$store.getters.getUserPhotonameURL();
+        show_userPhotoURL(){
+          return this.$store.getters.getUserPhotoURL();
         }
       },
       methods:{

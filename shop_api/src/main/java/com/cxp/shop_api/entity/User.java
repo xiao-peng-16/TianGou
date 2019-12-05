@@ -8,7 +8,7 @@ public class User {
     int userId;
     String userName;
     String userPassword;
-    String userPhotoname;
+    String userPhoto;
     double userMoney;
 
     int shopCarCount; //购物车数量
