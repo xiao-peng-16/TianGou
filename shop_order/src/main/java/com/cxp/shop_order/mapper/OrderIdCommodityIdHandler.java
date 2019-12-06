@@ -24,7 +24,6 @@ public class OrderIdCommodityIdHandler implements ResultHandler {
     //拦截器内设置 每天订单商品id最多3个 ，因为前端展示3个就好了 后面省略号
     @Override
     public void handleResult(ResultContext resultContext) {
-        //获取原本返回的数据对象  CommodityIdSupper 为 共同父类 只有id
         OrderIdCommodityId orderIdCommodityId = (OrderIdCommodityId)resultContext.getResultObject();
         List<Integer> commodityIdList = orderIdCommodityIdMap.get(orderIdCommodityId.getOrderId());
         if (null == commodityIdList){

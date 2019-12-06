@@ -2,8 +2,10 @@
     <div>
       <nav_top :flag_fixed="true" :flag_scroll="true" />
       <div style="position: fixed;width: 100%;height: 70px; background: white;z-index: 100;padding-top: 10px;border-bottom: 1px solid #DADADA">
-        <img  src="../assets/tmall.jpg">
-        <span id="title">— 卖家中心 —</span>
+        <img  src="../assets/tmall.jpg" style="float: left">
+        <div class="top_box">
+          <span id="title">— 卖家中心 —</span>
+        </div>
       </div>
 
 
@@ -56,12 +58,19 @@
 
 <style scoped>
 
-  #title{
+  .top_box{
     position: relative;
-    top: 7px;
+    width: 100%;
+    height: 100%;
+    margin-left: 260px;
+  }
+  #title{
+    position: absolute;
+    top: 45%;
+    left: 33%;
+    transform: translate(-38%,-50%);
     font-size: 16px;
     font-weight: 700;
-    margin-left: 480px;
   }
 
   .buttom{

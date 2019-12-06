@@ -47,6 +47,19 @@ public class StoreController {
         return storeService.mapStoreToCommodityByStoreId(storeIdList);
     }
 
+    //查询一组店铺名 根据id
+    @PostMapping("/mapStoreNameByStoreId")
+    public Map<Integer,String> mapStoreNameByStoreId(@RequestBody List<Integer> storeIdList){
+        return storeService.mapStoreNameByStoreId(storeIdList);
+    }
+
+    //查询店铺名 根据id
+    @RequestMapping("/selStoreNameByStoreId")
+    public String  selStoreNameByStoreId(Integer storeId){
+        return storeService.selStoreNameByStoreId(storeId);
+    }
+
+
 
 
 }

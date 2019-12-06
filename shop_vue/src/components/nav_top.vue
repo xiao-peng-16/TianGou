@@ -13,7 +13,7 @@
                   <span>天狗首页</span>
               </router-link>
 
-              <router-link :to="{name:'user_center'}" tag="li"><span>Hi, {{this.user.userName}}</span></router-link>
+              <li @click="to_user_center"><span>Hi, {{this.user.userName}}</span></li>
               <li id="userMoney"><span>余额{{(this.user.userMoney).toFixed(2)}}</span></li>
               <li><span @click="outenter">退出</span></li>
             </ul>
@@ -88,8 +88,7 @@
         props:['flag_fixed','flag_scroll',   'maxWidth'],
         data(){
           return{
-            flag_store_center_list:false,
-            store_center_options:1,
+            store_center_options:0,
 
             flag_tou_su:true,
             flag_enter:false,
@@ -122,6 +121,12 @@
         }
       },
       methods:{
+          to_user_center(){
+            this.$store.state.user_center_top_options = 1;
+            if ("user_center" != this.$route.name)
+              this.$store.state.user_center_left_options = 0;
+            this.$router.push({name:'user_center'});
+          },
           to_store_center(store_center_options){
             this.$store.state.store_center_options = store_center_options;
             this.$router.push({name:'store_center'});
@@ -170,6 +175,7 @@
 </script>
 
 <style scoped>
+
 
   .flag_fixed{
     position: fixed;
@@ -268,8 +274,12 @@
   }
   .options_list_content{
     width: 60px;
+    display: none;
   }
-  .options_list:hover  div{
+  .options_list:hover .options_list_content{
+    display: block;
+  }
+  .options_list .options_list_content{
     background: white;
   }
   .options_list ul{
@@ -279,13 +289,11 @@
     padding: 0px 5px;
     margin: 0px;
     line-height: 28px;
-    display: none;
-  }
-  .options_list:hover li{
-    display: block;
   }
   .options_list li:hover{
     background: #f5f5f5;
   }
+
+
 
 </style>

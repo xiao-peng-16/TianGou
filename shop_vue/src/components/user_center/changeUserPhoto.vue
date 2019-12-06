@@ -94,7 +94,7 @@
 <style scoped>
   .box{
 
-    margin-left: 25%;
+    margin-left: 28%;
     width: 300px;
     position: relative;
   }

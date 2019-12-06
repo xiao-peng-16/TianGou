@@ -2,24 +2,40 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba7746b0-eb01-4fa4-bb05-ac7b9d1c947e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/shop_images/src/main/java/com/cxp/shop_images/controller/ImagesController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_images/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/StoreFeignClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/utils/SubmitOrderUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/pojo/StoreIdStoreName.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_car/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_car/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_favorite/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_favorite/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_store/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_user/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/config/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/config/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/global_variable.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/global_variable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderParent.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderParent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderSon.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderSon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/result/ResultStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/result/ResultStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/vo/OrderGeneraVO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/controller/CommodityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/controller/CommodityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/mapper/CommodityMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/mapper/CommodityMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/CommodityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/CommodityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/FeignClient/OrderFeignClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/impl/CommodityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/impl/CommodityServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/resources/mapper/CommodityMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/resources/mapper/CommodityMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderIdCommodityIdHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderIdCommodityIdHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderIdKeyMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderIdKeyMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/CommodityFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/CommodityFeignClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/impl/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_order/src/main/resources/mapper/OrderIdKeyMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/resources/mapper/OrderIdKeyMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_order/src/main/resources/mapper/OrderMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/resources/mapper/OrderMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/controller/StoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/controller/StoreController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/mapper/StoreMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/mapper/StoreMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/service/StoreService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/service/StoreService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/service/impl/StoreServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/service/impl/StoreServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_store/src/main/resources/mapper/StoreMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/resources/mapper/StoreMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/nav_top.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/nav_top.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shop_vue/src/components/user_center/changeUserPhoto.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/user_center/changeUserPhoto.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/test/e2e/nightwatch.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/test/e2e/nightwatch.conf.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/test/e2e/specs/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/test/e2e/specs/test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_zuul/src/main/java/com/cxp/shop_zuul/filter/TokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_zuul/src/main/java/com/cxp/shop_zuul/filter/TokenFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_zuul/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_zuul/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/store_center.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/store_center.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/user_center.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/user_center.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/store/store.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/数据库文件.sql" beforeDir="false" afterPath="$PROJECT_DIR$/数据库文件.sql" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,8 +52,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/数据库文件.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-38">
-              <caret line="125" column="44" lean-forward="true" selection-start-line="125" selection-start-column="44" selection-end-line="125" selection-end-column="44" />
+            <state relative-caret-position="190">
+              <caret line="97" column="153" selection-start-line="97" selection-start-column="153" selection-end-line="97" selection-end-column="153" />
             </state>
           </provider>
         </entry>
@@ -71,6 +87,8 @@
       <find>commodity_photoname</find>
       <find>commodity_videoname</find>
       <find>localhost</find>
+      <find>commodity_id</find>
+      <find>store_id</find>
     </findStrings>
     <replaceStrings>
       <replace>user_photo</replace>
@@ -102,8 +120,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -123,6 +141,12 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="editor.config.ad.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
@@ -171,6 +195,9 @@
       <workItem from="1575473301610" duration="41000" />
       <workItem from="1575517223281" duration="4874000" />
       <workItem from="1575532033674" duration="1014000" />
+      <workItem from="1575549679002" duration="63000" />
+      <workItem from="1575605510020" duration="3671000" />
+      <workItem from="1575640167474" duration="8000" />
     </task>
     <task id="LOCAL-00001" summary="shop">
       <created>1575094500813</created>
@@ -326,16 +353,24 @@
       <option name="project" value="LOCAL" />
       <updated>1575524968843</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="cxp_shop">
+      <created>1575549707854</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1575549707854</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14717000" />
+    <option name="totallyTimeSpent" value="18459000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15503356" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16107382" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -388,8 +423,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/数据库文件.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-38">
-          <caret line="125" column="44" lean-forward="true" selection-start-line="125" selection-start-column="44" selection-end-line="125" selection-end-column="44" />
+        <state relative-caret-position="190">
+          <caret line="97" column="153" selection-start-line="97" selection-start-column="153" selection-end-line="97" selection-end-column="153" />
         </state>
       </provider>
     </entry>

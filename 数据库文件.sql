@@ -32,8 +32,8 @@ create table sort(
 /*商品表*/
 create table commodity(
 		commodity_id int primary key auto_increment,
-		store_id int references  store(sid),
-		sort_id int references  commoditySort(sortid),
+		store_id int comment '店铺id',
+		sort_id int comment '种类id',
 		commodity_name varchar(40) comment '商品名',
 		commodity_describe varchar(50) comment '商品描述',
 		bao_you bool default false  comment '是否包邮',
@@ -50,17 +50,18 @@ create table commodity(
 /*这个2个表不要分库*/
 create table order_parent(
 	order_id int primary key auto_increment,
-	user_id	int references  user(user_id),
+	user_id	int comment '用户id',
+	store_id int comment '店铺id',
 	order_time datetime default NOW() comment '下单时间',
-	order_submit bool default false  comment '支付状态'
+	order_sum_number int comment '订单总数量',
+	order_sum_price decimal(10,2) comment '订单总金额',
+	order_state int default 0  comment '订单状态：0待付款 1待发货 2待评价'
 );
 create table order_son(
-	order_id int references  order_parent(order_id),
-	commodity_id int references  commodity(commodity_id),
-	store_id int references  store(store_id),
+	order_id int comment '订单id',
+	commodity_id int comment '商品id',
 	choose_number int comment '选购数量',
 	commodity_price decimal(10,2) comment '商品单价',
-	order_sum_price decimal(10,2) comment '该子订单总金额',
 	PRIMARY KEY(order_id,commodity_id)
 );
 
@@ -68,15 +69,15 @@ create table order_son(
 /*购物车 中商品*/
 create table shop_car(
 		shop_car_id int primary key auto_increment,
-		user_id	int references  user(user_id),
-		commodity_id int references  commodity(commodity_id),
+		user_id	int,
+		commodity_id int comment '商品id',
 		choose_number int comment '数量'
 );
 
 /* 收藏夹*/
 create table favorite(
-	user_id	int references  user(user_id),
-	commodity_id int references  commodity(commodity_id),
+	user_id	int,
+	commodity_id int comment '商品id',
 	favorite_time datetime default NOW() comment '时间用于排序',
 	PRIMARY KEY(user_id,commodity_id)
 );
@@ -94,7 +95,7 @@ insert user(user_id,user_name,user_password,user_money) values(5,'小宠','12345
 insert user(user_id,user_name,user_password,user_money) values(6,'小运','123456',6000);
 insert user(user_id,user_name,user_password,user_money) values(7,'小服','123456',6000);
 insert user(user_id,user_name,user_password,user_money) values(9,'小手','123456',6000);
-insert user(user_id,user_name,user_password,user_money,user_photo) values(10,'晓鹏','123456',1433223.00,'http://127.0.0.1/TianGou/resource/userPhotoname/cxp.jpg');
+insert user(user_id,user_name,user_password,user_money,user_photo) values(10,'晓鹏','123456',1433223.00,'http://127.0.0.1/TianGou/resource/userPhoto/10.jpg');
 insert user(user_id,user_name,user_password,user_money) values(11,'小王','123456',6000);
 insert user(user_id,user_name,user_password,user_money) values(12,'小赵','123456',6000);
 

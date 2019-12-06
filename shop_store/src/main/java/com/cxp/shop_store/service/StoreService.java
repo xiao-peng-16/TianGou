@@ -17,4 +17,14 @@ public interface StoreService {
     //返回店铺大致信息：名字、地点 用于组成搜索页商品的店铺信息  根据店铺名字 模糊查询
     public Map<Integer,StoreToCommodity> selStoreToCommodityMapByStoreName(String searchWord);
 
+
+
+    //查询一组店铺名 根据id
+    public Map<Integer,String> mapStoreNameByStoreId(List<Integer> storeIdList);
+
+    //查询店铺名 根据id
+    public String  selStoreNameByStoreId(Integer storeId);
+
+
+
 }

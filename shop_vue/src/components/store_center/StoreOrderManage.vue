@@ -15,7 +15,7 @@
 
 
         <div class="listBox">
-          <div class="itemBox" v-for="item in orderGeneraList" @click="enterOrderParent(item.orderId)">
+          <div class="itemBox" v-for="item in orderParentRoughList" @click="enterOrderParent(item.orderId)">
             <div class="only_imgBox"  v-if="item.only_img">
               <img :src="item.orderCommodityVOList[0].commodityPhoto">
             </div>
@@ -31,13 +31,13 @@
               </div>
             </div>
             <div class="userName">
-              <span>{{item.orderParent.userName}}</span>
+              <span>{{item.userName}}</span>
             </div>
             <div class="orderSumPrice">
               <span>￥{{item.orderSumPrice.toFixed(2)}} 元</span>
             </div>
             <div class="orderTime">
-              <span>{{item.orderParent.orderTime}}</span>
+              <span>{{item.orderTime}}</span>
 
             </div>
           </div>
@@ -69,7 +69,7 @@
               </div>
               <span class="orderSon_ChooseNumber">  {{item.chooseNumber}} 件</span>
               <span class="orderSon_CommodityPrice">￥{{item.commodityPrice.toFixed(2)}}</span>
-              <span class="orderSon_SumPrice">      ￥{{item.orderSumPrice.toFixed(2)}}</span>
+              <span class="orderSon_SumPrice">      ￥{{item.chooseNumber * item.commodityPrice.toFixed(2)}}</span>
             </div>
             <div style="height: 60px"></div>
             <div class="orderSon_bottom">
@@ -90,7 +90,7 @@
         return{
           popup_flag:false,
           //粗略 订单列表
-          orderGeneraList:null,
+          orderParentRoughList:null,
           //详细订单
           orderParent:{},
           //缓存列表 缓存拿到过的详细订单
@@ -101,7 +101,7 @@
         orderParent_SunPrice(){
           var sum = 0;
           for (let i in this.orderParent.orderSonList)
-            sum += this.orderParent.orderSonList[i].orderSumPrice;
+            sum += this.orderParent.orderSonList[i].chooseNumber * this.orderParent.orderSonList[i].commodityPrice;
           return sum;
         }
       },
@@ -139,21 +139,21 @@
       created() {
 
 
-        this.$axios.get('/order/selStoreOrderGeneraVOByUserId')
+        this.$axios.get('/order/listStoreOrderParentRoughByUserId')
           .then(res=>{
             if (this.$store.getters.getResultDispose(res)) {
 
-              this.orderGeneraList = res.data.data;
-              for (let i in this.orderGeneraList) {
-                  if (this.orderGeneraList[i].orderCommodityVOList.length == 4) {
-                    var newStr = '. . . ' + "共" + this.orderGeneraList[i].chooseNumber + "件商品";
-                    this.orderGeneraList[i].orderCommodityVOList[3].commodityName = newStr;
+              this.orderParentRoughList = res.data.data;
+              for (let i in this.orderParentRoughList) {
+                  if (this.orderParentRoughList[i].orderCommodityVOList.length == 4) {
+                    var newStr = '. . . ' + "共" + this.orderParentRoughList[i].orderSumNumber + "件商品";
+                    this.orderParentRoughList[i].orderCommodityVOList[3].commodityName = newStr;
                   }
                   //图片大于一张  就小图
-                  if (this.orderGeneraList[i].orderCommodityVOList.length > 1)
-                    this.orderGeneraList[i].only_img = false;
+                  if (this.orderParentRoughList[i].orderCommodityVOList.length > 1)
+                    this.orderParentRoughList[i].only_img = false;
                   else
-                    this.orderGeneraList[i].only_img = true;
+                    this.orderParentRoughList[i].only_img = true;
 
               }
 
@@ -253,7 +253,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.5);
-    z-index: 200;
+    z-index: 999999;
   }
 
   #popupBox {
@@ -261,7 +261,7 @@
     top: 60px;
     left: 52%;
     transform: translate(-50%);
-    z-index: 300;
+    z-index: 9999999;
   }
 
   #popup{

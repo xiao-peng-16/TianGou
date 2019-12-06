@@ -224,7 +224,7 @@
                 if (this.$store.getters.getResultDispose(res)){
                   this.$axios.get('/order/payOrderByUserId',{
                     params:{
-                      orderId:res.data.data
+                      orderTime:res.data.data
                     }
                   }).then(res=>{
                     if (this.$store.getters.getResultDispose(res)){

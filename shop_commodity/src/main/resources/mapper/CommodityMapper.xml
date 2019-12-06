@@ -40,12 +40,12 @@
     </select>
 
     <!--    查询商品信息用于形成订单-->
-    <select id="selCommodityToOrderMap" resultType="com.cxp.shop_api.dto.CommodityToOrder">
+    <select id="mapCommodityToOrder" resultType="com.cxp.shop_api.dto.CommodityToOrder">
         select commodity_id , store_id  , commodity_price , commodity_stock
         from commodity
         where commodity_id in
         <foreach collection="list" item="item" separator="," open="(" close=")">
-            #{item.commodityId}
+            #{item}
         </foreach>
     </select>
 

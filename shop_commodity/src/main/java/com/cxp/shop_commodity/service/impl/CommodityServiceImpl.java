@@ -4,16 +4,13 @@ import com.cxp.shop_api.dto.CommodityNumberChange;
 import com.cxp.shop_api.dto.CommodityToOrder;
 import com.cxp.shop_api.dto.StoreToCommodity;
 import com.cxp.shop_api.entity.Commodity;
-import com.cxp.shop_api.entity.OrderParent;
 import com.cxp.shop_api.entity.OrderSon;
 import com.cxp.shop_api.request.SearchRequest;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
-import com.cxp.shop_api.result.ResultStatus;
 import com.cxp.shop_api.vo.*;
 import com.cxp.shop_commodity.mapper.CommodityMapper;
 import com.cxp.shop_commodity.service.CommodityService;
-import com.cxp.shop_commodity.service.FeignClient.OrderFeignClient;
 import com.cxp.shop_commodity.service.FeignClient.StoreFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,15 +27,10 @@ public class CommodityServiceImpl implements CommodityService {
     CommodityMapper commodityMapper;
 
     @Autowired
-    OrderFeignClient orderFeignClient;
-    @Autowired
     StoreFeignClient storeFeignClient;
 
 
     static final ResultBean successResult = ResultFactory.createSuccessResult();
-    static final ResultBean COMMODITY_ID_ERROR = ResultFactory.createFailResult(ResultStatus.COMMODITY_ID_ERROR);
-    static final ResultBean COMMODITY_STOCK_INSUFFICIENT = ResultFactory.createFailResult(ResultStatus.COMMODITY_STOCK_INSUFFICIENT);
-    static final ResultBean STORE_EQUAL_USER_ERROR = ResultFactory.createFailResult(ResultStatus.STORE_EQUAL_USER_ERROR);
 
     @Override
     public Map<Integer, OrderCommodityVO> mapOrderCommodityVO(List<Integer> commodityIdList) {
@@ -161,48 +153,11 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
 
-    private boolean setOrderSonReturnIsFail(OrderSon orderSon, CommodityToOrder commodityToOrder){
-        if (commodityToOrder.getCommodityStock() < orderSon.getChooseNumber())
-            return true;
-        orderSon.setStoreId(commodityToOrder.getStoreId())
-                .setCommodityPrice(commodityToOrder.getCommodityPrice())
-                .setOrderSumPrice(commodityToOrder.getCommodityPrice() * orderSon.getChooseNumber());
-        return false;
-    }
+
+
     @Override
-    public ResultBean submitOrder(Integer userId, LinkedList<OrderSon> orderSonList){
-
-        Map<Integer, CommodityToOrder> commodityIdToOrderMap = commodityMapper.selCommodityToOrderMap(orderSonList);
-
-        //找不到任何商品信息 商品信息一个都找不到
-        if (0 ==commodityIdToOrderMap.size())   //购物车中
-            return COMMODITY_ID_ERROR;
-
-        //直接从商品页购买 或购物车只有一件商品
-        if (1 == orderSonList.size()){
-            OrderSon orderSon = orderSonList.get(0);
-            CommodityToOrder commodityToOrder = commodityIdToOrderMap.get(orderSon.getCommodityId());
-            if (0 ==commodityIdToOrderMap.size())
-                return COMMODITY_ID_ERROR;
-            if (userId == commodityToOrder.getStoreId())
-                return STORE_EQUAL_USER_ERROR;
-            if (setOrderSonReturnIsFail(orderSon, commodityToOrder))
-                return COMMODITY_STOCK_INSUFFICIENT;
-        }else { //加入购物车的  都不存在用户购买自己商品的问题，有问题加入不了购物车
-            for ( OrderSon orderSon : orderSonList) {
-                CommodityToOrder commodityToOrder = commodityIdToOrderMap.get(orderSon.getCommodityId());
-                if (commodityToOrder == null)
-                    orderSonList.remove(orderSon);  //商品信息都找不到 剔除该条
-                else if (setOrderSonReturnIsFail(orderSon, commodityToOrder))
-                    orderSonList.remove(orderSon);  //商品库存不足 剔除该条
-            }
-            if (0 ==orderSonList.size())          //购物车中 剩下 商品库存都不足
-                return COMMODITY_STOCK_INSUFFICIENT;
-        }
-        OrderParent orderParent = new OrderParent(userId);
-        orderParent.setOrderSonList(orderSonList);
-        //返回 订单微服务 响应结果
-        return orderFeignClient.addOrder(orderParent) ;
+    public Map<Integer, CommodityToOrder> mapCommodityToOrder(List<Integer> commodityIdList){
+        return commodityMapper.mapCommodityToOrder(commodityIdList);
     }
 
     @Override

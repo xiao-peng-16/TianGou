@@ -2,6 +2,7 @@ package com.cxp.shop_store.mapper;
 
 import com.cxp.shop_api.dto.StoreToCommodity;
 import com.cxp.shop_api.entity.Store;
+import com.cxp.shop_store.pojo.StoreIdStoreName;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -24,4 +25,12 @@ public interface StoreMapper {
     //返回店铺完整信息 根据storeId  用于商品页 和 店铺页
     @Select("select * from store where store_id = #{storeId}")
     public Store selStoreByStoreId(@Param("storeId") int storeId);
+
+
+    //查询一组店铺名 根据id
+    public List<StoreIdStoreName> mapStoreNameByStoreId(List<Integer> storeIdList);
+
+    //查询店铺名 根据id
+    @Select("select store_name from store where store_id = #{storeId}")
+    public String  selStoreNameByStoreId(@Param("storeId") Integer storeId);
 }

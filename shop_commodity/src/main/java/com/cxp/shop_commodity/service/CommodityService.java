@@ -1,13 +1,12 @@
 package com.cxp.shop_commodity.service;
 
 import com.cxp.shop_api.dto.CommodityNumberChange;
+import com.cxp.shop_api.dto.CommodityToOrder;
 import com.cxp.shop_api.entity.Commodity;
-import com.cxp.shop_api.entity.OrderSon;
 import com.cxp.shop_api.request.SearchRequest;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.vo.*;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,8 +29,9 @@ public interface CommodityService {
     //返回  店铺所销售的信息
     //判断是否 用户购买自己的视频
     public boolean isCommodityStoreEqualUser(int userId, int commodityId);
-    //用户购买那些商品几件
-    public ResultBean submitOrder(Integer userId, LinkedList<OrderSon> orderSonList);
+
+    //用于订单微服务 提交订单  需要的店铺id 单价  库存
+    public  Map<Integer, CommodityToOrder> mapCommodityToOrder(List<Integer> commodityIdList);
     //修改商品 库存 销量
     public ResultBean updCommodityNumber(List<CommodityNumberChange> commodityNumberChangeList);
 

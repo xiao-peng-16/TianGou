@@ -10,6 +10,7 @@ import com.cxp.shop_api.vo.ShopCarCommodityVO;
 import com.cxp.shop_car.mapper.ShopCarMapper;
 import com.cxp.shop_car.service.FeignClient.CommodityFeignClient;
 import com.cxp.shop_car.service.FeignClient.FavoriteFeignClient;
+import com.cxp.shop_car.service.FeignClient.OrderFeignClient;
 import com.cxp.shop_car.service.ShopCarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,9 @@ public class ShopCarServiceImpl implements ShopCarService {
     CommodityFeignClient commodityFeignClient;
     @Autowired
     FavoriteFeignClient favoriteFeignClient;
+    @Autowired
+    OrderFeignClient orderFeignClient;
+
 
     static final ResultBean successResult = ResultFactory.createSuccessResult();
     static final ResultBean STORE_EQUAL_USER_ERROR = ResultFactory.createFailResult(ResultStatus.STORE_EQUAL_USER_ERROR);
@@ -73,7 +77,7 @@ public class ShopCarServiceImpl implements ShopCarService {
 
     @Override
     public ResultBean ShopCarSubmitOrderByUserId(int userId, List<ShopCar> shopCarList){
-        ResultBean responseBean = commodityFeignClient.submitOrderByUserId(userId, shopCarList);
+        ResultBean responseBean = orderFeignClient.submitOrderByUserId(userId, shopCarList);
         if (responseBean.isSuccess())
             shopCarMapper.delShopCarByShopCar(userId, shopCarList);    //  删除购物车表信息
         return responseBean;

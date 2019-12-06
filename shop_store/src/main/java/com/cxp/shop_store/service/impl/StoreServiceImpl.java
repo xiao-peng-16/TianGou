@@ -6,10 +6,12 @@ import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
 import com.cxp.shop_api.result.ResultStatus;
 import com.cxp.shop_store.mapper.StoreMapper;
+import com.cxp.shop_store.pojo.StoreIdStoreName;
 import com.cxp.shop_store.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +32,20 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public Map<Integer, StoreToCommodity> selStoreToCommodityMapByStoreName(String searchWord) {
         return searchWord == null? null: storeMapper.selStoreToCommodityMapByStoreName(searchWord);
+    }
+
+    @Override
+    public Map<Integer, String> mapStoreNameByStoreId(List<Integer> storeIdList) {
+        List<StoreIdStoreName> storeIdStoreNameList = storeMapper.mapStoreNameByStoreId(storeIdList);
+        HashMap<Integer, String> map = new HashMap<>();
+        for (StoreIdStoreName storeIdStoreName : storeIdStoreNameList)
+            map.put(storeIdStoreName.getStoreId(),storeIdStoreName.getStoreName());
+        return map;
+    }
+
+    @Override
+    public String selStoreNameByStoreId(Integer storeId) {
+        return storeMapper.selStoreNameByStoreId(storeId);
     }
 
 

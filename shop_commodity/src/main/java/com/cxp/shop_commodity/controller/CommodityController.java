@@ -1,8 +1,8 @@
 package com.cxp.shop_commodity.controller;
 
 import com.cxp.shop_api.dto.CommodityNumberChange;
+import com.cxp.shop_api.dto.CommodityToOrder;
 import com.cxp.shop_api.entity.Commodity;
-import com.cxp.shop_api.entity.OrderSon;
 import com.cxp.shop_api.request.SearchRequest;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
@@ -14,7 +14,6 @@ import com.cxp.shop_commodity.service.impl.CommodityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 /*
@@ -77,11 +76,10 @@ public class CommodityController {
         return commodityService.isCommodityStoreEqualUser(userId, commodityId);
     }
 
-    //前端接口
-    //提交订单： 接收商品id 数量 返回订单orderId
-    @PostMapping("/submitOrderByUserId")
-    public ResultBean submitOrder(@RequestParam Integer userId, @RequestBody LinkedList<OrderSon> orderSonList){
-        return commodityService.submitOrder(userId, orderSonList);
+    //用于订单微服务 提交订单  需要的店铺id 单价  库存
+    @RequestMapping("/mapCommodityToOrder")
+    public  Map<Integer, CommodityToOrder> mapCommodityToOrder(@RequestBody List<Integer> commodityIdList){
+        return commodityService.mapCommodityToOrder(commodityIdList);
     }
 
     //修改商品 库存 销量

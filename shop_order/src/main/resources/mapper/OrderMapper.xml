@@ -10,87 +10,80 @@
 
 <!--        mybaits 插入数据 将自增id返回注入到 keyProperty    -->
     <insert id="insOrderParent" useGeneratedKeys="true" keyProperty="orderId">
-        insert order_parent(user_id) values(#{userId})
+        insert order_parent(user_id,store_id,order_time,order_sum_number,order_sum_price)
+            values
+            <foreach collection="list" item="item" separator=",">
+                (#{item.userId},#{item.storeId},#{item.orderTime},#{item.orderSumNumber},#{item.orderSumPrice})
+            </foreach>
     </insert>
 
 
 
     <insert id="insOrderSon">
         insert ignore order_son
-            (order_id,store_id,commodity_id,choose_number,commodity_price,order_sum_price)
+            (order_id,commodity_id,choose_number,commodity_price)
         values
-        <foreach collection="orderSonList" item="item" separator=",">
-            (#{orderId},#{item.storeId},#{item.commodityId},#{item.chooseNumber},#{item.commodityPrice},#{item.orderSumPrice})
+        <foreach collection="list" item="item" separator=",">
+            (#{item.orderId},#{item.commodityId},#{item.chooseNumber},#{item.commodityPrice})
         </foreach>
     </insert>
 
 
 
-
-    <select id="selUserMoneyChangeByOrderId" resultType="com.cxp.shop_api.dto.MoneyChange">
-        select user_id ,sum(order_sum_price) userMoneyChange from order_parent
-        inner join order_son on order_parent.order_id = order_son.order_id
-        where order_parent.order_id = #{orderId} and order_submit = false
+    <select id="ListMoneyChangeByuserIdOrderTime" resultType="com.cxp.shop_api.dto.MoneyChange">
+        select store_id user_id, order_sum_price from order_parent
+--         下的的人是我  这个时间点下的单  改订单处于待付款
+        where user_id = #{userId} and  order_time = #{orderTime} and order_state = 0
     </select>
 
 
-    <select id="selAllMoneyChangeByOrderId" resultType="com.cxp.shop_api.dto.MoneyChange">
-        select store_id userId,sum(order_sum_price) userMoneyChange from order_parent
-        inner join order_son on order_parent.order_id = order_son.order_id
-        where order_parent.order_id = #{orderId}
-        group by store_id
-    </select>
+    <update id="updOrderStateByuserIdOrderTime">
+        update order_parent set order_state = 1
+--         下的的人是我  这个时间点下的单  改订单处于待付款
+        where user_id = #{userId} and  order_time = #{orderTime} and order_state = 0
+    </update>
+
+
 
     <select id="selChooseNumber" resultType="com.cxp.shop_api.dto.CommodityNumberChange">
-        select commodity_id,choose_number  from order_parent
-        inner join order_son on order_parent.order_id = order_son.order_id
-        where order_parent.order_id = #{orderId}
+        select commodity_id,choose_number  from order_son
+        inner join order_parent on order_son.order_id = order_parent.order_id
+        where user_id = #{userId} and  order_time = #{orderTime} and order_state = 1
     </select>
 
 
 
     <select id="selStoreSalesCurrentMonth" resultType="com.cxp.shop_api.vo.StoreStatusBeanVO">
-        select sum(choose_number) as SalesVolume, sum(order_sum_price) as Earnings
-        from order_parent p inner join order_son s on p.order_id = s.order_id
-        where store_id = #{storeId} and DATE_FORMAT(order_time,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
+        select sum(order_sum_number) as SalesVolume, sum(order_sum_price) as Earnings
+        from order_parent
+        where store_id = #{storeId} and order_state >0 and DATE_FORMAT(order_time,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
     </select>
 
     <select id="selStoreSalesEarnings" resultType="com.cxp.shop_api.vo.StoreStatusBeanVO">
-        select sum(choose_number) as SalesVolume, sum(order_sum_price) as Earnings
-        from order_son
-        where store_id = #{storeId}
-    </select>
-
-
-
-<!--    总体大致订单信息-->
-
-    <select id="listStoreOrderGeneraVO" resultType="com.cxp.shop_api.vo.OrderGeneraVO">
-        select  p.order_id, sum(choose_number) chooseNumber, sum(order_sum_price) orderSumPrice
-        from order_parent p inner join order_son s on p.order_id = s.order_id
-        where store_id = #{storeId}
-		group by p.order_id
-        order by p.order_id desc
-    </select>
-
-    <select id="listUserOrderGeneraVO" resultType="com.cxp.shop_api.vo.OrderGeneraVO">
-        select  order_id, sum(choose_number) chooseNumber, sum(order_sum_price) orderSumPrice
-        from order_son
-        where user_id = #{userId}
-		group by order_id
-        order by order_id desc
-
-    </select>
-
-
-    <select id="selOrderParentMap" resultType="com.cxp.shop_api.entity.OrderParent">
-        select order_id ,user_id,order_time,order_submit
+        select sum(order_sum_number) as SalesVolume, sum(order_sum_price) as Earnings
         from order_parent
-        where order_id in
-        <foreach collection="list" item="item" separator="," open="(" close=")">
-            #{item.orderId}
-        </foreach>
+        where store_id = #{storeId} and order_state > 0
     </select>
+
+
+
+
+    <select id="listStoreOrderParent" resultType="com.cxp.shop_api.entity.OrderParent">
+        select  * from order_parent
+        where store_id = #{storeId} and order_state > 0
+        order by order_id desc
+    </select>
+
+    <select id="listUserOrderParent" resultType="com.cxp.shop_api.entity.OrderParent">
+        select  * from order_parent
+        where user_id = #{userId}
+        <if test="null != orderState">
+            and order_state = orderState
+        </if>
+        order by order_id desc
+    </select>
+
+
 
 <!--    详细订单信息-->
 
@@ -102,15 +95,15 @@
     </resultMap>
 
     <select id="selStoreOrderParent" resultMap="OrderParentMap">
-        select p.order_id ,user_id,order_time,order_submit,
-        commodity_id,store_id,choose_number,commodity_price,order_sum_price
+        select p.order_id ,user_id,store_id,order_time,order_sum_number,order_sum_price,order_state,
+        commodity_id,choose_number,commodity_price
         from order_parent p inner join order_son s on p.order_id = s.order_id
-        where p.order_id = #{orderId} and store_id = #{storeId}
+        where p.order_id = #{orderId}
     </select>
 
     <select id="selUserOrderParent" resultMap="OrderParentMap">
-        select p.order_id ,user_id,order_time,order_submit,
-        commodity_id,store_id,choose_number,commodity_price,order_sum_price
+        select p.order_id ,user_id,store_id,order_time,order_sum_number,order_sum_price,order_state,
+        commodity_id,choose_number,commodity_price
         from order_parent p inner join order_son s on p.order_id = s.order_id
         where p.order_id = #{orderId} and user_id = #{userId}
     </select>

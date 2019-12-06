@@ -18,8 +18,6 @@ public interface CommodityFeignClient {
     public Map<Integer, ShopCarCommodityVO> mapShopCarCommodityVO(List<Integer> commodityIdList);
 
 
-    @RequestMapping(value = "submitOrderByUserId", method = RequestMethod.POST)
-    public ResultBean submitOrderByUserId(@RequestParam int userId, @RequestBody List<ShopCar> shopCarList);
 
     @RequestMapping(value = "isCommodityStoreEqualUser", method = RequestMethod.GET)
     public boolean isCommodityStoreEqualUser(@RequestParam int userId, @RequestParam int commodityId);

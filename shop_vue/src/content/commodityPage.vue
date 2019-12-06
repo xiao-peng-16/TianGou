@@ -128,15 +128,15 @@
 
           },
         shop(){
-          this.$axios.post('/commodity/submitOrderByUserId',[{
+          this.$axios.post('/order/submitOrderByUserId',[{
             commodityId:this.commodity.commodityId,
             chooseNumber:this.chooseNumber
           }]).then(res=>{
 
             if (this.$store.getters.getResultDispose(res)){
-              this.$axios.post('/order/payOrderByUserId',{
+              this.$axios.get('/order/payOrderByUserId',{
                 params:{
-                  orderId:res.data.data
+                  orderTime:res.data.data
                 }
               }).then(res=>{
                 if (this.$store.getters.getResultDispose(res))

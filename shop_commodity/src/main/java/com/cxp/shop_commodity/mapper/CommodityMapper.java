@@ -3,7 +3,6 @@ package com.cxp.shop_commodity.mapper;
 import com.cxp.shop_api.dto.CommodityNumberChange;
 import com.cxp.shop_api.dto.CommodityToOrder;
 import com.cxp.shop_api.entity.Commodity;
-import com.cxp.shop_api.entity.OrderSon;
 import com.cxp.shop_api.request.SearchRequest;
 import com.cxp.shop_api.vo.*;
 import org.apache.ibatis.annotations.MapKey;
@@ -59,7 +58,7 @@ public interface CommodityMapper {
     public Map<Integer, FavoriteCommodityVO> mapFavoriteCommodityVO(List<Integer> commodityIdList);
     //查询商品信息用于形成订单
     @MapKey("commodityId")
-    public Map<Integer, CommodityToOrder> selCommodityToOrderMap(List<OrderSon> orderSonList);
+    public Map<Integer, CommodityToOrder> mapCommodityToOrder(List<Integer> commodityIdList);
 
     //用于加入购物车 返回数量判断是否用户购买自己的视频
     @Select("select count(*) from commodity where store_id = #{userId} and commodity_id = #{commodityId}  ")

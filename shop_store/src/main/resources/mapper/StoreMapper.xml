@@ -23,4 +23,14 @@
         where store_name like #{searchWord}
     </select>
 
+
+    <select id="mapStoreNameByStoreId" resultType="com.cxp.shop_store.pojo.StoreIdStoreName">
+        select store_id,store_name
+        from store
+        where store_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
 </mapper>
