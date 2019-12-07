@@ -7,7 +7,7 @@
 
 ### 项目描述:
 项目采用前后端分离技术，前端通过vue、BootStrap进行用户交互和数据展示，后台通过SpringCloud 对项目按功能模块进行划分，并通过Feign实现服务交互与负载均衡。前后端使用http协议进行数据交互，共同完成 用户身份验证、商品信息可视化、金融交易，等业务流程处理。
-作品用时一个半月，用于近期的校招和几个月后的毕业设计
+作品用时一个半月，用于近期的校招和几个月后的毕业设计，设计不易，转载记得标明原处
 
 ## [>>效果展示<<](#xiaoGuo)
 #### 源码：	[https://github.com/cxp-Git/TianGou](https://github.com/cxp-Git/TianGou)
@@ -112,7 +112,7 @@
 2、zuul 网关设置过滤器对指定uri进行token验证，并添加userId参数   
 3、redis 保存 Key=> token ， Value=> userId 键值对 
 * 购物：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191110111641382.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTQyMzM3OA==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191207163910118.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTQyMzM3OA==,size_16,color_FFFFFF,t_70)
 * 后台统一返回一定格式数据
 
 ```java
