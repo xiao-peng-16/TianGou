@@ -35,7 +35,7 @@
         let tempThis = this;
         this.timer = setInterval(function () {
           var nowData = new Date();
-          var times = (tar - nowData) / 1000;
+          var times = (tar - nowData);
           if (0 < times){
             var h = target_hour - nowData.getHours()
             tempThis.hour = h < 10 ? '0' + h : h;

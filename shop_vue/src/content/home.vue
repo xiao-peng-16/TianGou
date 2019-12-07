@@ -127,7 +127,7 @@
     import home_user_1 from "@/assets/home_user_1.png";
     import home_user_2 from "@/assets/home_user_2.png";
     import Long_swiper from "@/components/long_swiper";
-    import Countdown from "@/components/countdown";
+    import Countdown from "@/components/countDown";
 
 
     export default {
