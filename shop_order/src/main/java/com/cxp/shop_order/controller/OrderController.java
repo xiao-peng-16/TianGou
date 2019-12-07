@@ -62,13 +62,27 @@ public class OrderController {
     }
 
     //前端接口
+    //用户看自己所有 购物订单   粗略内容
+    @RequestMapping("/listUserOrderParentRoughByUserId")
+    public ResultBean listUserOrderParentRoughByUserId(Integer userId, Integer orderState){
+        return ResultFactory.createSuccessResult(orderService.listUserOrderParentRough(userId, orderState));
+    }
+
+
+    //前端接口
     //店铺中心 所有某一个订单 详细内容
     @RequestMapping("/selStoreOrderParentByUserId")
     public ResultBean selStoreOrderParentByUserId(Integer userId, Integer orderId){
         return ResultFactory.createSuccessResult(orderService.selStoreOrderParent(userId, orderId));
     }
 
-
     //前端接口
-    //用户看自己所有 购物订单   粗略内容
+    //店铺中心 所有某一个订单 详细内容
+    @RequestMapping("/selUserOrderParentByUserId")
+    public ResultBean selUserOrderParentByUserId(Integer userId, Integer orderId){
+        return ResultFactory.createSuccessResult(orderService.selUserOrderParent(userId, orderId));
+    }
+
+
+
 }

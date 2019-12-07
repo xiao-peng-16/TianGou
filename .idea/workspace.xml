@@ -2,41 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba7746b0-eb01-4fa4-bb05-ac7b9d1c947e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/StoreFeignClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/utils/SubmitOrderUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/pojo/StoreIdStoreName.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderParent.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderParent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderSon.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderSon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/result/ResultStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/result/ResultStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/vo/OrderGeneraVO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/controller/CommodityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/controller/CommodityController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/mapper/CommodityMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/mapper/CommodityMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/CommodityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/CommodityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/FeignClient/OrderFeignClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/impl/CommodityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/impl/CommodityServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/resources/mapper/CommodityMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/resources/mapper/CommodityMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderIdCommodityIdHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderIdCommodityIdHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderIdKeyMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderIdKeyMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/CommodityFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/CommodityFeignClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/impl/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/resources/mapper/OrderIdKeyMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/resources/mapper/OrderIdKeyMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/resources/mapper/OrderMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/resources/mapper/OrderMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/controller/StoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/controller/StoreController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/mapper/StoreMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/mapper/StoreMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/service/StoreService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/service/StoreService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/service/impl/StoreServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/service/impl/StoreServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_store/src/main/resources/mapper/StoreMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/resources/mapper/StoreMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/nav_top.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/nav_top.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/user_center/changeUserPhoto.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/user_center/changeUserPhoto.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/home.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/store_center.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/store_center.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/user_center.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/user_center.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/store/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/数据库文件.sql" beforeDir="false" afterPath="$PROJECT_DIR$/数据库文件.sql" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -198,6 +164,7 @@
       <workItem from="1575549679002" duration="63000" />
       <workItem from="1575605510020" duration="3671000" />
       <workItem from="1575640167474" duration="8000" />
+      <workItem from="1575646233801" duration="93000" />
     </task>
     <task id="LOCAL-00001" summary="shop">
       <created>1575094500813</created>
@@ -360,17 +327,23 @@
       <option name="project" value="LOCAL" />
       <updated>1575549707854</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="cxp_shop">
+      <created>1575646278960</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1575646278960</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18459000" />
+    <option name="totallyTimeSpent" value="18552000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16107382" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16308725" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />

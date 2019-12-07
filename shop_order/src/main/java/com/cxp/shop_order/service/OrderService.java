@@ -26,9 +26,15 @@ public interface OrderService {
 
     //查询该卖家所有订单 总体内容
     public List<OrderParent> listStoreOrderParentRough(Integer storeId);
+    //查询该用户所有订单 总体内容
+    public List<OrderParent> listUserOrderParentRough(Integer userId, Integer orderState);
+
+
     //查询该卖家某一个订单 详细内容
-    public OrderParent selStoreOrderParent(Integer userId, Integer orderId);
-//    //查询该买家所有订单 总体内容
-//    public List<OrderGeneraVO> listUserOrderGeneraVO(Integer userId);
+    public OrderParent selStoreOrderParent(Integer storeId, Integer orderId);
+    //查询该用户某一个订单 详细内容
+    public OrderParent selUserOrderParent(Integer userId, Integer orderId);
+
+
 
 }

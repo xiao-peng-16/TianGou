@@ -178,6 +178,7 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderParent> listStoreOrderParentRough(Integer storeId) {
 
         List<OrderParent> orderParentList = orderMapper.listStoreOrderParent(storeId);
+        if (0 == orderParentList.size()) return null;
 
         Map<Integer, List<OrderCommodityVO>> orderId_OrderCommodityVOList_Map = mapOrderId_OrderCommodityVOList(orderParentList);
 
@@ -187,6 +188,25 @@ public class OrderServiceImpl implements OrderService {
 
         for (OrderParent orderParent : orderParentList){
             orderParent.setUserName(userNameByUserId.get(orderParent.getUserId()));
+            orderParent.setOrderCommodityVOList(orderId_OrderCommodityVOList_Map.get(orderParent.getOrderId()));
+        }
+        return orderParentList;
+    }
+
+    @Override
+    public List<OrderParent> listUserOrderParentRough(Integer userId, Integer orderState) {
+
+        List<OrderParent> orderParentList = orderMapper.listUserOrderParent(userId, orderState);
+        if (0 == orderParentList.size()) return null;
+
+        Map<Integer, List<OrderCommodityVO>> orderId_OrderCommodityVOList_Map = mapOrderId_OrderCommodityVOList(orderParentList);
+
+        //查询买家用户名 根据userId
+        List<Integer> storeIdList = orderParentList.stream().map(e ->e.getStoreId()).distinct().collect(Collectors.toList());
+        Map<Integer, String> storeNameByStoreId = storeFeignClient.mapStoreNameByStoreId(storeIdList);
+
+        for (OrderParent orderParent : orderParentList){
+            orderParent.setStoreName(storeNameByStoreId.get(orderParent.getStoreId()));
             orderParent.setOrderCommodityVOList(orderId_OrderCommodityVOList_Map.get(orderParent.getOrderId()));
         }
         return orderParentList;
@@ -210,18 +230,20 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderParent selStoreOrderParent(Integer userId, Integer orderId) {
+    public OrderParent selStoreOrderParent(Integer storeId, Integer orderId) {
         OrderParent orderParent = selOrderParent(orderId);
-        if (null == orderParent || userId != orderParent.getStoreId())
+        if (null == orderParent || storeId != orderParent.getStoreId())
             return null;
         return orderParent;
     }
-//
-//    @Override
-//    public List<OrderGeneraVO> listUserOrderGeneraVO(Integer userId) {
-//        return null;
-//    }
-//
+
+    @Override
+    public OrderParent selUserOrderParent(Integer userId, Integer orderId) {
+        OrderParent orderParent = selOrderParent(orderId);
+        if (null == orderParent || userId != orderParent.getUserId())
+            return null;
+        return orderParent;
+    }
 
 
 

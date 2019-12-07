@@ -78,7 +78,7 @@
         select  * from order_parent
         where user_id = #{userId}
         <if test="null != orderState">
-            and order_state = orderState
+            and order_state = #{orderState}
         </if>
         order by order_id desc
     </select>
