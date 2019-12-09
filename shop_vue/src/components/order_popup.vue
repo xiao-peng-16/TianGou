@@ -187,7 +187,7 @@
   .orderParent_orderTime{
     position: absolute;
     left: 30px;
-    top: 23px;
+    top: 33px;
   }
   .orderParent_orderTime span{
     font-weight: 600;
@@ -195,7 +195,7 @@
   .orderParent_user_store_Name{
     position: absolute;
     left: 30px;
-    top: 0px;
+    top: 10px;
   }
   .orderParent_user_store_Name span{
     font-weight: 600;
@@ -209,7 +209,7 @@
   .orderParent_SunPrice{
     position: absolute;
     right: 20px;
-    top: 5px;
+    top: 17px;
     font-size: 20px;
     font-weight: 600
   }
