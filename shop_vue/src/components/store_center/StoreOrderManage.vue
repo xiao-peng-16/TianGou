@@ -9,7 +9,7 @@
           <span style="position: relative; left: 150px">商品信息</span>
           <span style="position: relative; left: 442px">买家</span>
           <span style="position: relative; left: 560px">收益总额</span>
-          <span style="position: relative; left: 688px">交易时间</span>
+          <span style="position: relative; left: 688px">下单时间</span>
         </div>
 
         <div style="height: 30px;"></div>

@@ -132,16 +132,8 @@
             commodityId:this.commodity.commodityId,
             chooseNumber:this.chooseNumber
           }]).then(res=>{
-
             if (this.$store.getters.getResultDispose(res)){
-              this.$axios.get('/order/payOrderByUserId',{
-                params:{
-                  orderTime:res.data.data
-                }
-              }).then(res=>{
-                if (this.$store.getters.getResultDispose(res))
-                  this.$router.push({name:'shop_success'});
-              })
+              this.$router.push({name:'shop_success'});
             }
           })
         },

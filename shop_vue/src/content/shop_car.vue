@@ -219,18 +219,10 @@
             if (shopCarList.length ==0){
               return;
             }
-            this.$axios.post('/car/ShopCarSubmitOrderByUserId',shopCarList)
+            this.$axios.post('/car/ ShopCarSubmitOrderByUserId',shopCarList)
               .then(res=>{
                 if (this.$store.getters.getResultDispose(res)){
-                  this.$axios.get('/order/payOrderByUserId',{
-                    params:{
-                      orderTime:res.data.data
-                    }
-                  }).then(res=>{
-                    if (this.$store.getters.getResultDispose(res)){
-                      this.$router.push({name:'shop_success'});
-                    }
-                  });
+                  this.$router.push({name:'shop_success'});
                 }
               });
           },

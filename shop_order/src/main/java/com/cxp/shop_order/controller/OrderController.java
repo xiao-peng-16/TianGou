@@ -5,15 +5,15 @@ import com.cxp.shop_api.entity.OrderSon;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
 import com.cxp.shop_api.result.ResultStatus;
-import com.cxp.shop_order.eception.AddOrderException;
+import com.cxp.shop_order.eception.CommodityIdErrorException;
+import com.cxp.shop_order.eception.CommodityStockInsufficientException;
+import com.cxp.shop_order.eception.StoreEqualUserErrorException;
 import com.cxp.shop_order.service.impl.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
+import java.util.List;
 
 
 /*
@@ -27,24 +27,32 @@ public class OrderController {
     @Autowired
     OrderServiceImpl orderService;
 
-    static final ResultBean ORDER_Add_ERROR = ResultFactory.createFailResult(ResultStatus.ORDER_Add_ERROR);
+    static final ResultBean COMMODITY_STOCK_INSUFFICIENT = ResultFactory.createFailResult(ResultStatus.COMMODITY_STOCK_INSUFFICIENT);
+    static final ResultBean COMMODITY_ID_ERROR = ResultFactory.createFailResult(ResultStatus.COMMODITY_ID_ERROR);
+    static final ResultBean STORE_EQUAL_USER_ERROR = ResultFactory.createFailResult(ResultStatus.STORE_EQUAL_USER_ERROR);
+
 
     // 前端接口
     //提交订单
     @RequestMapping("/submitOrderByUserId")
     public  ResultBean submitOrderByUserId(Integer userId, @RequestBody LinkedList<OrderSon> orderSonList){
         try {
-            return orderService.submitOrder( userId,  orderSonList);
-        } catch (AddOrderException e) {
-            return ORDER_Add_ERROR;
+            List<Integer> orderIdList = orderService.submitOrder(userId, orderSonList);
+            return payOrderByUserId(userId, orderIdList);
+        } catch (CommodityStockInsufficientException e) {
+            return COMMODITY_STOCK_INSUFFICIENT;
+        } catch (CommodityIdErrorException e) {
+            return COMMODITY_ID_ERROR;
+        } catch (StoreEqualUserErrorException e) {
+            return STORE_EQUAL_USER_ERROR;
         }
     }
 
     // 前端接口
     //支付订单
-    @RequestMapping("/payOrderByUserId")
-    public ResultBean payOrderByUserId(Integer userId, String orderTime){
-        return orderService.payOrderByUserId(userId, orderTime);
+    @PostMapping("/payOrderByUserId")
+    public ResultBean payOrderByUserId(Integer userId, @RequestBody List<Integer> orderIdList){
+        return orderService.payOrderByUserId(userId, orderIdList);
     }
 
     // 前端接口

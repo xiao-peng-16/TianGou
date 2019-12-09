@@ -30,7 +30,6 @@
 
 
 
-
   </div>
 </template>
 
@@ -39,16 +38,18 @@
   import Hint_popup from "@/components/hint_popup";
   import changeUserPhoto from "@/components/user_center/changeUserPhoto";
   import changeUserPassword from "@/components/user_center/changeUserPassword";
+  import UserOrderWaitPayment from "@/components/user_center/userOrderWaitPayment";
 
   export default {
     name: "user_center",
-    components: {Hint_popup,  Nav_top, changeUserPhoto, changeUserPassword},
+    components: {UserOrderWaitPayment, Hint_popup,  Nav_top, changeUserPhoto, changeUserPassword},
     data(){
       return{
         options_list_list:[
           [
             {
               title:'已付款',
+              components:'userOrderWaitPayment'
             },
             {
               title:'待付款',

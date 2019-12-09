@@ -21,16 +21,16 @@ public interface OrderMapper<CommodityNumberChange> {
 
 
     //拿 店铺id（收钱方）、转账金额，  用于user微服务转账
-    public LinkedList<MoneyChange> ListMoneyChangeByuserIdOrderTime(@Param("userId")int userId, @Param("orderTime") String orderTime);
+    public LinkedList<MoneyChange> ListMoneyChangeByuserIdOrderId(@Param("userId")int userId, @Param("orderIdList") List<Integer> orderIdList);
 
 
 
     //刷新订单状态
-    public int updOrderStateByuserIdOrderTime(@Param("userId")int userId, @Param("orderTime") String orderTime);
+    public int updOrderStateByuserIdOrderId(@Param("userId")int userId, @Param("orderIdList") List<Integer> orderIdList);
 
 
     //获取订单中 商品id 和 数量
-    public List<CommodityNumberChange> selChooseNumber(@Param("userId")int userId, @Param("orderTime") String orderTime);
+    public List<CommodityNumberChange> selChooseNumberByOrderId(@Param("userId")int userId, @Param("orderIdList") List<Integer> orderIdList);
 
 
 

@@ -10,7 +10,9 @@ import com.cxp.shop_api.result.ResultFactory;
 import com.cxp.shop_api.result.ResultStatus;
 import com.cxp.shop_api.vo.OrderCommodityVO;
 import com.cxp.shop_api.vo.StoreStatusFullVO;
-import com.cxp.shop_order.eception.AddOrderException;
+import com.cxp.shop_order.eception.CommodityIdErrorException;
+import com.cxp.shop_order.eception.CommodityStockInsufficientException;
+import com.cxp.shop_order.eception.StoreEqualUserErrorException;
 import com.cxp.shop_order.mapper.OrderIdKeyMapper;
 import com.cxp.shop_order.mapper.OrderMapper;
 import com.cxp.shop_order.service.FeignClient.CommodityFeignClient;
@@ -41,15 +43,16 @@ public class OrderServiceImpl implements OrderService {
     StoreFeignClient storeFeignClient;
 
 
-    static final AddOrderException ADD_ORDER_EXCEPTION = new AddOrderException();
     static final ResultBean successResult = ResultFactory.createSuccessResult();
     static final ResultBean ORDER_NOT_FIND =ResultFactory.createFailResult(ResultStatus.ORDER_NOT_FIND);
     static final ResultBean ORDER_ID_USER_ID_MISMATCHING =ResultFactory.createFailResult(ResultStatus.ORDER_ID_USER_ID_MISMATCHING);
     static final ResultBean ORDER_SUBMIT_ERROR =ResultFactory.createFailResult(ResultStatus.ORDER_SUBMIT_ERROR);
 
-    static final ResultBean COMMODITY_ID_ERROR = ResultFactory.createFailResult(ResultStatus.COMMODITY_ID_ERROR);
-    static final ResultBean COMMODITY_STOCK_INSUFFICIENT = ResultFactory.createFailResult(ResultStatus.COMMODITY_STOCK_INSUFFICIENT);
-    static final ResultBean STORE_EQUAL_USER_ERROR = ResultFactory.createFailResult(ResultStatus.STORE_EQUAL_USER_ERROR);
+
+
+    static final CommodityIdErrorException COMMODITY_ID_ERROR_EXCEPTION = new CommodityIdErrorException();
+    static final CommodityStockInsufficientException COMMODITY_STOCK_INSUFFICIENT_EXCEPTION = new CommodityStockInsufficientException();
+    static final StoreEqualUserErrorException STORE_EQUAL_USER_ERROR_EXCEPTION = new StoreEqualUserErrorException();
 
 
 
@@ -59,9 +62,9 @@ public class OrderServiceImpl implements OrderService {
 
 
 
-    @Transactional(rollbackFor = AddOrderException.class)
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public ResultBean submitOrder(Integer userId, LinkedList<OrderSon> orderSonList) throws AddOrderException {
+    public List<Integer> submitOrder(Integer userId, LinkedList<OrderSon> orderSonList) throws CommodityIdErrorException, CommodityStockInsufficientException, StoreEqualUserErrorException {
 
 
         SubmitOrderUtils submitOrderUtils = new SubmitOrderUtils(userId);
@@ -70,17 +73,17 @@ public class OrderServiceImpl implements OrderService {
 
         //找不到任何商品信息 商品信息一个都找不到
         if (0 ==commodityIdToOrderMap.size())   //购物车中
-            return COMMODITY_ID_ERROR;
+            throw COMMODITY_ID_ERROR_EXCEPTION;
         //直接从商品页购买 或购物车只有一件商品
         if (1 == orderSonList.size()){
             OrderSon orderSon = orderSonList.get(0);
             CommodityToOrder commodityToOrder = commodityIdToOrderMap.get(orderSon.getCommodityId());
             if (0 ==commodityIdToOrderMap.size())
-                return COMMODITY_ID_ERROR;
+                throw COMMODITY_ID_ERROR_EXCEPTION;
             if (userId == commodityToOrder.getStoreId())
-                return STORE_EQUAL_USER_ERROR;
+                throw STORE_EQUAL_USER_ERROR_EXCEPTION;
             if (commodityToOrder.getCommodityStock() < orderSon.getChooseNumber())
-                return COMMODITY_STOCK_INSUFFICIENT;
+                throw  COMMODITY_STOCK_INSUFFICIENT_EXCEPTION;
             submitOrderUtils.work(orderSon, commodityToOrder);
 
         }else { //加入购物车的  都不存在用户购买自己商品的问题，有问题加入不了购物车
@@ -93,21 +96,20 @@ public class OrderServiceImpl implements OrderService {
                 submitOrderUtils.work(orderSon, commodityToOrder);
             }
             if (0 ==orderSonList.size())          //购物车中 剩下 商品库存都不足
-                return COMMODITY_STOCK_INSUFFICIENT;
+                throw  COMMODITY_STOCK_INSUFFICIENT_EXCEPTION;
         }
 
-        Map<Integer, OrderParent> storeId_orderParentMap = submitOrderUtils.result();
-        List<OrderParent> orderParentList = storeId_orderParentMap.entrySet().stream().map(e -> e.getValue()).collect(Collectors.toList());
+        List<OrderParent> orderParentList = submitOrderUtils.popResult().entrySet().stream().map(e -> e.getValue()).collect(Collectors.toList());
         //设置orderSon 的订单号
         orderMapper.insOrderParent(orderParentList);
-        storeId_orderParentMap.entrySet().stream().forEach(e -> {
-            int orderId = e.getValue().getOrderId();
-            List<OrderSon> orderSonList1 = e.getValue().getOrderSonList();
+        orderParentList.stream().forEach(e -> {
+            int orderId = e.getOrderId();
+            List<OrderSon> orderSonList1 = e.getOrderSonList();
             orderSonList1.stream().forEach(orderSon -> orderSon.setOrderId(orderId));
         });
         orderMapper.insOrderSon(orderSonList);
 
-        return ResultFactory.createSuccessResult(submitOrderUtils.getOrderTime());
+        return orderParentList.stream().map(e -> e.getOrderId()).collect(Collectors.toList());
     }
 
 
@@ -116,11 +118,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public ResultBean payOrderByUserId(int userId, String orderTime) {
+    public ResultBean payOrderByUserId(int userId, List<Integer> orderIdList) {
 
+
+        if (0 ==orderIdList.size())
+            return ORDER_NOT_FIND;
 
         //转账
-        LinkedList<MoneyChange> moneyChangeLinkedList = orderMapper.ListMoneyChangeByuserIdOrderTime(userId, orderTime);
+        LinkedList<MoneyChange> moneyChangeLinkedList = orderMapper.ListMoneyChangeByuserIdOrderId(userId, orderIdList);
         if (0 == moneyChangeLinkedList.size()){
             return ORDER_NOT_FIND;
         }
@@ -130,10 +135,10 @@ public class OrderServiceImpl implements OrderService {
 
         //刷新支付状态
         if (resultBean.isSuccess()){
-            if (0 == orderMapper.updOrderStateByuserIdOrderTime(userId, orderTime))   //刷新支付状态
+            if (0 == orderMapper.updOrderStateByuserIdOrderId(userId, orderIdList))   //刷新支付状态
                 return ORDER_SUBMIT_ERROR;
             //修改商品库存 销量
-            List<CommodityNumberChange> commodityNumberChangeList = orderMapper.selChooseNumber(userId, orderTime);
+            List<CommodityNumberChange> commodityNumberChangeList = orderMapper.selChooseNumberByOrderId(userId, orderIdList);
             resultBean = commodityFeignClient.updCommodityNumber(commodityNumberChangeList);
         }
         return resultBean;

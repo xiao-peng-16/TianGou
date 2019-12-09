@@ -30,25 +30,37 @@
 
 
 
-    <select id="ListMoneyChangeByuserIdOrderTime" resultType="com.cxp.shop_api.dto.MoneyChange">
+    <select id="ListMoneyChangeByuserIdOrderId" resultType="com.cxp.shop_api.dto.MoneyChange">
         select store_id user_id, order_sum_price from order_parent
 --         下的的人是我  这个时间点下的单  改订单处于待付款
-        where user_id = #{userId} and  order_time = #{orderTime} and order_state = 0
+        where user_id = #{userId} and  order_state = 0
+        and order_id in
+        <foreach collection="orderIdList" open="(" close=")" item="item" separator=",">
+            #{item}
+        </foreach>
     </select>
 
 
-    <update id="updOrderStateByuserIdOrderTime">
+    <update id="updOrderStateByuserIdOrderId">
         update order_parent set order_state = 1
 --         下的的人是我  这个时间点下的单  改订单处于待付款
-        where user_id = #{userId} and  order_time = #{orderTime} and order_state = 0
+        where user_id = #{userId} and order_state = 0
+        and order_id in
+        <foreach collection="orderIdList" open="(" close=")" item="item" separator=",">
+            #{item}
+        </foreach>
     </update>
 
 
 
-    <select id="selChooseNumber" resultType="com.cxp.shop_api.dto.CommodityNumberChange">
+    <select id="selChooseNumberByOrderId" resultType="com.cxp.shop_api.dto.CommodityNumberChange">
         select commodity_id,choose_number  from order_son
         inner join order_parent on order_son.order_id = order_parent.order_id
-        where user_id = #{userId} and  order_time = #{orderTime} and order_state = 1
+        where user_id = #{userId} and order_state = 1
+        and order_parent.order_id in
+        <foreach collection="orderIdList" open="(" close=")" item="item" separator=",">
+            #{item}
+        </foreach>
     </select>
 
 

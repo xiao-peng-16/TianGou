@@ -22,13 +22,7 @@ public class SubmitOrderUtils  {
         this.userId = userId;
     }
 
-    public String getOrderTime() {
-        return orderTime;
-    }
 
-    public Map<Integer, OrderParent> result(){
-        return storeId_orderParentMap;
-    }
 
 
     public void work(OrderSon orderSon, CommodityToOrder commodityToOrder){
@@ -55,6 +49,12 @@ public class SubmitOrderUtils  {
 
 
 
+    public Map<Integer, OrderParent> popResult(){
+
+        Map<Integer, OrderParent> map = storeId_orderParentMap;
+        storeId_orderParentMap = null;
+        return map;
+    }
 
 
 

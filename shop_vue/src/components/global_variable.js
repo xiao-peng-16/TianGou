@@ -7,6 +7,15 @@ export default {
   store_center_background: '#F8F8F8',
 
 
+
+  userOrderState:{
+    WAIT_PAYMENT : 0,   //待付款
+    WAIT_SHIPMENTS : 1, //待发货
+    WAIT_RECEIVING : 2, //待收货
+    WAIT_EVALUATED : 2, //待评价
+  },
+
+
   ResultStatus: {
     //user 2xx
     USER_NAME_DISABLED : 201,           //用户名不可用  重复了
