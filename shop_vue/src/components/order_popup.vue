@@ -175,7 +175,7 @@
 
 
   .orderSon_bottom{
-    float: bottom;
+    /*float: bottom;*/
     position: fixed;
     z-index: 250;
     height: 55px;

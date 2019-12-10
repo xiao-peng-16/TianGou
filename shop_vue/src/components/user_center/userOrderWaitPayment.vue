@@ -1,15 +1,16 @@
 <template>
-  <div  :style="{background:this.GLOBAL.store_center_background}">
+  <div  style="background: #F8F8F8">
 
 
-    <order_popup :order-parent="orderParent" :refresh_popup_flag="refresh_popup_flag"/>
+    <order_popup :order-parent="orderParent" :refresh_popup_flag="refresh_popup_flag" style="z-index: 9999999"/>
 
     <div style="padding-left: 15px">
-      <div style="z-index: 10;position: fixed;height: 30px;width: 1080px;" :style="{background:this.GLOBAL.store_center_background}">
+      <div style="z-index: 10;position: fixed;height: 30px;width: 1080px;background: #F8F8F8" >
         <span style="position: relative; left: 150px">商品信息</span>
-        <span style="position: relative; left: 442px">店铺</span>
-        <span style="position: relative; left: 560px">总付款</span>
-        <span style="position: relative; left: 688px">交易时间</span>
+        <span style="position: relative; left: 425px">店铺</span>
+        <span style="position: relative; left: 530px">总付款</span>
+        <span style="position: relative; left: 638px">下单时间</span>
+        <span style="position: relative; left: 740px">支付状态</span>
       </div>
 
       <div style="height: 30px;"></div>
@@ -41,11 +42,12 @@
           </div>
           <div class="orderTime">
             <span>{{item.orderTime}}</span>
-
+          </div>
+          <div class="userOrderState">
+            <span>{{return_userOrderState(item.orderState)}}</span>
           </div>
         </div>
       </div>
-
 
 
     </div>
@@ -71,6 +73,14 @@
     },
 
     methods:{
+      return_userOrderState(val){
+        switch (val) {
+          case this.GLOBAL.userOrderState.WAIT_PAYMENT:   return '待支付';
+          case this.GLOBAL.userOrderState.WAIT_SHIPMENTS: return '待发货';
+          case this.GLOBAL.userOrderState.WAIT_RECEIVING: return '待收货';
+          case this.GLOBAL.userOrderState.WAIT_EVALUATED: return '待评价';
+        }
+      },
       click_img(commodityId){
         this.$router.push({name:'commodityPage',query:{commodityId}})
       },
@@ -130,6 +140,7 @@
 
 <style scoped>
 
+
   .listBox{
     height: 100%;
   }
@@ -172,7 +183,7 @@
   }
 
   .cNameBox{
-    width: 300px;
+    width: 280px;
     float: left;
     position: absolute;
     left: 145px;
@@ -180,7 +191,7 @@
   }
 
   .cNameboxItem{
-    width: 300px;
+    width: 280px;
     display: block;
     overflow: hidden;
     text-overflow:ellipsis;
@@ -188,15 +199,16 @@
   }
 
   .userName{
-    width:160px;
+    text-align: center;
+    width:120px;
     position: absolute;
-    left: 510px;
+    left: 450px;
     top: 50px;
   }
   .orderSumPrice{
     width:150px;
     position: absolute;
-    left: 660px;
+    left: 630px;
     top: 50px;
 
   }
@@ -204,10 +216,15 @@
   .orderTime{
     width:300px;
     position: absolute;
-    left: 825px;
+    left: 775px;
     top: 50px;
   }
 
 
+  .userOrderState{
+    position: absolute;
+    left: 970px;
+    top: 50px;
+  }
 
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <div  :style="{background:this.GLOBAL.store_center_background}">
+  <div  style="background: #F8F8F8">
     <div style="padding-left: 15px">
-      <div style="z-index: 10;position: fixed;height: 30px;width: 1080px;" :style="{background:this.GLOBAL.store_center_background}">
+      <div style="z-index: 10;position: fixed;height: 30px;width: 1080px;background: #F8F8F8" >
         <span style="position: relative; left: 150px">商品信息</span>
         <span style="position: relative; left: 450px">单价</span>
         <span style="position: relative; left: 560px">销量</span>

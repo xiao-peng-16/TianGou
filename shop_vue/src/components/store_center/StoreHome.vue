@@ -1,5 +1,5 @@
 <template>
-  <div style="padding-top: 1px;width: 1360px">
+  <div style="padding-top: 1px;width: 1080px">
 
     <div class="top">
       <img :src="show_userPhotoURL" style="padding-left: 13px;">

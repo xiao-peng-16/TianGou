@@ -4,7 +4,7 @@ export default {
 
   baseURL: "http://127.0.0.1:7010",
 
-  store_center_background: '#F8F8F8',
+  store_center_background: '',
 
 
 

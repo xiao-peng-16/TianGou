@@ -1,9 +1,8 @@
 <template>
   <div>
     <nav_top :flag_fixed="true" :flag_scroll="true" />
-    <div style="position: fixed;width: 100%;height: 70px; background: white;z-index: 100;padding-top: 10px;border-bottom: 1px solid #DADADA">
+    <div style="position: fixed;width: 100%;height: 110px;padding-top: 50px; background: white;z-index: 100;border-bottom: 1px solid #DADADA">
       <img  src="../assets/tmall.jpg" style="float: left">
-
       <div class="top_box">
         <span id="title">— 用户中心 —</span>
         <div class="top_options">
@@ -14,7 +13,7 @@
     </div>
 
 
-    <div class="buttom" style="margin-top: 70px">
+    <div class="buttom">
       <div class="left" >
         <div v-for="(item, index) in options_list_list[top_options]" @click="click_left_options(index)"  :class="{optionsBox:left_options==index,not_optionsBox:left_options!=index}">
           <span>{{item.title}}</span>
@@ -22,9 +21,8 @@
       </div>
 
 
-
-      <div class="right">
-        <component :is="optionsComponents" style="z-index:0;padding-left: 280px"/>
+      <div class="right" :class="{flag_background:flag_background}">
+        <component :is="optionsComponents"/>
       </div>
     </div>
 
@@ -90,6 +88,10 @@
         if (undefined == item || undefined == item.components)
           return;
         return  item.components;
+      },
+      flag_background(){
+        return this.top_options == 0;
+
       }
     },
     watch:{
@@ -141,14 +143,6 @@
   }
 
 
-
-
-  .buttom{
-    margin-top: 10px;
-  }
-
-
-
   .optionsBox{
     background: #292929;
     border-left: 2px solid #F28328;
@@ -158,7 +152,23 @@
     border-left: 2px solid #333333;
 
   }
+
+
+  .flag_background{
+    background: #F8F8F8;
+  }
+
+  .right{
+    width: 100%;
+    position: absolute;
+    padding-left: 280px;
+    padding-top: 110px;
+    height: 100%;
+  }
+
   .left{
+    padding-top: 112px;
+
     width: 260px;
     height: 100%;
     background: #333333;
@@ -175,10 +185,7 @@
   }
 
 
-  .right{
-    width: 100%;
-    position: absolute;
-  }
+
 
 
 </style>

@@ -1,13 +1,13 @@
 <template>
-    <div  :style="{background:this.GLOBAL.store_center_background}">
+  <div  style="background: #F8F8F8">
 
 
-      <order_popup :order-parent="orderParent" :refresh_popup_flag="refresh_popup_flag"/>
+      <order_popup :order-parent="orderParent" :refresh_popup_flag="refresh_popup_flag" style="z-index: 9999999"/>
 
       <div style="padding-left: 15px">
-        <div style="z-index: 10;position: fixed;height: 30px;width: 1080px;" :style="{background:this.GLOBAL.store_center_background}">
+        <div style="z-index: 10;position: fixed;height: 30px;width: 1080px;background: #F8F8F8" >
           <span style="position: relative; left: 150px">商品信息</span>
-          <span style="position: relative; left: 442px">买家</span>
+          <span style="position: relative; left: 445px">买家</span>
           <span style="position: relative; left: 560px">收益总额</span>
           <span style="position: relative; left: 688px">下单时间</span>
         </div>
@@ -45,7 +45,6 @@
             </div>
           </div>
         </div>
-
 
 
       </div>
@@ -186,9 +185,10 @@
   }
 
   .userName{
-    width:160px;
+    text-align: center;
+    width:120px;
     position: absolute;
-    left: 510px;
+    left: 470px;
     top: 50px;
   }
   .orderSumPrice{

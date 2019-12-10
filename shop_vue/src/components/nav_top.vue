@@ -1,6 +1,6 @@
 <template>
-    <div class="nav_top_box">
-      <div class="nav_top" ref="nav_top" :class="{flag_fixed:flag_fixed}">
+    <div class="nav_top_box"  :class="{flag_fixed:flag_fixed}">
+      <div class="nav_top" ref="nav_top">
 
         <div class="container">
 
@@ -179,11 +179,11 @@
 
   .flag_fixed{
     position: fixed;
+    z-index: 999;
   }
 
   .nav_top_box{
     width: 100%;
-    height: 35px;
     background:#f5f5f5;
     font: 12px/1.5 tahoma,arial,'Hiragino Sans GB','\5b8b\4f53',sans-serif;
   }
@@ -193,7 +193,6 @@
     height: 35px;
     background:#f5f5f5;
 
-    z-index: 999;
     border-bottom: 1px solid #eee;
   }
 
@@ -221,7 +220,6 @@
   }
   li{
     cursor: pointer;
-    height: 100%;
     padding-top: 8px;
   }
   li:not(.options_list):hover span{
@@ -281,9 +279,6 @@
   }
   .options_list .options_list_content{
     background: white;
-  }
-  .options_list ul{
-    margin-top: 9px;
   }
   .options_list li{
     padding: 0px 5px;
