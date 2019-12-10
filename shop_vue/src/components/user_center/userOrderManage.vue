@@ -44,7 +44,7 @@
             <span>{{item.orderTime}}</span>
           </div>
           <div class="userOrderState">
-            <span>{{return_userOrderState(item.orderState)}}</span>
+            <span>{{return_userOrderState_word(item.orderState)}}</span>
           </div>
         </div>
       </div>
@@ -71,14 +71,34 @@
         refresh_popup_flag:0,
       }
     },
+    computed:{
+      user_center_left_son_options(){
+        return this.$store.state.user_center_left_son_options;
+      }
+    },
+    watch:{
+      user_center_left_son_options(){
+        this.init();
+      }
+    },
 
     methods:{
-      return_userOrderState(val){
+      return_userOrderState_word(val){
         switch (val) {
-          case this.GLOBAL.userOrderState.WAIT_PAYMENT:   return '待支付';
+          case this.GLOBAL.userOrderState.WAIT_PAYMENT:   return '待付款';
           case this.GLOBAL.userOrderState.WAIT_SHIPMENTS: return '待发货';
           case this.GLOBAL.userOrderState.WAIT_RECEIVING: return '待收货';
           case this.GLOBAL.userOrderState.WAIT_EVALUATED: return '待评价';
+        }
+      },
+      return_userOrderStateByStore(){
+        switch (this.user_center_left_son_options) {
+          case 0: return undefined;
+          case 1: return this.GLOBAL.userOrderState.WAIT_PAYMENT;
+          case 2: return this.GLOBAL.userOrderState.WAIT_SHIPMENTS;
+          case 3: return this.GLOBAL.userOrderState.WAIT_RECEIVING;
+          case 4: return this.GLOBAL.userOrderState.WAIT_EVALUATED;
+          default: return undefined;
         }
       },
       click_img(commodityId){
@@ -107,15 +127,12 @@
           }
         });
       },
-
-
-
-    },
-    created() {
-
-
-      this.$axios.get('/order/listUserOrderParentRoughByUserId')
-        .then(res=>{
+      init(){
+        this.$axios.get('/order/listUserOrderParentRoughByUserId',{
+          params:{
+            orderState:this.return_userOrderStateByStore()
+          }
+        }).then(res=>{
           if (this.$store.getters.getResultDispose(res)) {
 
             this.orderParentRoughList = res.data.data;
@@ -134,6 +151,13 @@
 
           }
         });
+      }
+
+
+
+    },
+    created() {
+      this.init();
     }
   }
 </script>

@@ -15,9 +15,12 @@ export const store = new Vuex.Store({
       userName:undefined,
       userPhoto:undefined,
 
-      store_center_options:0,
+      store_center_left_options:0,
+
       user_center_top_options:0,
-      user_center_left_options:0
+      user_center_left_options:0,
+      user_center_left_son_options:undefined,
+
     },
   getters:{
       getResultDispose:function(state,getters){

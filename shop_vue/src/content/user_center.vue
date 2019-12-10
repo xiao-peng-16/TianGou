@@ -14,9 +14,15 @@
 
 
     <div class="buttom">
-      <div class="left" >
-        <div v-for="(item, index) in options_list_list[top_options]" @click="click_left_options(index)"  :class="{optionsBox:left_options==index,not_optionsBox:left_options!=index}">
-          <span>{{item.title}}</span>
+      <div class="left">
+        <div  v-for="(item, index) in left_list">
+          <div class="left_itemBox"  @click="click_left_options(index)"  :class="{optionsBox:left_options==index,not_optionsBox:left_options!=index}">
+            <span>{{item.title}}</span>
+            <span v-if="undefined!=item.son_list" style="font-size: 15px" class="iconfont">&#xe60f;</span>
+          </div>
+          <div v-if="undefined!=item.son_list && item.flag_show_son_list" class="left_itemBox_son" @click="click_left_son_options(index)" v-for="(son_item,index) in item.son_list" >
+            <span>{{son_item.title}}</span>
+          </div>
         </div>
       </div>
 
@@ -36,82 +42,126 @@
   import Hint_popup from "@/components/hint_popup";
   import changeUserPhoto from "@/components/user_center/changeUserPhoto";
   import changeUserPassword from "@/components/user_center/changeUserPassword";
-  import UserOrderWaitPayment from "@/components/user_center/userOrderWaitPayment";
+  import userOrderManage from "@/components/user_center/userOrderManage";
 
   export default {
     name: "user_center",
-    components: {UserOrderWaitPayment, Hint_popup,  Nav_top, changeUserPhoto, changeUserPassword},
+    components: {userOrderManage, Hint_popup,  Nav_top, changeUserPhoto, changeUserPassword},
     data(){
       return{
+        account_list:[
+          {
+            title:'更换头像',
+            components:'changeUserPhoto'
+          },
+          {
+            title:'修改密码',
+            components:'changeUserPassword'
+          },
+        ],
         options_list_list:[
-          [
-            {
-              title:'已付款',
-              components:'userOrderWaitPayment'
-            },
-            {
-              title:'待付款',
-            },
-            {
-              title:'我的购物车',
-              route:{name:'shop_car'}
-            },
-            {
-              title:'我的收藏夹',
-              route:{name:'favorite'}
-            },
-          ],
-          [
-            {
-              title:'更换头像',
-              components:'changeUserPhoto'
-            },
-            {
-              title:'修改密码',
-              components:'changeUserPassword'
-            },
-          ],
-
-
-        ]
+          {
+            title:'我的订单',
+            // components:'userOrderManage',
+            flag_show_son_list:false,
+            son_list:[
+              {
+                title:'所有订单',
+                components:'userOrderManage'
+              },
+              {
+                title:'待付款',
+                components:'userOrderManage'
+              },
+              {
+                title:'待发货',
+                components:'userOrderManage'
+              },{
+                title:'待收货',
+                components:'userOrderManage'
+              },
+              {
+                title:'待评价',
+                components:'userOrderManage'
+              },
+            ]
+          },
+          {
+            title:'我的购物车',
+            route:{name:'shop_car'}
+          },
+          {
+            title:'我的收藏夹',
+            route:{name:'favorite'}
+          },
+        ],
       }
     },
     computed:{
       top_options(){
+
+        if (this.$store.state.user_center_top_options == 0)
+          this.$store.state.user_center_left_son_options = 0;
+
         return this.$store.state.user_center_top_options;
       },
       left_options(){
         return this.$store.state.user_center_left_options;
       },
+      left_son_options(){
+        var user_center_left_son_options = this.$store.state.user_center_left_son_options;
+        if (undefined != user_center_left_son_options)
+          this.left_list[this.left_options ].flag_show_son_list = true;
+        return user_center_left_son_options;
+      },
+      left_list(){
+        return this.top_options == 0 ? this.options_list_list : this.account_list;
+      },
       optionsComponents(){
-        var item = this.options_list_list[this.top_options][this.left_options];
-        if (undefined == item || undefined == item.components)
-          return;
-        return  item.components;
+        if (undefined != this.left_son_options){
+          return this.left_list[this.left_options].son_list[this.left_son_options].components;
+        }
+
+        return  this.left_list[this.left_options].components;
       },
       flag_background(){
         return this.top_options == 0;
-
       }
     },
     watch:{
       top_options(){
         this.$store.state.user_center_left_options = 0;
-      }
+        this.$store.state.user_center_left_son_options = undefined;
+      },
+      left_options(){
+        this.$store.state.user_center_left_son_options = undefined;
+      },
     },
     methods:{
       click_left_options(val){
-        if (undefined != this.options_list_list[this.top_options][val].route){
-          this.$router.push(this.options_list_list[this.top_options][val].route)
-        }else
+        if (undefined != this.left_list[val].route){
+          this.$router.push(this.left_list[val].route)
+        }else if (this.$store.state.user_center_left_options == val && undefined != this.left_list[val].son_list){
+          this.left_list[val].flag_show_son_list = !this.left_list[val].flag_show_son_list;
+        } else{
           this.$store.state.user_center_left_options = val;
+        }
+      },
+      click_left_son_options(val){
+        this.$store.state.user_center_left_son_options = val;
       }
+    },
+    created() {
+
     }
   }
 </script>
 
 <style scoped>
 
+  .flag_background{
+    background: #F8F8F8;
+  }
   .top_box{
     position: relative;
     width: 100%;
@@ -154,9 +204,7 @@
   }
 
 
-  .flag_background{
-    background: #F8F8F8;
-  }
+
 
   .right{
     width: 100%;
@@ -175,13 +223,20 @@
     position: fixed;
     z-index: 10;
   }
-  .left div{
-    padding: 10px 70px;
+  .left_itemBox{
+    padding: 10px 0px 10px 70px;
     color: #FAFAFA;
     letter-spacing:2px;
     font-weight: 400;
     cursor: pointer;
 
+  }
+  .left_itemBox_son{
+    padding: 10px 0px 10px 105px;
+    color: #FAFAFA;
+    letter-spacing:2px;
+    font-weight: 400;
+    cursor: pointer;
   }
 
 

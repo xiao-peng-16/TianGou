@@ -88,7 +88,7 @@
         props:['flag_fixed','flag_scroll',   'maxWidth'],
         data(){
           return{
-            store_center_options:0,
+            store_center_left_options:0,
 
             flag_tou_su:true,
             flag_enter:false,
@@ -127,8 +127,8 @@
               this.$store.state.user_center_left_options = 0;
             this.$router.push({name:'user_center'});
           },
-          to_store_center(store_center_options){
-            this.$store.state.store_center_options = store_center_options;
+          to_store_center(store_center_left_options){
+            this.$store.state.store_center_left_options = store_center_left_options;
             this.$router.push({name:'store_center'});
           },
           outenter(){

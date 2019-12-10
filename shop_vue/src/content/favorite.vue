@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav_top :flag_fixed="true"/>
-    <div style="position: fixed;width: 100%;height: 60px; background: white;z-index: 100;padding-top: 10px">
+    <div style="position: fixed;width: 100%;height: 60px; background: white;z-index: 100;padding-top: 35px">
       <img id="tiangou" src="../assets/tmall.jpg">
       <span id="favorite">收藏夹</span>
     </div>
