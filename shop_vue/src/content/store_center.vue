@@ -75,7 +75,7 @@
   }
 
 
-  .optionsBox{
+  .optionsBox_left{
     background: #292929;
     border-left: 2px solid #F28328;
 

@@ -18,11 +18,15 @@
         <div  v-for="(item, index) in left_list">
           <div class="left_itemBox"  @click="click_left_options(index)"  :class="{optionsBox:left_options==index,not_optionsBox:left_options!=index}">
             <span>{{item.title}}</span>
-            <span v-if="undefined!=item.son_list" style="font-size: 15px" class="iconfont">&#xe60f;</span>
+            <div class="left_item_parent_arrows" :class="{left_item_parent_arrows_right:!item.flag_show_son_list}" v-show="undefined!=item.son_list">
+              <span style="font-size: 15px;" class="iconfont">&#xe60f;</span>
+            </div>
           </div>
-          <div v-if="undefined!=item.son_list && item.flag_show_son_list" class="left_itemBox_son" @click="click_left_son_options(index)" v-for="(son_item,index) in item.son_list" >
-            <span>{{son_item.title}}</span>
-          </div>
+          <transition name="fade"  v-for="(son_item,index) in item.son_list">
+            <div  class="left_itemBox_son"  v-show="undefined!=item.son_list && item.flag_show_son_list" @click="click_left_son_options(index)"  :class="{optionsBox:left_son_options==index,not_optionsBox:left_son_options!=index}">
+              <span>{{son_item.title}}</span>
+            </div>
+          </transition>
         </div>
       </div>
 
@@ -193,15 +197,7 @@
   }
 
 
-  .optionsBox{
-    background: #292929;
-    border-left: 2px solid #F28328;
 
-  }
-  .not_optionsBox{
-    border-left: 2px solid #333333;
-
-  }
 
 
 
@@ -223,13 +219,32 @@
     position: fixed;
     z-index: 10;
   }
+  .optionsBox{
+    background: #292929;
+    border-left: 2px solid #F28328;
+
+  }
+  .not_optionsBox{
+    border-left: 2px solid #333333;
+
+  }
   .left_itemBox{
     padding: 10px 0px 10px 70px;
     color: #FAFAFA;
     letter-spacing:2px;
     font-weight: 400;
     cursor: pointer;
+  }
 
+  .left_item_parent_arrows_right{
+    transform: rotate(-90deg);
+  }
+  .left_item_parent_arrows{
+    display: inline-block;
+    transition:transform 0.3s;
+    -moz-transition:transform 0.3s; /* Firefox 4 */
+    -webkit-transition:transform 0.3s; /* Safari and Chrome */
+    -o-transition:transform 0.3s; /* Opera */
   }
   .left_itemBox_son{
     padding: 10px 0px 10px 105px;
@@ -238,6 +253,15 @@
     font-weight: 400;
     cursor: pointer;
   }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
+
+
 
 
 
