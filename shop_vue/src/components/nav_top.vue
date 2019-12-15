@@ -46,6 +46,22 @@
 
 
               <li class="options_list">
+                <div class="options_list_title" @click="to_user_order(0)">
+                  <span>我的订单</span>
+                  <span style="font-size: 8px" class="iconfont">&#xe60f;</span>
+                </div>
+                <div class="options_list_content">
+                  <ul>
+                    <li @click="to_user_order(0)"><span>所有订单</span></li>
+                    <li @click="to_user_order(1)"><span>待付款</span></li>
+                    <li @click="to_user_order(2)"><span>待发货</span></li>
+                    <li @click="to_user_order(3)"><span>待收货</span></li>
+                    <li @click="to_user_order(4)"><span>待评价</span></li>
+                  </ul>
+                </div>
+              </li>
+
+              <li class="options_list">
                 <div class="options_list_title" @click="to_store_center(0)">
                   <span>卖家中心</span>
                   <span style="font-size: 8px" class="iconfont">&#xe60f;</span>
@@ -127,6 +143,12 @@
               this.$store.state.user_center_left_options = 0;
             this.$router.push({name:'user_center'});
           },
+          to_user_order(user_center_left_son_options){
+            this.$store.state.user_center_top_options = 0;
+            this.$store.state.user_center_left_options = 0;
+            this.$store.state.user_center_left_son_options = user_center_left_son_options;
+            this.$router.push({name:'user_center'});
+          },
           to_store_center(store_center_left_options){
             this.$store.state.store_center_left_options = store_center_left_options;
             this.$router.push({name:'store_center'});
@@ -183,6 +205,8 @@
   }
 
   .nav_top_box{
+    z-index: 999;
+
     width: 100%;
     background:#f5f5f5;
     font: 12px/1.5 tahoma,arial,'Hiragino Sans GB','\5b8b\4f53',sans-serif;
@@ -271,8 +295,9 @@
     background: white;
   }
   .options_list_content{
-    width: 60px;
-    display: none;
+    margin-top: 8px;
+    width: 75px;
+    /*display: none;*/
   }
   .options_list:hover .options_list_content{
     display: block;
@@ -281,7 +306,8 @@
     background: white;
   }
   .options_list li{
-    padding: 0px 5px;
+    width: 100%;
+    padding: 0px 10px;
     margin: 0px;
     line-height: 28px;
   }
@@ -290,5 +316,8 @@
   }
 
 
+  .options_list + li{
+    margin-left: 0px;
+  }
 
 </style>

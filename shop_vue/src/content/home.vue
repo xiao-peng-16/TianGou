@@ -14,7 +14,7 @@
                 <div class="col-2" ref="gifBox" style="position:relative;">
                   <img src="../assets/gif.gif" style="position: absolute;bottom: 0px">
                 </div>
-                <div class="col-7 offset-1" style="margin: 18px 0px 0px 40px">
+                <div class="col-7 offset-1" style="margin: 38px 20px 0px 60px">
                   <serarch @event_click_search_hotWord="event_click_search_hotWord":flag_home="true" :flag_bottom_work="true"/>
                 </div>
               </div>

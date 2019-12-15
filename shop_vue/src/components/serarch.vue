@@ -87,7 +87,6 @@
   }
   .searchBox{
     display: inline-block;
-    padding:20px 20px 0px 20px;
   }
   .split{
     color: #999999;

@@ -1,27 +1,29 @@
 <template>
     <div>
-        <nav_top :flag_scroll="true"/>
+        <nav_top :flag_scroll="true" :flag_fixed="false"/>
         <nav_right/>
 
         <div class="topFixed_serarch" ref="topFixed_serarch">
           <img src="../assets/tmall.jpg">
-          <div style="position: relative;top: -60px;left:23%">
+          <div style="position: relative;top: -40px;left:23%">
             <serarch @event_click_search_hotWord="event_click_search_hotWord" :flag_home="false"/>
           </div>
         </div>
+
+
 
         <div class="container">
           <div class="row second">
               <img src="../assets/tmall.jpg">
               <div class="serarch">
-                <serarch @event_click_search_hotWord="event_click_search_hotWord" :flag_bottom_work="true" :flag_home="false"/>
+                <serarch  @event_click_search_hotWord="event_click_search_hotWord" :flag_bottom_work="true" :flag_home="false"/>
               </div>
           </div>
 
           <div class="row"><div class="split"></div></div>
 
           <div v-show="flag_containData">
-            <div class="row list">
+            <div class="row">
               <div class="col-lg-1-5 spc" v-for="itemData in commodityList">
                 <SearchPage_commodity  :props_CommodityMessage="itemData"/>
               </div>
@@ -201,22 +203,20 @@
 
 
 
-.second{
-  height: 100px;
-  width: 100%;
-  position: relative;
-}
+  .second{
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-bottom: 1px;
+    height: 100px;
+    width: 100%;
+  }
   .second img{
     width: 220px;
     height: 40px;
-    position:absolute;
-    top: 18px;
-    left: 10px;
   }
   .serarch{
-    position:absolute;
-    top: 5px;
-    left: 310px;
+    margin-left: 100px;
+    margin-top: 8px;
   }
   .split{
     margin: 0 auto;
@@ -224,10 +224,6 @@
     width: 98%;
     background: #E5E5E5;
 
-  }
-  .list{
-    position: relative;
-    left: 13px;
   }
   .notData{
     background: #FFF8F6;

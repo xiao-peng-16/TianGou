@@ -11,9 +11,9 @@
 
       <div class="buttom">
         <div class="left">
-            <div @click="change_options(0)" :class="{optionsBox:options==0,not_optionsBox:options!=0}"><span>店铺概况</span></div>
-            <div @click="change_options(1)" :class="{optionsBox:options==1,not_optionsBox:options!=1}"><span>商品管理</span></div>
-            <div @click="change_options(2)" :class="{optionsBox:options==2,not_optionsBox:options!=2}"><span>订单管理</span></div>
+            <div @click="change_options(0)" :class="{optionsBox_left:options==0,not_optionsBox:options!=0}"><span>店铺概况</span></div>
+            <div @click="change_options(1)" :class="{optionsBox_left:options==1,not_optionsBox:options!=1}"><span>商品管理</span></div>
+            <div @click="change_options(2)" :class="{optionsBox_left:options==2,not_optionsBox:options!=2}"><span>订单管理</span></div>
         </div>
         <div class="right">
           <component :is="optionsComponents" style=""/>

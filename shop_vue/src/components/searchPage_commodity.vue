@@ -50,6 +50,7 @@
     height: 380px;
     cursor: pointer;
     border: 1.5px solid #EEEEEE;
+    margin: 0px auto;
   }
   .box:hover{
     border: 2px solid #F85300;
@@ -57,13 +58,15 @@
 
   .top{
     width: 100%;
-    height: 250px;
-    padding-top: 11px;
+    height: 239px;
+    margin-top: 11px;
+    /*padding: 0 auto;*/
   }
   .top img{
-    position: relative;
+    /*margin: 0px auto;*/
     height: 100%;
     max-width: 98%;
+    position: relative;
     left: 50%;
     transform: translate(-50%);
   }

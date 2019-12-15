@@ -117,11 +117,16 @@
         }
       },
       computed:{
-        shopCarNumber() {
-          return this.$store.state.shopCarNumber;
+        shopCarNumber(){
+          var shopCarNumber = this.$store.state.shopCarNumber;
+          if (0<shopCarNumber)
+            return shopCarNumber;
+          else return 0;
         },
         sumPrice(){
           var sunPrice=0;
+          if (undefined == this.shopCarList)
+            return 0;
           for (var i=0;i<this.shopCarList.length;i++) {
             sunPrice+=this.shopCarList[i].shopCar.chooseNumber*this.shopCarList[i].commodityPrice;
           }
