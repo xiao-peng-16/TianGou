@@ -103,9 +103,11 @@
     },
     computed:{
       top_options(){
-
-        if (this.$store.state.user_center_top_options == 0)
+        //默认选项
+        if (this.$store.state.user_center_top_options == 0 && this.left_options == 0 && undefined == this.$store.state.user_center_left_son_options)
           this.$store.state.user_center_left_son_options = 0;
+        else if (this.$store.state.user_center_top_options == 1)
+          this.$store.state.user_center_left_son_options = undefined;
 
         return this.$store.state.user_center_top_options;
       },
@@ -152,6 +154,7 @@
         }
       },
       click_left_son_options(val){
+        console.log(this.$store.state.user_center_left_son_options)
         this.$store.state.user_center_left_son_options = val;
       }
     },

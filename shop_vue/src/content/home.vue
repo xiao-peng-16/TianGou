@@ -10,7 +10,7 @@
 
           <div style="background: white">
             <div class="container">
-              <div class="row" style="height: 120px">
+              <div class="row" style="height: 120px;">
                 <div class="col-2" ref="gifBox" style="position:relative;">
                   <img src="../assets/gif.gif" style="position: absolute;bottom: 0px">
                 </div>
@@ -63,7 +63,7 @@
               <div class="col-3">
                 <div class="home_user_Box">
                   <img  class="home_user_bj"  :src="home_user_bj">
-                  <img  class="home_user_Head" :src="show_userPhotoURL" @click="click_user_head">
+                  <img  class="home_user_Head" :src="show_userPhotoURL" @click="to_user_center_function">
                   <span class="home_userName">Hi! {{userName}}</span>
                   <div class="home_user_bottom" v-if="undefined == this.$store.state.userName">
                     <div @click="$router.push({name:'login'})">登录</div>
@@ -190,7 +190,7 @@
           this.$store.state.search_word = val.split('/')[0]  ;
           this.$router.push({name:'searchPage'});
         },
-        click_user_head(){
+        to_user_center_function(){
           this.$router.push({name:'user_center'});
         }
 

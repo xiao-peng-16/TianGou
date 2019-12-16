@@ -61,14 +61,12 @@
     height: 239px;
     margin-top: 11px;
     /*padding: 0 auto;*/
+    text-align: center;
   }
   .top img{
     /*margin: 0px auto;*/
     height: 100%;
     max-width: 98%;
-    position: relative;
-    left: 50%;
-    transform: translate(-50%);
   }
 
 

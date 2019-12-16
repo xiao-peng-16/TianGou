@@ -120,7 +120,6 @@
   }
   .search{
     display: inline-block;
-    position: relative;
   }
   .searchMannerList{
     float: left;
