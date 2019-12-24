@@ -1,5 +1,5 @@
 server:
-  port: 7080
+  port: 7010
 spring:
   application:
     name: images
@@ -8,7 +8,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:7000/eureka
+      defaultZone: http://127.0.0.1:8761/eureka
 
 
 accessKey: Y9mOOnlwXSocxJtntYqQIR6k7Dwf_n3Icsn5Ep8e    #访问秘钥

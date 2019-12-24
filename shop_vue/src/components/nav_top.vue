@@ -146,7 +146,7 @@
           return innerWidth;
         },
         show_userPhotoURL() {
-          return this.getUserPhotoURL(this.$store.state.user);
+          return this.$store.getters.getUserPhotoURL();
         }
       },
       watch:{

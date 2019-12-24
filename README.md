@@ -45,17 +45,23 @@
     <td>   </td>
   </tr>
   <tr>
-    <td>  7000 </td>
+    <td>  8761 </td>
     <td> shop_eureka</td>
     <td>  eureka注册中心 </td>
     <td>   </td>
   </tr>
   <tr>
-    <td>  7010 </td>
+    <td>  7000 </td>
     <td> shop_zuul</td>
     <td>  zuul网关 </td>
     <td>   </td>
   </tr>
+  <tr>
+      <td>  7010 </td>
+      <td> shop_images</td>
+      <td>  图片_微服务 </td>
+      <td>   </td>
+    </tr>
   <tr>
     <td>  7020 </td>
     <td> shop_user</td>
@@ -125,7 +131,6 @@ public class ResultBean {
 前端先判断success， 如果为true则获取data，如果为false则根据status对不同类型错误进行响应
 
 # 部署：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191110105833257.png)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191110105845805.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTQyMzM3OA==,size_16,color_FFFFFF,t_70)
 
 <span id="xiaoGuo"/>

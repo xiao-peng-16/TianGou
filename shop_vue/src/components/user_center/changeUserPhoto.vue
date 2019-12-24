@@ -87,6 +87,7 @@
                       }
                     }).then(res=>{
                       tempThis.$store.state.user.userPhoto = imgURL;
+                      tempThis.imgFile = undefined;
                     });
                   }
                 };
