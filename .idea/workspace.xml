@@ -2,7 +2,46 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba7746b0-eb01-4fa4-bb05-ac7b9d1c947e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/shop_images/src/main/java/com/cxp/shop_images/config/QiniuConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop_images/src/main/java/com/cxp/shop_images/controller/QiuinController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop_images/src/main/java/com/cxp/shop_images/pojo/QiniuUpToken.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop_images/src/main/java/com/cxp/shop_images/service/feignClient/UserFeignClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/service/feignClient/ImagesFeignClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/service/feignClient/ShopCarFeignClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/controller/ShopCarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/controller/ShopCarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/service/ShopCarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/service/ShopCarService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/service/impl/ShopCarServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/service/impl/ShopCarServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_images/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_images/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_images/src/main/java/com/cxp/shop_images/ShopImagesApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_images/src/main/java/com/cxp/shop_images/ShopImagesApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_images/src/main/java/com/cxp/shop_images/controller/ImagesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_images/src/main/java/com/cxp/shop_images/controller/LocalFileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_images/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_images/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_user/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/ShopUserApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/ShopUserApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/assets/huo_jian.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/global_func.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/global_func.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/nav_right.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/nav_right.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/nav_top.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/nav_top.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreHome.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreHome.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/user_center/changeUserPhoto.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/user_center/changeUserPhoto.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/user_center/userOrderManage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/user_center/userOrderManage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/commodityPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/commodityPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/searchPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/searchPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/shop_car.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/shop_car.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/store_center.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/store_center.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/user_center.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/user_center.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/store/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/数据库文件.sql" beforeDir="false" afterPath="$PROJECT_DIR$/数据库文件.sql" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,11 +54,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/数据库文件.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1843">
-              <caret line="97" column="153" selection-start-line="97" selection-start-column="153" selection-end-line="97" selection-end-column="153" />
+            <state relative-caret-position="369">
+              <caret line="104" column="87" lean-forward="true" selection-start-line="104" selection-start-column="87" selection-end-line="104" selection-end-column="87" />
             </state>
           </provider>
         </entry>
@@ -33,7 +72,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
@@ -55,12 +94,18 @@
       <find>localhost</find>
       <find>commodity_id</find>
       <find>store_id</find>
+      <find>http://127.0.0.1/TianGou/resource/commodity/images/</find>
+      <find>http://127.0.0.1/TianGou/resource/commodity</find>
     </findStrings>
     <replaceStrings>
       <replace>user_photo</replace>
       <replace>commodity_photo</replace>
       <replace>commodity_video</replace>
       <replace>127.0.0.1</replace>
+      <replace>q2wh9mmyk.bkt.clouddn.com/TianGou/resource/commodity</replace>
+      <replace>q2wh9mmyk.bkt.clouddn.com/commodity</replace>
+      <replace>http://q2wh9mmyk.bkt.clouddn.com/commodity/images/</replace>
+      <replace>http://q2wh9mmyk.bkt.clouddn.com/commodity</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -69,8 +114,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/数据库文件.sql" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/数据库文件.sql" />
       </list>
     </option>
   </component>
@@ -175,6 +220,9 @@
       <workItem from="1575899974852" duration="51000" />
       <workItem from="1575964079561" duration="3080000" />
       <workItem from="1576404644174" duration="48000" />
+      <workItem from="1576468738830" duration="633000" />
+      <workItem from="1577094706441" duration="2400000" />
+      <workItem from="1577168830963" duration="236000" />
     </task>
     <task id="LOCAL-00001" summary="shop">
       <created>1575094500813</created>
@@ -421,16 +469,23 @@
       <option name="project" value="LOCAL" />
       <updated>1576404677766</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="cxp_shop">
+      <created>1576468770323</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1576468770324</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23358000" />
+    <option name="totallyTimeSpent" value="26627000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16308725" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1147651" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -483,8 +538,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/数据库文件.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1843">
-          <caret line="97" column="153" selection-start-line="97" selection-start-column="153" selection-end-line="97" selection-end-column="153" />
+        <state relative-caret-position="369">
+          <caret line="104" column="87" lean-forward="true" selection-start-line="104" selection-start-column="87" selection-end-line="104" selection-end-column="87" />
         </state>
       </provider>
     </entry>

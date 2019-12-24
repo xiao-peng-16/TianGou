@@ -76,7 +76,7 @@
       },
       methods:{
         getUserName(){
-          return this.$store.state.userName;
+          return this.$store.state.user.userName;
         }
       },
       created() {

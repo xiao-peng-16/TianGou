@@ -4,6 +4,8 @@ import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
 import com.cxp.shop_api.result.ResultStatus;
 import com.cxp.shop_images.config.ImagesUrlPrifixBean;
+import com.cxp.shop_images.service.feignClient.UserFeignClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,12 +18,12 @@ import java.io.IOException;
 import java.util.UUID;
 
 /*
-       图片
+       图片  保存本地
  */
 
 @CrossOrigin(allowCredentials = "true")
 @RestController
-public class ImagesController {
+public class LocalFileController {
 
     @Resource
     ImagesUrlPrifixBean imagesUrlPrifixBean;
@@ -37,6 +39,8 @@ public class ImagesController {
 
     static final ResultBean USER_PHOTO_UPLOAD_ERROE = ResultFactory.createFailResult(ResultStatus.USER_PHOTO_UPLOAD_ERROE);
 
+    @Autowired
+    UserFeignClient userFeignClient;
 
     @RequestMapping("/addUserPhotoByUserId")
     public ResultBean  addUserPhotoByUserId(Integer userId,  MultipartFile file){
@@ -45,6 +49,7 @@ public class ImagesController {
         String targetFileName = uploadImages(file, UserPhotoLocalPath, userId);
         if (null == targetFileName)
             return USER_PHOTO_UPLOAD_ERROE;
+        System.out.println(userFeignClient.selUserPhotoByUserId(userId));
         return ResultFactory.createSuccessResult(imagesUrlPrifixBean.getUserPhotoUrlPrifix() + targetFileName);
     }
 

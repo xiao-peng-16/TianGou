@@ -8,12 +8,13 @@ import axios from 'axios';
 import qs from 'qs';
 import globalVariable from '@/components/global_variable'
 import globalFunc from '@/components/global_func'
-
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 // require styles
 
 Vue.use(globalFunc/* { default global options } */)
-
+Vue.use(ElementUI);
 //   重要   vue 的拦截器请求头设置token  和  zuul过滤器获取token 并验证得到userId
 axios.interceptors.request.use(
   config => {

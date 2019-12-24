@@ -37,7 +37,7 @@
       components: {Hint_popup, StoreHome, StoreCommodityManage, StoreOrderManage, Nav_top},
       computed:{
         options(){
-          return this.$store.state.store_center_left_options;
+          return this.$route.query.l;
         },
         optionsComponents(){
           switch (this.options) {
@@ -50,7 +50,7 @@
       },
       methods:{
           change_options(options){
-            this.$store.state.store_center_left_options = options;
+            this.$router.push({name:'store_center',query:{l:options}});
           }
       }
     }

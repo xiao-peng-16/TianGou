@@ -8,6 +8,8 @@ import com.cxp.shop_user.mapper.UserMapper;
 import com.cxp.shop_user.pojo.ChangeUserPassword;
 import com.cxp.shop_user.pojo.UserIdName;
 import com.cxp.shop_user.service.UserService;
+import com.cxp.shop_user.service.feignClient.ImagesFeignClient;
+import com.cxp.shop_user.service.feignClient.ShopCarFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    ShopCarFeignClient shopCarFeignClient;
+    @Autowired
+    ImagesFeignClient imagesFeignClient;
 
     public static final MoneyInsufficientException moneyInsufficientException = new MoneyInsufficientException();
     public static final TransactionalException TRANSACTIONAL_EXCEPTION = new TransactionalException();
@@ -51,6 +57,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User selUserById(int userId) {
         User user = userMapper.selUserByUserId(userId);
+        user.setShopCarNumber(shopCarFeignClient.selShopCarNumberByUserId(userId));
         return user;
     }
 
@@ -69,14 +76,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String selUserPhotoByUserId(Integer userId) {
+        return userMapper.selUserPhotoByUserId(userId);
+    }
+
+    @Override
     public boolean changeUserPasswordByUserId(Integer userId, ChangeUserPassword changeUserPassword) {
         return 0 != userMapper.changeUserPasswordByUserId(userId, changeUserPassword.getOldUserPassword(), changeUserPassword.getNewUserPassword());
     }
 
     @Override
-    public boolean changeUserPhotoByUserId(Integer userId, String userPhoto) {
-        return 0 != userMapper.changeUserPhotoByUserId(userId, userPhoto);
-
+    public boolean changeUserPhotoByUserId(Integer userId, String newUserPhoto) {
+        String oldUserPhotoURL = userMapper.selUserPhotoByUserId(userId);
+        boolean success = 0 != userMapper.changeUserPhotoByUserId(userId, newUserPhoto);
+        if (success)
+            if (null != oldUserPhotoURL && !"".equals(oldUserPhotoURL))
+                imagesFeignClient.dlelQiniuImages(oldUserPhotoURL);
+        return success;
     }
 
 

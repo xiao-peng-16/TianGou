@@ -48,8 +48,8 @@ public class ShopCarServiceImpl implements ShopCarService {
     }
 
     @Override
-    public ResultBean selShopCarNumberByUserId(int userId) {
-        return ResultFactory.createSuccessResult(shopCarMapper.selShopCarNumberByUserId(userId));
+    public int selShopCarNumberByUserId(int userId) {
+        return shopCarMapper.selShopCarNumberByUserId(userId);
     }
 
 

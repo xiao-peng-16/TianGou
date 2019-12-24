@@ -30,7 +30,7 @@ public interface UserMapper {
 
 
     //id登录
-    @Select("select * from user where user_id = #{userId}")
+    @Select("select user_id, user_name, user_money, user_photo from user where user_id = #{userId}")
     public User selUserByUserId(@Param("userId") int userId);
 
     //查余额 根据userId
@@ -40,7 +40,11 @@ public interface UserMapper {
     //查询一组用户名 根据id
     public List<UserIdName> mapUserNameByUserId(List<Integer> userIdList);
 
-    //查询一组用户名 根据id
+    //查询用户头像
+    @Select("select user_photo from user where user_id = #{userId}")
+    public String  selUserPhotoByUserId(@Param("userId") Integer userId);
+
+
     @Select("select user_name from user where user_id = #{userId}")
     public String  selUserNameByUserId(@Param("userId") Integer userId);
 

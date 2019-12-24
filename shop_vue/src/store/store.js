@@ -1,5 +1,5 @@
 import globalVariable from '@/components/global_variable'
-import defaultHead from "@/assets/defaultHead.jpg";
+import defaultHead from '@/assets/defaultHead.jpg';
 
 //引入vue和Vuex
 import Vue from 'vue'
@@ -10,16 +10,15 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
     state:{
       status:0,
-      shopCarNumber:0,
       search_word:'',
-      userName:undefined,
-      userPhoto:undefined,
-
-      store_center_left_options:0,
-
-      user_center_top_options:0,
-      user_center_left_options:0,
-      user_center_left_son_options:undefined,
+      user:{
+        userId: undefined,
+        userName: undefined,
+        userPhoto: undefined,
+        userMoney: undefined,
+        shopCarNumber: undefined
+      },
+      
 
     },
   getters:{
@@ -33,11 +32,11 @@ export const store = new Vuex.Store({
       getUserPhotoURL:function(state,getters){
         //返回匿名函数
         return function () {
-          var img = state.userPhoto;
-          if (undefined == img || '' == img)
+          var user = state.user;
+          if (undefined == user || undefined == user.userPhoto || '' == user.userPhoto)
             return defaultHead;
           else
-            return img;
+            return user.userPhoto;
         }
       },
 

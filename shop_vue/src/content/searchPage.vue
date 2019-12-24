@@ -29,13 +29,15 @@
               </div>
             </div>
             <div class="pageBox">
-              <span class="commoditySum">共{{commoditySum}}条数据</span>
-              <div class="right">
-                <span @click="pageNo--">上一页</span>
-                {{pageNo}}/{{pageSum}}
-                <span @click="pageNo++">下一页</span>
-              </div>
+              <el-pagination background="true"
+               layout="total, prev, pager, next"
+               :total="commoditySum"
+               :page-size="pageStepSize"
+               :current-page.sync="pageNo">
+              </el-pagination>
             </div>
+
+
           </div>
 
         <div class="notData" v-show="!flag_containData">
@@ -46,8 +48,6 @@
         </div>
 
       </div>
-
-      <img v-show="flag_topFixed_serarch" class="go-top" src="../assets/huo_jian.png" @click="backTop">
 
     </div>
 </template>
@@ -68,34 +68,20 @@
             commodityList:[],  //搜索到的商品列表 分页
 
             pageNo:1,//  分页 页码
-            pageNoCache:1,//  分页 页码缓存   保存上一次的值
             pageStepSize:10 ,//  分页 步长
 
             flag_backTop:false
           }
       },
       computed:{
-        pageSum(){
-          return Math.ceil(this.commoditySum/this.pageStepSize);
-        },
         search_word(){
           return this.$store.state.search_word;
         }
       },
       watch:{
         pageNo(val){
-          this.pageNo=this.pageNo.toString().replace(/[^\d]/g,'');
-          if (this.pageNo<1){
-            this.pageNo=1;
-          } else if (this.pageNo>this.pageSum){
-            this.pageNo=this.pageSum;
-          }
-
-          if (this.pageNoCache!=this.pageNo){
             this.sendSearch();
-            this.pageNoCache=this.pageNo;
             this.backTop();
-          }
         },
         flag_topFixed_serarch(val){
           if (val){
@@ -242,24 +228,11 @@
     font-weight: bold;
   }
   .pageBox{
-    display: inline-block;
     float: right;
-    margin-top: 30px;
-    margin-bottom: 80px;
+    margin-top: 40px;
+    margin-bottom: 70px;
   }
 
-  .right{
-    display: inline-block;
-    font-size: 17.5px;
-  }
-  .right span{
-    cursor: pointer;
-    color: black;
-  }
-  .commoditySum{
-    margin-right: 35px;
-    color: #454d55;
-  }
 
 
 

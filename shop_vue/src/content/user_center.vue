@@ -6,8 +6,8 @@
       <div class="top_box">
         <span id="title">— 用户中心 —</span>
         <div class="top_options">
-          <span @click="$store.state.user_center_top_options=0">全部功能</span>
-          <span @click="$store.state.user_center_top_options=1">账号管理</span>
+          <span @click="click_top_options(0)">全部功能</span>
+          <span @click="click_top_options(1)">账号管理</span>
         </div>
       </div>
     </div>
@@ -22,8 +22,8 @@
               <span style="font-size: 15px;" class="iconfont">&#xe60f;</span>
             </div>
           </div>
-          <transition name="fade"  v-for="(son_item,index) in item.son_list">
-            <div  class="left_itemBox_son"  v-show="undefined!=item.son_list && item.flag_show_son_list" @click="click_left_son_options(index)"  :class="{optionsBox:left_son_options==index,not_optionsBox:left_son_options!=index}">
+          <transition name="fade"  v-for="(son_item,son_index) in item.son_list">
+            <div  class="left_itemBox_son"  v-show="undefined!=item.son_list && item.flag_show_son_list" @click="click_left_son_options(son_index)"  :class="{optionsBox:flag_left_son&&left_son_options==son_index,not_optionsBox:left_son_options!=son_index}">
               <span>{{son_item.title}}</span>
             </div>
           </transition>
@@ -42,6 +42,8 @@
 </template>
 
 <script>
+
+
   import Nav_top from "@/components/nav_top";
   import Hint_popup from "@/components/hint_popup";
   import changeUserPhoto from "@/components/user_center/changeUserPhoto";
@@ -53,6 +55,14 @@
     components: {userOrderManage, Hint_popup,  Nav_top, changeUserPhoto, changeUserPassword},
     data(){
       return{
+        prepare_query:{
+          t:undefined,
+          l:undefined,
+          ls:undefined
+        },
+        optionsComponents:undefined,
+        //左侧父选项 变化 子选项 不发光
+        flag_left_son:true,
         account_list:[
           {
             title:'更换头像',
@@ -90,6 +100,7 @@
               },
             ]
           },
+
           {
             title:'我的购物车',
             route:{name:'shop_car'}
@@ -102,63 +113,97 @@
       }
     },
     computed:{
+      query(){
+        return this.$route.query;
+      },
       top_options(){
-        //默认选项
-        if (this.$store.state.user_center_top_options == 0 && this.left_options == 0 && undefined == this.$store.state.user_center_left_son_options)
-          this.$store.state.user_center_left_son_options = 0;
-        else if (this.$store.state.user_center_top_options == 1)
-          this.$store.state.user_center_left_son_options = undefined;
-
-        return this.$store.state.user_center_top_options;
+        return parseInt(this.query.t);
       },
       left_options(){
-        return this.$store.state.user_center_left_options;
+        for (var i = 0;i<this.left_list.length;i++){
+          if (undefined != this.left_list[i].son_list){
+            if (i == this.query.l)
+              this.left_list[i].flag_show_son_list = true;
+            else
+              this.left_list[i].flag_show_son_list = false;
+          }
+        }
+        return parseInt(this.query.l);
+
       },
       left_son_options(){
-        var user_center_left_son_options = this.$store.state.user_center_left_son_options;
-        if (undefined != user_center_left_son_options)
-          this.left_list[this.left_options ].flag_show_son_list = true;
-        return user_center_left_son_options;
+        return parseInt(this.query.ls);
       },
       left_list(){
         return this.top_options == 0 ? this.options_list_list : this.account_list;
       },
-      optionsComponents(){
-        if (undefined != this.left_son_options){
-          return this.left_list[this.left_options].son_list[this.left_son_options].components;
-        }
 
-        return  this.left_list[this.left_options].components;
-      },
       flag_background(){
         return this.top_options == 0;
       }
     },
     watch:{
+      query(){
+        this.setOptionsComponents();
+      },
       top_options(){
-        this.$store.state.user_center_left_options = 0;
-        this.$store.state.user_center_left_son_options = undefined;
+        this.prepare_query.l = 0;
+        this.prepare_query.ls = undefined;
       },
-      left_options(){
-        this.$store.state.user_center_left_son_options = undefined;
-      },
+      left_options(val){
+        this.flag_left_son = false;
+      }
     },
     methods:{
+      setOptionsComponents(){
+
+        if (undefined != this.left_list[this.left_options].components){
+          this.optionsComponents = this.left_list[this.left_options].components;
+        } else if (undefined != this.left_son_options){
+          this.optionsComponents = this.left_list[this.left_options].son_list[this.prepare_query.ls].components;
+        }
+      },
+      click_top_options(val){
+
+        this.prepare_query.t = val;
+        this.prepare_query.l = 0;
+
+        this.$router.push({name:'user_center',query:this.prepare_query});
+      },
       click_left_options(val){
         if (undefined != this.left_list[val].route){
           this.$router.push(this.left_list[val].route)
-        }else if (this.$store.state.user_center_left_options == val && undefined != this.left_list[val].son_list){
-          this.left_list[val].flag_show_son_list = !this.left_list[val].flag_show_son_list;
-        } else{
-          this.$store.state.user_center_left_options = val;
+        } else {
+          this.prepare_query.l = val;
+          // if (undefined == this.left_list[val].son_list)
+          this.$router.push({name:'user_center',query:this.prepare_query});
         }
       },
       click_left_son_options(val){
-        console.log(this.$store.state.user_center_left_son_options)
-        this.$store.state.user_center_left_son_options = val;
+        this.flag_left_son = true;
+        this.prepare_query.ls = val;
+        this.$router.push({name:'user_center',query:this.prepare_query});
       }
     },
     created() {
+
+      //拷贝 this.query 无法修改
+      this.prepare_query = JSON.parse(JSON.stringify(this.query));
+      if (this.prepare_query.t != 1 || undefined == this.prepare_query.t)
+        this.prepare_query.t = 0;
+      if (0>this.prepare_query.l || this.top_options.length-1>this.prepare_query.l || undefined == this.prepare_query.l)
+      this.prepare_query.l = 0;
+
+      var val = this.top_options;
+      //默认选项
+      if (val == 0  && undefined == this.prepare_query.ls){
+        this.prepare_query.ls = 0;
+      }
+      else if (val == 1)
+        this.prepare_query.ls = undefined;
+
+      this.$router.push({name:'user_center',query:this.prepare_query});
+      this.setOptionsComponents();
 
     }
   }

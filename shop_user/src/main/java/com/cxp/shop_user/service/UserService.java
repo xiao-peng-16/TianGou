@@ -5,6 +5,7 @@ import com.cxp.shop_api.entity.User;
 import com.cxp.shop_user.exception.MoneyInsufficientException;
 import com.cxp.shop_user.exception.TransactionalException;
 import com.cxp.shop_user.pojo.ChangeUserPassword;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -28,6 +29,9 @@ public interface UserService {
 
     //查询用户名 根据id
     public String  selUserNameByUserId(Integer userId);
+
+    //查询用户头像
+    public String  selUserPhotoByUserId(Integer userId);
 
     //修改密码
     public boolean changeUserPasswordByUserId(Integer userId, ChangeUserPassword changeUserPassword);

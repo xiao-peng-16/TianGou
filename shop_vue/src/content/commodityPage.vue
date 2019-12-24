@@ -120,7 +120,7 @@
               if (this.$store.getters.getResultDispose(res)){
                 this.flag_notAddShop_car=false;
                 this.msg_addShopcar="已添加至购物车";
-                this.$store.state.shopCarNumber = Number.parseInt(this.$store.state.shopCarNumber) + this.chooseNumber;
+                this.$store.state.user.shopCarNumber = Number.parseInt(this.$store.state.user.shopCarNumber) + this.chooseNumber;
                 alert("购物车添加成功");
               }
             })

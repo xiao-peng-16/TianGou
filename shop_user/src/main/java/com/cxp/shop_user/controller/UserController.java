@@ -87,6 +87,13 @@ public class UserController {
         return userService.changeUserPasswordByUserId(userId, changeUserPassword)? successResult : USER_PASSWORD_CHANGE_ERROR;
     }
 
+
+    //查询用户头像
+    @RequestMapping("/selUserPhotoByUserId")
+    public String  selUserPhotoByUserId(Integer userId){
+        return userService.selUserPhotoByUserId(userId);
+    }
+
     //更换头像
     @RequestMapping("/changeUserPhotoByUserId")
     public ResultBean  changeUserPhotoByUserId(Integer userId, String userPhoto){

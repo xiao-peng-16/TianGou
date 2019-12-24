@@ -7,7 +7,7 @@
       <img id="tiangou" src="../assets/tmall.jpg">
       <span id="shop_car">购物车</span>
     </div>
-    <div style="height: 30px;"></div>
+    <div style="height: 50px;"></div>
 
 
 
@@ -210,7 +210,7 @@
             for (let i in this.dataList){
               shopCarNumber += this.dataList[i].shopCar.chooseNumber
             }
-            this.$store.state.shopCarNumber = shopCarNumber;
+            this.$store.state.user.shopCarNumber = shopCarNumber;
           },
           shop(){
             var shopCarList =[];

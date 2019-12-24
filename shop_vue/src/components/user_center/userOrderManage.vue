@@ -73,7 +73,7 @@
     },
     computed:{
       user_center_left_son_options(){
-        return this.$store.state.user_center_left_son_options;
+        return parseInt(this.$route.query.ls);
       }
     },
     watch:{
@@ -83,14 +83,6 @@
     },
 
     methods:{
-      return_userOrderState_word(val){
-        switch (val) {
-          case this.GLOBAL.userOrderState.WAIT_PAYMENT:   return '待付款';
-          case this.GLOBAL.userOrderState.WAIT_SHIPMENTS: return '待发货';
-          case this.GLOBAL.userOrderState.WAIT_RECEIVING: return '待收货';
-          case this.GLOBAL.userOrderState.WAIT_EVALUATED: return '待评价';
-        }
-      },
       return_userOrderStateByStore(){
         switch (this.user_center_left_son_options) {
           case 0: return undefined;
@@ -99,6 +91,14 @@
           case 3: return this.GLOBAL.userOrderState.WAIT_RECEIVING;
           case 4: return this.GLOBAL.userOrderState.WAIT_EVALUATED;
           default: return undefined;
+        }
+      },
+      return_userOrderState_word(val){
+        switch (val) {
+          case this.GLOBAL.userOrderState.WAIT_PAYMENT:   return '待付款';
+          case this.GLOBAL.userOrderState.WAIT_SHIPMENTS: return '待发货';
+          case this.GLOBAL.userOrderState.WAIT_RECEIVING: return '待收货';
+          case this.GLOBAL.userOrderState.WAIT_EVALUATED: return '待评价';
         }
       },
       click_img(commodityId){

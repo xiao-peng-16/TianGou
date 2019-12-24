@@ -118,7 +118,7 @@
       },
       computed:{
         shopCarNumber(){
-          var shopCarNumber = this.$store.state.shopCarNumber;
+          var shopCarNumber = this.$store.state.user.shopCarNumber;
           if (0<shopCarNumber)
             return shopCarNumber;
           else return 0;

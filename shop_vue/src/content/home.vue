@@ -65,7 +65,7 @@
                   <img  class="home_user_bj"  :src="home_user_bj">
                   <img  class="home_user_Head" :src="show_userPhotoURL" @click="to_user_center_function">
                   <span class="home_userName">Hi! {{userName}}</span>
-                  <div class="home_user_bottom" v-if="undefined == this.$store.state.userName">
+                  <div class="home_user_bottom" v-if="undefined == this.$store.state.user.userName">
                     <div @click="$router.push({name:'login'})">登录</div>
                     <div @click="$router.push({name:'register'})">注册</div>
                   </div>
@@ -168,7 +168,7 @@
       },
       computed:{
         userName(){
-          var userName = this.$store.state.userName;
+          var userName = this.$store.state.user.userName;
           if (undefined ==userName){
             this.home_user_bj = home_user_1;
             return "你好";
@@ -179,7 +179,7 @@
           }
         },
         show_userPhotoURL() {
-          return this.$store.getters.getUserPhotoURL();
+          return this.getUserPhotoURL(this.$store.state.user);
         }
       },
       methods:{
@@ -191,7 +191,7 @@
           this.$router.push({name:'searchPage'});
         },
         to_user_center_function(){
-          this.$router.push({name:'user_center'});
+          this.$router.push({name:'user_center',query:{t:'0',l:'0',ls:'0'}});
         }
 
       },

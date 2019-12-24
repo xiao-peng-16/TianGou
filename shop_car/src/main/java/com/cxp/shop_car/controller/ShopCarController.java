@@ -30,10 +30,9 @@ public class ShopCarController {
         return shopCarService.addShopCarByUserId(userId, addShopCar);
     }
 
-    //前端接口
     //查看购物车数量
     @RequestMapping("/selShopCarNumberByUserId")
-    public ResultBean selShopCarNumberByUserId(Integer userId) {
+    public int selShopCarNumberByUserId(Integer userId) {
         return shopCarService.selShopCarNumberByUserId(userId);
     }
 

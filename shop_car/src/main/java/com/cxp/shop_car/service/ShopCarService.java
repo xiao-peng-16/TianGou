@@ -14,7 +14,7 @@ public interface ShopCarService {
     public ResultBean addShopCarByUserId(Integer userId, AddShopCar addShopCar);
 
     //购物车数量
-    public ResultBean selShopCarNumberByUserId(int userId);
+    public int selShopCarNumberByUserId(int userId);
 
     //购物车页面数据
     public List<ShopCarCommodityVO> listShopCarCommodityVOByUserId(Integer userId);

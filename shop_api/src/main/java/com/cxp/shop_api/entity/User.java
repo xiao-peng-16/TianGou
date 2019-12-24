@@ -11,7 +11,8 @@ public class User {
     String userPhoto;
     double userMoney;
 
-    int shopCarCount; //购物车数量
+    //非数据库字段
+    int shopCarNumber; //购物车数量
 
 
 }
