@@ -1,17 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import home from '@/content/home'
-import login from '@/content/login'
-import register from '@/content/register'
-import shop_car from '@/content/shop_car'
-import favorite from '@/content/favorite'
-import tou_su from '@/content/tou_su'
-import drop_password from '@/content/drop_password'
-import searchPage from '@/content/searchPage'
-import  commodityPage from '@/content/commodityPage'
-import  shop_success from '@/content/shop_success'
-import  store_center from '@/content/store_center'
-import  user_center from '@/content/user_center'
+
 Vue.use(Router)
 
 export default new Router({
@@ -23,62 +12,62 @@ export default new Router({
     {
       path:'/home',
       name:'home',
-      component:home
+      component: resolve => require(['../content/home'], resolve)
     },
     {
       path:'/login',
       name:'login',
-      component:login
+      component: resolve => require(['../content/login'], resolve)
     },
     {
       path:'/register',
       name:'register',
-      component:register
+      component: resolve => require(['../content/register'], resolve)
     },
     {
       path:'/shop_car',
       name:'shop_car',
-      component:shop_car
+      component: resolve => require(['../content/shop_car'], resolve)
     },
     {
       path:'/favorite',
       name:'favorite',
-      component:favorite
+      component: resolve => require(['../content/favorite'], resolve)
     },
     {
       path:'/tou_su',
       name:'tou_su',
-      component:tou_su
+      component: resolve => require(['../content/tou_su'], resolve)
     },
     {
       path:'/drop_password',
       name:'drop_password',
-      component:drop_password
+      component: resolve => require(['../content/drop_password'], resolve)
     },
     {
       path:'/searchPage',
       name:'searchPage',
-      component:searchPage
+      component: resolve => require(['../content/searchPage'], resolve)
     },
     {
       path:'/commodityPage',
       name:'commodityPage',
-      component:commodityPage
+      component: resolve => require(['../content/commodityPage'], resolve)
     },
     {
       path:'/shop_success',
       name:'shop_success',
-      component:shop_success
+      component: resolve => require(['../content/shop_success'], resolve)
     },
     {
       path:'/store_center',
       name:'store_center',
-      component:store_center
+      component: resolve => require(['../content/store_center'], resolve)
     },
     {
       path:'/user_center',
       name:'user_center',
-      component:user_center
+      component: resolve => require(['../content/user_center'], resolve)
     },
 
 

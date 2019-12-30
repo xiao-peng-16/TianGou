@@ -6,7 +6,5 @@ import lombok.Data;
 public class Sort {
 
     int sortId;
-    String sortname;
-
-
+    String sortName;
 }

@@ -3,10 +3,8 @@
       <div class="search">
         <div  :class="{flagHome:flag_home,flagSearch:!flag_home}">
           <div class="search_form">
-            <div class="container-fluid">
               <input type="text" v-my-focus v-model="search_word" @keyup.enter="event_click_search" :placeholder="msg" :class="{red_hint:flag_red_hint}">
-            </div>
-            <input @click="event_click_search" type="button" value="搜 索">
+              <input @click="event_click_search" type="button" value="搜 索">
           </div>
         </div>
         <ul class="words_list" v-if="flag_bottom_work">
@@ -172,7 +170,7 @@
   }
   .flagHome input[type=button]{
     background: #FF5000;
-    width: 165px;
+    width: 167px;
     height: 38px;
     line-height: 40px;
     font-weight:900;
@@ -195,7 +193,7 @@
     height: 35px;
     line-height: 40px;
     font-weight:900;
-    width: 130px;
+    width: 132px;
     position: relative;
     bottom: 5px;
   }

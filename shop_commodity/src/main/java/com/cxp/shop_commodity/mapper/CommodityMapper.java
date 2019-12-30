@@ -3,8 +3,10 @@ package com.cxp.shop_commodity.mapper;
 import com.cxp.shop_api.dto.CommodityNumberChange;
 import com.cxp.shop_api.dto.CommodityToOrder;
 import com.cxp.shop_api.entity.Commodity;
+import com.cxp.shop_api.entity.Sort;
 import com.cxp.shop_api.request.SearchRequest;
 import com.cxp.shop_api.vo.*;
+import com.cxp.shop_commodity.pojo.CommodityPhotoVideo;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -16,6 +18,21 @@ import java.util.Map;
 
 @Repository
 public interface CommodityMapper {
+
+
+    //查询商品种类列表
+    @Select("select * from sort")
+    public List<Sort> listSort();
+
+    //添加商品
+    public Integer insCommodity(Commodity commodity);
+    //修改商品
+    public Integer updCommodity(Commodity commodity);
+    //查询商品图片 视频
+    @Select("select commodity_photo, commodity_video from commodity where commodity_id = #{commodityId}")
+    public CommodityPhotoVideo selCommodityPhotoVideo(@Param("commodityId") Integer commodityId);
+
+
 
 //******搜索页   开始********
     //根据商品名字  查询搜索到的商品总数
@@ -60,7 +77,11 @@ public interface CommodityMapper {
     @MapKey("commodityId")
     public Map<Integer, CommodityToOrder> mapCommodityToOrder(List<Integer> commodityIdList);
 
-    //用于加入购物车 返回数量判断是否用户购买自己的视频
+    //查询商品 用于 店铺修改商品
+    @Select("select * from commodity where commodity_id = #{commodityId}  ")
+    public Commodity selCommodityByCommodityId(@Param("commodityId") int commodityId);
+
+    //用于加入购物车11 返回数量判断是否用户购买自己的视频
     @Select("select count(*) from commodity where store_id = #{userId} and commodity_id = #{commodityId}  ")
     public int selcommodityStoreEqualUser(@Param("userId") int userId, @Param("commodityId") int commodityId);
 

@@ -23,7 +23,7 @@
             </div>
           </div>
           <transition name="fade"  v-for="(son_item,son_index) in item.son_list">
-            <div  class="left_itemBox_son"  v-show="undefined!=item.son_list && item.flag_show_son_list" @click="click_left_son_options(son_index)"  :class="{optionsBox:flag_left_son&&left_son_options==son_index,not_optionsBox:left_son_options!=son_index}">
+            <div  class="left_itemBox_son"  v-show="undefined!=item.son_list && item.flag_show_son_list" @click="click_left_son_options(son_index)"  :class="{optionsBox:is_shine_target(index,son_index),not_optionsBox:!is_shine_target(index,son_index)}">
               <span>{{son_item.title}}</span>
             </div>
           </transition>
@@ -55,14 +55,12 @@
     components: {userOrderManage, Hint_popup,  Nav_top, changeUserPhoto, changeUserPassword},
     data(){
       return{
-        prepare_query:{
-          t:undefined,
-          l:undefined,
-          ls:undefined
-        },
+
+        t:undefined,
+        l:undefined,
+        ls:undefined,
+
         optionsComponents:undefined,
-        //左侧父选项 变化 子选项 不发光
-        flag_left_son:true,
         account_list:[
           {
             title:'更换头像',
@@ -76,7 +74,31 @@
         options_list_list:[
           {
             title:'我的订单',
-            // components:'userOrderManage',
+            flag_show_son_list:false,
+            son_list:[
+              {
+                title:'所有订单',
+                components:'userOrderManage'
+              },
+              {
+                title:'待付款',
+                components:'userOrderManage'
+              },
+              {
+                title:'待发货',
+                components:'userOrderManage'
+              },{
+                title:'待收货',
+                components:'userOrderManage'
+              },
+              {
+                title:'待评价',
+                components:'userOrderManage'
+              },
+            ]
+          },
+          {
+            title:'我的订单',
             flag_show_son_list:false,
             son_list:[
               {
@@ -113,26 +135,22 @@
       }
     },
     computed:{
-      query(){
-        return this.$route.query;
-      },
       top_options(){
-        return parseInt(this.query.t);
+        return parseInt(this.t);
       },
       left_options(){
         for (var i = 0;i<this.left_list.length;i++){
           if (undefined != this.left_list[i].son_list){
-            if (i == this.query.l)
+            if (i == this.l)
               this.left_list[i].flag_show_son_list = true;
             else
               this.left_list[i].flag_show_son_list = false;
           }
         }
-        return parseInt(this.query.l);
-
+        return this.l;
       },
       left_son_options(){
-        return parseInt(this.query.ls);
+        return parseInt(this.ls);
       },
       left_list(){
         return this.top_options == 0 ? this.options_list_list : this.account_list;
@@ -142,69 +160,70 @@
         return this.top_options == 0;
       }
     },
-    watch:{
-      query(){
-        this.setOptionsComponents();
-      },
-      top_options(){
-        this.prepare_query.l = 0;
-        this.prepare_query.ls = undefined;
-      },
-      left_options(val){
-        this.flag_left_son = false;
-      }
-    },
     methods:{
+      is_shine_target(l,ls){
+          var query  = this.$route.query;
+          return l == query.l && ls == query.ls;
+      },
       setOptionsComponents(){
-
         if (undefined != this.left_list[this.left_options].components){
           this.optionsComponents = this.left_list[this.left_options].components;
         } else if (undefined != this.left_son_options){
-          this.optionsComponents = this.left_list[this.left_options].son_list[this.prepare_query.ls].components;
-        }
+          this.optionsComponents = this.left_list[this.left_options].son_list[this.left_son_options].components;
+        }else return;
+        this.$router.push({name:'user_center',query:{
+            t:this.t,
+            l:this.l,
+            ls:this.ls
+          }});
       },
       click_top_options(val){
 
-        this.prepare_query.t = val;
-        this.prepare_query.l = 0;
-
-        this.$router.push({name:'user_center',query:this.prepare_query});
+        if (this.top_options == val)
+          return;
+        this.t = val;
+        this.l = 0;
+        this.ls = 0 == val ? 0 : undefined;
+        this.setOptionsComponents();
       },
       click_left_options(val){
         if (undefined != this.left_list[val].route){
           this.$router.push(this.left_list[val].route)
         } else {
-          this.prepare_query.l = val;
-          // if (undefined == this.left_list[val].son_list)
-          this.$router.push({name:'user_center',query:this.prepare_query});
+          if (this.l == val){
+            this.left_list[val].flag_show_son_list = !this.left_list[val].flag_show_son_list;
+          } else {
+            this.l = val;
+            this.ls = undefined;
+            if (undefined == this.left_list[this.left_options].son_list)
+              this.setOptionsComponents();
+          }
         }
       },
       click_left_son_options(val){
-        this.flag_left_son = true;
-        this.prepare_query.ls = val;
-        this.$router.push({name:'user_center',query:this.prepare_query});
+        this.ls = val;
+        this.setOptionsComponents();
       }
     },
     created() {
-
       //拷贝 this.query 无法修改
-      this.prepare_query = JSON.parse(JSON.stringify(this.query));
-      if (this.prepare_query.t != 1 || undefined == this.prepare_query.t)
-        this.prepare_query.t = 0;
-      if (0>this.prepare_query.l || this.top_options.length-1>this.prepare_query.l || undefined == this.prepare_query.l)
-      this.prepare_query.l = 0;
+      var query  = JSON.parse(JSON.stringify(this.$route.query));
+      this.t = parseInt(query.t);
+      this.l = parseInt(query.l);
+      this.ls = parseInt(query.ls);
 
-      var val = this.top_options;
-      //默认选项
-      if (val == 0  && undefined == this.prepare_query.ls){
-        this.prepare_query.ls = 0;
+
+      if (this.t != 1 || undefined == this.t)
+        this.t = 0;
+      if (0>this.l || this.left_list.length-1<this.l || undefined == this.l)
+      this.l = 0;
+
+      // 默认选项
+      if (0 == this.t && this.l == 0  && undefined == this.ls){
+        this.ls = 0;
       }
-      else if (val == 1)
-        this.prepare_query.ls = undefined;
 
-      this.$router.push({name:'user_center',query:this.prepare_query});
       this.setOptionsComponents();
-
     }
   }
 </script>

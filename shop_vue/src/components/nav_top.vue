@@ -1,8 +1,10 @@
 <template>
-    <div class="nav_top_box"  :class="{flag_fixed:flag_fixed}">
+    <div class="nav_top_box"  :class="{flag_fixed:flag_fixed,flag_not_fixed:!flag_fixed}">
       <div class="nav_top" ref="nav_top">
 
-        <div class="container">
+
+
+          <div  class="box">
 
 
 
@@ -111,7 +113,6 @@
         </div>
 
 
-
       </div>
     </div>
 </template>
@@ -152,24 +153,21 @@
       watch:{
         maxWidth(){
           if (undefined != this.maxWidth){
-            var container =  document.querySelector('.container');
-            container.style.maxWidth = this.maxWidth + "px"
+            var box =  document.querySelector('.box');
+            box.style.maxWidth = this.maxWidth + "px"
           }
         }
       },
       methods:{
           to_user_center_function(){
             this.$router.push({name:'user_center',query:{t:'0',l:'0',ls:'0'}});
-
           },
           to_user_center_account(){
             this.$router.push({name:'user_center',query:{t:'1',l:'0'}});
           },
           to_user_order(user_center_left_son_options){
-            this.$store.state.user_center_top_options = 0;
-            this.$store.state.user_center_left_options = 0;
-            this.$store.state.user_center_left_son_options = user_center_left_son_options;
-            this.$router.push({name:'user_center'});
+            this.$router.push({name:'user_center',query:{t:'0',l:'0',ls:user_center_left_son_options}});
+
           },
           to_store_center(store_center_left_options){
             this.$router.push({name:'store_center',query:{l:store_center_left_options}});
@@ -219,6 +217,10 @@
     position: fixed;
     z-index: 999;
   }
+  .flag_not_fixed{
+    position: relative;
+    z-index: 999;
+  }
 
   .nav_top_box{
     z-index: 999;
@@ -237,13 +239,15 @@
   }
 
 
-  .container{
-    padding: 0px;
+  .box{
+    max-width: 1350px;
     height: 100%;
-    max-width: 1400px;
+    margin: 0px auto;
+    padding: 0px;
     position: relative;
-
   }
+
+
   .nav_top span{
     color: #6c6c6c;
     font: 12px/1.5 tahoma,arial,'Hiragino Sans GB','\5b8b\4f53',sans-serif;

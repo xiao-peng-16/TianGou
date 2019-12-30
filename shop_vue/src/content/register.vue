@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="bj"><img src="../assets/login_bj.jpg"></div>
-    <div class="container">
-      <div class="fromBox offset-6">
+      <div class="fromBox">
 
         <div class="titleBox">
           <span id="first">欢迎注册天狗</span>
@@ -40,7 +39,6 @@
 
 
       </div>
-    </div>
 
   </div>
 </template>
@@ -170,6 +168,7 @@
     position: relative;
     right: 10px;
     top: 90px;
+    margin-left: 750px;
   }
   .titleBox{
     width: 500px;

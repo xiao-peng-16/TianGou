@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+<!--    <div style="height: 10px;background: red"></div>-->
       <hint_popup/>
       <router-view/>
   </div>
@@ -17,7 +18,8 @@ export default {
 <style>
 #app{
   margin: 0px;
-  padding: 0px;
+  padding:0px;
+
 }
 
 </style>

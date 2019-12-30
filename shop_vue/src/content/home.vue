@@ -3,31 +3,32 @@
         <div>
           <nav_top id="nav_top" :flag_fixed="false"  :maxWidth="rowWidth"/>
           <div class="gg">
-            <div class="container">
-              <img src="../assets/home_top_img.png">
+            <el-row>
+                <img src="../assets/home_top_img.png">
+            </el-row>
+          </div>
+
+          <div style="background: white;position: relative;height: 120px">
+            <div style="position: absolute;bottom: 0px;width: 100%">
+              <el-row>
+                <el-col :span="4"  >
+                  <div ref="gifBox" style=""><img src="../assets/gif.gif"></div>
+                </el-col>
+                <el-col :span="20">
+                  <div style="margin: 10px 20px 0px 60px">
+                    <serarch @event_click_search_hotWord="event_click_search_hotWord":flag_home="true" :flag_bottom_work="true"/>
+                  </div>
+                </el-col>
+              </el-row>
             </div>
           </div>
 
-          <div style="background: white">
-            <div class="container">
-              <div class="row" style="height: 120px;">
-                <div class="col-2" ref="gifBox" style="position:relative;">
-                  <img src="../assets/gif.gif" style="position: absolute;bottom: 0px">
-                </div>
-                <div class="col-7 offset-1" style="margin: 38px 20px 0px 60px">
-                  <serarch @event_click_search_hotWord="event_click_search_hotWord":flag_home="true" :flag_bottom_work="true"/>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="container">
-
-            <div class="row xxxxx">
-              <div class="col-2" style="background: #FF5000">
+            <el-row class="xxxxx">
+              <el-col :span="4" style="background: #FF5000">
                 主题市场
-              </div>
-              <div class="col-10" style="background-image: linear-gradient(to right, #FF8300, #FF5000);">
+              </el-col>
+              <el-col :span="20" style="background-image: linear-gradient(to right, #FF8300, #FF5000);">
                 <ul>
                   <li>天狗</li>
                   <li>聚划算</li>
@@ -42,11 +43,11 @@
                   <li>智能生活</li>
                   <li>苏宁易购</li>
                 </ul>
-              </div>
-            </div>
+              </el-col>
+            </el-row>
 
-            <div class="row">
-              <div class="col-2" >
+            <el-row>
+              <el-col :span="4">
                 <div class="sortBox">
                   <div class="sordWordItemBox" v-for="item in sortList" @click="event_click_sort_word(item.word)">
                     <span class="iconfont" v-html="item.icon"></span>
@@ -54,13 +55,14 @@
                     <span style="position: absolute;right: 10px;">></span>
                   </div>
                 </div>
-              </div>
-              <div class="col-7" style="padding: 10px">
+              </el-col>
+              <el-col :span="14" style="padding: 10px">
                 <!--      relative 中的 top left ，还有 width 、 height-->
                 <swiper :imgList="imgList" style="width: 100%; height: 400px;"/>
-              </div>
+              </el-col>
 
-              <div class="col-3">
+              <el-col :span="6">
+
                 <div class="home_user_Box">
                   <img  class="home_user_bj"  :src="home_user_bj">
                   <img  class="home_user_Head" :src="show_userPhotoURL" @click="to_user_center_function">
@@ -92,22 +94,21 @@
                     <p style="text-align: center;">{{item.name}}</p>
                   </div>
                 </div>
+              </el-col>
+            </el-row>
 
-              </div>
+            <el-row style="background: white;margin-top: 5px;">
 
-            </div>
-            <div class="row" style="background: white;margin-top: 5px;">
+                <el-col :span="4">
+                    <countdown/>
+                </el-col>
+                <el-col :span="20">
+                  <div style="width: 100%;height:230px;">
+                    <long_swiper :long_swiper_img_list="long_swiper_img_list"/>
+                  </div>
+                </el-col>
+            </el-row>
 
-              <div class="col-2">
-                <countdown/>
-              </div>
-              <div class="col-10 bottom_img_list">
-                <long_swiper :long_swiper_img_list="long_swiper_img_list" />
-              </div>
-
-            </div>
-
-          </div>
 
 
 
@@ -162,7 +163,7 @@
         }
       },
       mounted() {
-        this.rowWidth = document.querySelector('.row').offsetWidth;
+        this.rowWidth = document.querySelector('.el-row').offsetWidth;
         var gifBox = this.$refs.gifBox;
         gifBox.firstChild.style.width = gifBox.offsetWidth +"px";
       },
@@ -212,9 +213,10 @@
     padding: 0;
     margin: 0;
   }
-  .container{
-    margin: 0px auto;
+  .el-row{
     max-width: 1180px;
+    margin: 0px auto;
+    padding: 0px;
   }
   .gg{
       background: #FFE700;
@@ -259,6 +261,7 @@
     font-weight: bold;
   }
   .xxxxx div{
+    height: 100%;
     padding-top: 3px;
   }
   ul{

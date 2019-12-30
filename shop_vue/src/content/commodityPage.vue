@@ -5,75 +5,69 @@
 
 
 
-    <div class="container">
-<!--      <div class="row" style="height: 100px">-->
 
-<!--      </div>-->
-      
-      <div class="row" style="margin-top: 50px;height: 460px">
-        <div class="col-6">
+      <el-row style="margin-top: 50px;height: 460px">
+        <el-col :span="12" >
           <div v-if="undefined != this.commodity.commodityVideo" class="videoBox"><video_component :resource="resource"/></div>
-          <div v-else style="position: relative">
+          <div v-else style="position: relative;height: 200px;width: 100%" >
             <img_amplifier :img-src="resource.poster" style="position: absolute;left: 50%;transform: translate(-50%)"/>
           </div>
 
-        </div>
+        </el-col>
 
-        <div class=" offset-1 col-5" style="position: relative">
-          <div class="messageBox" :class="{flag_img_messageBox:undefined == this.commodity.commodityVideo}">
-            <div class="topBox">
-              <span class="cName">{{commodity.commodityName}}</span><br/>
-              <div class="beizhu"><span>{{commodity.commodityDescribe}}</span></div>
-            </div>
-
-            <div class="priceBox">
-              <span class="price_left">价格</span>
-              <span class="price_right">{{parseInt(commodity.commodityPrice).toFixed(2)}}</span>
-            </div>
-
-            <div class="split"></div>
-            <div class="middleBox">
-              <div>
-                <span class="middleBox_left">销量</span>
-                <span class="middleBox_right">{{commodity.commoditySales}} </span>
+        <el-col span="10" :offset="2">
+            <div class="messageBox" :class="{flag_img_messageBox:undefined == this.commodity.commodityVideo}">
+              <div class="topBox">
+                <span class="cName">{{commodity.commodityName}}</span><br/>
+                <div class="beizhu"><span>{{commodity.commodityDescribe}}</span></div>
               </div>
-              <span class="middleBox_solit">|</span>
-              <div>
-                <span class="middleBox_left">人气</span>
-                <span class="middleBox_right">{{commodity.commodityPopularity}} </span>
+
+              <div class="priceBox">
+                <span class="price_left">价格</span>
+                <span class="price_right">{{parseInt(commodity.commodityPrice).toFixed(2)}}</span>
               </div>
-              <span class="middleBox_solit">|</span>
-              <div>
-                <span class="middleBox_left">送天狗积分</span>
+
+              <div class="split"></div>
+              <div class="middleBox">
+                <div>
+                  <span class="middleBox_left">销量</span>
+                  <span class="middleBox_right">{{commodity.commoditySales}} </span>
+                </div>
+                <span class="middleBox_solit">|</span>
+                <div>
+                  <span class="middleBox_left">人气</span>
+                  <span class="middleBox_right">{{commodity.commodityPopularity}} </span>
+                </div>
+                <span class="middleBox_solit">|</span>
+                <div>
+                  <span class="middleBox_left">送天狗积分</span>
+                </div>
+              </div>
+              <div class="split"></div>
+
+              <div class="chooseNumberBox">
+                <span class="shu_liang">数量</span>
+                <div class="numBox">
+                  <span @click="chooseNumber--" class="arrows_left iconfont">&#xe610;</span>
+                  <input v-model.number="chooseNumber" type="text">
+                  <span @click="chooseNumber++" class="arrows_right iconfont">&#xf034f;</span>
+                </div>
+                <span class="cStock">库存{{commodity.commodityStock}}件 </span>
+              </div>
+
+              <div class="buttonBox">
+                <div class="buttonBox_left" @click="shop"><span>立刻购买</span></div>
+                <div class="buttonBox_right" @click="addShop_Car" :class="{buttonBox_right_notAdd:this.flag_notAddShop_car,buttonBox_right_Add:!this.flag_notAddShop_car}">
+                  <span class="iconfont">&#xe63a;</span>
+                  <span>{{this.msg_addShopcar}}</span>
+                </div>
               </div>
             </div>
-            <div class="split"></div>
-
-            <div class="chooseNumberBox">
-              <span class="shu_liang">数量</span>
-              <div class="numBox">
-                <span @click="chooseNumber--" class="arrows_left iconfont">&#xe610;</span>
-                <input v-model.number="chooseNumber" type="text">
-                <span @click="chooseNumber++" class="arrows_right iconfont">&#xf034f;</span>
-              </div>
-              <span class="cStock">库存{{commodity.commodityStock}}件 </span>
-            </div>
-
-            <div class="buttonBox">
-              <div class="buttonBox_left" @click="shop"><span>立刻购买</span></div>
-              <div class="buttonBox_right" @click="addShop_Car" :class="{buttonBox_right_notAdd:this.flag_notAddShop_car,buttonBox_right_Add:!this.flag_notAddShop_car}">
-                <span class="iconfont">&#xe63a;</span>
-                <span>{{this.msg_addShopcar}}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        </el-col>
 
 
-    </div>
 
-
+      </el-row>
 
 
 
@@ -89,86 +83,87 @@
   import Nav_top from "@/components/nav_top";
   import Hint_popup from "@/components/hint_popup";
   import Img_amplifier from "@/components/img_amplifier";
-    export default {
-        name: "commodityPage",
-      components: {Img_amplifier, Hint_popup, Nav_top, Video_component},
-      data(){
-          return{
-            rowWidth:undefined,
+  export default {
+    name: "commodityPage",
+    components: {Img_amplifier, Hint_popup, Nav_top, Video_component},
+    data(){
+      return{
+        rowWidth:undefined,
 
-            chooseNumber:1,
-            msg_addShopcar:'加入购物车',
-            flag_notAddShop_car:true,
-            commodity:{},
-            resource:{
-              poster:"",
-              src:""
-            },
-
-          }
-      },
-      mounted() {
-        this.rowWidth = document.querySelector('.row').offsetWidth;
-      },
-      methods:{
-        addShop_Car(){
-          if(this.flag_notAddShop_car){
-            this.$axios.post('/car/addShopCarByUserId',{
-                commodityId:this.commodity.commodityId,
-                chooseNumber:this.chooseNumber
-            }).then(res=>{
-              if (this.$store.getters.getResultDispose(res)){
-                this.flag_notAddShop_car=false;
-                this.msg_addShopcar="已添加至购物车";
-                this.$store.state.user.shopCarNumber = Number.parseInt(this.$store.state.user.shopCarNumber) + this.chooseNumber;
-                alert("购物车添加成功");
-              }
-            })
-          }
-
-          },
-        shop(){
-          this.$axios.post('/order/submitOrderByUserId',[{
-            commodityId:this.commodity.commodityId,
-            chooseNumber:this.chooseNumber
-          }]).then(res=>{
-            if (this.$store.getters.getResultDispose(res)){
-              this.$router.push({name:'shop_success'});
-            }
-          })
+        chooseNumber:1,
+        msg_addShopcar:'加入购物车',
+        flag_notAddShop_car:true,
+        commodity:{},
+        resource:{
+          poster:"",
+          src:""
         },
 
-      },
-      created() {
-            this.$axios.get('/commodity/selCommodityByCommodityID',{
-              params:{
-                commodityId: this.$route.query.commodityId
-              }
-            }).then(res=>{
-              this.commodity = res.data;
-              this.resource.poster = this.commodity.commodityPhoto;
-              this.resource.src = this.commodity.commodityVideo;
-            })
-      },
-      watch:{
-        chooseNumber:function (val) {
-          this.chooseNumber=this.chooseNumber.toString().replace(/[^\d]/g,'');
-
-          if (this.chooseNumber=='' || this.chooseNumber<1){
-            this.chooseNumber=1;
-          }
-
+      }
+    },
+    mounted() {
+      this.rowWidth = document.querySelector('.row').offsetWidth;
+    },
+    methods:{
+      addShop_Car(){
+        if(this.flag_notAddShop_car){
+          this.$axios.post('/car/addShopCarByUserId',{
+            commodityId:this.commodity.commodityId,
+            chooseNumber:this.chooseNumber
+          }).then(res=>{
+            if (this.$store.getters.getResultDispose(res)){
+              this.flag_notAddShop_car=false;
+              this.msg_addShopcar="已添加至购物车";
+              this.$store.state.user.shopCarNumber = Number.parseInt(this.$store.state.user.shopCarNumber) + this.chooseNumber;
+              alert("购物车添加成功");
+            }
+          })
         }
+
+      },
+      shop(){
+        this.$axios.post('/order/submitOrderByUserId',[{
+          commodityId:this.commodity.commodityId,
+          chooseNumber:this.chooseNumber
+        }]).then(res=>{
+          if (this.$store.getters.getResultDispose(res)){
+            this.$router.push({name:'shop_success'});
+          }
+        })
+      },
+
+    },
+    created() {
+      this.$axios.get('/commodity/selCommodityByCommodityID',{
+        params:{
+          commodityId: this.$route.query.commodityId
+        }
+      }).then(res=>{
+        this.commodity = res.data;
+        this.resource.poster = this.commodity.commodityPhoto;
+        this.resource.src = this.commodity.commodityVideo;
+      })
+    },
+    watch:{
+      chooseNumber:function (val) {
+        this.chooseNumber=this.chooseNumber.toString().replace(/[^\d]/g,'');
+
+        if (this.chooseNumber=='' || this.chooseNumber<1){
+          this.chooseNumber=1;
+        }
+
       }
     }
+  }
 </script>
 
 <style scoped>
 
-  .container{
+  .el-row{
     max-width: 1200px;
+    margin: 0px auto;
+    padding: 0px;
   }
-
 
   *{
     padding: 0px;
@@ -180,7 +175,7 @@
   .videoBox{
     width: 650px;
     margin-left: 20px;
-    }
+  }
 
   .messageBox{
     z-index: 0;
@@ -189,9 +184,7 @@
     margin-right: 50px;
   }
   .flag_img_messageBox{
-    position: absolute;
-    top: 50%;
-    transform: translate(0px,-50%);
+    margin-top: 30px;
   }
 
   .topBox{
@@ -230,7 +223,7 @@
     width: 100%;
     height: 70px;
   }
-  
+
   .middleBox div{
     display: inline-block;
     margin: 0px 30px;
@@ -279,7 +272,7 @@
     margin-top: 30px;
     margin-left: 18px;
   }
-  
+
   .buttonBox div{
     display: inline-block;
     text-align: center;
@@ -292,19 +285,19 @@
   .buttonBox_left{
     cursor: pointer;
     background: #FFEDED;
-      color: #FF0036;
-      border: 1px solid #FF0036;
-      width: 180px;
-      height: 40px;
-      margin-right: 15px;
+    color: #FF0036;
+    border: 1px solid #FF0036;
+    width: 180px;
+    height: 40px;
+    margin-right: 15px;
   }
   .buttonBox_right{
-      background: #FF0036;
-      color: white;
-      width: 182px;
-      height: 42px;
-      position: relative;
-      bottom: 2px;
+    background: #FF0036;
+    color: white;
+    width: 182px;
+    height: 42px;
+    position: relative;
+    bottom: 2px;
   }
   .buttonBox_right_notAdd{
     cursor: pointer;

@@ -3,7 +3,7 @@
     <nav_top :flag_fixed="true"/>
 
 
-    <div style="position: fixed;width: 100%;height: 60px;padding-top: 35px; background: white;z-index: 250">
+    <div style="position: fixed;width: 100%;height: 75px;padding-top: 35px; background: white;z-index: 250">
       <img id="tiangou" src="../assets/tmall.jpg">
       <span id="shop_car">购物车</span>
     </div>
@@ -14,50 +14,71 @@
     <div v-if="flag_show">
 
         <div class="title">
-          <div style="position: relative;">
-            <div style="position: absolute; left: 21%;"><span>商品信息</span></div>
-            <div style="position: absolute; left: 46%;width: 40px"><span>单价</span></div>
-            <div style="position: absolute; left: 57%;width: 40px"><span>数量</span></div>
-            <div style="position: absolute; left: 69.5%;width: 40px"><span>金额</span></div>
-            <div style="position: absolute; left: 82%;width: 40px"><span>操作</span></div>
-          </div>
+
+          <el-row>
+            <el-col :span="7" offset="2"><div><span>商品信息</span></div></el-col>
+            <el-col :span="3"><div  style="padding-left: 40px"><span>单价</span></div></el-col>
+            <el-col :span="4"><div style="margin-left: 16px"><span>数量</span></div></el-col>
+            <el-col :span="3"><span>金额</span></el-col>
+            <el-col :span="3"><div style="margin-left: 28px"><span>操作</span></div></el-col>
+          </el-row>
+
+
+
+
+
+
+
+
         </div>
 
       <div style="height: 55px;"></div>
-      <div class="container ">
+
+        <el-row>
+          <div class="itemBox row" v-for="(item,index) in dataList">
+            <input  v-model="checkIndexList" :value="index" type="checkbox" >
+            <el-col :span="2">
+              <img :src="item.commodityPhoto" @click="gotoCommodityPage(item.shopCar.commodityId)" style="cursor: pointer;">
+            </el-col>
+            <el-col :span="7">
+              <div class=" cNameBox"  @click="gotoCommodityPage(item.shopCar.commodityId)">
+                <span>{{item.commodityName}}</span>
+                <div style=""><span>{{item.commodityDescribe}}</span></div>
+              </div>
+            </el-col>
+            <el-col :span="3">
+              <div class="commodityPrice  center down" style="padding-left: 40px">
+                <span>￥{{item.commodityPrice.toFixed(2)}}</span>
+              </div>
+            </el-col>
+
+            <el-col :span="4">
+              <div class="center down" >
+                <button type="button" class="btn btn-info" @click="less(item)"><span>-</span></button>
+                <input v-model.number="item.shopCar.chooseNumber" @input="input(item)">
+                <button type="button" class="btn btn-info" @click="item.shopCar.chooseNumber++"><span>+</span></button>
+              </div>
+            </el-col>
+            <el-col :span="3">
+              <div class="price col-1 center down">
+                <span>￥{{(item.commodityPrice*item.shopCar.chooseNumber).toFixed(2)}}</span>
+              </div>
+            </el-col>
+            <el-col :span="3">
+              <div class="price col-1 center " style="margin-top: 25px;margin-left: 15px">
+                <div style="padding-left: 20px;width: 200px"><span class="operationSpan" @click="delByShopCarId(item,index)" >删除</span></div>
+                <div style="width: 200px"><span class="operationSpan" @click="shopCarToFavorite(item,index)" >移入收藏夹</span></div>
+              </div>
+            </el-col>
+          </div>
+
+        </el-row>
 
 
-
-        <div class="itemBox row" v-for="(item,index) in dataList">
-          <input  v-model="checkIndexList" :value="index" type="checkbox" >
-          <div class="col-lg-1 col-md-2">
-            <img :src="item.commodityPhoto" @click="gotoCommodityPage(item.shopCar.commodityId)" style="cursor: pointer;">
-          </div>
-          <div class="col-3 cNameBox"  @click="gotoCommodityPage(item.shopCar.commodityId)">
-            <span>{{item.commodityName}}</span>
-            <div style=""><span>{{item.commodityDescribe}}</span></div>
-          </div>
-          <div class="commodityPrice col-1 center down" style="padding-left: 40px">
-            <span>￥{{item.commodityPrice.toFixed(2)}}</span>
-          </div>
-          <div class="center down" style="padding-left: 80px">
-            <button type="button" class="btn btn-info" @click="less(item)"><span>-</span></button>
-            <input v-model.number="item.shopCar.chooseNumber" @input="input(item)">
-            <button type="button" class="btn btn-info" @click="item.shopCar.chooseNumber++"><span>+</span></button>
-          </div>
-          <div class="price col-1 center down" style="margin-left: 88px">
-            <span>￥{{(item.commodityPrice*item.shopCar.chooseNumber).toFixed(2)}}</span>
-          </div>
-          <div class="price col-1 center " style="margin-left: 89px;margin-top: 25px">
-            <div style="padding-left: 20px"><span class="operationSpan" @click="delByShopCarId(item,index)" >删除</span></div>
-            <div style="width: 200px"><span class="operationSpan" @click="shopCarToFavorite(item,index)" >移入收藏夹</span></div>
-          </div>
-        </div>
         <!--        不要删除  调列表 到底部距离-->
         <div class="placeholder"></div>
 
 
-      </div>
       <div class="bottom_bj">
         <!--      <img src="../assets/shop_car_bj.jpg">-->
       </div>
@@ -219,7 +240,7 @@
             if (shopCarList.length ==0){
               return;
             }
-            this.$axios.post('/car/ ShopCarSubmitOrderByUserId',shopCarList)
+            this.$axios.post('/car/ShopCarSubmitOrderByUserId',shopCarList)
               .then(res=>{
                 if (this.$store.getters.getResultDispose(res)){
                   this.$router.push({name:'shop_success'});
@@ -249,8 +270,11 @@
 
 <style scoped>
 
-  .container{
+
+  .el-row{
     max-width: 1280px;
+    margin: 0px auto;
+    padding: 0px;
   }
 
 
@@ -293,6 +317,7 @@
     height: 25px;
     background: white;
     margin-top: 25px;
+    margin-left: 90px;
   }
 
   .itemBox{

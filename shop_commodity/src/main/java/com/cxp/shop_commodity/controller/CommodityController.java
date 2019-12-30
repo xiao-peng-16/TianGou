@@ -3,6 +3,7 @@ package com.cxp.shop_commodity.controller;
 import com.cxp.shop_api.dto.CommodityNumberChange;
 import com.cxp.shop_api.dto.CommodityToOrder;
 import com.cxp.shop_api.entity.Commodity;
+import com.cxp.shop_api.entity.Sort;
 import com.cxp.shop_api.request.SearchRequest;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
@@ -26,6 +27,29 @@ public class CommodityController {
 
     @Autowired
     CommodityServiceImpl commodityService;
+
+    //前端接口
+    //查询商品1种类列表
+    @RequestMapping("/listSort")
+    public List<Sort> listSort(){
+        return commodityService.listSort();
+    }
+
+    //前端接口
+    //添加商品
+    @RequestMapping("/addCommodityByUserId")
+    public ResultBean addCommodityByUserId(Integer userId,@RequestBody Commodity commodity){
+        commodity.setStoreId(userId);
+        return commodityService.addCommodity(commodity);
+    }
+
+    //前端接口
+    //修改商品
+    @RequestMapping("/updCommodityByUserId")
+    public ResultBean updCommodityByUserId(Integer userId,@RequestBody Commodity commodity){
+        commodity.setStoreId(userId);
+        return commodityService.updCommodity(commodity);
+    }
 
     //收藏夹 微服务
     @PostMapping("/mapFavoriteCommodityVO")
@@ -65,6 +89,13 @@ public class CommodityController {
     @RequestMapping("/selStoreCommodityVOByUserId")
     public ResultBean selStoreCommodityVOByUserId(Integer userId){
         return  ResultFactory.createSuccessResult(commodityService.selStoreCommodityByUserId(userId));
+    }
+
+    //前端接口
+    //查询商品 用于 店铺修改商品
+    @RequestMapping("/selCommodityByCommodityId")
+    public Commodity selCommodityByCommodityId(Integer commodityId){
+        return commodityService.selCommodityByCommodityId(commodityId);
     }
 
 

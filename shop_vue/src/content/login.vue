@@ -1,12 +1,14 @@
 <template>
   <div>
 
-    <div class="container">
+
+    <el-row>
       <img src="../assets/tmall.jpg" height="38">
-    </div>
+    </el-row>
+
     <div class="body">
-      <div class="container content">
-        <div class="offset-md-7">
+      <el-row class=" content">
+        <el-col :offset="14" :span="10">
           <div class="fromBox">
             <div v-if="flag_hint" class="hintBox">
               <span id="hint_icon" class="iconfont">&#xeb65;</span>
@@ -32,8 +34,9 @@
               <router-link class="buttom" :to="{name:'drop_password'}">忘记密码</router-link>
             </div>
           </div>
-        </div>
-      </div>
+        </el-col>
+      </el-row>
+
     </div>
 
   </div>
@@ -98,11 +101,12 @@
 <style scoped>
 
 
-  .container{
+  .el-row{
     max-width: 1200px;
+    margin: 0px auto;
     padding: 0px;
   }
-  .container img{
+  .el-row img{
     margin: 20px 0px 25px 0px;
   }
   .body{

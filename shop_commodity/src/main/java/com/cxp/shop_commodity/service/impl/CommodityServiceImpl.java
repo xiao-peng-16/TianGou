@@ -4,18 +4,21 @@ import com.cxp.shop_api.dto.CommodityNumberChange;
 import com.cxp.shop_api.dto.CommodityToOrder;
 import com.cxp.shop_api.dto.StoreToCommodity;
 import com.cxp.shop_api.entity.Commodity;
-import com.cxp.shop_api.entity.OrderSon;
+import com.cxp.shop_api.entity.Sort;
 import com.cxp.shop_api.request.SearchRequest;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
+import com.cxp.shop_api.result.ResultStatus;
 import com.cxp.shop_api.vo.*;
 import com.cxp.shop_commodity.mapper.CommodityMapper;
+import com.cxp.shop_commodity.pojo.CommodityPhotoVideo;
 import com.cxp.shop_commodity.service.CommodityService;
+import com.cxp.shop_commodity.service.FeignClient.ImagesFeignClient;
 import com.cxp.shop_commodity.service.FeignClient.StoreFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -29,8 +32,51 @@ public class CommodityServiceImpl implements CommodityService {
     @Autowired
     StoreFeignClient storeFeignClient;
 
+    @Autowired
+    ImagesFeignClient imagesFeignClient;
+
 
     static final ResultBean successResult = ResultFactory.createSuccessResult();
+    static final ResultBean COMMODITY_INSERT_ERROR = ResultFactory.createFailResult(ResultStatus.COMMODITY_INSERT_ERROR);
+    static final ResultBean COMMODITY_UPDATE_ERROR = ResultFactory.createFailResult(ResultStatus.COMMODITY_UPDATE_ERROR);
+
+
+
+    @Override
+    public List<Sort> listSort() {
+        return commodityMapper.listSort();
+    }
+
+    @Override
+    public ResultBean addCommodity(Commodity commodity) {
+        return 0 < commodityMapper.insCommodity(commodity) ? successResult : COMMODITY_INSERT_ERROR;
+    }
+
+    @Override
+    public ResultBean updCommodity(Commodity commodity) {
+
+        CommodityPhotoVideo commodityPhotoVideo = commodityMapper.selCommodityPhotoVideo(commodity.getCommodityId());
+
+        if (0 == commodityMapper.updCommodity(commodity))
+            return COMMODITY_UPDATE_ERROR;
+
+        ArrayList<String> urlList = new ArrayList<>();
+        String oldCommodityPhoto = commodityPhotoVideo.getCommodityPhoto();
+        String newCommodityPhoto = commodity.getCommodityPhoto();
+
+        String oldCommodityVideo = commodityPhotoVideo.getCommodityVideo();
+        String newCommodityVideo = commodity.getCommodityVideo();
+
+        if (null != oldCommodityPhoto && !oldCommodityPhoto.equals(newCommodityPhoto))
+            urlList.add(oldCommodityPhoto);
+        if (null != oldCommodityVideo && !oldCommodityVideo.equals(newCommodityVideo))
+            urlList.add(oldCommodityVideo);
+
+        if (0 != urlList.size())
+            imagesFeignClient.dlelQiniuImagesList(urlList);
+
+        return successResult;
+    }
 
     @Override
     public Map<Integer, OrderCommodityVO> mapOrderCommodityVO(List<Integer> commodityIdList) {
@@ -171,6 +217,11 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public List<StoreCommodityVO> selStoreCommodityByUserId(int userId) {
         return commodityMapper.selStoreCommodityByUserId(userId);
+    }
+
+    @Override
+    public Commodity selCommodityByCommodityId(int commodityId) {
+        return commodityMapper.selCommodityByCommodityId(commodityId);
     }
 
 }

@@ -1,5 +1,4 @@
 <template>
-  <div class="container">
     <div class="player">
       <video-player  class="video-player vjs-custom-skin"
                      ref="videoPlayer"
@@ -8,7 +7,6 @@
       >
       </video-player>
     </div>
-  </div>
 </template>
 
 <script>
@@ -58,6 +56,20 @@
     computed: {
       player() {
         return this.$refs.videoPlayer.player
+      },
+      src(){
+        return this.resource.src;
+      },
+      poster(){
+        this.resource.poster;
+      }
+    },
+    watch:{
+      src(){
+        this.playerOptions.sources[0].src=this.resource.src;
+      },
+      poster(){
+        this.playerOptions.poster=this.resource.poster;
       }
     },
     created() {
@@ -69,10 +81,5 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style type="text/css" scoped>
-  .container {
-    min-height: 100%;
-    margin: 0px;
-    padding: 0px;
-  }
 
 </style>

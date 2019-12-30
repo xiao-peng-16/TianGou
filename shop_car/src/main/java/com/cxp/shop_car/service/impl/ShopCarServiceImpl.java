@@ -49,7 +49,8 @@ public class ShopCarServiceImpl implements ShopCarService {
 
     @Override
     public int selShopCarNumberByUserId(int userId) {
-        return shopCarMapper.selShopCarNumberByUserId(userId);
+        Integer len = shopCarMapper.selShopCarNumberByUserId(userId);
+        return null==len ? 0 : len;
     }
 
 

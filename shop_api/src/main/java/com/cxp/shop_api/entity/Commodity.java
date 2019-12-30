@@ -14,9 +14,12 @@ public class Commodity {
 
     int storeId;
     Store store;        //商品所属店
-    Sort sort; //商品所属种类
+
+    int sortId;
+    String sortName;
+
     String commodityDescribe;   //商品描述
-    Boolean baoYou;     //是否包邮
+    boolean baoYou;     //是否包邮
     String commodityPhoto;  //商品图片
     String commodityVideo;   //商品视频'
     double commodityPrice;      //价格

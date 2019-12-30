@@ -8,6 +8,28 @@
 
 
 
+<!--    添加商品-->
+
+    <insert id="insCommodity">
+        insert commodity(store_id, sort_id, commodity_name, commodity_describe, bao_you, commodity_price, commodity_stock, commodity_photo, commodity_video)
+                value (#{storeId},#{sortId},#{commodityName},#{commodityDescribe},#{baoYou},#{commodityPrice},#{commodityStock},#{commodityPhoto},#{commodityVideo})
+    </insert>
+
+<!--    修改商品-->
+
+    <update id="updCommodity">
+        update commodity
+        set sort_id = #{sortId},
+        commodity_name = #{commodityName},
+        commodity_describe = #{commodityDescribe},
+        bao_you = #{baoYou},
+        commodity_price = #{commodityPrice},
+        commodity_stock = #{commodityStock},
+        commodity_photo = #{commodityPhoto},
+        commodity_video = #{commodityVideo}
+        where store_id = #{storeId} and commodity_id = #{commodityId}
+    </update>
+
     <!--    查询购物车商品信息-->
     <select id="mapShopCarCommodityVO" resultType="com.cxp.shop_api.vo.ShopCarCommodityVO">
         select commodity_id,commodity_name,commodity_describe,commodity_price,bao_you,commodity_photo
@@ -117,7 +139,7 @@
 
 
 
-    <!--***********************搜索页   开始*****************************-->
+    <!--***********************搜索页   结束*****************************-->
 
 
 
@@ -125,7 +147,7 @@
          select commodity_id,commodity_name,commodity_photo,commodity_price,commodity_sales,commodity_stock
          from commodity
          where store_id = #{storeID}
-         order by store_id desc
+         order by commodity_id desc
     </select>
 
 

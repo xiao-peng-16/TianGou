@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(allowCredentials = "true")
 @RestController
 public class QiuinController {
@@ -60,6 +62,18 @@ public class QiuinController {
                 Response r = e.response;
                 System.out.println(r.toString());
             }
+        }
+    }
+
+    //删除图片
+    @PostMapping("/dlelQiniuImagesList")
+    public void  dlelQiniuImagesList(@RequestBody List<String> imagesURlList){
+
+
+        System.out.println(imagesURlList);
+
+        for (String imagesURl : imagesURlList){
+            dlelQiniuImages(imagesURl);
         }
     }
 

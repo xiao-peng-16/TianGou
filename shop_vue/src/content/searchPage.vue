@@ -10,32 +10,35 @@
           </div>
         </div>
 
-
-
-        <div class="container">
-          <div class="row second">
-              <img src="../assets/tmall.jpg">
-              <div class="serarch">
-                <serarch  @event_click_search_hotWord="event_click_search_hotWord" :flag_bottom_work="true" :flag_home="false"/>
-              </div>
+      <el-row>
+        <div class=" second">
+          <img src="../assets/tmall.jpg" style="display: inline-block;position: relative;bottom: 33px">
+          <div class="serarch" style="display: inline-block;">
+            <serarch  @event_click_search_hotWord="event_click_search_hotWord" :flag_bottom_work="true" :flag_home="false"/>
           </div>
+        </div>
+      </el-row>
 
-          <div class="row"><div class="split"></div></div>
+
+          <el-row><div class="split"></div></el-row>
+
 
           <div v-show="flag_containData">
-            <div class="row">
-              <div class="col-lg-1-5 spc" v-for="itemData in commodityList">
+            <el-row>
+              <div class="col-sm-1-3 col-md-1-4 col-lg-1-5 spc" v-for="itemData in commodityList">
                 <SearchPage_commodity  :props_CommodityMessage="itemData"/>
               </div>
-            </div>
-            <div class="pageBox">
-              <el-pagination background="true"
-               layout="total, prev, pager, next"
-               :total="commoditySum"
-               :page-size="pageStepSize"
-               :current-page.sync="pageNo">
-              </el-pagination>
-            </div>
+            </el-row>
+            <el-row>
+              <div class="pageBox">
+                <el-pagination :background="true"
+                               layout="total, prev, pager, next"
+                               :total="commoditySum"
+                               :page-size="pageStepSize"
+                               :current-page.sync="pageNo">
+                </el-pagination>
+              </div>
+            </el-row>
 
 
           </div>
@@ -46,8 +49,6 @@
           <span class="maddle">“ {{search_word}} ”</span>
           <span class="side">相关的商品哦。</span>
         </div>
-
-      </div>
 
     </div>
 </template>
@@ -182,10 +183,11 @@
     margin-top: 20px;
   }
   
-  .container{
+  .el-row{
     max-width: 1380px;
+    margin: 0px auto;
+    padding: 0px;
   }
-
 
 
 
@@ -201,13 +203,13 @@
     height: 40px;
   }
   .serarch{
-    margin-left: 100px;
+    margin-left: 90px;
     margin-top: 8px;
   }
   .split{
     margin: 0 auto;
     height: 1px;
-    width: 98%;
+    width: 98.5%;
     background: #E5E5E5;
 
   }
@@ -237,20 +239,20 @@
 
 
   @media (min-width: 768px) {
-    .col-sm-1-5 {
-      width: 20%;
+    .col-sm-1-3 {
+      width: 33%;
       float: left;
     }
   }
 
-  @media (min-width: 1200px) {
-    .col-md-1-5 {
-      width: 20%;
+  @media (min-width: 1100px) {
+    .col-md-1-4 {
+      width: 25%;
       float: left;
     }
   }
 
-  @media (min-width: 1300px) {
+  @media (min-width: 1280px) {
     .col-lg-1-5 {
       width: 20%;
       float: left;
