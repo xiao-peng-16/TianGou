@@ -241,6 +241,7 @@
 
   .box{
     max-width: 1350px;
+    width: 100%;
     height: 100%;
     margin: 0px auto;
     padding: 0px;

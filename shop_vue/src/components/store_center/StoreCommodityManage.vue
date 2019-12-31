@@ -31,8 +31,36 @@
         <div class="commodityStock">
           <span>{{item.commodityStock}} 件</span>
         </div>
-        <div class="operate" @click="update_commodity(item.commodityId)">
-            <span>修改</span>
+        <div class="operate">
+
+          <div v-if="item.commodityOnShelves" class="true_OnShelves">
+            <el-dropdown split-button type="primary" @click="update_commodity(item.commodityId)">
+              修改
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>
+                  <div class="my_true_OnShelves_item_box" @click="updCommodityOnShelves(item, false)">
+                    下架
+                  </div>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
+          <div v-else class="false_OnShelves">
+            <el-dropdown split-button type="primary" @click="updCommodityOnShelves(item, true)">
+              上架
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>
+                  <div class="my_false_OnShelves_item_box" @click="update_commodity(item.commodityId)">
+                    修改
+                  </div>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
+
+
+
+
         </div>
       </div>
     </div>
@@ -75,6 +103,34 @@
         },
         click_img(commodityId){
           this.$router.push({name:'commodityPage',query:{commodityId}});
+        },
+        updCommodityOnShelves(commodity,commodityOnShelves){
+
+          var msg = commodityOnShelves? '重新上架' : '下架'
+          this.$confirm('此商品将'+msg+', 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+
+            this.$axios.get('/commodity/updCommodityOnShelvesByUserId',{
+              params:{
+                commodityId: commodity.commodityId,
+                commodityOnShelves : commodityOnShelves
+              }
+            }).then(res=>{
+              if (this.$store.getters.getResultDispose(res)) {
+                commodity.commodityOnShelves = commodityOnShelves;
+                this.$notify.success({
+                  title:'商品'+msg+'成功',
+                });
+              }
+            });
+
+          })
+        },
+        xxxx(){
+          alert("64334864346")
         },
         init(title){
           this.$axios.get('/commodity/selStoreCommodityVOByUserId')
@@ -158,11 +214,62 @@
   }
 
   .operate{
-    background: #20c997;
     cursor: pointer;
     position: absolute;
     left: 945px;
     top: 45px;
   }
 
+
+
+  /deep/ .operate .el-button{
+    padding: 7px 6px;
+    font-size: 15px;
+  }
+  /deep/ .true_OnShelves .el-button{
+      background: #17A2B8;
+      border-color:#17A2B8;
+  }
+  /deep/ .false_OnShelves .el-button{
+    background: #24B846;
+    border-color:#24B846;
+  }
+
+ /deep/ .operate .el-button--primary:first-child{
+    width: 55px;
+  }
+
+  /deep/ .operate .el-button--primary:nth-child(2){
+    width: 30px;
+  }
+
+  /deep/  .popper__arrow{
+    display: none;
+  }
+
+  /deep/ .el-dropdown-menu{
+    padding: 0px;
+    margin: 0px;
+  }
+
+  /deep/  .el-dropdown-menu__item{
+    padding: 0px;
+    width: 85px;
+    line-height: 30px;
+    color: white;
+    }
+  /deep/  .el-dropdown-menu__item:hover{
+    color: white;
+  }
+
+ .my_true_OnShelves_item_box{
+  padding-left: 25px;
+  background: #EE3143;
+}
+  .my_false_OnShelves_item_box{
+    padding-left: 25px;
+    background: #17A2B8;
+  }
+
 </style>
+

@@ -2,7 +2,7 @@
   <div>
     <nav_top :flag_fixed="true" :flag_scroll="true" />
     <div style="position: fixed;width: 100%;height: 110px;padding-top: 50px; background: white;z-index: 100;border-bottom: 1px solid #DADADA">
-      <img  src="../assets/tmall.jpg" style="float: left">
+      <img  src="../assets/tmall.jpg" style="float: left;width: 243px;height: 45px">
       <div class="top_box">
         <span id="title">— 用户中心 —</span>
         <div class="top_options">

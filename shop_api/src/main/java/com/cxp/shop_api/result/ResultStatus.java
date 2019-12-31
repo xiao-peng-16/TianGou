@@ -23,8 +23,8 @@ public class ResultStatus {
     //商品 4xx
     public final static int COMMODITY_ID_ERROR = 401;           //商品ID不存在
     public final static int COMMODITY_STOCK_INSUFFICIENT = 402; //商品库存不足买家购买
-    public final static int COMMODITY_INSERT_ERROR = 403;       //商品ID不存在
-    public final static int COMMODITY_UPDATE_ERROR = 404;       //商品ID不存在
+    public final static int COMMODITY_INSERT_ERROR = 403;       //商品添加失败
+    public final static int COMMODITY_UPDATE_ERROR = 404;       //商品修改失败
 
     //订单5xx
     public final static int ORDER_List_ERROR = 501;             //订单添加失败

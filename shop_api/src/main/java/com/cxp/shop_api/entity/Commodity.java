@@ -28,4 +28,5 @@ public class Commodity {
     int commodityPopularity;    //人气 (点击量)
     int commodityStock;         //库存
 
+    boolean commodityOnShelves; //是否处于上架状态
 }

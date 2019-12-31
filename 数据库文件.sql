@@ -41,6 +41,7 @@ create table commodity(
 		commodity_sales int default 0  comment '销量',
 		commodity_popularity  int default 0  comment '人气 (点击量)',
 		commodity_stock int default 0 comment '库存',
+		commodity_on_shelves bool default true comment '是否处于上架状态',
 		commodity_photo varchar(200) comment '商品图片',
 		commodity_video varchar(200) comment '商品视频'
 );

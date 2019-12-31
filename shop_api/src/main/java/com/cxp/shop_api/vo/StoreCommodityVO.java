@@ -11,4 +11,6 @@ public class StoreCommodityVO {
     double commodityPrice;      //价格
     int commoditySales;         //销量
     int commodityStock;         //库存
+
+    boolean commodityOnShelves; //是否处于上架状态
 }

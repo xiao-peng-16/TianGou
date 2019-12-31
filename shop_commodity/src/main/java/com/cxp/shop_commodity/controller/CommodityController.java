@@ -44,6 +44,13 @@ public class CommodityController {
     }
 
     //前端接口
+    //修改商品上架状态
+    @RequestMapping("/updCommodityOnShelvesByUserId")
+    public ResultBean updCommodityOnShelvesByUserId(Integer userId, Integer commodityId, Boolean commodityOnShelves){
+        return commodityService.updCommodityOnShelves(userId, commodityId, commodityOnShelves);
+    }
+
+    //前端接口
     //修改商品
     @RequestMapping("/updCommodityByUserId")
     public ResultBean updCommodityByUserId(Integer userId,@RequestBody Commodity commodity){

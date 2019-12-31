@@ -143,7 +143,7 @@
     }
 </script>
 
-<style>
+<style scoped>
   .box{
 
     margin-left: 28%;

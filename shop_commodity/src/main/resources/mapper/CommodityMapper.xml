@@ -65,7 +65,7 @@
     <select id="mapCommodityToOrder" resultType="com.cxp.shop_api.dto.CommodityToOrder">
         select commodity_id , store_id  , commodity_price , commodity_stock
         from commodity
-        where commodity_id in
+        where commodity_on_shelves = true and commodity_id in
         <foreach collection="list" item="item" separator="," open="(" close=")">
             #{item}
         </foreach>
@@ -87,13 +87,13 @@
     <select id="selSearchCountByCommodityName" resultType="Integer">
         select count(*) from commodity
         <bind name="searchWord" value="'%'+searchWord+'%'"/>
-        where commodity_name like #{searchWord}
+        where commodity_on_shelves = true and commodity_name like #{searchWord}
     </select>
 
     <select id="selSearchCommodityVOByCommodityName" resultType="com.cxp.shop_api.vo.SearchCommodityVO">
         <include refid="selSearchCommodityVO"/>
         <bind name="searchWord" value="'%'+searchWord+'%'"/>
-        where commodity_name like #{searchWord}
+        where commodity_on_shelves = true and  commodity_name like #{searchWord}
         limit #{pageStartLen} ,#{pageStepSize}
     </select>
 
@@ -105,14 +105,14 @@
         select count(*) from commodity
         inner join sort  on commodity.sort_id  = sort.sort_id
         <bind name="searchWord" value="'%'+searchWord+'%'"/>
-        where sort_name like #{searchWord}
+        where commodity_on_shelves = true and sort_name like #{searchWord}
     </select>
 
     <select id="selSearchCommodityVOBySortName" resultType="com.cxp.shop_api.vo.SearchCommodityVO">
         <include refid="selSearchCommodityVO"/>
         inner join sort  on commodity.sort_id  = sort.sort_id
         <bind name="searchWord" value="'%'+searchWord+'%'"/>
-        where sort_name like #{searchWord}
+        where  commodity_on_shelves = true and sort_name like #{searchWord}
         limit #{pageStartLen} ,#{pageStepSize}
     </select>
 
@@ -121,7 +121,7 @@
     <!--    查询搜索页  根据店铺id-->
     <select id="selSearchCountByStoreId" resultType="Integer">
         select count(*) from commodity
-        where store_id in
+        where commodity_on_shelves = true and store_id in
         <foreach collection="list" item="item" separator="," open="(" close=")">
             #{item}
         </foreach>
@@ -129,7 +129,7 @@
 
     <select id="selSearchCommodityVOByStoreId" resultType="com.cxp.shop_api.vo.SearchCommodityVO">
         <include refid="selSearchCommodityVO"/>
-        where store_id in
+        where commodity_on_shelves = true and store_id in
         <foreach collection="list" item="item" separator="," open="(" close=")">
             #{item}
         </foreach>
@@ -144,7 +144,7 @@
 
 
     <select id="selStoreCommodityByUserId" resultType="com.cxp.shop_api.vo.StoreCommodityVO">
-         select commodity_id,commodity_name,commodity_photo,commodity_price,commodity_sales,commodity_stock
+         select commodity_id,commodity_name,commodity_photo,commodity_price,commodity_sales,commodity_stock,commodity_on_shelves
          from commodity
          where store_id = #{storeID}
          order by commodity_id desc

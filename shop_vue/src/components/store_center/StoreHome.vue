@@ -1,7 +1,7 @@
 <template>
   <div style="padding-top: 1px;width: 1080px">
 
-    <div class="top">
+    <div class="store_home_top">
       <img :src="show_userPhotoURL" style="padding-left: 13px;">
       <div class="left_message">
         <span style="font-weight: 600;font-size: 25px;letter-spacing:5px;">{{getUserName()}}</span>
@@ -101,13 +101,13 @@
 
 <style scoped>
 
-  .top{
+  .store_home_top{
     padding: 20px;
     height: 230px;
     box-shadow: 0px 63px 30px -50px #E1ECF5 inset;
   }
   
-  .top img{
+  .store_home_top img{
     float: left;
     height: 130px;
   }

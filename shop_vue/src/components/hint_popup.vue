@@ -30,7 +30,9 @@
               return "亲，您不能购买自己店铺的商品哦";
             //商品 4xx
             case this.GLOBAL.ResultStatus.COMMODITY_STOCK_INSUFFICIENT:
-              return "亲，您选购的商品的库存不足";1
+              return "亲，您选购的商品的库存不足";
+            case this.GLOBAL.ResultStatus.COMMODITY_ID_ERROR:
+              return "商品已下架 或 商品id不存在";
             //this.$store.state.status 也可以是字符串
             default:
               return  this.$store.state.status;

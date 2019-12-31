@@ -217,6 +217,7 @@
     background: #FFF8F6;
     border: 1px solid #F7EAE7;
     height: 90px;
+    padding-left: 25%;
   }
   .notData img{
     height: 60px;

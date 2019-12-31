@@ -106,6 +106,12 @@
     },
     methods:{
       addShop_Car(){
+
+        if (!this.commodity.commodityOnShelves){
+          this.$store.state.status = "该商品已下架";
+          return;
+        }
+
         if(this.flag_notAddShop_car){
           this.$axios.post('/car/addShopCarByUserId',{
             commodityId:this.commodity.commodityId,
@@ -115,13 +121,19 @@
               this.flag_notAddShop_car=false;
               this.msg_addShopcar="已添加至购物车";
               this.$store.state.user.shopCarNumber = Number.parseInt(this.$store.state.user.shopCarNumber) + this.chooseNumber;
-              alert("购物车添加成功");
+              this.$store.state.status = "购物车添加成功";
             }
           })
         }
 
       },
       shop(){
+
+        if (!this.commodity.commodityOnShelves){
+          this.$store.state.status = "该商品已下架";
+          return;
+        }
+
         this.$axios.post('/order/submitOrderByUserId',[{
           commodityId:this.commodity.commodityId,
           chooseNumber:this.chooseNumber

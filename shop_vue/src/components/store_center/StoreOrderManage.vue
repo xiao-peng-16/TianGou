@@ -19,20 +19,23 @@
 
         <div class="listBox">
           <div class="itemBox" v-for="item in orderParentRoughList" @click="enterOrderParent(item.orderId)">
-            <div class="only_imgBox"  v-if="item.only_img">
-              <img :src="item.orderCommodityVOList[0].commodityPhoto">
-            </div>
-            <div class="multi_imgBox" v-else  >
-              <div v-for="orderCommodityVO in item.orderCommodityVOList">
-                <img :src="orderCommodityVO.commodityPhoto">
+            <div v-if=" undefined != item.orderCommodityVOList">
+              <div class="only_imgBox"  v-if="item.only_img">
+                <img :src="item.orderCommodityVOList[0].commodityPhoto">
+              </div>
+              <div class="multi_imgBox" v-else  >
+                <div v-for="orderCommodityVO in item.orderCommodityVOList">
+                  <img :src="orderCommodityVO.commodityPhoto">
+                </div>
               </div>
             </div>
 
-            <div class="cNameBox">
+            <div class="cNameBox" v-if=" undefined != item.orderCommodityVOList">
               <div class="cNameboxItem" v-for="orderCommodityVO in item.orderCommodityVOList">
                 <span>{{orderCommodityVO.commodityName}}</span><br>
               </div>
             </div>
+
             <div class="userName">
               <span>{{item.userName}}</span>
             </div>
@@ -104,7 +107,6 @@
         this.$axios.get('/order/listStoreOrderParentRoughByUserId')
           .then(res=>{
             if (this.$store.getters.getResultDispose(res)) {
-
               this.orderParentRoughList = res.data.data;
               for (let i in this.orderParentRoughList) {
                   if (this.orderParentRoughList[i].orderCommodityVOList.length == 4) {

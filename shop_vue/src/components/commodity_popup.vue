@@ -515,7 +515,7 @@
     left: 0px;
   }
 
-  .primary_commodityPrice .el-upload--picture-card,.primary_commodityPrice .is-ready,.primary_commodityPrice .is-success{
+  .primary_commodityPrice .el-upload--picture-card,.primary_commodityPrice .is-ready,.primary_commodityPrice .is-success,primary_commodityPrice .is-uploading{
     width: 207px;
     height: 207px;
   }

@@ -21,7 +21,8 @@ public interface CommodityService {
 
     //修改商品
     public ResultBean updCommodity(Commodity commodity);
-
+    //修改商品上架状态
+    public ResultBean updCommodityOnShelves(Integer storeId, Integer commodityId, Boolean commodityOnShelves);
 
     //根据商品id返回商品简单信息给 订单管理微服务 调用
     public Map<Integer, OrderCommodityVO> mapOrderCommodityVO(List<Integer> commodityIdList);

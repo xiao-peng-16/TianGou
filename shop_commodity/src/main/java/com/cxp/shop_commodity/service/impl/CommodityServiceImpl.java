@@ -79,6 +79,14 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
+    public ResultBean updCommodityOnShelves(Integer storeId, Integer commodityId, Boolean commodityOnShelves) {
+        if (null == commodityId || null == commodityOnShelves)
+            return COMMODITY_UPDATE_ERROR;
+        return 0 != commodityMapper.updCommodityOnShelves(storeId, commodityId, commodityOnShelves)
+                ? successResult : COMMODITY_UPDATE_ERROR;
+    }
+
+    @Override
     public Map<Integer, OrderCommodityVO> mapOrderCommodityVO(List<Integer> commodityIdList) {
         return commodityMapper.mapOrderCommodityVO(commodityIdList);
     }
