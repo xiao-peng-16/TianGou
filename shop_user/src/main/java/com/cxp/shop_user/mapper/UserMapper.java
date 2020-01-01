@@ -26,7 +26,7 @@ public interface UserMapper {
 
     //登录
     @Select("select user_id from user where user_name = #{userName} and user_password = #{userPassword}")
-    public List<Integer> selUserByPassword(User user);
+    public Integer selUserByPassword(User user);
 
 
     //id登录

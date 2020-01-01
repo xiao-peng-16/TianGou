@@ -11,9 +11,10 @@ create table user(
 );
 
 
-/*店铺表		store_id = user_id*/
+/*店铺表*/
 create table store(
-		store_id int primary key,
+		store_id int primary key auto_increment,
+		user_id int comment '用户id',
 		store_name char(10) comment '店铺名',
 		store_province char(10) comment '**省',
 		store_city char(5) comment '**市',
@@ -103,17 +104,17 @@ insert user(user_id,user_name,user_password,user_money) values(12,'小赵','1234
 
 /*店铺表*/
 
-insert store(store_id,store_name,store_province,store_city) values(1,'百货店铺','广东','深圳');
-insert store(store_id,store_name,store_province,store_city) values(2,'史塔克工业','美国','纽约');
-insert store(store_id,store_name,store_province,store_city) values(3,'珠宝店','','上海');
-insert store(store_id,store_name,store_province,store_city) values(4,'水果店','海南','海口');
-insert store(store_id,store_name,store_province,store_city) values(5,'宠物店','','北京');
-insert store(store_id,store_name,store_province,store_city) values(6,'运动健身店','浙江','杭州');
-insert store(store_id,store_name,store_province,store_city) values(7,'服装店','广东','广州 ');
-insert store(store_id,store_name,store_province,store_city) values(9,'手机店','浙江','杭州');
-insert store(store_id,store_name,store_province,store_city) values(10,'美食店','广东','深圳');
-insert store(store_id,store_name,store_province,store_city) values(11,'家具店','甘肃','兰州');
-insert store(store_id,store_name,store_province,store_city) values(12,'图书店','辽宁','大连');
+insert store(store_id,user_id,store_name,store_province,store_city) values(1,1,'百货店铺','广东','深圳');
+insert store(store_id,user_id,store_name,store_province,store_city) values(2,2,'史塔克工业','美国','纽约');
+insert store(store_id,user_id,store_name,store_province,store_city) values(3,3,'珠宝店','','上海');
+insert store(store_id,user_id,store_name,store_province,store_city) values(4,4,'水果店','海南','海口');
+insert store(store_id,user_id,store_name,store_province,store_city) values(5,5,'宠物店','','北京');
+insert store(store_id,user_id,store_name,store_province,store_city) values(6,6,'运动健身店','浙江','杭州');
+insert store(store_id,user_id,store_name,store_province,store_city) values(7,7,'服装店','广东','广州 ');
+insert store(store_id,user_id,store_name,store_province,store_city) values(9,9,'手机店','浙江','杭州');
+insert store(store_id,user_id,store_name,store_province,store_city) values(10,10,'美食店','广东','深圳');
+insert store(store_id,user_id,store_name,store_province,store_city) values(11,11,'家具店','甘肃','兰州');
+insert store(store_id,user_id,store_name,store_province,store_city) values(12,12,'图书店','辽宁','大连');
 
 /*商品种类*/
 insert sort(sort_id,sort_name) values (1,'装饰品');

@@ -37,24 +37,24 @@ public class CommodityController {
 
     //前端接口
     //添加商品
-    @RequestMapping("/addCommodityByUserId")
-    public ResultBean addCommodityByUserId(Integer userId,@RequestBody Commodity commodity){
-        commodity.setStoreId(userId);
+    @RequestMapping("/addCommodityByStoreId")
+    public ResultBean addCommodityByStoreId(Integer storeId,@RequestBody Commodity commodity){
+        commodity.setStoreId(storeId);
         return commodityService.addCommodity(commodity);
     }
 
     //前端接口
     //修改商品上架状态
-    @RequestMapping("/updCommodityOnShelvesByUserId")
-    public ResultBean updCommodityOnShelvesByUserId(Integer userId, Integer commodityId, Boolean commodityOnShelves){
-        return commodityService.updCommodityOnShelves(userId, commodityId, commodityOnShelves);
+    @RequestMapping("/updCommodityOnShelvesByStoreId")
+    public ResultBean updCommodityOnShelvesByStoreId(Integer storeId, Integer commodityId, Boolean commodityOnShelves){
+        return commodityService.updCommodityOnShelves(storeId, commodityId, commodityOnShelves);
     }
 
     //前端接口
     //修改商品
-    @RequestMapping("/updCommodityByUserId")
-    public ResultBean updCommodityByUserId(Integer userId,@RequestBody Commodity commodity){
-        commodity.setStoreId(userId);
+    @RequestMapping("/updCommodityByStoreId")
+    public ResultBean updCommodityByStoreId(Integer storeId,@RequestBody Commodity commodity){
+        commodity.setStoreId(storeId);
         return commodityService.updCommodity(commodity);
     }
 
@@ -93,9 +93,9 @@ public class CommodityController {
 
     //前端接口
     //卖家中心  销售的商品
-    @RequestMapping("/selStoreCommodityVOByUserId")
-    public ResultBean selStoreCommodityVOByUserId(Integer userId){
-        return  ResultFactory.createSuccessResult(commodityService.selStoreCommodityByUserId(userId));
+    @RequestMapping("/selStoreCommodityVOByStoreId")
+    public ResultBean selStoreCommodityVOByStoreId(Integer storeId){
+        return  ResultFactory.createSuccessResult(commodityService.selStoreCommodityVOByStoreId(storeId));
     }
 
     //前端接口

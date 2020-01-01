@@ -1,12 +1,22 @@
 package com.cxp.shop_store.service;
 
 import com.cxp.shop_api.dto.StoreToCommodity;
+import com.cxp.shop_api.dto.UserOpenStoreDTO;
 import com.cxp.shop_api.entity.Store;
+import com.cxp.shop_api.result.ResultBean;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 import java.util.Map;
 
 public interface StoreService {
+
+    //用于 网关 检测用户对应的 店铺id
+    public Integer selStoreIdByUserId(Integer userId);
+
+    //用户 开通店铺功能
+    public ResultBean addStoreIdByUserId(UserOpenStoreDTO userOpenStoreDTO);
+
 
     //返回店铺完整信息   用于组成店铺页的店铺信息
     public Store selStoreByStoreId(Integer userId);

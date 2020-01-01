@@ -1,7 +1,9 @@
 package com.cxp.shop_store.mapper;
 
 import com.cxp.shop_api.dto.StoreToCommodity;
+import com.cxp.shop_api.dto.UserOpenStoreDTO;
 import com.cxp.shop_api.entity.Store;
+import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_store.pojo.StoreIdStoreName;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
@@ -13,6 +15,15 @@ import java.util.Map;
 
 @Repository
 public interface StoreMapper {
+
+
+
+    //用于 网关 检测用户对应的 店铺id
+    @Select("select store_id from store where user_id = #{userId} limit 0,1")
+    public Integer selStoreIdByUserId(Integer userId);
+
+    //用户 开通店铺功能
+    public int addStoreIdByUserId(UserOpenStoreDTO userOpenStoreDTO);
 
     //返回店铺大致信息：名字、地点 用于组成搜索页商品的店铺信息
     @MapKey("storeId")

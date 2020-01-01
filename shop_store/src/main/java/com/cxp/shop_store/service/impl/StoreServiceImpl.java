@@ -1,6 +1,7 @@
 package com.cxp.shop_store.service.impl;
 
 import com.cxp.shop_api.dto.StoreToCommodity;
+import com.cxp.shop_api.dto.UserOpenStoreDTO;
 import com.cxp.shop_api.entity.Store;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
@@ -21,8 +22,20 @@ public class StoreServiceImpl implements StoreService {
     @Autowired
     StoreMapper storeMapper;
 
-    static final ResultBean STORE_ID_ERROR = ResultFactory.createFailResult(ResultStatus.STORE_ID_ERROR);
 
+    static final ResultBean successResult = ResultFactory.createSuccessResult();
+    static final ResultBean STORE_REGISTER_ERROR =ResultFactory.createFailResult(ResultStatus.STORE_REGISTER_ERROR);
+
+
+    @Override
+    public Integer selStoreIdByUserId(Integer userId) {
+        return storeMapper.selStoreIdByUserId(userId);
+    }
+
+    @Override
+    public ResultBean addStoreIdByUserId(UserOpenStoreDTO userOpenStoreDTO) {
+        return 0 != storeMapper.addStoreIdByUserId(userOpenStoreDTO) ? successResult : STORE_REGISTER_ERROR;
+    }
 
     @Override
     public Map<Integer,StoreToCommodity> mapStoreToCommodityByStoreId(List<Integer> storeIdList) {
@@ -47,6 +60,8 @@ public class StoreServiceImpl implements StoreService {
     public String selStoreNameByStoreId(Integer storeId) {
         return storeMapper.selStoreNameByStoreId(storeId);
     }
+
+
 
 
     @Override

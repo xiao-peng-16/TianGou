@@ -95,5 +95,5 @@ public interface CommodityMapper {
     public int updCommodityNumber(CommodityNumberChange commodityNumberChange);
 
     //查找 商家出售哪些商品
-    public List<StoreCommodityVO> selStoreCommodityByUserId(@Param("storeID") int storeID);
+    public List<StoreCommodityVO> selStoreCommodityVOByStoreId(@Param("storeID") int storeID);
 }

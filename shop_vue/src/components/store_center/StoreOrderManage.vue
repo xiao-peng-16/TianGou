@@ -104,7 +104,7 @@
       created() {
 
 
-        this.$axios.get('/order/listStoreOrderParentRoughByUserId')
+        this.$axios.get('/order/listStoreOrderParentRoughByStoreId')
           .then(res=>{
             if (this.$store.getters.getResultDispose(res)) {
               this.orderParentRoughList = res.data.data;

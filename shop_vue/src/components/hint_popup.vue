@@ -11,12 +11,20 @@
 <script>
     export default {
         name: "hint_popup",
+      data(){
+          return{
+            pre_status:0
+          }
+      },
       computed:{
+        current_status(){
+          return this.$store.state.status;
+        },
         hint_popup_flag(){
-          return this.$store.state.status != 0;
+          return this.pre_status != 0;
         },
         hint_popup_msg(){
-          switch (this.$store.state.status) {
+          switch (this.pre_status) {
             case 0 : return '';
             //user 2xx
             case this.GLOBAL.ResultStatus.USER_ID_LOGIN_OVERDUE:
@@ -26,6 +34,8 @@
             case this.GLOBAL.ResultStatus.USER_CHANGE_PASSWORD_ERROR:
               return "亲，您的原密码不对";
             //店铺 3xx
+            case this.GLOBAL.ResultStatus.STORE_NOT_REGISTER:
+              return "亲，您还没开通店铺功能";
             case this.GLOBAL.ResultStatus.STORE_EQUAL_USER_ERROR:
               return "亲，您不能购买自己店铺的商品哦";
             //商品 4xx
@@ -35,15 +45,25 @@
               return "商品已下架 或 商品id不存在";
             //this.$store.state.status 也可以是字符串
             default:
-              return  this.$store.state.status;
+              return  this.pre_status;
           }
         }
 
       },
+      watch:{
+        current_status(val){
+          if (0 == this.pre_status)
+            this.pre_status = val;
+        },
+        pre_status(val){
+          if (0 == val)
+            this.$store.state.status = 0;
+        }
+      },
       methods:{
         close(){
-          var status = this.$store.state.status;
-          this.$store.state.status = 0;
+          var status = this.pre_status;
+          this.pre_status = 0;
           if (status == this.GLOBAL.ResultStatus.USER_ID_LOGIN_OVERDUE)
              this.$router.push({name:'login'})
         }

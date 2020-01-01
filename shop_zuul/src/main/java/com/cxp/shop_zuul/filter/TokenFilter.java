@@ -1,6 +1,8 @@
 package com.cxp.shop_zuul.filter;
 
-import com.cxp.shop_api.util.TokenUtil;
+import com.cxp.shop_zuul.exception.StoreNotRegisterException;
+import com.cxp.shop_zuul.exception.UserIdLoginOverdueException;
+import com.cxp.shop_zuul.service.TokenServiceImpl;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
@@ -25,10 +27,30 @@ import java.util.Map;
 public class TokenFilter extends ZuulFilter {
 
     @Autowired
-    TokenUtil tokenUtil;
+    TokenServiceImpl tokenService;
     @Resource
     String USER_ID_LOGIN_OVERDUE;
-    static final String TARGET_URI = "ByUserId";
+    @Resource
+    String STORE_NOT_REGISTER;
+    static final String ByUserId_TARGET_URI  = "ByUserId";
+    static final String ByStoreId_TARGET_URI = "ByStoreId";
+
+
+
+    private void addRequestQueryParams(RequestContext ctx, String key, String value){
+        ctx.getRequest().getParameterMap();    //必须加这句 不然ctx.getRequestQueryParams()失败
+        Map<String, List<String>> requestQueryParams = ctx.getRequestQueryParams();//参数键值对map
+//                如果一开始请求头里没参数 那么requestQueryParams为空
+        if (requestQueryParams==null) requestQueryParams=new HashMap<>();
+
+        //为了提高性能 ，其他参数都放请求体了，用post请求
+//                Map<String, List<String>> requestQueryParams=new HashMap<>();
+        List<String> arrayList = new ArrayList<>();
+        arrayList.add(value);      //添加 对应的values
+        requestQueryParams.put(key, arrayList); //把参数键值对放入map
+        ctx.setRequestQueryParams(requestQueryParams);  //重新设置请求头所含有的参数
+    }
+
 
     // run（）中 ctx.setSendZuulResponse(false); 经常导致 获取不了请求头信息，使用逻辑写这里了
     @Override
@@ -46,25 +68,26 @@ public class TokenFilter extends ZuulFilter {
         response.setHeader("Vary","Origin,Access-Control-Request-Method,Access-Control-Request-Headers");
 
         String requestURI = request.getRequestURI();   //获取请求的uri
-        if (requestURI.endsWith(TARGET_URI)){
-            String userId = tokenUtil.parseRrefreshToken(request);  //解析并刷新出userId
-            System.out.println("token    => "+request.getHeader("token"));
-            System.out.println("userId   => "+userId);
+        if (requestURI.endsWith(ByUserId_TARGET_URI)){
+            Integer userId = tokenService.parseUserId(request);  //解析并刷新出userId
             if (userId == null ){
+                ctx.setResponseBody(USER_ID_LOGIN_OVERDUE);
                 return true;
             }else {
-                request.getParameterMap();    //必须加这句 不然ctx.getRequestQueryParams()失败
-                Map<String, List<String>> requestQueryParams = ctx.getRequestQueryParams();//参数键值对map
-//                如果一开始请求头里没参数 那么requestQueryParams为空
-                if (requestQueryParams==null) requestQueryParams=new HashMap<>();
-
-                //为了提高性能 ，其他参数都放请求体了，用post请求
-//                Map<String, List<String>> requestQueryParams=new HashMap<>();
-                List<String> arrayList = new ArrayList<>();
-                arrayList.add(userId);      //添加 对应的values
-                requestQueryParams.put("userId", arrayList); //把参数键值对放入map
-                ctx.setRequestQueryParams(requestQueryParams);  //重新设置请求头所含有的参数
+                addRequestQueryParams(ctx, "userId", userId.toString());
             }
+        }else if (requestURI.endsWith(ByStoreId_TARGET_URI)){
+            try {
+                Integer storeId = tokenService.parseStoreId(request);   //解析并刷新出userId
+                addRequestQueryParams(ctx, "storeId", storeId.toString());
+            } catch (UserIdLoginOverdueException e) {
+                ctx.setResponseBody(USER_ID_LOGIN_OVERDUE);
+                return true;
+            } catch (StoreNotRegisterException e) {
+                ctx.setResponseBody(STORE_NOT_REGISTER);
+                return true;
+            }
+
         }
         return false;
     }
@@ -73,7 +96,6 @@ public class TokenFilter extends ZuulFilter {
     @Override
     public Object run() throws ZuulException {
         RequestContext ctx = RequestContext.getCurrentContext();//获取当前的 上下文对象
-        ctx.setResponseBody(USER_ID_LOGIN_OVERDUE);
         ctx.setSendZuulResponse(false);
         return null;
     }

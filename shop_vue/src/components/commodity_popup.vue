@@ -390,7 +390,7 @@
         if (this.is_all_success()){
           this.submit_2();
         }else {
-          this.$axios.get('images/getQiniuUpTokenByUserId')
+          this.$axios.get('images/getQiniuUpTokenByStoreId')
             .then(res=> {
               if (this.$store.getters.getResultDispose(res)) {
                 this.postData.token = res.data.data.token;
@@ -406,14 +406,14 @@
       submit_2(){
 
         if (this.flag_add){
-          this.$axios.post('/commodity/addCommodityByUserId',this.commodity)
+          this.$axios.post('/commodity/addCommodityByStoreId',this.commodity)
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)) {
                   this.$emit('refresh_commodity_list','商品提交成功')
               }
             })
         } else {
-          this.$axios.post('/commodity/updCommodityByUserId',this.commodity)
+          this.$axios.post('/commodity/updCommodityByStoreId',this.commodity)
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)) {
                 this.$emit('refresh_commodity_list','商品修改成功')

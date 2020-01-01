@@ -40,14 +40,19 @@ public class QiuinController {
 
     //获取上传凭证
     @RequestMapping("/getQiniuUpTokenByUserId")
-    @ResponseBody
     public ResultBean getQiniuUpTokenByUserId(){
-
         //生成凭证
         String upToken = auth.uploadToken(bucket);
         return ResultFactory.createSuccessResult(new QiniuUpToken(upToken, domain));
     }
 
+    //获取上传凭证
+    @RequestMapping("/getQiniuUpTokenByStoreId")
+    public ResultBean getQiniuUpTokenByStoreId(){
+        //生成凭证
+        String upToken = auth.uploadToken(bucket);
+        return ResultFactory.createSuccessResult(new QiniuUpToken(upToken, domain));
+    }
 
     //删除图片
     @RequestMapping("/dlelQiniuImages")

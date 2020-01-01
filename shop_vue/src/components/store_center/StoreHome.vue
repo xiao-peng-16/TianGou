@@ -80,13 +80,13 @@
         }
       },
       created() {
-        this.$axios.post('/store/selStoreByUserId')
+        this.$axios.post('/store/selStoreResultBeanByStoreId')
           .then(res=>{
             if (this.$store.getters.getResultDispose(res))
               this.store = res.data.data;
           });
 
-          this.$axios.post('/order/selStoreStatusFullVOByUserId')
+          this.$axios.post('/order/selStoreStatusFullVOByStoreId')
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)){
                   if (null!=res.data.data.currentMonth)

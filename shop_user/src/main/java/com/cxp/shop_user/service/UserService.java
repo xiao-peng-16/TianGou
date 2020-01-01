@@ -2,6 +2,7 @@ package com.cxp.shop_user.service;
 
 import com.cxp.shop_api.dto.MoneyChange;
 import com.cxp.shop_api.entity.User;
+import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_user.exception.MoneyInsufficientException;
 import com.cxp.shop_user.exception.TransactionalException;
 import com.cxp.shop_user.pojo.ChangeUserPassword;
@@ -19,7 +20,7 @@ public interface UserService {
     public Boolean is_usable_userName(String userName);
 
     //登录
-    public Integer selUserByPassword(User user);
+    public ResultBean getTokenByPassword(User user);
 
     // 根据id
     public User selUserById(int userId);

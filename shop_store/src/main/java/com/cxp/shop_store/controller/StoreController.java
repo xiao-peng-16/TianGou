@@ -1,6 +1,7 @@
 package com.cxp.shop_store.controller;
 
 import com.cxp.shop_api.dto.StoreToCommodity;
+import com.cxp.shop_api.dto.UserOpenStoreDTO;
 import com.cxp.shop_api.entity.Store;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
@@ -21,12 +22,32 @@ public class StoreController {
     @Autowired
     StoreServiceImpl storeService;
 
+
+    //用于 网关 检测用户对应的 店铺id
+    @RequestMapping("selStoreIdByUserId")
+    public Integer selStoreIdByUserId(Integer userId){
+        return storeService.selStoreIdByUserId(userId);
+    }
+
+    //前端接口
+    //用户 开通店铺功能
+    @RequestMapping("addStoreIdByUserId")
+    public ResultBean addStoreIdByUserId(Integer userId, UserOpenStoreDTO userOpenStoreDTO){
+        System.out.println(userId);
+        System.out.println(userOpenStoreDTO);
+        userOpenStoreDTO.setUserId(userId);
+        return storeService.addStoreIdByUserId(userOpenStoreDTO);
+    }
+
+
+
     //前端接口
     //返回店铺完整信息   用于组成店铺页的店铺信息
-    @RequestMapping("selStoreByUserId")
-    public ResultBean selStoreByUserId(Integer userId){
-        return ResultFactory.createSuccessResult(storeService.selStoreByStoreId(userId));
+    @RequestMapping("selStoreResultBeanByStoreId")
+    public ResultBean selStoreResultBeanByStoreId(Integer storeId){
+        return ResultFactory.createSuccessResult(storeService.selStoreByStoreId(storeId));
     }
+
 
     //返回店铺完整信息   用于组成商品页的店铺信息
     @RequestMapping("selStoreByStoreId")

@@ -57,16 +57,16 @@ public class OrderController {
 
     // 前端接口
     //查询店铺状态
-    @RequestMapping("/selStoreStatusFullVOByUserId")
-    public ResultBean selStoreStatusFullVOByUserId(Integer userId){
-        return ResultFactory.createSuccessResult(orderService.selStoreStatusFullVO(userId));
+    @RequestMapping("/selStoreStatusFullVOByStoreId")
+    public ResultBean selStoreStatusFullVOByStoreId(Integer storeId){
+        return ResultFactory.createSuccessResult(orderService.selStoreStatusFullVO(storeId));
     }
 
     //前端接口
     //店铺中心 所有销售订单 总体内容
-    @RequestMapping("/listStoreOrderParentRoughByUserId")
-    public ResultBean listStoreOrderParentRoughByUserId(Integer userId){
-        return ResultFactory.createSuccessResult(orderService.listStoreOrderParentRough(userId));
+    @RequestMapping("/listStoreOrderParentRoughByStoreId")
+    public ResultBean listStoreOrderParentRoughByStoreId(Integer storeId){
+        return ResultFactory.createSuccessResult(orderService.listStoreOrderParentRough(storeId));
     }
 
     //前端接口

@@ -15,9 +15,10 @@ public class ResultStatus {
     public final static int USER_PHOTO_CHANGE_ERROE = 210;      //用户头像改变失败
 
     //店铺 3xx
-    public final static int STORE_NOT_QUALIFICATION = 301;      //未开通 卖家功能
-    public final static int STORE_ID_ERROR = 302;               //店铺ID不存在
-    public final static int STORE_EQUAL_USER_ERROR = 303;       //用户买自己店铺的商品
+    public final static int STORE_NOT_REGISTER = 301;           //未开通 卖家功能
+    public final static int STORE_REGISTER_ERROR = 302;         //用户开通卖家功能 失败
+    public final static int STORE_ID_ERROR = 303;               //店铺ID不存在
+    public final static int STORE_EQUAL_USER_ERROR = 304;       //用户买自己店铺的商品
 
 
     //商品 4xx

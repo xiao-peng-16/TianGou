@@ -43,8 +43,13 @@ export const store = new Vuex.Store({
   },
   mutations:{
     user_Leave(state){
-      state.userName = undefined;
-      state.userPhoto = undefined;
+      state.user={
+          userId: undefined,
+          userName: undefined,
+          userPhoto: undefined,
+          userMoney: undefined,
+          shopCarNumber: undefined
+      },
       sessionStorage.clear();
       localStorage.clear();
     }

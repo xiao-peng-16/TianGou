@@ -223,8 +223,8 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public List<StoreCommodityVO> selStoreCommodityByUserId(int userId) {
-        return commodityMapper.selStoreCommodityByUserId(userId);
+    public List<StoreCommodityVO> selStoreCommodityVOByStoreId(int storeId) {
+        return commodityMapper.selStoreCommodityVOByStoreId(storeId);
     }
 
     @Override

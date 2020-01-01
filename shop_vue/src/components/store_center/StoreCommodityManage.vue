@@ -11,6 +11,7 @@
         <span style="position: relative; left: 450px">单价</span>
         <span style="position: relative; left: 560px">销量</span>
         <span style="position: relative; left: 688px">库存</span>
+        <span style="position: relative; left: 780px">操作</span>
       </div>
 
       <div style="height: 30px;"></div>
@@ -113,7 +114,7 @@
             type: 'warning'
           }).then(() => {
 
-            this.$axios.get('/commodity/updCommodityOnShelvesByUserId',{
+            this.$axios.get('/commodity/updCommodityOnShelvesByStoreId',{
               params:{
                 commodityId: commodity.commodityId,
                 commodityOnShelves : commodityOnShelves
@@ -133,7 +134,7 @@
           alert("64334864346")
         },
         init(title){
-          this.$axios.get('/commodity/selStoreCommodityVOByUserId')
+          this.$axios.get('/commodity/selStoreCommodityVOByStoreId')
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)) {
                 this.StoreCommodityList = res.data.data;

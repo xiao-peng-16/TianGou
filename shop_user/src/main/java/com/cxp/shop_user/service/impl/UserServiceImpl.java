@@ -2,6 +2,9 @@ package com.cxp.shop_user.service.impl;
 
 import com.cxp.shop_api.dto.MoneyChange;
 import com.cxp.shop_api.entity.User;
+import com.cxp.shop_api.result.ResultBean;
+import com.cxp.shop_api.result.ResultFactory;
+import com.cxp.shop_api.result.ResultStatus;
 import com.cxp.shop_user.exception.MoneyInsufficientException;
 import com.cxp.shop_user.exception.TransactionalException;
 import com.cxp.shop_user.mapper.UserMapper;
@@ -10,6 +13,7 @@ import com.cxp.shop_user.pojo.UserIdName;
 import com.cxp.shop_user.service.UserService;
 import com.cxp.shop_user.service.feignClient.ImagesFeignClient;
 import com.cxp.shop_user.service.feignClient.ShopCarFeignClient;
+import com.cxp.shop_user.service.feignClient.ZuulFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,12 +28,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
     @Autowired
+    ZuulFeignClient zuulFeignClient;
+    @Autowired
     ShopCarFeignClient shopCarFeignClient;
     @Autowired
     ImagesFeignClient imagesFeignClient;
 
     public static final MoneyInsufficientException moneyInsufficientException = new MoneyInsufficientException();
     public static final TransactionalException TRANSACTIONAL_EXCEPTION = new TransactionalException();
+    static final ResultBean USER_LOGIN_ERROR = ResultFactory.createFailResult(ResultStatus.USER_LOGIN_ERROR);
 
     @Override
     public Boolean is_usable_userName(String userName) {
@@ -44,14 +51,9 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Integer selUserByPassword(User user) {
-        List<Integer> userList = userMapper.selUserByPassword(user);
-        if (userList.size()!=0){
-            return userMapper.selUserByPassword(user).get(0);
-        }else {
-            return null;
-        }
-
+    public ResultBean getTokenByPassword(User user) {
+        Integer userId = userMapper.selUserByPassword(user);
+        return userId==null? USER_LOGIN_ERROR : ResultFactory.createSuccessResult(zuulFeignClient.getUserLoginToken(userId));
     }
 
     @Override

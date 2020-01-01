@@ -16,8 +16,8 @@
               </router-link>
 
               <li class="options_list">
-                <div class="options_list_title">
-                  <span>Hi, {{this.user.userName}}</span>
+                <div class="options_list_title" style="width: 150px">
+                  <span>Hi, {{(user.userName).substring(0,3)}}</span>
                   <div style="display: inline-block;transform: translate(0px,-1px)"><span style="font-size: 5px;" class="iconfont">&#xe60f;</span></div>
                 </div>
                 <div class="user_box">
@@ -27,7 +27,7 @@
                       |
                       <span @click="outenter">退出</span>
                     </div>
-                    <div><span>{{this.user.userName}}</span></div>
+                    <div><span>{{user.userName}}</span></div>
                     <div><span>普通用户</span></div>
                     <div class="user_bottom" @click="to_user_center_function"><span>查看全部功能</span></div>
                 </div>
@@ -173,7 +173,7 @@
             this.$router.push({name:'store_center',query:{l:store_center_left_options}});
           },
           outenter(){
-            this.$axios.post('/user/outLoginByToken')
+            this.$axios.post('/zuul/outLoginByToken')
               .then(res=>{
                   if (res.data.success){
                     // this.user_Leave();
@@ -215,15 +215,15 @@
 
   .flag_fixed{
     position: fixed;
-    z-index: 999;
+    z-index: 998;
   }
   .flag_not_fixed{
     position: relative;
-    z-index: 999;
+    z-index: 998;
   }
 
   .nav_top_box{
-    z-index: 999;
+    z-index: 998;
 
     width: 100%;
     background:#f5f5f5;
@@ -311,6 +311,7 @@
     width: 75px;
   }
   .options_list_title{
+    overflow: hidden;
     padding: 0px 5px;
     width: 75px;
   }

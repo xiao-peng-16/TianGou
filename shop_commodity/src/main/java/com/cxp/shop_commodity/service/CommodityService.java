@@ -37,7 +37,7 @@ public interface CommodityService {
     //返回购物车 商品信息
     public Map<Integer, ShopCarCommodityVO> mapShopCarCommodityVO(List<Integer> commodityIdList);
     //返回  店铺所销售的商品信息
-    public List<StoreCommodityVO> selStoreCommodityByUserId(int userId);
+    public List<StoreCommodityVO> selStoreCommodityVOByStoreId(int storeId);
 
     //查询商品 用于 店铺修改商品
     public Commodity selCommodityByCommodityId(int commodityId);

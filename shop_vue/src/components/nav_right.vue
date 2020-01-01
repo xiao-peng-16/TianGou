@@ -230,7 +230,7 @@
     top: 0px;
     width: 7px;
     height: 100%;
-    z-index: 99;
+    z-index: 1000;
 
     transform: translate(0px);
     transition:transform 0.8s;

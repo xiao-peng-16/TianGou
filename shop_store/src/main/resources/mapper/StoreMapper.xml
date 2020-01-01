@@ -6,6 +6,13 @@
 
 <mapper namespace="com.cxp.shop_store.mapper.StoreMapper">
 
+
+<!--    用户开通店铺功能-->
+    <insert id="addStoreIdByUserId">
+        insert store(user_id,store_name,store_province,store_city)
+            values(#{userId}, #{storeName}, #{storeProvince}, #{storeCity});
+    </insert>
+
     <select id="mapStoreToCommodityByStoreId" resultType="com.cxp.shop_api.dto.StoreToCommodity">
         select store_id,store_name,store_province,store_city
         from store

@@ -5,10 +5,10 @@ import com.cxp.shop_api.entity.User;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
 import com.cxp.shop_api.result.ResultStatus;
-import com.cxp.shop_api.util.TokenUtil;
 import com.cxp.shop_user.exception.MoneyInsufficientException;
 import com.cxp.shop_user.exception.TransactionalException;
 import com.cxp.shop_user.pojo.ChangeUserPassword;
+import com.cxp.shop_user.service.feignClient.ZuulFeignClient;
 import com.cxp.shop_user.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +23,9 @@ public class UserController {
 
     @Autowired
     UserServiceImpl userService;
-    @Autowired
-    TokenUtil tokenUtil;
     static final ResultBean successResult = ResultFactory.createSuccessResult();
     static final ResultBean USER_NAME_DISABLED = ResultFactory.createFailResult(ResultStatus.USER_NAME_DISABLED);
     static final ResultBean USER_Add_ERROR = ResultFactory.createFailResult(ResultStatus.USER_Add_ERROR);
-    static final ResultBean USER_LOGIN_ERROR = ResultFactory.createFailResult(ResultStatus.USER_LOGIN_ERROR);
     static final ResultBean USER_PASSWORD_CHANGE_ERROR = ResultFactory.createFailResult(ResultStatus.USER_PASSWORD_CHANGE_ERROR);
     static final ResultBean USER_ID_ERROR = ResultFactory.createFailResult(ResultStatus.USER_ID_ERROR);
     static final ResultBean USER_MONEY_INSUFFICIENT = ResultFactory.createFailResult(ResultStatus.USER_MONEY_INSUFFICIENT);
@@ -59,8 +56,7 @@ public class UserController {
     //账号 密码登录
     @PostMapping("/getTokenByPassword")
     public ResultBean getTokenByPassword(@RequestBody User userSrc) {
-        Integer userId = userService.selUserByPassword(userSrc);
-        return userId==null? USER_LOGIN_ERROR : ResultFactory.createSuccessResult(tokenUtil.addToken(userId.toString()));
+        return userService.getTokenByPassword(userSrc);
     }
     //根据session 的id 返回用户
     @RequestMapping("/selUserByUserId")
@@ -100,12 +96,7 @@ public class UserController {
         return userService.changeUserPhotoByUserId(userId, userPhoto)? successResult : USER_PHOTO_CHANGE_ERROE;
     }
 
-    //退出登录
-    @RequestMapping("/outLoginByToken")
-    public ResultBean outLoginByToken(HttpServletRequest request){
-        tokenUtil.deleteToken(request);
-        return successResult;
-    }
+
 
     // 购物转账  第一个是付钱方  剩下的都是收钱方
     @PostMapping("/shopTransferByUserId")
