@@ -16,9 +16,10 @@ public class ResultStatus {
 
     //店铺 3xx
     public final static int STORE_NOT_REGISTER = 301;           //未开通 卖家功能
-    public final static int STORE_REGISTER_ERROR = 302;         //用户开通卖家功能 失败
-    public final static int STORE_ID_ERROR = 303;               //店铺ID不存在
-    public final static int STORE_EQUAL_USER_ERROR = 304;       //用户买自己店铺的商品
+    public final static int STORE_NAME_DISABLED = 302;          //店铺名不可用  重复了
+    public final static int STORE_REGISTER_ERROR = 303;         //用户开通卖家功能 失败
+    public final static int STORE_ID_ERROR = 304;               //店铺ID不存在
+    public final static int STORE_EQUAL_USER_ERROR = 305;       //用户买自己店铺的商品
 
 
     //商品 4xx

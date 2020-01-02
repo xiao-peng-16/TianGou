@@ -17,6 +17,8 @@ public interface StoreService {
     //用户 开通店铺功能
     public ResultBean addStoreIdByUserId(UserOpenStoreDTO userOpenStoreDTO);
 
+    //判断用户名是否可以注册 (防止已经有人注册过了)
+    public boolean isUsableStoreName(String storeName);
 
     //返回店铺完整信息   用于组成店铺页的店铺信息
     public Store selStoreByStoreId(Integer userId);

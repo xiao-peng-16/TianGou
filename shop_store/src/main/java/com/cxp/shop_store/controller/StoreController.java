@@ -32,11 +32,14 @@ public class StoreController {
     //前端接口
     //用户 开通店铺功能
     @RequestMapping("addStoreIdByUserId")
-    public ResultBean addStoreIdByUserId(Integer userId, UserOpenStoreDTO userOpenStoreDTO){
-        System.out.println(userId);
-        System.out.println(userOpenStoreDTO);
-        userOpenStoreDTO.setUserId(userId);
+    public ResultBean addStoreIdByUserId(UserOpenStoreDTO userOpenStoreDTO){
         return storeService.addStoreIdByUserId(userOpenStoreDTO);
+    }
+
+    //判断用户名是否可以注册 (防止已经有人注册过了)
+    @RequestMapping("/isUsableStoreName")
+    public boolean isUsableStoreName(String storeName) {
+        return storeService.isUsableStoreName(storeName);
     }
 
 

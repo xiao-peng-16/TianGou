@@ -25,6 +25,11 @@ public interface StoreMapper {
     //用户 开通店铺功能
     public int addStoreIdByUserId(UserOpenStoreDTO userOpenStoreDTO);
 
+    //判断用户名是否可以注册 (防止已经有人注册过了)
+    @Select("select count(*) from store where store_name = #{storeName} limit 0,1")
+    public int storeNameCout(String storeName);
+
+
     //返回店铺大致信息：名字、地点 用于组成搜索页商品的店铺信息
     @MapKey("storeId")
     public Map<Integer,StoreToCommodity> mapStoreToCommodityByStoreId(List<Integer> storeIdList);

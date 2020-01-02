@@ -25,6 +25,7 @@ public class StoreServiceImpl implements StoreService {
 
     static final ResultBean successResult = ResultFactory.createSuccessResult();
     static final ResultBean STORE_REGISTER_ERROR =ResultFactory.createFailResult(ResultStatus.STORE_REGISTER_ERROR);
+    static final ResultBean STORE_NAME_DISABLED =ResultFactory.createFailResult(ResultStatus.STORE_NAME_DISABLED);
 
 
     @Override
@@ -34,7 +35,14 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public ResultBean addStoreIdByUserId(UserOpenStoreDTO userOpenStoreDTO) {
+        if (!isUsableStoreName(userOpenStoreDTO.getStoreName()))
+            return STORE_NAME_DISABLED;
         return 0 != storeMapper.addStoreIdByUserId(userOpenStoreDTO) ? successResult : STORE_REGISTER_ERROR;
+    }
+
+    @Override
+    public boolean isUsableStoreName(String storeName) {
+        return 0 == storeMapper.storeNameCout(storeName);
     }
 
     @Override
