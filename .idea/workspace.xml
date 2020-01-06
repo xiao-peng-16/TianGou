@@ -1,36 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ba7746b0-eb01-4fa4-bb05-ac7b9d1c947e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/shop_vue/src/components/store_center/userOpenStore_popup.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_vue/src/content/about.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/controller/CommodityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/controller/CommodityController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/impl/CommodityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/impl/CommodityServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/assets/commodityImg/cxk_1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/assets/commodityImg/cxk_1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/assets/commodityImg/mk_44_home.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/assets/commodityImg/mk_44_home.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/assets/jiao_fu.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/assets/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/assets/shop_car_bj.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/assets/shop_car_bj.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/assets/success.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/assets/success.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/assets/success_bj.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/assets/tmall.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/assets/tmall.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/hint_popup.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/hint_popup.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/nav_top.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/nav_top.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/searchPage_commodity.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/searchPage_commodity.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreHome.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreHome.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/commodityPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/commodityPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/searchPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/searchPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/store_center.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/store_center.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/tou_su.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/user_center.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/user_center.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/store/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/数据库文件.sql" beforeDir="false" afterPath="$PROJECT_DIR$/数据库文件.sql" afterDir="false" />
-    </list>
+    <list default="true" id="ba7746b0-eb01-4fa4-bb05-ac7b9d1c947e" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,10 +13,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/数据库文件.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1478">
+            <state relative-caret-position="639">
               <caret line="354" selection-start-line="354" selection-end-line="354" />
             </state>
           </provider>
@@ -60,12 +31,12 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="2527">
-                <caret line="133" selection-start-line="133" selection-end-line="133" />
+              <first_editor relative-caret-position="365">
+                <caret line="114" column="51" selection-start-line="114" selection-start-column="51" selection-end-line="114" selection-end-column="51" />
               </first_editor>
               <second_editor />
             </state>
@@ -105,8 +76,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/数据库文件.sql" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -122,6 +93,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -133,8 +106,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -225,6 +196,7 @@
       <workItem from="1577890499280" duration="447000" />
       <workItem from="1577933558438" duration="54000" />
       <workItem from="1578300172935" duration="38000" />
+      <workItem from="1578300572259" duration="263000" />
     </task>
     <task id="LOCAL-00001" summary="shop">
       <created>1575094500813</created>
@@ -513,17 +485,24 @@
       <option name="project" value="LOCAL" />
       <updated>1577933582267</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="cxp_shop">
+      <created>1578300771588</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1578300771588</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29384000" />
+    <option name="totallyTimeSpent" value="29647000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1295302" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13087249" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -576,7 +555,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/数据库文件.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1478">
+        <state relative-caret-position="639">
           <caret line="354" selection-start-line="354" selection-end-line="354" />
         </state>
       </provider>
@@ -591,8 +570,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="2527">
-            <caret line="133" selection-start-line="133" selection-end-line="133" />
+          <first_editor relative-caret-position="365">
+            <caret line="114" column="51" selection-start-line="114" selection-start-column="51" selection-end-line="114" selection-end-column="51" />
           </first_editor>
           <second_editor />
         </state>
