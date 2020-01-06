@@ -29,6 +29,10 @@
         <div class="right" :class="{flag_background:flag_background}">
           <component :is="optionsComponents"/>
         </div>
+
+
+
+        <user-open-store_popup/>
       </div>
 
 
@@ -38,13 +42,23 @@
 
 <script>
     import Nav_top from "@/components/nav_top";
-    import StoreCommodityManage from "@/components/store_center/StoreCommodityManage";
-    import StoreHome from "@/components/store_center/StoreHome";
-    import StoreOrderManage from "@/components/store_center/StoreOrderManage";
     import Hint_popup from "@/components/hint_popup";
     export default {
         name: "store_center",
-      components: {Hint_popup, StoreHome, StoreCommodityManage, StoreOrderManage, Nav_top},
+      components: {Hint_popup, Nav_top,
+        StoreHome:resolve => {
+          require(['../components/store_center/StoreHome'],resolve)
+        },
+        StoreOrderManage:resolve => {
+          require(['../components/store_center/StoreOrderManage'],resolve)
+        },
+        StoreCommodityManage:resolve => {
+          require(['../components/store_center/StoreCommodityManage'],resolve)
+        },
+        UserOpenStore_popup:resolve => {
+          require(['../components/store_center/UserOpenStore_popup'],resolve)
+        },
+      },
       data(){
           return{
             l:undefined,
@@ -78,6 +92,9 @@
           }
       },
       computed:{
+        query(){
+          return this.$route.query;
+        },
         left_options(){
           for (var i = 0;i<this.left_list.length;i++){
             if (undefined != this.left_list[i].son_list){
@@ -96,6 +113,14 @@
           return this.left_options == 1 && this.left_son_options ==1;
         }
       },
+      watch:{
+        query(){
+          var query  = this.$route.query;
+          this.l = parseInt(query.l);
+          this.ls = parseInt(query.ls);
+          this.setOptionsComponents();
+        }
+      },
       methods:{
         is_shine_target(l,ls){
           var query  = this.$route.query;
@@ -106,13 +131,18 @@
             this.optionsComponents = this.left_list[this.left_options].components;
           } else if (undefined != this.left_son_options){
             this.optionsComponents = this.left_list[this.left_options].son_list[this.left_son_options].components;
-          }else return;
-          this.$router.push({name:'store_center',query:{
-              l:this.l,
-              ls:this.ls
-            }});
+          }else
+            return false;
+          return true;
         },
-
+        setQuery(){
+          if (this.setOptionsComponents){
+            this.$router.push({name:'store_center',query:{
+                l:this.l,
+                ls:this.ls
+              }});
+          }
+        },
         click_left_options(val){
           if (undefined != this.left_list[val].route){
             this.$router.push(this.left_list[val].route)
@@ -124,20 +154,19 @@
               // 默认选项
               this.ls = this.l == 1 ? 0 : undefined;
               // if (undefined == this.left_list[this.left_options].son_list)
-                this.setOptionsComponents();
+                this.setQuery();
             }
           }
         },
         click_left_son_options(val){
           this.ls = val;
-          this.setOptionsComponents();
+          this.setQuery();
         }
       },
       created() {
-        //拷贝 this.query 无法修改
-        var query  = JSON.parse(JSON.stringify(this.$route.query));
+        var query  = this.$route.query;
         this.l = parseInt(query.l);
-        this.ls = parseInt(query.ls);
+        this.ls = query.ls;
 
 
         if (0>this.l || this.left_list.length-1<this.l || undefined == this.l)

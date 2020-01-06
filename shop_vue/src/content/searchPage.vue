@@ -56,11 +56,16 @@
 <script>
     import Nav_top from "@/components/nav_top";
     import serarch from "@/components/serarch";
-    import SearchPage_commodity from "@/components/searchPage_commodity";
-    import Nav_right from "@/components/nav_right";
     export default {
         name: "searchPage",
-      components: {Nav_right, SearchPage_commodity, serarch, Nav_top},
+      components: {serarch, Nav_top,
+        SearchPage_commodity:resolve => {
+          require(['../components/SearchPage_commodity'],resolve)
+        },
+        Nav_right:resolve => {
+          require(['../components/Nav_right'],resolve)
+        },
+      },
       data(){
           return{
             flag_topFixed_serarch:false,
@@ -129,11 +134,13 @@
               this.commoditySum = res.data.commoditySum;
               this.commodityList = res.data.searchCommodityVOList;
               this.flag_containData=this.commoditySum>0;
+
+              // 第一次 不
+              if (this.flag_backTop){
+                this.backTop();
+              }else this.flag_backTop=true;
             });
-            // 第一次 不
-            if (this.flag_backTop){
-              this.backTop();
-            }else this.flag_backTop=true;
+
           },
           event_click_search_hotWord(){
               this.pageNo = 1;

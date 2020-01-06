@@ -80,7 +80,7 @@ public class CommodityController {
     //搜索页
     @RequestMapping("/selSearchVO")
     public SearchVO selSearchVO(SearchRequest searchPage_request) {
-        if (null == searchPage_request.getSearchWord()) return null;
+//        if (null == searchPage_request.getSearchWord()) return null;
         return commodityService.selSearchVO(searchPage_request);
     }
 

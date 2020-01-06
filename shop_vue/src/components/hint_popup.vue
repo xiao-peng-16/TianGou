@@ -65,7 +65,10 @@
           var status = this.pre_status;
           this.pre_status = 0;
           if (status == this.GLOBAL.ResultStatus.USER_ID_LOGIN_OVERDUE)
-             this.$router.push({name:'login'})
+            this.$router.push({name:'login'});
+          else if (status == this.GLOBAL.ResultStatus.STORE_NOT_REGISTER){
+            this.$store.state.flag_userOpenStore = true;
+          }
         }
       },
     }

@@ -18,7 +18,7 @@ export const store = new Vuex.Store({
         userMoney: undefined,
         shopCarNumber: undefined
       },
-      
+      flag_userOpenStore:false
 
     },
   getters:{

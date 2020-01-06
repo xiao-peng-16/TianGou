@@ -79,13 +79,19 @@
 
 <script>
 
-  import Video_component from "@/components/video_component";
   import Nav_top from "@/components/nav_top";
   import Hint_popup from "@/components/hint_popup";
-  import Img_amplifier from "@/components/img_amplifier";
   export default {
     name: "commodityPage",
-    components: {Img_amplifier, Hint_popup, Nav_top, Video_component},
+    components: {Hint_popup, Nav_top,
+      Img_amplifier:resolve => {
+        require(['../components/Img_amplifier'],resolve)
+      },
+      Video_component:resolve => {
+        require(['../components/Video_component'],resolve)
+      },
+
+    },
     data(){
       return{
         rowWidth:undefined,

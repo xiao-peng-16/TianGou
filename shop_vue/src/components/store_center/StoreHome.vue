@@ -72,29 +72,41 @@
       computed:{
         show_userPhotoURL(){
           return this.$store.getters.getUserPhotoURL();
+        },
+        flag_userOpenStore(){
+          return this.$store.state.flag_userOpenStore;
+        },
+      },
+      watch:{
+        flag_userOpenStore(val){
+          if (!val)
+            this.init();
         }
       },
       methods:{
         getUserName(){
           return this.$store.state.user.userName;
-        }
-      },
-      created() {
-        this.$axios.post('/store/selStoreResultBeanByStoreId')
-          .then(res=>{
-            if (this.$store.getters.getResultDispose(res))
-              this.store = res.data.data;
-          });
+        },
+        init(){
+          this.$axios.post('/store/selStoreResultBeanByStoreId')
+            .then(res=>{
+              if (this.$store.getters.getResultDispose(res))
+                this.store = res.data.data;
+            });
 
           this.$axios.post('/order/selStoreStatusFullVOByStoreId')
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)){
-                  if (null!=res.data.data.currentMonth)
-                      this.fullStoreSales.currentMonth = res.data.data.currentMonth;
-                  if (null!=res.data.data.totality)
-                      this.fullStoreSales.totality = res.data.data.totality;
+                if (null!=res.data.data.currentMonth)
+                  this.fullStoreSales.currentMonth = res.data.data.currentMonth;
+                if (null!=res.data.data.totality)
+                  this.fullStoreSales.totality = res.data.data.totality;
               }
-            })
+            });
+        }
+      },
+      created() {
+        this.init();
       }
     }
 </script>

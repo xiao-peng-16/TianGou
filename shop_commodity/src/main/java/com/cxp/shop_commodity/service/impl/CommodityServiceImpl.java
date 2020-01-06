@@ -110,7 +110,9 @@ public class CommodityServiceImpl implements CommodityService {
     //设置分页
     public void setPageStartLen(SearchRequest searchPage_request) {
         if(searchPage_request.getPageNo()!=null && searchPage_request.getPageStepSize()!=null){
-            searchPage_request.setPageStartLen((searchPage_request.getPageNo()-1) * searchPage_request.getPageStepSize());
+            int pageStartLen = (searchPage_request.getPageNo()-1) * searchPage_request.getPageStepSize();
+            pageStartLen = pageStartLen < 0 ? 0 : pageStartLen;
+            searchPage_request.setPageStartLen(pageStartLen);
         }else {
             if (searchPage_request.getPageNo() ==null)
                 searchPage_request.setPageStartLen(0);  //第0条开始

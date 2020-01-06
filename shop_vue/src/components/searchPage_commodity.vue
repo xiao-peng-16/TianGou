@@ -1,6 +1,6 @@
 <template>
-    <div class="box"  @click="gotoCommodityPage">
-        <div class="top">
+    <div class="commodity_box"  @click="gotoCommodityPage">
+        <div class="box_top">
           <img :src="props_CommodityMessage.commodityPhoto">
         </div>
         <div class="bottom">
@@ -45,25 +45,25 @@
 </script>
 
 <style scoped>
-  .box{
+  .commodity_box{
     width: 250px;
     height: 380px;
     cursor: pointer;
     border: 1.5px solid #EEEEEE;
     margin: 0px auto;
   }
-  .box:hover{
+  .commodity_box:hover{
     border: 2px solid #F85300;
   }
 
-  .top{
+  .box_top{
     width: 100%;
     height: 239px;
     margin-top: 11px;
     /*padding: 0 auto;*/
     text-align: center;
   }
-  .top img{
+  .box_top img{
     /*margin: 0px auto;*/
     height: 100%;
     max-width: 98%;

@@ -97,9 +97,15 @@
 
 
 
-              <transition leave-active-class="animated hinge">
-                <li v-show="flag_tou_su" @click="flag_tou_su=false" style="margin-left: 15px" ><span>投诉</span></li>
-              </transition>
+<!--              <transition leave-active-class="animated hinge">-->
+<!--                <li v-show="flag_tou_su" @click="flag_tou_su=false" style="margin-left: 15px" ><span>投诉</span></li>-->
+<!--              </transition>-->
+
+              <router-link :to="{name:'about'}" tag="li" style="padding-left: 10px">
+                <span>关于我们</span>
+              </router-link>
+
+
             </ul>
 
 
@@ -170,6 +176,9 @@
 
           },
           to_store_center(store_center_left_options){
+            if (1 == store_center_left_options)
+              this.$router.push({name:'store_center',query:{l:store_center_left_options,ls:0}});
+            else
             this.$router.push({name:'store_center',query:{l:store_center_left_options}});
           },
           outenter(){

@@ -34,11 +34,7 @@ export default new Router({
       name:'favorite',
       component: resolve => require(['../content/favorite'], resolve)
     },
-    {
-      path:'/tou_su',
-      name:'tou_su',
-      component: resolve => require(['../content/tou_su'], resolve)
-    },
+
     {
       path:'/drop_password',
       name:'drop_password',
@@ -68,6 +64,11 @@ export default new Router({
       path:'/user_center',
       name:'user_center',
       component: resolve => require(['../content/user_center'], resolve)
+    },
+    {
+      path:'/about',
+      name:'about',
+      component: resolve => require(['../content/about'], resolve)
     },
 
 

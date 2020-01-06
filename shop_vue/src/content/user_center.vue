@@ -46,13 +46,20 @@
 
   import Nav_top from "@/components/nav_top";
   import Hint_popup from "@/components/hint_popup";
-  import changeUserPhoto from "@/components/user_center/changeUserPhoto";
-  import changeUserPassword from "@/components/user_center/changeUserPassword";
-  import userOrderManage from "@/components/user_center/userOrderManage";
 
   export default {
     name: "user_center",
-    components: {userOrderManage, Hint_popup,  Nav_top, changeUserPhoto, changeUserPassword},
+    components: {Hint_popup,  Nav_top,
+      userOrderManage:resolve => {
+        require(['../components/user_center/userOrderManage'],resolve)
+      },
+      changeUserPhoto:resolve => {
+        require(['../components/user_center/changeUserPhoto'],resolve)
+      },
+      changeUserPassword:resolve => {
+        require(['../components/user_center/changeUserPassword'],resolve)
+      },
+    },
     data(){
       return{
 
@@ -97,31 +104,6 @@
               },
             ]
           },
-          {
-            title:'我的订单',
-            flag_show_son_list:false,
-            son_list:[
-              {
-                title:'所有订单',
-                components:'userOrderManage'
-              },
-              {
-                title:'待付款',
-                components:'userOrderManage'
-              },
-              {
-                title:'待发货',
-                components:'userOrderManage'
-              },{
-                title:'待收货',
-                components:'userOrderManage'
-              },
-              {
-                title:'待评价',
-                components:'userOrderManage'
-              },
-            ]
-          },
 
           {
             title:'我的购物车',
@@ -135,6 +117,9 @@
       }
     },
     computed:{
+      query(){
+        return this.$route.query;
+      },
       top_options(){
         return parseInt(this.t);
       },
@@ -160,6 +145,15 @@
         return this.top_options == 0;
       }
     },
+    watch:{
+      query(){
+        var query  = this.$route.query;
+        this.t = parseInt(query.t);
+        this.l = parseInt(query.l);
+        this.ls = parseInt(query.ls);
+        this.setOptionsComponents();
+      }
+    },
     methods:{
       is_shine_target(l,ls){
           var query  = this.$route.query;
@@ -170,13 +164,20 @@
           this.optionsComponents = this.left_list[this.left_options].components;
         } else if (undefined != this.left_son_options){
           this.optionsComponents = this.left_list[this.left_options].son_list[this.left_son_options].components;
-        }else return;
-        this.$router.push({name:'user_center',query:{
-            t:this.t,
-            l:this.l,
-            ls:this.ls
-          }});
+        }else
+          return false;
+        return true;
       },
+      setQuery(){
+        if (this.setOptionsComponents){
+          this.$router.push({name:'user_center',query:{
+              t:this.t,
+              l:this.l,
+              ls:this.ls
+            }});
+        }
+      },
+
       click_top_options(val){
 
         if (this.top_options == val)
@@ -184,7 +185,7 @@
         this.t = val;
         this.l = 0;
         this.ls = 0 == val ? 0 : undefined;
-        this.setOptionsComponents();
+        this.setQuery();
       },
       click_left_options(val){
         if (undefined != this.left_list[val].route){
@@ -196,13 +197,13 @@
             this.l = val;
             this.ls = undefined;
             if (undefined == this.left_list[this.left_options].son_list)
-              this.setOptionsComponents();
+              this.setQuery();
           }
         }
       },
       click_left_son_options(val){
         this.ls = val;
-        this.setOptionsComponents();
+        this.setQuery();
       }
     },
     created() {
