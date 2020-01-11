@@ -2,11 +2,11 @@
 仿天猫 分布式电商项目
 ====  
 
-使用技术：Vue + SpringCloud + Maven + Mybatis + redis
+使用技术： Vue + Element + SpringCloud + Maven + Mybatis + Redis 
 --
 
 ### 项目描述:
-项目采用前后端分离技术，前端通过vue、BootStrap进行用户交互和数据展示，后台通过SpringCloud 对项目按功能模块进行划分，并通过Feign实现服务交互与负载均衡。前后端使用http协议进行数据交互，共同完成 用户身份验证、商品信息可视化、金融交易，等业务流程处理。
+项目采用前后端分离技术，前端通过vue、Element 进行用户交互和数据展示，后台通过SpringCloud 对项目按功能模块进行划分，并通过Feign实现服务交互与负载均衡。前后端使用http协议进行数据交互，共同完成 用户身份验证、商品信息可视化、金融交易，等业务流程处理。
 作品用时一个半月，用于近期的校招和几个月后的毕业设计
 
 ## [>>效果展示<<](#xiaoGuo)
@@ -45,17 +45,23 @@
     <td>   </td>
   </tr>
   <tr>
-    <td>  7000 </td>
+    <td>  8761 </td>
     <td> shop_eureka</td>
     <td>  eureka注册中心 </td>
     <td>   </td>
   </tr>
   <tr>
-    <td>  7010 </td>
+    <td>  7000 </td>
     <td> shop_zuul</td>
     <td>  zuul网关 </td>
     <td>   </td>
   </tr>
+  <tr>
+      <td>  7010 </td>
+      <td> images_zuul</td>
+      <td>  七牛云_图片微服务 </td>
+      <td>   </td>
+    </tr>
   <tr>
     <td>  7020 </td>
     <td> shop_user</td>
@@ -98,9 +104,9 @@
 * user ====>用户(用户Id，用户名，密码，头像图片名字，余额)
 * store ===> 店铺(店铺Id，店铺名，省，市，评分如实描述，评分服务态度，评分发货速度)
 * sort ====>种类(种类Id，种类名字)
-* commodity>商品(商品Id，店铺Id，种类Id，商品名，包邮，商品描述，商品图片名字，商品视频名字，单价，销量，人气，库存)
-* order_parent > 订单父表（订单Id，用户Id，下单时间，支付状态）
-* order_son ==> 订单子表(订单Id，商品Id，店铺Id，选购数量，商品单价，该子订单总金额)
+* commodity>商品(商品Id，店铺Id，种类Id，商品名，商品描述，包邮，单价，销量，人气，库存，是否处于上架状态，商品图片名字，商品视频名字)
+* order_parent > 订单父表（订单Id，用户Id，店铺Id，下单时间，订单总数量，订单总金额，订单支付状态）
+* order_son ==> 订单子表(订单Id，商品Id，选购数量，商品单价)
 * shop_car => 购物车(购物车Id，用户Id，商品Id，选购数量)
 * favorite ==>收藏夹(用户Id，商品Id，加入时间)
 
