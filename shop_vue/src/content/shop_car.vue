@@ -120,7 +120,9 @@
           return{
             dataList:[],
             checkIndexList:[],
-            checkAllFlag:false
+            checkAllFlag:false,
+
+            flag_notSubmitOrder:true,
           }
         },
         computed:{
@@ -149,6 +151,14 @@
           }
         },
         methods:{
+          warning(message){
+            this.$message.warning({
+              message: message,
+            });
+            this.$notify.warning({
+              title: message,
+            });
+          },
           less(item){
             if(item.shopCar.chooseNumber>1){item.shopCar.chooseNumber--}
           },
@@ -234,6 +244,12 @@
             this.$store.state.user.shopCarNumber = shopCarNumber;
           },
           shop(){
+            if (this.flag_notSubmitOrder){
+              this.flag_notSubmitOrder = false;
+            } else {
+              this.warning('订单提交中请稍后');
+            }
+
             var shopCarList =[];
             for (var i=0;i<this.checkIndexList.length;i++)
               shopCarList.push(this.dataList[this.checkIndexList[i]].shopCar)

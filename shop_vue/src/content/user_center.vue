@@ -6,8 +6,8 @@
       <div class="top_box">
         <span id="title">— 用户中心 —</span>
         <div class="top_options">
-          <span @click="click_top_options(0)">全部功能</span>
-          <span @click="click_top_options(1)">账号管理</span>
+          <div @click="click_top_options(0)" :class="{flag_top_options:0 == top_options}"><span>全部功能</span></div>
+          <div @click="click_top_options(1)" :class="{flag_top_options:1 == top_options}"><span>账号管理</span></div>
         </div>
       </div>
     </div>
@@ -256,11 +256,17 @@
     font-size: 16px;
     font-weight: 700;
   }
-  .top_options span{
+  .top_options div{
+    /*background: red;*/
+    /*height: 50px;*/
+    display: inline-block;
     margin-right: 20px;
     cursor: pointer;
   }
-  .top_options span:hover{
+  .top_options div:hover{
+    color: #f40;
+  }
+  .flag_top_options{
     color: #f40;
   }
 

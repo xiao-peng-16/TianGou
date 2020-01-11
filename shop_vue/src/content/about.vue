@@ -5,7 +5,7 @@
       </div>
 
       <div class="about_box">
-          <img src="http://communications-1067227.pic42.websiteonline.cn/upload/je6v.jpg">
+          <img style="cursor: pointer" @click="click_name" src="http://communications-1067227.pic42.websiteonline.cn/upload/je6v.jpg">
 
 
 
@@ -18,8 +18,8 @@
         <transition name="transition_content">
           <div v-if="show_content" class="about_content">
 
-            <div>作者 : 蔡晓鹏</div>
-            <div>GitHub : <a href="https://github.com/cxp-Git/TianGou" target="_blank">https://github.com/cxp-Git/TianGou</a></div>
+            <div>作者 : <span id="my_name" @click="click_name">蔡晓鹏</span></div>
+            <div>GitHub : <a target="_blank" href="https://github.com/cxp-Git/TianGou">https://github.com/cxp-Git/TianGou</a></div>
 
             <div>前端 ：Vue + Element</div>
             <div>后台 : SpringCloud + Maven + Mybatis + Redis</div>
@@ -40,6 +40,12 @@
           return{
             show_title:false,
             show_content:false,
+          }
+      },
+      methods:{
+          click_name(){
+            var date = - (-new Date());
+            window.open("http://q2wh9mmyk.bkt.clouddn.com/vue/cxp.pdf?date=" + date,"_blank");
           }
       },
       mounted() {
@@ -73,11 +79,18 @@
     letter-spacing: 5px;
   }
   .about_content{
+    width: 500px;
     position: absolute;
     top: 35%;
     left: 13%;
     font-size: 22px;
     font-weight: 700;
+  }
+  #my_name{
+    cursor: pointer;
+  }
+  #my_name:hover{
+    color: #f40;
   }
 
 

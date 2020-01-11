@@ -163,6 +163,7 @@
         }
       },
       mounted() {
+          console.log(this.$router)
         this.rowWidth = document.querySelector('.el-row').offsetWidth;
         var gifBox = this.$refs.gifBox;
         gifBox.firstChild.style.width = gifBox.offsetWidth +"px";

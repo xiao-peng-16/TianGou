@@ -5,9 +5,14 @@ spring:
     name: favorite
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/cxpshop
+    url: jdbc:mysql://localhost:3306/cxpshop
     username: root
     password: 123456
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
@@ -15,11 +20,14 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
 
+
+ribbon:
+  ConnectTimeout: 2000 # 连接超时时间(ms)
+  ReadTimeout: 2000 # 通信超时时间(ms)
+  OkToRetryOnAllOperations: true # 是否对所有操作重试
+  MaxAutoRetriesNextServer: 2 # 同一服务不同实例的重试次数
+  MaxAutoRetries: 1 # 同一实例的重试次数
 ### Hystrix 配置
 hystrix:
   command:

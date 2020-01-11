@@ -79,7 +79,7 @@
       },
       watch:{
         flag_userOpenStore(val){
-          if (!val)
+          if (this.$store.state.flag_userOpenStore_success)
             this.init();
         }
       },

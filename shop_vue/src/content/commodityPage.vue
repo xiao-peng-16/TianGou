@@ -5,7 +5,6 @@
 
 
 
-
       <el-row style="margin-top: 50px;height: 460px">
         <el-col :span="12" >
           <div v-if="undefined != this.commodity.commodityVideo" class="videoBox"><video_component :resource="resource"/></div>
@@ -99,6 +98,7 @@
         chooseNumber:1,
         msg_addShopcar:'加入购物车',
         flag_notAddShop_car:true,
+        flag_notSubmitOrder:true,
         commodity:{},
         resource:{
           poster:"",
@@ -111,10 +111,18 @@
       this.rowWidth = document.querySelector('.row').offsetWidth;
     },
     methods:{
+      warning(message){
+        this.$message.warning({
+          message: message,
+        });
+        this.$notify.warning({
+          title: message,
+        });
+      },
       addShop_Car(){
 
         if (!this.commodity.commodityOnShelves){
-          this.$store.state.status = "该商品已下架";
+          this.warning('该商品已下架');
           return;
         }
 
@@ -126,8 +134,15 @@
             if (this.$store.getters.getResultDispose(res)){
               this.flag_notAddShop_car=false;
               this.msg_addShopcar="已添加至购物车";
-              this.$store.state.user.shopCarNumber = Number.parseInt(this.$store.state.user.shopCarNumber) + this.chooseNumber;
-              this.$store.state.status = "购物车添加成功";
+              this.$store.state.user.shopCarNumber = Number.parseInt(this.$store.state.user.shopCarNumber) + Number.parseInt(this.chooseNumber);
+              this.$message({
+                message: '购物车添加成功',
+                type: 'success'
+              });
+              this.$notify.success({
+                title:'购物车添加成功',
+                message: '商品成功添加进购物车',
+              });
             }
           })
         }
@@ -136,8 +151,14 @@
       shop(){
 
         if (!this.commodity.commodityOnShelves){
-          this.$store.state.status = "该商品已下架";
+          this.warning('该商品已下架');
           return;
+        }
+
+        if (this.flag_notSubmitOrder){
+          this.flag_notSubmitOrder = false;
+        } else {
+          this.warning('订单提交中请稍后');
         }
 
         this.$axios.post('/order/submitOrderByUserId',[{
@@ -193,6 +214,7 @@
   .videoBox{
     width: 650px;
     margin-left: 20px;
+    margin-top: 15px;
   }
 
   .messageBox{

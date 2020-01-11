@@ -159,14 +159,12 @@
         },
         click_shop_car(){
           this.options = 1;
-          if (0 == this.shopCarList.length){
-            this.$axios.post('/car/selShopCarCommodityVOByUserId')
-              .then(res=>{
-                if (this.$store.getters.getResultDispose(res)){
-                  this.shopCarList=res.data.data;
-                }
-              });
-          }
+          this.$axios.post('/car/selShopCarCommodityVOByUserId')
+            .then(res=>{
+              if (this.$store.getters.getResultDispose(res)){
+                this.shopCarList = undefined == res.data.data ? [] : res.data.data;
+              }
+            });
           this.$refs.right_navBox.style.transform = "translate(-280px)"
         },
         click_favorite(){
@@ -174,7 +172,7 @@
           this.$axios.get('/favorite/selFavoriteCommodityVOByUserId')
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)){
-                this.favoriteList = res.data.data;
+                this.favoriteList = undefined == res.data.data ? [] : res.data.data;
               }
             });
           this.$refs.right_navBox.style.transform = "translate(-280px)"

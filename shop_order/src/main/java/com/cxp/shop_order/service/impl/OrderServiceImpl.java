@@ -104,8 +104,7 @@ public class OrderServiceImpl implements OrderService {
         orderMapper.insOrderParent(orderParentList);
         orderParentList.stream().forEach(e -> {
             int orderId = e.getOrderId();
-            List<OrderSon> orderSonList1 = e.getOrderSonList();
-            orderSonList1.stream().forEach(orderSon -> orderSon.setOrderId(orderId));
+            e.getOrderSonList().stream().forEach(orderSon -> orderSon.setOrderId(orderId));
         });
         orderMapper.insOrderSon(orderSonList);
 

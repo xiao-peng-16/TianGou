@@ -17,7 +17,7 @@
 
               <li class="options_list">
                 <div class="options_list_title" style="width: 150px">
-                  <span>Hi, {{(user.userName).substring(0,3)}}</span>
+                  <span>Hi, {{(userName).substring(0,3)}}</span>
                   <div style="display: inline-block;transform: translate(0px,-1px)"><span style="font-size: 5px;" class="iconfont">&#xe60f;</span></div>
                 </div>
                 <div class="user_box">
@@ -27,14 +27,14 @@
                       |
                       <span @click="outenter">退出</span>
                     </div>
-                    <div><span>{{user.userName}}</span></div>
+                    <div><span>{{userName}}</span></div>
                     <div><span>普通用户</span></div>
                     <div class="user_bottom" @click="to_user_center_function"><span>查看全部功能</span></div>
                 </div>
               </li>
 
 
-              <li id="userMoney"><span>余额{{(this.user.userMoney).toFixed(2)}}</span></li>
+              <li id="userMoney"><span>余额{{(userMoney).toFixed(2)}}</span></li>
 <!--              <li><span @click="outenter">退出</span></li>-->
             </ul>
             <ul class="left" v-else>
@@ -97,9 +97,6 @@
 
 
 
-<!--              <transition leave-active-class="animated hinge">-->
-<!--                <li v-show="flag_tou_su" @click="flag_tou_su=false" style="margin-left: 15px" ><span>投诉</span></li>-->
-<!--              </transition>-->
 
               <router-link :to="{name:'about'}" tag="li" style="padding-left: 10px">
                 <span>关于我们</span>
@@ -107,7 +104,6 @@
 
 
             </ul>
-
 
 
 
@@ -130,16 +126,20 @@
         data(){
           return{
             store_center_left_options:0,
-
-            flag_tou_su:true,
-            flag_enter:false,
-            user:{
-              userName:"",
-              userMoney:""
-            },
           }
         },
       computed:{
+        flag_enter(){
+          return undefined != this.$store.state.user.userId;
+        },
+        userName(){
+          var userName = this.$store.state.user.userName;
+          return undefined == userName ? '' : userName;
+        },
+        userMoney(){
+          var userMoney = this.$store.state.user.userMoney;
+          return undefined == userMoney ? '' : userMoney;
+        },
         shopCarNumber(){
           var shopCarNumber = this.$store.state.user.shopCarNumber;
           if (0<shopCarNumber)
@@ -194,14 +194,20 @@
           },
         },
         created() {
-            this.$axios.post('/user/selUserByUserId')
+            this.$axios.get('/user/selUserByUserId')
               .then(res=>{
                 if (res.data.success){
-                  this.flag_enter = true;
-                  this.user=res.data.data;
-                  this.$store.state.user=res.data.data;
-                }
+                  var user=res.data.data;
+                  this.$store.state.user.userId = user.userId;
+                  this.$store.state.user.userName = user.userName;
+                  this.$store.state.user.userPhoto = user.userPhoto;
+                  this.$store.state.user.userMoney = user.userMoney;
 
+                  this.$axios.get('/car/selShopCarNumberByUserId')
+                    .then(res=>{
+                      this.$store.state.user.shopCarNumber=res.data;
+                    });
+                }
             });
         },
       mounted() {

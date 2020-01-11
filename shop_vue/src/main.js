@@ -1,20 +1,24 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
+// import Vue from 'vue'
 import {store} from './store/store'
 import App from './App'
 import router from './router'
 import axios from 'axios';
-import qs from 'qs';
 import globalVariable from '@/components/global_variable'
 import globalFunc from '@/components/global_func'
-import ElementUI from 'element-ui';
+// import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 // require styles
 
 Vue.use(globalFunc/* { default global options } */)
-Vue.use(ElementUI);
+// Vue.use(ElementUI);
+Vue.prototype.$axios = axios;
+// axios.defaults.baseURL = "http://127.0.0.1:7000";
+axios.defaults.baseURL = "http://47.101.147.15:7000";
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.withCredentials = true;
 //   重要   vue 的拦截器请求头设置token  和  zuul过滤器获取token 并验证得到userId
 axios.interceptors.request.use(
   config => {
@@ -26,16 +30,11 @@ axios.interceptors.request.use(
 
 
 Vue.prototype.GLOBAL=globalVariable;
-Vue.prototype.$qs = qs;
-Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false
 
-axios.defaults.baseURL = globalVariable.baseURL;
 
-axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-axios.defaults.withCredentials = true;
 require('promise.prototype.finally').shim();
 
 require('video.js/dist/video-js.css')

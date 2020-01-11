@@ -12,7 +12,6 @@ import com.cxp.shop_user.pojo.ChangeUserPassword;
 import com.cxp.shop_user.pojo.UserIdName;
 import com.cxp.shop_user.service.UserService;
 import com.cxp.shop_user.service.feignClient.ImagesFeignClient;
-import com.cxp.shop_user.service.feignClient.ShopCarFeignClient;
 import com.cxp.shop_user.service.feignClient.ZuulFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +28,6 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
     @Autowired
     ZuulFeignClient zuulFeignClient;
-    @Autowired
-    ShopCarFeignClient shopCarFeignClient;
     @Autowired
     ImagesFeignClient imagesFeignClient;
 
@@ -58,9 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User selUserById(int userId) {
-        User user = userMapper.selUserByUserId(userId);
-        user.setShopCarNumber(shopCarFeignClient.selShopCarNumberByUserId(userId));
-        return user;
+        return userMapper.selUserByUserId(userId);
     }
 
     @Override

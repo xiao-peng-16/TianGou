@@ -1,10 +1,4 @@
 
-
-import lv_dou_gao_home from "@/assets/commodityImg/lv_dou_gao_home.jpg"
-import mk_44_home from "@/assets/commodityImg/mk_44_home.jpg"
-import cxk_1 from "@/assets/commodityImg/cxk_1.jpg"
-
-import xxxx from "@/assets/commodityImg/xxxxxxxxxxxxxxxxxxxx.jpg"
 import xiao_mi_9 from "@/assets/commodityImg/xiao_mi_9.jpg"
 import mk44 from "@/assets/commodityImg/mk44.jpg"
 import yun_don_xie from "@/assets/commodityImg/yun_don_xie.jpg"
@@ -16,15 +10,15 @@ export default {
 
   imgList:[
     {
-      imgURI:lv_dou_gao_home,
+      imgURI:'http://q2wh9mmyk.bkt.clouddn.com/vue/home_lv_dou_gao.jpg',
       commodityId:40
     },
     {
-      imgURI:mk_44_home,
+      imgURI:'http://q2wh9mmyk.bkt.clouddn.com/vue/home_mk_44.jpg',
       commodityId:16
     },
     {
-      imgURI:cxk_1,
+      imgURI:'http://q2wh9mmyk.bkt.clouddn.com/vue/home_cxk.jpg',
       commodityId:35
     },
   ],

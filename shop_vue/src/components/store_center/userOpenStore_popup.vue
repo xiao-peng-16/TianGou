@@ -94,8 +94,8 @@
       },
       computed:{
         cityList(){
-          var key = this.storeProvince;
-          return this.province_cityList_map.get(key);
+          var list = this.province_cityList_map.get(this.storeProvince);
+          return undefined == list ? [] : list;
         },
         flag_userOpenStore(){
           return this.$store.state.flag_userOpenStore;
@@ -136,6 +136,7 @@
                 }
               }).then(res=>{
                   this.$store.state.flag_userOpenStore = false;
+                  this.$store.state.flag_userOpenStore_success = true;
                   this.$router.push({name:'store_center',query:{l:0}});
                   if (this.$store.getters.getResultDispose(res)){
                     this.$notify.success({

@@ -1,4 +1,3 @@
-import globalVariable from '@/components/global_variable'
 import defaultHead from '@/assets/defaultHead.jpg';
 
 //引入vue和Vuex
@@ -18,7 +17,8 @@ export const store = new Vuex.Store({
         userMoney: undefined,
         shopCarNumber: undefined
       },
-      flag_userOpenStore:false
+      flag_userOpenStore:false,
+      flag_userOpenStore_success:false
 
     },
   getters:{

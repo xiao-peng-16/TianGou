@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bj"><img src="../assets/login_bj.jpg"></div>
+    <div class="bj"><img src="http://q2wh9mmyk.bkt.clouddn.com/vue/register_bj.jpgd"></div>
       <div class="fromBox">
 
         <div class="titleBox">
@@ -78,10 +78,10 @@
             if (res.data.success){
               this.user_Login(res.data.data);
               this.$router.go(-1);
+              if (this.$router.options.routes)
               this.$router.push({name:'home'});//防止没上一级页面
             } else {
               if (res.data.status == this.GLOBAL.ResultStatus.USER_NAME_DISABLED){
-                alert("555")
                 this.flag_userName = false;
                 this.hint_userName="该用户名已存在";
               }

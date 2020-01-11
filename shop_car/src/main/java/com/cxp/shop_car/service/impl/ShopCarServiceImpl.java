@@ -79,7 +79,7 @@ public class ShopCarServiceImpl implements ShopCarService {
     @Override
     public ResultBean ShopCarSubmitOrderByUserId(int userId, List<ShopCar> shopCarList){
         ResultBean responseBean = orderFeignClient.submitOrderByUserId(userId, shopCarList);
-        if (responseBean.isSuccess())
+//        if (responseBean.isSuccess())
             shopCarMapper.delShopCarByShopCar(userId, shopCarList);    //  删除购物车表信息
         return responseBean;
     }
