@@ -25,18 +25,13 @@
 
 
 
-
-
-
-
-
         </div>
 
       <div style="height: 55px;"></div>
 
         <el-row>
-          <div class="itemBox row" v-for="(item,index) in dataList">
-            <input  v-model="checkIndexList" :value="index" type="checkbox" >
+          <div class="itemBox row" v-for="item in dataList">
+            <input  v-model="item.shopCar.selected" type="checkbox" >
             <el-col :span="2">
               <img :src="item.commodityPhoto" @click="gotoCommodityPage(item.shopCar.commodityId)" style="cursor: pointer;">
             </el-col>
@@ -55,19 +50,19 @@
             <el-col :span="4">
               <div class="center down" >
                 <button type="button" class="btn btn-info" @click="less(item)"><span>-</span></button>
-                <input v-model.number="item.shopCar.chooseNumber" @input="input(item)">
-                <button type="button" class="btn btn-info" @click="item.shopCar.chooseNumber++"><span>+</span></button>
+                <input v-model.number="item.shopCar.purchaseQuantity" @input="input(item)">
+                <button type="button" class="btn btn-info" @click="item.shopCar.purchaseQuantity++"><span>+</span></button>
               </div>
             </el-col>
             <el-col :span="3">
               <div class="price col-1 center down">
-                <span>￥{{(item.commodityPrice*item.shopCar.chooseNumber).toFixed(2)}}</span>
+                <span>￥{{(item.commodityPrice*item.shopCar.purchaseQuantity).toFixed(2)}}</span>
               </div>
             </el-col>
             <el-col :span="3">
               <div class="price col-1 center " style="margin-top: 25px;margin-left: 15px">
-                <div style="padding-left: 20px;width: 200px"><span class="operationSpan" @click="delByShopCarId(item,index)" >删除</span></div>
-                <div style="width: 200px"><span class="operationSpan" @click="shopCarToFavorite(item,index)" >移入收藏夹</span></div>
+                <div style="padding-left: 20px;width: 200px"><span class="operationSpan" @click="delByShopCarId(item)" >删除</span></div>
+                <div style="width: 200px"><span class="operationSpan" @click="shopCarToFavorite(item)" >移入收藏夹</span></div>
               </div>
             </el-col>
           </div>
@@ -119,19 +114,20 @@
       data(){
           return{
             dataList:[],
-            checkIndexList:[],
             checkAllFlag:false,
 
             flag_notSubmitOrder:true,
           }
         },
         computed:{
+          selectedList(){
+            return this.dataList.filter(item=>item.shopCar.selected);
+          },
           sumPrice(){
-            var itemIndex,sunPrice=0;
-            for (var i=0;i<this.checkIndexList.length;i++) {
-              itemIndex = this.checkIndexList[i];
-              sunPrice+=this.dataList[itemIndex].shopCar.chooseNumber*this.dataList[itemIndex].commodityPrice;
-              }
+            var sunPrice=0;
+            this.selectedList.forEach((item)=>{
+              sunPrice += item.shopCar.purchaseQuantity * item.commodityPrice;
+            });
             return sunPrice;
           },
           flag_show(){
@@ -139,15 +135,13 @@
           },
         },
         watch:{
+          dataList(){
+            this.$store.state.user.shopCarNumber = this.dataList.length;
+          },
           checkAllFlag:function (val) {
-            if (val){
-              this.checkIndexList =[];
-              for (var i = 0; i < this.dataList.length; i++) {
-                this.checkIndexList.push(i);
-              }
-            } else {
-              this.checkIndexList =[];
-            }
+            this.dataList.forEach((item)=>{
+              item.shopCar.selected = val;
+            });
           }
         },
         methods:{
@@ -160,71 +154,59 @@
             });
           },
           less(item){
-            if(item.shopCar.chooseNumber>1){item.shopCar.chooseNumber--}
+            if(item.shopCar.purchaseQuantity>1){item.shopCar.purchaseQuantity--}
           },
           input(item){
-            item.shopCar.chooseNumber=item.shopCar.chooseNumber.toString().replace(/[^\d]/g,'');
+            item.shopCar.purchaseQuantity=item.shopCar.purchaseQuantity.toString().replace(/[^\d]/g,'');
 
-            if (item.shopCar.chooseNumber=='' || item.shopCar.chooseNumber<1){
-              item.shopCar.chooseNumber=1;
+            if (item.shopCar.purchaseQuantity=='' || item.shopCar.purchaseQuantity<1){
+              item.shopCar.purchaseQuantity=1;
             }
           },
-          //  直接对 某一行 删除/移入收藏夹   需要对dataList和checkIndexList更新
-          updList_specific(index){
+          //  直接对 某一行 删除/移入收藏夹   需要对dataList更新
+          updList_specific(item){
+            var index = this.dataList.indexOf(item);
             this.dataList.splice(index,1);
-            for (var i=0;i<this.checkIndexList.length;i++){
-              if (this.checkIndexList[i]>index){
-                this.checkIndexList[i]--;
-              } else if (this.checkIndexList[i] === index){
-                this.checkIndexList.splice(i,1);
-                i--;
-              }
-            }
           },
-          //通过勾选 多行 删除/移入收藏夹   需要对dataList和checkIndexList更新
+          //通过勾选 多行 删除/移入收藏夹   需要对dataList更新
           updList_multi(){
-            //先降序 这样从下往上删除 不影响前面元素
-            this.checkIndexList.sort(function (a, b) {
-              return b-a;
+            var targetList = this.selectedList;
+            targetList.forEach((item)=>{
+              var index = this.dataList.indexOf(item);
+              this.dataList.splice(index,1);
             });
-            for (var i=0;i<this.checkIndexList.length;i++)
-              this.dataList.splice(this.checkIndexList[i],1);
-            this.checkIndexList = [];
           },
-          delByShopCarId(item,index){
+          delByShopCarId(item){
               this.$axios.post('/car/delShopCarByUserId',[item.shopCar.shopCarId])
                 .then(res=>{
-                this.updList_specific(index);
-                  this.setShopCarNumber();
+                this.updList_specific(item);
               })
           },
           delByShopCarIdList(){
             var delShopCarIdList =[];
-            for (var i=0;i<this.checkIndexList.length;i++)
-              delShopCarIdList.push(this.dataList[this.checkIndexList[i]].shopCar.shopCarId)
+            for (var i=0;i<this.selectedList.length;i++)
+              delShopCarIdList.push(this.selectedList[i].shopCar.shopCarId)
             if (delShopCarIdList.length ==0)
               return;
             this.$axios.post('/car/delShopCarByUserId',delShopCarIdList)
               .then(res=>{
                 this.updList_multi();
-                this.setShopCarNumber();
               })
           },
-          shopCarToFavorite(item,index){
+          shopCarToFavorite(item){
             this.$axios.post('/car/shopCarToFavoriteByUserId',{
                 shopCarIdList:[item.shopCar.shopCarId],
                 commodityIdList:[item.shopCar.commodityId]
             }).then(res=>{
-                this.updList_specific(index);
-              this.setShopCarNumber();
+                this.updList_specific(item);
               })
           },
           shopCarListToFavorite(){
             var shopCarIdList =[], commodityIdList =[];
-            for (var i=0;i<this.checkIndexList.length;i++){
-              shopCarIdList.push(this.dataList[this.checkIndexList[i]].shopCar.shopCarId);
-              commodityIdList.push(this.dataList[this.checkIndexList[i]].shopCar.commodityId);
-            }
+            this.selectedList.forEach((item)=>{
+              shopCarIdList.push(item.shopCar.shopCarId);
+              commodityIdList.push(item.shopCar.commodityId);
+            });
 
             if (shopCarIdList.length ==0)
               return;
@@ -233,26 +215,21 @@
                 commodityIdList:commodityIdList
             }).then(res=>{
               this.updList_multi();
-                this.setShopCarNumber();
               })
-          },
-          setShopCarNumber(){
-            var shopCarNumber = 0;
-            for (let i in this.dataList){
-              shopCarNumber += this.dataList[i].shopCar.chooseNumber
-            }
-            this.$store.state.user.shopCarNumber = shopCarNumber;
           },
           shop(){
             if (this.flag_notSubmitOrder){
               this.flag_notSubmitOrder = false;
             } else {
               this.warning('订单提交中请稍后');
+              return;
             }
 
             var shopCarList =[];
-            for (var i=0;i<this.checkIndexList.length;i++)
-              shopCarList.push(this.dataList[this.checkIndexList[i]].shopCar)
+            this.selectedList.forEach((item)=>{
+              shopCarList.push(item.shopCar)
+            });
+
             if (shopCarList.length ==0){
               return;
             }
@@ -272,11 +249,11 @@
           },
         },
         created() {
-          this.$axios.post('/car/selShopCarCommodityVOByUserId')
+          this.$axios.post('/car/listShopCarCommodityVOByUserId')
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)){
                 this.dataList=res.data.data;
-                this.checkAllFlag = true;
+                this.checkAllFlag = this.dataList.length == this.selectedList.length;
               }
             });
         }

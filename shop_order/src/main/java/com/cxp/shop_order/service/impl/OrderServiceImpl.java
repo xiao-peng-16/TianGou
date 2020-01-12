@@ -82,7 +82,7 @@ public class OrderServiceImpl implements OrderService {
                 throw COMMODITY_ID_ERROR_EXCEPTION;
             if (userId == commodityToOrder.getStoreId())
                 throw STORE_EQUAL_USER_ERROR_EXCEPTION;
-            if (commodityToOrder.getCommodityStock() < orderSon.getChooseNumber())
+            if (commodityToOrder.getCommodityStock() < orderSon.getPurchaseQuantity())
                 throw  COMMODITY_STOCK_INSUFFICIENT_EXCEPTION;
             submitOrderUtils.work(orderSon, commodityToOrder);
 
@@ -91,7 +91,7 @@ public class OrderServiceImpl implements OrderService {
                 CommodityToOrder commodityToOrder = commodityIdToOrderMap.get(orderSon.getCommodityId());
                 if (commodityToOrder == null)
                     orderSonList.remove(orderSon);  //商品信息都找不到 剔除该条
-                else if (commodityToOrder.getCommodityStock() < orderSon.getChooseNumber())
+                else if (commodityToOrder.getCommodityStock() < orderSon.getPurchaseQuantity())
                     orderSonList.remove(orderSon);  //商品库存不足 剔除该条
                 submitOrderUtils.work(orderSon, commodityToOrder);
             }

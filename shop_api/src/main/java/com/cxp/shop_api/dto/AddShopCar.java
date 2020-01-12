@@ -12,5 +12,5 @@ import lombok.Data;
 public class AddShopCar {
     int userId;         //用户id
     int commodityId;    //商品id
-    int chooseNumber;   //数量
+    int purchaseQuantity;   //数量
 }

@@ -37,20 +37,18 @@ public class ShopCarServiceImpl implements ShopCarService {
     static final ResultBean STORE_EQUAL_USER_ERROR = ResultFactory.createFailResult(ResultStatus.STORE_EQUAL_USER_ERROR);
 
     @Override
-    public ResultBean addShopCarByUserId(Integer userId, AddShopCar addShopCar) {
+    public ResultBean addShopCarByUserId(AddShopCar addShopCar) {
         //防止用户购买自己的商品
-        if (commodityFeignClient.isCommodityStoreEqualUser(userId, addShopCar.getCommodityId()))
+        if (commodityFeignClient.isCommodityStoreEqualUser(addShopCar.getUserId(), addShopCar.getCommodityId()))
             return STORE_EQUAL_USER_ERROR;
-        addShopCar.setUserId(userId);
         if (0 == shopCarMapper.updShopCarNumberByCommodityId_UserId(addShopCar))//如果购物车已经有该商品，就只增加数量
             shopCarMapper.insShop_Car(addShopCar);    //购物车没该商品 则添加
         return successResult;
     }
 
     @Override
-    public int selShopCarNumberByUserId(int userId) {
-        Integer len = shopCarMapper.selShopCarNumberByUserId(userId);
-        return null==len ? 0 : len;
+    public int selShopCarCountByUserId(int userId) {
+        return shopCarMapper.selShopCarCountByUserId(userId);
     }
 
 

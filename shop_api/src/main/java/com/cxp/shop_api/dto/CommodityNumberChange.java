@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class CommodityNumberChange {
     int commodityId;
-    int chooseNumber;
+    int purchaseQuantity;
 }

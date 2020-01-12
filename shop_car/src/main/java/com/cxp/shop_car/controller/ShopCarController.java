@@ -25,21 +25,21 @@ public class ShopCarController {
 
     //前端接口
     // 添加购物车
-    @PostMapping("/addShopCarByUserId")
-    public ResultBean addShopCarByUserId(@RequestParam Integer userId, @RequestBody AddShopCar addShopCar){
-        return shopCarService.addShopCarByUserId(userId, addShopCar);
+    @RequestMapping("/addShopCarByUserId")
+    public ResultBean addShopCarByUserId(AddShopCar addShopCar){
+        return shopCarService.addShopCarByUserId(addShopCar);
     }
 
     //查看购物车数量
-    @RequestMapping("/selShopCarNumberByUserId")
-    public int selShopCarNumberByUserId(Integer userId) {
-        return shopCarService.selShopCarNumberByUserId(userId);
+    @RequestMapping("/selShopCarCountByUserId")
+    public int selShopCarCountByUserId(Integer userId) {
+        return shopCarService.selShopCarCountByUserId(userId);
     }
 
     //前端接口
     //查看购物车商品
-    @RequestMapping("/selShopCarCommodityVOByUserId")
-    public ResultBean selShopCarCommodityVOByUserId(Integer userId) {
+    @RequestMapping("/listShopCarCommodityVOByUserId")
+    public ResultBean listShopCarCommodityVOByUserId(Integer userId) {
         return ResultFactory.createSuccessResult(shopCarService.listShopCarCommodityVOByUserId(userId));
     }
 

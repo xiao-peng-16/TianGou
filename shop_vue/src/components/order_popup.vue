@@ -23,9 +23,9 @@
             <div  class="orderSon_CommodityName">
               <span>{{item.orderCommodityVO.commodityName}}</span>
             </div>
-            <span class="orderSon_ChooseNumber">  {{item.chooseNumber}} 件</span>
+            <span class="orderSon_ChooseNumber">  {{item.purchaseQuantity}} 件</span>
             <span class="orderSon_CommodityPrice">￥{{item.commodityPrice.toFixed(2)}}</span>
-            <span class="orderSon_SumPrice">      ￥{{item.chooseNumber * item.commodityPrice.toFixed(2)}}</span>
+            <span class="orderSon_SumPrice">      ￥{{item.purchaseQuantity * item.commodityPrice.toFixed(2)}}</span>
           </div>
           <div style="height: 60px"></div>
           <div class="orderSon_bottom">
@@ -56,7 +56,7 @@
         orderParent_SunPrice(){
           var sum = 0;
           for (let i in this.orderParent.orderSonList)
-            sum += this.orderParent.orderSonList[i].chooseNumber * this.orderParent.orderSonList[i].commodityPrice;
+            sum += this.orderParent.orderSonList[i].purchaseQuantity * this.orderParent.orderSonList[i].commodityPrice;
           return sum;
         }
       },

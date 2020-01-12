@@ -91,7 +91,7 @@ public interface CommodityMapper {
     @Update("update commodity set commodity_popularity=commodity_popularity +1 where commodity_id =#{commodityId}")
     public int updAddCPopularityByID(@Param("commodityId") int commodityId);
     //交易后更改商品表 商品数量
-    @Update("update commodity set commodity_stock=commodity_stock - #{chooseNumber},commodity_sales=commodity_sales + #{chooseNumber} where commodity_id =#{commodityId}")
+    @Update("update commodity set commodity_stock=commodity_stock - #{purchaseQuantity},commodity_sales=commodity_sales + #{purchaseQuantity} where commodity_id =#{commodityId}")
     public int updCommodityNumber(CommodityNumberChange commodityNumberChange);
 
     //查找 商家出售哪些商品

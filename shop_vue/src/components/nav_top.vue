@@ -203,7 +203,7 @@
                   this.$store.state.user.userPhoto = user.userPhoto;
                   this.$store.state.user.userMoney = user.userMoney;
 
-                  this.$axios.get('/car/selShopCarNumberByUserId')
+                  this.$axios.get('/car/selShopCarCountByUserId')
                     .then(res=>{
                       this.$store.state.user.shopCarNumber=res.data;
                     });

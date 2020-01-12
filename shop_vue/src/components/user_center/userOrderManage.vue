@@ -39,8 +39,8 @@
           <div class="userName">
             <span>{{item.storeName}}</span>
           </div>
-          <div class="orderSumPrice">
-            <span>￥{{item.orderSumPrice.toFixed(2)}} 元</span>
+          <div class="orderTotalPrice">
+            <span>￥{{item.orderTotalPrice.toFixed(2)}} 元</span>
           </div>
           <div class="orderTime">
             <span>{{item.orderTime}}</span>
@@ -140,7 +140,7 @@
             this.orderParentRoughList = res.data.data;
             for (let i in this.orderParentRoughList) {
               if (this.orderParentRoughList[i].orderCommodityVOList.length == 4) {
-                var newStr = '. . . ' + "共" + this.orderParentRoughList[i].orderSumNumber + "件商品";
+                var newStr = '. . . ' + "共" + this.orderParentRoughList[i].orderTotalQuantity + "件商品";
                 this.orderParentRoughList[i].orderCommodityVOList[3].commodityName = newStr;
               }
               //图片大于一张  就小图
@@ -231,7 +231,7 @@
     left: 450px;
     top: 50px;
   }
-  .orderSumPrice{
+  .orderTotalPrice{
     width:150px;
     position: absolute;
     left: 630px;

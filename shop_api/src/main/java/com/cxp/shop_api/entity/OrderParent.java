@@ -20,12 +20,12 @@ public class OrderParent {
     String storeName;   //卖家用户名
 
     //数据库字段
-    int orderId;                //订单的id
-    int userId;                 //用户id
-    int storeId;               //卖家id
-    String orderTime;           //'时间'
-    int orderSumNumber;       // 订单总数量'
-    double orderSumPrice;     // 订单总金额
+    int orderId;                 //订单的id
+    int userId;                  //用户id
+    int storeId;                 //卖家id
+    String orderTime;            //'时间'
+    int orderTotalQuantity;      // 订单总数量'
+    double orderTotalPrice;       // 订单总金额
     int orderState;            //订单状态 待付款 待发货 待评价
 
     //这2 条不同时出现

@@ -29,7 +29,7 @@ public class SubmitOrderUtils  {
 
         double commodityPrice = commodityToOrder.getCommodityPrice();
         orderSon.setCommodityPrice(commodityPrice);
-        int chooseNumber = orderSon.getChooseNumber();
+        int purchaseQuantity = orderSon.getPurchaseQuantity();
         int storeId = commodityToOrder.getStoreId();
 
         OrderParent orderParent = null;
@@ -41,8 +41,8 @@ public class SubmitOrderUtils  {
         }else {
             orderParent = storeId_orderParentMap.get(storeId);
         }
-        orderParent.setOrderSumNumber(orderParent.getOrderSumNumber() + chooseNumber);
-        orderParent.setOrderSumPrice(orderParent.getOrderSumPrice() + chooseNumber * commodityPrice);
+        orderParent.setOrderTotalQuantity(orderParent.getOrderTotalQuantity() + purchaseQuantity);
+        orderParent.setOrderTotalPrice(orderParent.getOrderTotalPrice() + purchaseQuantity * commodityPrice);
         orderParent.getOrderSonList().add(orderSon);
     }
 

@@ -27,7 +27,7 @@
               <span>{{item.commodityName}}</span>
             </div>
             <div class="commodityPriceBox" >
-              <span>￥{{item.commodityPrice.toFixed(2)}}</span>×{{item.shopCar.chooseNumber}}
+              <span>￥{{item.commodityPrice.toFixed(2)}}</span>×{{item.shopCar.purchaseQuantity}}
             </div>
           </div>
         </div>
@@ -128,7 +128,7 @@
           if (undefined == this.shopCarList)
             return 0;
           for (var i=0;i<this.shopCarList.length;i++) {
-            sunPrice+=this.shopCarList[i].shopCar.chooseNumber*this.shopCarList[i].commodityPrice;
+            sunPrice+=this.shopCarList[i].shopCar.purchaseQuantity*this.shopCarList[i].commodityPrice;
           }
           return sunPrice;
         }
@@ -159,7 +159,7 @@
         },
         click_shop_car(){
           this.options = 1;
-          this.$axios.post('/car/selShopCarCommodityVOByUserId')
+          this.$axios.post('/car/listShopCarCommodityVOByUserId')
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)){
                 this.shopCarList = undefined == res.data.data ? [] : res.data.data;

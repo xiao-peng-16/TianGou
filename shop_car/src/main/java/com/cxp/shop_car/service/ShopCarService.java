@@ -11,10 +11,10 @@ import java.util.List;
 public interface ShopCarService {
 
     //用户点击 加入购物车
-    public ResultBean addShopCarByUserId(Integer userId, AddShopCar addShopCar);
+    public ResultBean addShopCarByUserId(AddShopCar addShopCar);
 
     //购物车数量
-    public int selShopCarNumberByUserId(int userId);
+    public int selShopCarCountByUserId(int userId);
 
     //购物车页面数据
     public List<ShopCarCommodityVO> listShopCarCommodityVOByUserId(Integer userId);

@@ -3,7 +3,30 @@
   <component name="ChangeListManager">
     <list default="true" id="ba7746b0-eb01-4fa4-bb05-ac7b9d1c947e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/dto/AddShopCar.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/dto/AddShopCar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/dto/CommodityNumberChange.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/dto/CommodityNumberChange.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderParent.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderParent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderSon.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderSon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/ShopCar.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/ShopCar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/vo/ShopCarCommodityVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/vo/ShopCarCommodityVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/controller/ShopCarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/controller/ShopCarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/mapper/ShopCarMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/mapper/ShopCarMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/service/ShopCarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/service/ShopCarService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/service/impl/ShopCarServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/service/impl/ShopCarServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/mapper/CommodityMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/mapper/CommodityMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/impl/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/utils/SubmitOrderUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/utils/SubmitOrderUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_order/src/main/resources/mapper/OrderMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/resources/mapper/OrderMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/nav_right.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/nav_right.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/nav_top.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/nav_top.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/order_popup.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/order_popup.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreOrderManage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreOrderManage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/user_center/userOrderManage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/user_center/userOrderManage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/commodityPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/commodityPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/shop_car.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/shop_car.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/数据库文件.sql" beforeDir="false" afterPath="$PROJECT_DIR$/数据库文件.sql" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,16 +39,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/数据库文件.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="72" column="40" lean-forward="true" selection-start-line="72" selection-start-column="40" selection-end-line="72" selection-end-column="40" />
+            <state relative-caret-position="-2586">
+              <caret line="89" selection-start-line="89" selection-end-line="89" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/ShopCar.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="266">
+              <caret line="14" column="24" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderParent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="551">
+              <caret line="33" column="50" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
@@ -61,6 +102,15 @@
       <find>insert store(store_id,store_name,store_province,store_city)</find>
       <find>.jpg</find>
       <find>图片</find>
+      <find>choose_number</find>
+      <find>order_sum_price</find>
+      <find>order_sum_number</find>
+      <find>chooseNumber</find>
+      <find>orderSumNumber</find>
+      <find>orderSumPrice</find>
+      <find>getChooseNumber</find>
+      <find>boo</find>
+      <find>selShopCarCommodityVOByUserId</find>
     </findStrings>
     <replaceStrings>
       <replace>user_photo</replace>
@@ -75,6 +125,14 @@
       <replace>insert store(store_id,user_id,store_name,store_province,store_city)</replace>
       <replace>.jpg</replace>
       <replace>.jpg?v=1</replace>
+      <replace>purchase_quantity</replace>
+      <replace>order_total_price</replace>
+      <replace>order_total_quantity</replace>
+      <replace>purchaseQuantity</replace>
+      <replace>orderTotalQuantity</replace>
+      <replace>orderTotalPrice</replace>
+      <replace>getPurchaseQuantity</replace>
+      <replace>listShopCarCommodityVOByUserId</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -83,8 +141,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/数据库文件.sql" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/ShopCar.java" />
+        <option value="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderParent.java" />
+        <option value="$PROJECT_DIR$/数据库文件.sql" />
       </list>
     </option>
   </component>
@@ -106,7 +166,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -114,11 +173,88 @@
               <item name="shop_vue_springcloud" type="b2602c69:ProjectViewProjectNode" />
               <item name="shop_vue_springcloud" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="shop_vue_springcloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop_vue_springcloud" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shop_vue_springcloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop_vue_springcloud" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shop_vue_springcloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop_vue_springcloud" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shop_vue_springcloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop_vue_springcloud" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shop_vue_springcloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop_vue_springcloud" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shop_vue_springcloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop_vue_springcloud" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="cxp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shop_vue_springcloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop_vue_springcloud" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="cxp" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shop_vue_springcloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop_vue_springcloud" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="cxp" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_api" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shop_vue_springcloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop_vue_springcloud" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -210,7 +346,9 @@
       <workItem from="1577933558438" duration="54000" />
       <workItem from="1578300172935" duration="38000" />
       <workItem from="1578300572259" duration="496000" />
-      <workItem from="1578724525841" duration="2121000" />
+      <workItem from="1578724525841" duration="3331000" />
+      <workItem from="1578835380181" duration="994000" />
+      <workItem from="1578836485821" duration="1751000" />
     </task>
     <task id="LOCAL-00001" summary="shop">
       <created>1575094500813</created>
@@ -520,16 +658,24 @@
       <option name="project" value="LOCAL" />
       <updated>1578736824363</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="cxp_shop">
+      <created>1578737692992</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1578737692992</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32001000" />
+    <option name="totallyTimeSpent" value="35956000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1328859" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1852349" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -580,17 +726,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shop_vue/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/ShopApiApplication.java">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/数据库文件.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="72" column="40" lean-forward="true" selection-start-line="72" selection-start-column="40" selection-end-line="72" selection-end-column="40" />
+        <state relative-caret-position="-2586">
+          <caret line="89" selection-start-line="89" selection-end-line="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/ShopCar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="24" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderParent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="33" column="50" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="50" />
         </state>
       </provider>
     </entry>
@@ -601,6 +757,13 @@
             <caret line="61" column="21" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop_vue/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>

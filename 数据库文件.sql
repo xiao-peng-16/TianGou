@@ -55,15 +55,15 @@ create table order_parent(
 	user_id	int comment '用户id',
 	store_id int comment '店铺id',
 	order_time datetime default NOW() comment '下单时间',
-	order_sum_number int comment '订单总数量',
-	order_sum_price decimal(10,2) comment '订单总金额',
+	order_total_quantity int comment '订单总数量',
+	order_total_price decimal(10,2) comment '订单总金额',
 	order_state int default 0  comment '订单状态：0待付款 1待发货 2待评价'
 );
 create table order_son(
 	order_id int comment '订单id',
 	commodity_id int comment '商品id',
-	choose_number int comment '选购数量',
 	commodity_price decimal(10,2) comment '商品单价',
+	purchase_quantity int comment '选购数量',
 	PRIMARY KEY(order_id,commodity_id)
 );
 
@@ -73,7 +73,8 @@ create table shop_car(
 		shop_car_id int primary key auto_increment,
 		user_id	int,
 		commodity_id int comment '商品id',
-		choose_number int comment '数量'
+		purchase_quantity int comment '数量',
+		selected bool default true comment '是否选中'
 );
 
 /* 收藏夹*/
@@ -296,61 +297,61 @@ iNSERT iNTO `favorite`(`user_id`, `commodity_id`) VALUES (10, 18);
 
 
 -- 订单数据 可删除
-INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_sum_number`, `order_sum_price`, `order_state`) VALUES (4, 2, 10, '2019-12-01 16:18:41', 3, 92.97, 1);
-INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_sum_number`, `order_sum_price`, `order_state`) VALUES (5, 1, 10, '2019-12-01 16:19:31', 26, 1144.60, 1);
-INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_sum_number`, `order_sum_price`, `order_state`) VALUES (6, 3, 10, '2019-12-01 16:21:26', 17, 730.38, 1);
-INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_sum_number`, `order_sum_price`, `order_state`) VALUES (7, 3, 10, NOW(), 2, 47.98, 1);
-INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_sum_number`, `order_sum_price`, `order_state`) VALUES (8, 6, 10, NOW(), 8, 151.37, 1);
-INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_sum_number`, `order_sum_price`, `order_state`) VALUES (9, 11, 10, NOW(), 15, 801.58, 1);
-INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_sum_number`, `order_sum_price`, `order_state`) VALUES (10, 12, 10, NOW(), 16, 860.30, 1);
-INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_sum_number`, `order_sum_price`, `order_state`) VALUES (11, 10, 2, '2020-01-06 16:37:02', 1, 1420.00, 1);
-INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_sum_number`, `order_sum_price`, `order_state`) VALUES (12, 10, 4, '2020-01-06 16:37:02', 5, 309.00, 1);
-INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_sum_number`, `order_sum_price`, `order_state`) VALUES (13, 10, 7, '2020-01-06 16:37:02', 1, 39.80, 1);
-INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_sum_number`, `order_sum_price`, `order_state`) VALUES (14, 10, 9, '2020-01-06 16:37:02', 1, 3699.00, 1);
-INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_sum_number`, `order_sum_price`, `order_state`) VALUES (15, 10, 2, '2020-01-06 16:37:45', 7, 11246.00, 0);
-INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_sum_number`, `order_sum_price`, `order_state`) VALUES (16, 10, 3, '2020-01-06 16:39:07', 5, 3788.00, 1);
+INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_total_quantity`, `order_total_price`, `order_state`) VALUES (4, 2, 10, '2019-12-01 16:18:41', 3, 92.97, 1);
+INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_total_quantity`, `order_total_price`, `order_state`) VALUES (5, 1, 10, '2019-12-01 16:19:31', 26, 1144.60, 1);
+INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_total_quantity`, `order_total_price`, `order_state`) VALUES (6, 3, 10, '2019-12-01 16:21:26', 17, 730.38, 1);
+INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_total_quantity`, `order_total_price`, `order_state`) VALUES (7, 3, 10, NOW(), 2, 47.98, 1);
+INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_total_quantity`, `order_total_price`, `order_state`) VALUES (8, 6, 10, NOW(), 8, 151.37, 1);
+INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_total_quantity`, `order_total_price`, `order_state`) VALUES (9, 11, 10, NOW(), 15, 801.58, 1);
+INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_total_quantity`, `order_total_price`, `order_state`) VALUES (10, 12, 10, NOW(), 16, 860.30, 1);
+INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_total_quantity`, `order_total_price`, `order_state`) VALUES (11, 10, 2, '2020-01-06 16:37:02', 1, 1420.00, 1);
+INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_total_quantity`, `order_total_price`, `order_state`) VALUES (12, 10, 4, '2020-01-06 16:37:02', 5, 309.00, 1);
+INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_total_quantity`, `order_total_price`, `order_state`) VALUES (13, 10, 7, '2020-01-06 16:37:02', 1, 39.80, 1);
+INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_total_quantity`, `order_total_price`, `order_state`) VALUES (14, 10, 9, '2020-01-06 16:37:02', 1, 3699.00, 1);
+INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_total_quantity`, `order_total_price`, `order_state`) VALUES (15, 10, 2, '2020-01-06 16:37:45', 7, 11246.00, 0);
+INSERT INTO `order_parent`(`order_id`, `user_id`, `store_id`, `order_time`, `order_total_quantity`, `order_total_price`, `order_state`) VALUES (16, 10, 3, '2020-01-06 16:39:07', 5, 3788.00, 1);
 
 
 
 
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (4, 42, 3, 30.99);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (5, 40, 3, 27.80);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (5, 43, 15, 42.80);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (5, 47, 2, 14.80);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (5, 53, 2, 38.80);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (5, 54, 4, 78.00);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (6, 40, 4, 27.80);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (6, 46, 2, 12.80);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (6, 50, 1, 35.60);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (6, 51, 2, 16.99);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (6, 55, 8, 65.50);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (7, 57, 2, 23.99);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (8, 42, 2, 30.99);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (8, 44, 4, 12.90);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (8, 46, 1, 12.80);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (8, 49, 1, 24.99);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (9, 40, 4, 27.80);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (9, 41, 1, 69.90);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (9, 51, 2, 16.99);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (9, 54, 5, 78.00);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (9, 55, 3, 65.50);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (10, 40, 4, 27.80);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (10, 46, 2, 12.80);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (10, 48, 1, 11.00);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (10, 54, 8, 78.00);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (10, 56, 1, 88.50);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (11, 9, 1, 1420.00);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (12, 24, 5, 61.80);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (13, 37, 1, 39.80);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (14, 39, 1, 3699.00);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (15, 10, 3, 1466.00);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (15, 12, 1, 1520.00);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (15, 16, 2, 1720.00);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (15, 17, 1, 1888.00);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (16, 18, 1, 256.00);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (16, 19, 1, 988.00);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (16, 20, 1, 1388.00);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (16, 21, 1, 588.00);
-INSERT INTO `order_son`(`order_id`, `commodity_id`, `choose_number`, `commodity_price`) VALUES (16, 22, 1, 568.00);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (4, 42, 3, 30.99);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (5, 40, 3, 27.80);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (5, 43, 15, 42.80);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (5, 47, 2, 14.80);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (5, 53, 2, 38.80);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (5, 54, 4, 78.00);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (6, 40, 4, 27.80);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (6, 46, 2, 12.80);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (6, 50, 1, 35.60);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (6, 51, 2, 16.99);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (6, 55, 8, 65.50);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (7, 57, 2, 23.99);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (8, 42, 2, 30.99);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (8, 44, 4, 12.90);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (8, 46, 1, 12.80);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (8, 49, 1, 24.99);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (9, 40, 4, 27.80);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (9, 41, 1, 69.90);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (9, 51, 2, 16.99);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (9, 54, 5, 78.00);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (9, 55, 3, 65.50);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (10, 40, 4, 27.80);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (10, 46, 2, 12.80);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (10, 48, 1, 11.00);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (10, 54, 8, 78.00);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (10, 56, 1, 88.50);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (11, 9, 1, 1420.00);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (12, 24, 5, 61.80);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (13, 37, 1, 39.80);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (14, 39, 1, 3699.00);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (15, 10, 3, 1466.00);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (15, 12, 1, 1520.00);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (15, 16, 2, 1720.00);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (15, 17, 1, 1888.00);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (16, 18, 1, 256.00);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (16, 19, 1, 988.00);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (16, 20, 1, 1388.00);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (16, 21, 1, 588.00);
+INSERT INTO `order_son`(`order_id`, `commodity_id`, `purchase_quantity`, `commodity_price`) VALUES (16, 22, 1, 568.00);
 
 

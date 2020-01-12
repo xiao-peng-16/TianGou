@@ -44,12 +44,12 @@
               </div>
               <div class="split"></div>
 
-              <div class="chooseNumberBox">
+              <div class="purchaseQuantityBox">
                 <span class="shu_liang">数量</span>
                 <div class="numBox">
-                  <span @click="chooseNumber--" class="arrows_left iconfont">&#xe610;</span>
-                  <input v-model.number="chooseNumber" type="text">
-                  <span @click="chooseNumber++" class="arrows_right iconfont">&#xf034f;</span>
+                  <span @click="purchaseQuantity--" class="arrows_left iconfont">&#xe610;</span>
+                  <input v-model.number="purchaseQuantity" type="text">
+                  <span @click="purchaseQuantity++" class="arrows_right iconfont">&#xf034f;</span>
                 </div>
                 <span class="cStock">库存{{commodity.commodityStock}}件 </span>
               </div>
@@ -95,7 +95,7 @@
       return{
         rowWidth:undefined,
 
-        chooseNumber:1,
+        purchaseQuantity:1,
         msg_addShopcar:'加入购物车',
         flag_notAddShop_car:true,
         flag_notSubmitOrder:true,
@@ -127,14 +127,16 @@
         }
 
         if(this.flag_notAddShop_car){
-          this.$axios.post('/car/addShopCarByUserId',{
-            commodityId:this.commodity.commodityId,
-            chooseNumber:this.chooseNumber
+          this.$axios.get('/car/addShopCarByUserId',{
+            params:{
+              commodityId:this.commodity.commodityId,
+              purchaseQuantity:this.purchaseQuantity
+            }
           }).then(res=>{
             if (this.$store.getters.getResultDispose(res)){
               this.flag_notAddShop_car=false;
               this.msg_addShopcar="已添加至购物车";
-              this.$store.state.user.shopCarNumber = Number.parseInt(this.$store.state.user.shopCarNumber) + Number.parseInt(this.chooseNumber);
+              this.$store.state.user.shopCarNumber = Number.parseInt(this.$store.state.user.shopCarNumber) + 1;
               this.$message({
                 message: '购物车添加成功',
                 type: 'success'
@@ -159,11 +161,12 @@
           this.flag_notSubmitOrder = false;
         } else {
           this.warning('订单提交中请稍后');
+          return;
         }
 
         this.$axios.post('/order/submitOrderByUserId',[{
           commodityId:this.commodity.commodityId,
-          chooseNumber:this.chooseNumber
+          purchaseQuantity:this.purchaseQuantity
         }]).then(res=>{
           if (this.$store.getters.getResultDispose(res)){
             this.$router.push({name:'shop_success'});
@@ -184,11 +187,11 @@
       })
     },
     watch:{
-      chooseNumber:function (val) {
-        this.chooseNumber=this.chooseNumber.toString().replace(/[^\d]/g,'');
+      purchaseQuantity:function (val) {
+        this.purchaseQuantity=this.purchaseQuantity.toString().replace(/[^\d]/g,'');
 
-        if (this.chooseNumber=='' || this.chooseNumber<1){
-          this.chooseNumber=1;
+        if (this.purchaseQuantity=='' || this.purchaseQuantity<1){
+          this.purchaseQuantity=1;
         }
 
       }
@@ -276,10 +279,10 @@
     height: 0.8px;
     background:  #999;
   }
-  .chooseNumberBox{
+  .purchaseQuantityBox{
     margin-top: 20px;
   }
-  .chooseNumberBox >span{
+  .purchaseQuantityBox >span{
     margin-left: 10px;
     position: relative;
     bottom: 1px;

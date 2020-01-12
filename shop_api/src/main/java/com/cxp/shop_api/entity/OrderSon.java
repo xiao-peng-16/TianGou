@@ -12,7 +12,7 @@ public class OrderSon {
 
     int orderId;                //买家购买 交易形成的订单 的编号
     int commodityId;            //商品id
-    int chooseNumber;           //数量
+    int purchaseQuantity;           //数量
     double commodityPrice;      //商品单价
 
 
