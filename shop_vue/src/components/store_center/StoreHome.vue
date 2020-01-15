@@ -88,19 +88,19 @@
           return this.$store.state.user.userName;
         },
         init(){
-          this.$axios.post('/store/selStoreResultBeanByStoreId')
+          this.$axios.post('/store/getStoreByStoreId')
             .then(res=>{
               if (this.$store.getters.getResultDispose(res))
-                this.store = res.data.data;
+                this.store = res.data;
             });
 
-          this.$axios.post('/order/selStoreStatusFullVOByStoreId')
+          this.$axios.post('/order/getStoreStatusFullVOByStoreId')
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)){
-                if (null!=res.data.data.currentMonth)
-                  this.fullStoreSales.currentMonth = res.data.data.currentMonth;
-                if (null!=res.data.data.totality)
-                  this.fullStoreSales.totality = res.data.data.totality;
+                if (null!=res.data.currentMonth)
+                  this.fullStoreSales.currentMonth = res.data.currentMonth;
+                if (null!=res.data.totality)
+                  this.fullStoreSales.totality = res.data.totality;
               }
             });
         }

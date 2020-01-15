@@ -194,16 +194,17 @@
           },
         },
         created() {
-            this.$axios.get('/user/selUserByUserId')
+            this.$axios.get('/user/getUserByUserId')
               .then(res=>{
-                if (res.data.success){
-                  var user=res.data.data;
+                // 当 res.data.success 不为空 并且为false 时 代表错误
+                if (undefined == res.data.success || res.data.success){
+                  var user=res.data;
                   this.$store.state.user.userId = user.userId;
                   this.$store.state.user.userName = user.userName;
                   this.$store.state.user.userPhoto = user.userPhoto;
                   this.$store.state.user.userMoney = user.userMoney;
 
-                  this.$axios.get('/car/selShopCarCountByUserId')
+                  this.$axios.get('/car/countShopCarByUserId')
                     .then(res=>{
                       this.$store.state.user.shopCarNumber=res.data;
                     });

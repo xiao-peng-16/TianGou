@@ -17,21 +17,20 @@ import java.util.Map;
 public interface UserMapper {
 
     //注册
-    @Insert("insert user(user_name,user_password) values(#{userName},#{userPassword})")
     public int insUser(User user);
 
     @Select("select count(*) from user where user_name = #{userName}")
-    public int  is_usable_userName(@Param("userName") String userName);
+    public int countUserName(@Param("userName") String userName);
 
 
     //登录
     @Select("select user_id from user where user_name = #{userName} and user_password = #{userPassword}")
-    public Integer selUserByPassword(User user);
+    public Integer getUserIdByPassword(User user);
 
 
     //id登录
     @Select("select user_id, user_name, user_money, user_photo from user where user_id = #{userId}")
-    public User selUserByUserId(@Param("userId") int userId);
+    public User getUserByUserId(@Param("userId") int userId);
 
     //查余额 根据userId
     @Select("select user_money from user where user_id = #{userId}")
@@ -42,11 +41,11 @@ public interface UserMapper {
 
     //查询用户头像
     @Select("select user_photo from user where user_id = #{userId}")
-    public String  selUserPhotoByUserId(@Param("userId") Integer userId);
+    public String  getUserPhotoByUserId(@Param("userId") Integer userId);
 
 
     @Select("select user_name from user where user_id = #{userId}")
-    public String  selUserNameByUserId(@Param("userId") Integer userId);
+    public String  getUserNameByUserId(@Param("userId") Integer userId);
 
     //修改密码
     @Update("update user set user_password = #{newUserPassword} where user_id = #{userId} and  user_password= #{oldUserPassword}")

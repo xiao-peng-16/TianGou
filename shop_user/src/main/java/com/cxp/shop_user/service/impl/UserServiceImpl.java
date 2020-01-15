@@ -31,31 +31,43 @@ public class UserServiceImpl implements UserService {
     @Autowired
     ImagesFeignClient imagesFeignClient;
 
+    static final ResultBean USER_Add_ERROR = ResultFactory.createFailResult(ResultStatus.USER_Add_ERROR);
+    static final ResultBean USER_NAME_DISABLED = ResultFactory.createFailResult(ResultStatus.USER_NAME_DISABLED);
+    static final ResultBean successResult = ResultFactory.createSuccessResult();
+
+
     public static final MoneyInsufficientException moneyInsufficientException = new MoneyInsufficientException();
     public static final TransactionalException TRANSACTIONAL_EXCEPTION = new TransactionalException();
     static final ResultBean USER_LOGIN_ERROR = ResultFactory.createFailResult(ResultStatus.USER_LOGIN_ERROR);
 
     @Override
-    public Boolean is_usable_userName(String userName) {
-        return userMapper.is_usable_userName(userName)==0;
+    public boolean is_usable_userName(String userName) {
+        return 0 == userMapper.countUserName(userName);
     }
 
     @Override
-    public Boolean insUser(User user) {
-        return userMapper.insUser(user)>0;
+    public ResultBean addUserAndGetToken(User user) {
+        try {
+            userMapper.insUser(user);
+            return ResultFactory.createSuccessResult(zuulFeignClient.getUserLoginToken(user.getUserId()));
+        }catch (Exception e){
+            if(e.getCause() instanceof java.sql.SQLIntegrityConstraintViolationException)
+                return USER_NAME_DISABLED;
+            return USER_Add_ERROR;
+        }
     }
 
 
 
     @Override
     public ResultBean getTokenByPassword(User user) {
-        Integer userId = userMapper.selUserByPassword(user);
+        Integer userId = userMapper.getUserIdByPassword(user);
         return userId==null? USER_LOGIN_ERROR : ResultFactory.createSuccessResult(zuulFeignClient.getUserLoginToken(userId));
     }
 
     @Override
-    public User selUserById(int userId) {
-        return userMapper.selUserByUserId(userId);
+    public User getUserByUserId(int userId) {
+        return userMapper.getUserByUserId(userId);
     }
 
     @Override
@@ -68,13 +80,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String selUserNameByUserId(Integer userId) {
-        return userMapper.selUserNameByUserId(userId);
+    public String getUserNameByUserId(Integer userId) {
+        return userMapper.getUserNameByUserId(userId);
     }
 
     @Override
-    public String selUserPhotoByUserId(Integer userId) {
-        return userMapper.selUserPhotoByUserId(userId);
+    public String getUserPhotoByUserId(Integer userId) {
+        return userMapper.getUserPhotoByUserId(userId);
     }
 
     @Override
@@ -84,7 +96,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean changeUserPhotoByUserId(Integer userId, String newUserPhoto) {
-        String oldUserPhotoURL = userMapper.selUserPhotoByUserId(userId);
+        String oldUserPhotoURL = userMapper.getUserPhotoByUserId(userId);
         boolean success = 0 != userMapper.changeUserPhotoByUserId(userId, newUserPhoto);
         if (success)
             if (null != oldUserPhotoURL && !"".equals(oldUserPhotoURL))
@@ -98,7 +110,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void shopTransferByUserId(List<MoneyChange> moneyChangeList) throws MoneyInsufficientException, TransactionalException {
 
-        System.out.println(moneyChangeList);
+//        System.out.println(moneyChangeList);
         MoneyChange firstItem = moneyChangeList.get(0); //付钱方
 
         //如果付钱方余额 和 变化（负数） 相加 小于0

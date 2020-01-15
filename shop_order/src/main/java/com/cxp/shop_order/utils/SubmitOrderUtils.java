@@ -1,8 +1,8 @@
 package com.cxp.shop_order.utils;
 
 import com.cxp.shop_api.dto.CommodityToOrder;
-import com.cxp.shop_api.entity.OrderParent;
 import com.cxp.shop_api.entity.OrderSon;
+import com.cxp.shop_api.entity.AddMultipleOrderParent;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,11 +12,13 @@ import java.util.Map;
 
 public class SubmitOrderUtils  {
 
-    static SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    Map<Integer, OrderParent> storeId_orderParentMap = new HashMap<>();
-    String orderTime = dateFormat.format(new Date());
+    static final SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    Map<Integer, AddMultipleOrderParent> storeId_addMultipleOrderParentMap = new HashMap<>();
     int userId;
+    String orderTime = dateFormat.format(new Date());
+
 
     public SubmitOrderUtils(int userId) {
         this.userId = userId;
@@ -32,27 +34,27 @@ public class SubmitOrderUtils  {
         int purchaseQuantity = orderSon.getPurchaseQuantity();
         int storeId = commodityToOrder.getStoreId();
 
-        OrderParent orderParent = null;
+        AddMultipleOrderParent addMultipleOrderParent = null;
         orderSon.setCommodityPrice(commodityPrice);
-        if (!storeId_orderParentMap.containsKey(storeId)){
-            orderParent = new OrderParent(userId, storeId, orderTime);
-            orderParent.setOrderSonList(new ArrayList<>());
-            storeId_orderParentMap.put(storeId, orderParent);
+        if (!storeId_addMultipleOrderParentMap.containsKey(storeId)){
+            addMultipleOrderParent = new AddMultipleOrderParent(userId, storeId, orderTime);
+            addMultipleOrderParent.setOrderSonList(new ArrayList<>());
+            storeId_addMultipleOrderParentMap.put(storeId, addMultipleOrderParent);
         }else {
-            orderParent = storeId_orderParentMap.get(storeId);
+            addMultipleOrderParent = storeId_addMultipleOrderParentMap.get(storeId);
         }
-        orderParent.setOrderTotalQuantity(orderParent.getOrderTotalQuantity() + purchaseQuantity);
-        orderParent.setOrderTotalPrice(orderParent.getOrderTotalPrice() + purchaseQuantity * commodityPrice);
-        orderParent.getOrderSonList().add(orderSon);
+        addMultipleOrderParent.setOrderTotalQuantity(addMultipleOrderParent.getOrderTotalQuantity() + purchaseQuantity);
+        addMultipleOrderParent.setOrderTotalPrice(addMultipleOrderParent.getOrderTotalPrice() + purchaseQuantity * commodityPrice);
+        addMultipleOrderParent.getOrderSonList().add(orderSon);
     }
 
 
 
 
-    public Map<Integer, OrderParent> popResult(){
+    public Map<Integer, AddMultipleOrderParent> popResult(){
 
-        Map<Integer, OrderParent> map = storeId_orderParentMap;
-        storeId_orderParentMap = null;
+        Map<Integer, AddMultipleOrderParent> map = storeId_addMultipleOrderParentMap;
+        storeId_addMultipleOrderParentMap = null;
         return map;
     }
 

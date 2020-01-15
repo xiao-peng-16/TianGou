@@ -41,7 +41,7 @@
             //商品 4xx
             case this.GLOBAL.ResultStatus.COMMODITY_STOCK_INSUFFICIENT:
               return "亲，您选购的商品的库存不足";
-            case this.GLOBAL.ResultStatus.COMMODITY_ID_ERROR:
+            case this.GLOBAL.ResultStatus.COMMODITY_NOT_FOUND:
               return "商品已下架 或 商品id不存在";
             //this.$store.state.status 也可以是字符串
             default:

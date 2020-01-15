@@ -1,7 +1,5 @@
 package com.cxp.shop_car.service.FeignClient;
 
-import com.cxp.shop_api.entity.ShopCar;
-import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.vo.ShopCarCommodityVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;

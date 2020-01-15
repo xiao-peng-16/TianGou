@@ -8,12 +8,10 @@ import com.cxp.shop_api.result.ResultStatus;
 import com.cxp.shop_user.exception.MoneyInsufficientException;
 import com.cxp.shop_user.exception.TransactionalException;
 import com.cxp.shop_user.pojo.ChangeUserPassword;
-import com.cxp.shop_user.service.feignClient.ZuulFeignClient;
 import com.cxp.shop_user.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -24,10 +22,7 @@ public class UserController {
     @Autowired
     UserServiceImpl userService;
     static final ResultBean successResult = ResultFactory.createSuccessResult();
-    static final ResultBean USER_NAME_DISABLED = ResultFactory.createFailResult(ResultStatus.USER_NAME_DISABLED);
-    static final ResultBean USER_Add_ERROR = ResultFactory.createFailResult(ResultStatus.USER_Add_ERROR);
     static final ResultBean USER_PASSWORD_CHANGE_ERROR = ResultFactory.createFailResult(ResultStatus.USER_PASSWORD_CHANGE_ERROR);
-    static final ResultBean USER_ID_ERROR = ResultFactory.createFailResult(ResultStatus.USER_ID_ERROR);
     static final ResultBean USER_MONEY_INSUFFICIENT = ResultFactory.createFailResult(ResultStatus.USER_MONEY_INSUFFICIENT);
     static final ResultBean USER_MONEY_CHANGE_ERROE = ResultFactory.createFailResult(ResultStatus.USER_MONEY_CHANGE_ERROE);
     static final ResultBean USER_PHOTO_CHANGE_ERROE = ResultFactory.createFailResult(ResultStatus.USER_PHOTO_CHANGE_ERROE);
@@ -35,22 +30,15 @@ public class UserController {
 
     //判断用户名是否可以注册 (防止已经有人注册过了)
     @RequestMapping("/is_usable_userName")
-    public ResultBean is_usable_userName(String userName) {
-        return userService.is_usable_userName(userName) ? successResult : USER_NAME_DISABLED;
+    public boolean is_usable_userName(String userName) {
+        return userService.is_usable_userName(userName);
     }
 
-    //先判断用户名是否可以注册 后创建用户
-    @PostMapping("/addUser")
-    public ResultBean addUser(@RequestBody User user) {
-        ResultBean userNameResult = is_usable_userName(user.getUserName());
-        return userNameResult.isSuccess()? (userService.insUser(user) ? successResult : USER_Add_ERROR) :userNameResult;
-    }
 
     //创建用户 并登录用户返回token
     @PostMapping("/addUserAndGetToken")
     public ResultBean addUserAndGetToken(@RequestBody User user) {
-        ResultBean  addUserResult = addUser(user);
-        return addUserResult.isSuccess() ? getTokenByPassword(user) : addUserResult;
+        return userService.addUserAndGetToken(user);
     }
 
     //账号 密码登录
@@ -58,11 +46,11 @@ public class UserController {
     public ResultBean getTokenByPassword(@RequestBody User userSrc) {
         return userService.getTokenByPassword(userSrc);
     }
+
     //根据session 的id 返回用户
-    @RequestMapping("/selUserByUserId")
-    public ResultBean selUserById(Integer userId) {
-        User user = userService.selUserById(userId);
-        return user == null ? USER_ID_ERROR :  ResultFactory.createSuccessResult(user);
+    @RequestMapping("/getUserByUserId")
+    public User getUserByUserId(Integer userId) {
+        return userService.getUserByUserId(userId);
     }
 
     //查询一组用户名 根据id
@@ -72,9 +60,9 @@ public class UserController {
     }
 
     //查询用户名 根据id
-    @RequestMapping("/selUserNameByUserId")
-    public String  selUserNameByUserId(Integer userId){
-        return userService.selUserNameByUserId(userId);
+    @RequestMapping("/getUserNameByUserId")
+    public String  getUserNameByUserId(Integer userId){
+        return userService.getUserNameByUserId(userId);
     }
 
     //修改密码
@@ -85,15 +73,15 @@ public class UserController {
 
 
     //查询用户头像
-    @RequestMapping("/selUserPhotoByUserId")
-    public String  selUserPhotoByUserId(Integer userId){
-        return userService.selUserPhotoByUserId(userId);
+    @RequestMapping("/getUserPhotoByUserId")
+    public String  getUserPhotoByUserId(Integer userId){
+        return userService.getUserPhotoByUserId(userId);
     }
 
     //更换头像
     @RequestMapping("/changeUserPhotoByUserId")
-    public ResultBean  changeUserPhotoByUserId(Integer userId, String userPhoto){
-        return userService.changeUserPhotoByUserId(userId, userPhoto)? successResult : USER_PHOTO_CHANGE_ERROE;
+    public boolean  changeUserPhotoByUserId(Integer userId, String userPhoto){
+        return userService.changeUserPhotoByUserId(userId, userPhoto);
     }
 
 

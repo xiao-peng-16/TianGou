@@ -1,24 +1,8 @@
-server:
-  port: 7050
 spring:
   application:
     name: order
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/cxpshop
-    username: root
-    password: 123456
-
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.cxp.shop_api.
-  configuration:
-    map-underscore-to-camel-case: true
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+  profiles:
+    active: dev
 
 ### Hystrix 配置
 hystrix:
@@ -29,4 +13,51 @@ hystrix:
           thread:
             # 熔断器超时时间，默认：1000/毫秒
             timeoutInMilliseconds: 5000
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.cxp.shop_api.
+  configuration:
+    map-underscore-to-camel-case: true
+
+---
+#开发环境
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cxpshop
+    username: root
+    password: 123456
+
+server:
+  port: 7050
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+---
+#生产
+spring:
+  profiles: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cxpshop
+    username: root
+    password: 123456
+
+server:
+  port: 7050
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    ip-address: 47.101.147.15
+    non-secure-port: 7050
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
 

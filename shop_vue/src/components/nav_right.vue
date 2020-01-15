@@ -162,17 +162,17 @@
           this.$axios.post('/car/listShopCarCommodityVOByUserId')
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)){
-                this.shopCarList = undefined == res.data.data ? [] : res.data.data;
+                this.shopCarList = undefined == res.data ? [] : res.data;
               }
             });
           this.$refs.right_navBox.style.transform = "translate(-280px)"
         },
         click_favorite(){
           this.options = 2;
-          this.$axios.get('/favorite/selFavoriteCommodityVOByUserId')
+          this.$axios.get('/favorite/listFavoriteCommodityVOByUserId')
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)){
-                this.favoriteList = undefined == res.data.data ? [] : res.data.data;
+                this.favoriteList = undefined == res.data ? [] : res.data;
               }
             });
           this.$refs.right_navBox.style.transform = "translate(-280px)"

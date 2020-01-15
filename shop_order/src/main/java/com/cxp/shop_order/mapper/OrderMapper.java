@@ -2,8 +2,10 @@ package com.cxp.shop_order.mapper;
 
 
 import com.cxp.shop_api.dto.MoneyChange;
+import com.cxp.shop_api.entity.AddSingleOrderParent;
 import com.cxp.shop_api.entity.OrderParent;
 import com.cxp.shop_api.entity.OrderSon;
+import com.cxp.shop_api.entity.AddMultipleOrderParent;
 import com.cxp.shop_api.vo.StoreStatusBeanVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -15,9 +17,12 @@ import java.util.List;
 public interface OrderMapper<CommodityNumberChange> {
 
     //父表
-    public int insOrderParent(List<OrderParent> orderParentList);
+
+    public int insOrderParent(AddSingleOrderParent addSingleOrderParent);
+    public int inOrderParentList(List<AddMultipleOrderParent> addMultipleOrderParentList);
     //子表
-    public int insOrderSon(List<OrderSon> orderSonList);
+    public int insOrderSon(OrderSon orderSon);
+    public int insOrderSonList(List<OrderSon> orderSonList);
 
 
     //拿 店铺id（收钱方）、转账金额，  用于user微服务转账
@@ -30,14 +35,14 @@ public interface OrderMapper<CommodityNumberChange> {
 
 
     //获取订单中 商品id 和 数量
-    public List<CommodityNumberChange> selChooseNumberByOrderId(@Param("userId")int userId, @Param("orderIdList") List<Integer> orderIdList);
+    public List<CommodityNumberChange> getPurchaseQuantityByOrderId(@Param("userId")int userId, @Param("orderIdList") List<Integer> orderIdList);
 
 
 
     //卖家单月 出售情况
-    public StoreStatusBeanVO selStoreSalesCurrentMonth(@Param("storeId") int storeId);
+    public StoreStatusBeanVO getStoreSalesCurrentMonth(@Param("storeId") int storeId);
     //卖家  总 出售情况
-    public StoreStatusBeanVO selStoreSalesEarnings(@Param("storeId") int storeId);
+    public StoreStatusBeanVO getStoreSalesEarnings(@Param("storeId") int storeId);
 
 
     //查询该卖家所有父订单
@@ -49,7 +54,7 @@ public interface OrderMapper<CommodityNumberChange> {
 
 
     //查询 某一订单 详细内容
-    public OrderParent selStoreOrderParent( @Param("orderId") int orderId);
+    public OrderParent getStoreOrderParent( @Param("orderId") int orderId);
 
 
 }

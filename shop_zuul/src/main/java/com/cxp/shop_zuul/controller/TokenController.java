@@ -31,10 +31,4 @@ public class TokenController {
 
 
 
-    //退出登录
-    @RequestMapping("/asdByUserId")
-    public void outLoginByToken(Integer userId){
-        System.out.println(userId);
-    }
-
 }

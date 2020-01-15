@@ -36,7 +36,7 @@ export default {
 
 
       //商品 4xx
-      COMMODITY_ID_ERROR : 401,           //商品ID不存在
+      COMMODITY_NOT_FOUND : 401,           //找不到sql符合条件的某一个商品
       COMMODITY_STOCK_INSUFFICIENT : 402, //商品库存不足买家购买
       COMMODITY_INSERT_ERROR : 403,       //商品添加失败
       COMMODITY_UPDATE_ERROR : 404,       //商品修改失败

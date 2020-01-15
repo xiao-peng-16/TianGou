@@ -30,13 +30,6 @@ public class OrderParent {
 
     //这2 条不同时出现
     List<OrderSon> orderSonList;//该订单每个内容
-
-    public OrderParent(int userId, int storeId, String orderTime) {
-        this.userId = userId;
-        this.storeId = storeId;
-        this.orderTime = orderTime;
-    }
-
     List<OrderCommodityVO> orderCommodityVOList;//商品简单信息列表 ， orderSonList里有OrderCommodityVO 两者不重复出现
 
 

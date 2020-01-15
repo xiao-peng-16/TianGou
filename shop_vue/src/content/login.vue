@@ -47,8 +47,11 @@
     name: "login",
     data(){
       return{
-        userName:"",
-        userPassword:"",
+        // userName:"",
+        // userPassword:"",
+        userName:"晓鹏",
+        userPassword:"123456",
+
         flag_hint:false,
         hint:"提示"
       }

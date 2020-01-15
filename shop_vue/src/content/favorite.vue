@@ -12,7 +12,7 @@
     <div v-if="flag_show">
 
       <div class="listBox">
-        <div class="itemBox" v-for="item in dataList"   @click="gotoCommodityPage(item.commodityId)">
+        <div class="itemBox" v-for="item in favoriteList"   @click="gotoCommodityPage(item.commodityId)">
           <div style="width: 100%;border: 1px solid gray" >
             <img :src="item.commodityPhoto" style="height: 164px;width:164px" >
           </div>
@@ -43,7 +43,7 @@
     components: {Hint_popup, Nav_top},
     data(){
       return{
-        dataList:[]
+        favoriteList:[]
       }
     },
     methods:{
@@ -62,15 +62,15 @@
     },
     computed:{
       flag_show(){
-        return this.dataList.length>0;
-        return this.dataList !=null && this.dataList.length != 0;
+        return this.favoriteList.length>0;
+        return this.favoriteList !=null && this.favoriteList.length != 0;
       },
     },
     created() {
-      this.$axios.get('/favorite/selFavoriteCommodityVOByUserId')
+      this.$axios.get('/favorite/listFavoriteCommodityVOByUserId')
         .then(res=>{
           if (this.$store.getters.getResultDispose(res)){
-            this.dataList = res.data.data;
+            this.favoriteList = undefined == res.data ? [] : res.data;
           }
         });
 

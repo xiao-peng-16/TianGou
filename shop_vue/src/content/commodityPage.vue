@@ -136,7 +136,10 @@
             if (this.$store.getters.getResultDispose(res)){
               this.flag_notAddShop_car=false;
               this.msg_addShopcar="已添加至购物车";
-              this.$store.state.user.shopCarNumber = Number.parseInt(this.$store.state.user.shopCarNumber) + 1;
+              this.$axios.get('/car/countShopCarByUserId')
+                .then(res=>{
+                  this.$store.state.user.shopCarNumber=res.data;
+                });
               this.$message({
                 message: '购物车添加成功',
                 type: 'success'
@@ -164,10 +167,10 @@
           return;
         }
 
-        this.$axios.post('/order/submitOrderByUserId',[{
+        this.$axios.post('/order/submitSingleOrderByUserId',{
           commodityId:this.commodity.commodityId,
           purchaseQuantity:this.purchaseQuantity
-        }]).then(res=>{
+        }).then(res=>{
           if (this.$store.getters.getResultDispose(res)){
             this.$router.push({name:'shop_success'});
           }
@@ -176,7 +179,7 @@
 
     },
     created() {
-      this.$axios.get('/commodity/selCommodityByCommodityID',{
+      this.$axios.get('/commodity/getCommodityPageByCommodityId',{
         params:{
           commodityId: this.$route.query.commodityId
         }

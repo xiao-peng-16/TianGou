@@ -1,5 +1,8 @@
 package com.cxp.shop_favorite.service.impl;
 
+import com.cxp.shop_api.result.ResultBean;
+import com.cxp.shop_api.result.ResultFactory;
+import com.cxp.shop_api.result.ResultStatus;
 import com.cxp.shop_api.vo.FavoriteCommodityVO;
 import com.cxp.shop_favorite.mapper.FavoriteMapper;
 import com.cxp.shop_favorite.service.FavoriteService;
@@ -20,9 +23,18 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Autowired
     CommodityFeignClient commodityFeignClient;
 
+    static final ResultBean successResult = ResultFactory.createSuccessResult();
+    static final ResultBean FAVORITE_ADD_ERROR = ResultFactory.createFailResult(ResultStatus.FAVORITE_ADD_ERROR);
+    static final ResultBean FAVORITE_DEL_ERROR = ResultFactory.createFailResult(ResultStatus.FAVORITE_DEL_ERROR);
+
     @Override
-    public void addFavorite(int userId,List<Integer> commodityIdList) {
-        favoriteMapper.addFavorite(userId, commodityIdList);
+    public ResultBean addFavorite(int userId,List<Integer> commodityIdList) {
+        try {
+            favoriteMapper.addFavorite(userId, commodityIdList);
+            return successResult;
+        }catch (Exception e){
+            return FAVORITE_ADD_ERROR;
+        }
     }
 
     @Override
@@ -42,8 +54,13 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
-    public void delFavorite(int userId,List<Integer> commodityIdList){
+    public ResultBean delFavorite(int userId,List<Integer> commodityIdList){
+        try {
             favoriteMapper.delFavorite(userId, commodityIdList);
+            return successResult;
+        }catch (Exception e){
+            return FAVORITE_DEL_ERROR;
+        }
     }
 
 

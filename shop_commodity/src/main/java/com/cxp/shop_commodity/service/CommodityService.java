@@ -31,23 +31,24 @@ public interface CommodityService {
 
 
     //根据商品id返回 一个商品数据
-    public Commodity selCommodityByCommodityID(int commodityId);
+    public Commodity getCommodityPageByCommodityId(int commodityId);
     //返回搜索页 商品信息
-    public SearchVO selSearchVO(SearchRequest searchPage_request);
+    public SearchVO getSearchVO(SearchRequest searchPage_request);
     //返回购物车 商品信息
     public Map<Integer, ShopCarCommodityVO> mapShopCarCommodityVO(List<Integer> commodityIdList);
     //返回  店铺所销售的商品信息
-    public List<StoreCommodityVO> selStoreCommodityVOByStoreId(int storeId);
+    public List<StoreCommodityVO> listStoreCommodityVOByStoreId(int storeId);
 
     //查询商品 用于 店铺修改商品
-    public Commodity selCommodityByCommodityId(int commodityId);
+    public Commodity getCommodityByCommodityId(int commodityId);
 
     //返回  店铺所销售的信息
     //判断是否 用户购买自己的视频
     public boolean isCommodityStoreEqualUser(int userId, int commodityId);
 
     //用于订单微服务 提交订单  需要的店铺id 单价  库存
-    public  Map<Integer, CommodityToOrder> mapCommodityToOrder(List<Integer> commodityIdList);
+    public  CommodityToOrder getCommodityToOrder(Integer userId, Integer commodityId);
+    public  Map<Integer, CommodityToOrder> mapCommodityToOrder(Integer userId, List<Integer> commodityIdList);
     //修改商品 库存 销量
     public ResultBean updCommodityNumber(List<CommodityNumberChange> commodityNumberChangeList);
 

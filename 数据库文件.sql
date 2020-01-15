@@ -6,8 +6,8 @@ create table user(
 		user_name char(10) comment '用户名',
 		user_password char(15) comment '密码',
 		user_money  decimal(10,2) default 0.00 comment '余额',
-		user_photo varchar(200) comment '用户头像'
-
+		user_photo varchar(200) comment '用户头像',
+		UNIQUE KEY `UK_user` (user_name)
 );
 
 
@@ -20,7 +20,9 @@ create table store(
 		store_city char(5) comment '**市',
 		store_describe float(6,5) default 4.82345 comment '如实描述',
 		store_attitude float(6,5) default 4.84892 comment '服务态度',
-		store_delivery_speed float(6,5) default 4.82483 comment '发货速度'
+		store_delivery_speed float(6,5) default 4.82483 comment '发货速度',
+		UNIQUE Key `UK_user_id` (user_id),
+		UNIQUE Key `UK_store_name` (store_name)
 );
 
 /*商品种类*/
@@ -74,15 +76,16 @@ create table shop_car(
 		user_id	int,
 		commodity_id int comment '商品id',
 		purchase_quantity int comment '数量',
-		selected bool default true comment '是否选中'
+		selected bool default true comment '是否选中',
+		UNIQUE Key `UK_shop_car` (user_id,commodity_id)
 );
 
 /* 收藏夹*/
 create table favorite(
+    favorite_id int primary key auto_increment,
 	user_id	int,
 	commodity_id int comment '商品id',
-	favorite_time datetime default NOW() comment '时间用于排序',
-	PRIMARY KEY(user_id,commodity_id)
+	UNIQUE Key `UK_favorite` (user_id,commodity_id)
 );
 
 

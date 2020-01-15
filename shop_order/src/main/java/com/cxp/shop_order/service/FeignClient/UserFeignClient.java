@@ -19,8 +19,8 @@ public interface UserFeignClient {
     public Map<Integer,String> mapUserNameByUserId(List<Integer> userIdList);
 
     //查询用户名 根据id
-    @RequestMapping(value = "/selUserNameByUserId", method = RequestMethod.GET)
-    public String  selUserNameByUserId(@RequestParam Integer userId);
+    @RequestMapping(value = "/getUserNameByUserId", method = RequestMethod.GET)
+    public String  getUserNameByUserId(@RequestParam Integer userId);
 
     //转账
     @RequestMapping(value = "shopTransferByUserId", method = RequestMethod.POST)

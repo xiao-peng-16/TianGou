@@ -23,7 +23,7 @@ public class ResultStatus {
 
 
     //商品 4xx
-    public final static int COMMODITY_ID_ERROR = 401;           //商品ID不存在
+    public final static int COMMODITY_NOT_FOUND = 401;          //找不到sql符合条件的某一个商品
     public final static int COMMODITY_STOCK_INSUFFICIENT = 402; //商品库存不足买家购买
     public final static int COMMODITY_INSERT_ERROR = 403;       //商品添加失败
     public final static int COMMODITY_UPDATE_ERROR = 404;       //商品修改失败
@@ -36,9 +36,11 @@ public class ResultStatus {
     public final static int ORDER_SUBMIT_ERROR = 505;           //订单支付错误
 
 
-    //数据库添加失败  6xx
-    public final static int COLLECT_Add_ERROR = 601;      //收藏夹添加失败
-    public final static int SHOPCAR_Add_ERROR = 603;      //购物车添加失败
+    //购物车  6xx
+    public final static int SHOPCAR_Add_ERROR = 601;      //购物车添加失败
 
+    //房产局 7xx
+    public final static int FAVORITE_ADD_ERROR = 701;      //收藏夹添加失败
+    public final static int FAVORITE_DEL_ERROR = 702;      //收藏夹添加失败
 
 }

@@ -31,7 +31,12 @@
 
         <el-row>
           <div class="itemBox row" v-for="item in dataList">
-            <input  v-model="item.shopCar.selected" type="checkbox" >
+            <div class="checkbox">
+               <label @click="click_selected(item)" class="myCkeck" :class="{myCkeck_selecked:item.shopCar.selected}">
+                 <span class="iconfont">&#xed1d;</span>
+               </label>
+            </div>
+
             <el-col :span="2">
               <img :src="item.commodityPhoto" @click="gotoCommodityPage(item.shopCar.commodityId)" style="cursor: pointer;">
             </el-col>
@@ -49,9 +54,9 @@
 
             <el-col :span="4">
               <div class="center down" >
-                <button type="button" class="btn btn-info" @click="less(item)"><span>-</span></button>
+                <button type="button" class="btn btn-info" @click="click_changePurchaseQuantity(item,-1)"><span>-</span></button>
                 <input v-model.number="item.shopCar.purchaseQuantity" @input="input(item)">
-                <button type="button" class="btn btn-info" @click="item.shopCar.purchaseQuantity++"><span>+</span></button>
+                <button type="button" class="btn btn-info" @click="click_changePurchaseQuantity(item,1)"><span>+</span></button>
               </div>
             </el-col>
             <el-col :span="3">
@@ -75,12 +80,17 @@
 
 
       <div class="bottom_bj">
-        <!--      <img src="../assets/shop_car_bj.jpg">-->
       </div>
       <div class="bottomMessage">
         <div class="operationBox">
-          <input  v-model="checkAllFlag" type="checkbox" style="top: 3px; cursor: pointer">
-          <span class="operationSpan" @click="checkAllFlag=!checkAllFlag">全选</span>
+          <div style="padding-top: 8px;display: inline-block">
+            <label @click="click_all_selecked" class="myCkeck" :class="{myCkeck_selecked:flag_all_selecked}">
+              <span class="iconfont" >&#xed1d;</span>
+<!--              用于对齐 注释看看-->
+              <span style="display: inline-block;"  v-if="!flag_all_selecked"></span>
+            </label>
+          </div>
+          <span class="operationSpan" @click="click_all_selecked">全选</span>
           <span class="operationSpan" @click="delByShopCarIdList" >删除</span>
           <span class="operationSpan" @click="shopCarListToFavorite" >移入收藏夹</span>
         </div>
@@ -114,7 +124,6 @@
       data(){
           return{
             dataList:[],
-            checkAllFlag:false,
 
             flag_notSubmitOrder:true,
           }
@@ -122,6 +131,9 @@
         computed:{
           selectedList(){
             return this.dataList.filter(item=>item.shopCar.selected);
+          },
+          flag_all_selecked(){
+            return  this.dataList.length == this.selectedList.length;
           },
           sumPrice(){
             var sunPrice=0;
@@ -138,11 +150,6 @@
           dataList(){
             this.$store.state.user.shopCarNumber = this.dataList.length;
           },
-          checkAllFlag:function (val) {
-            this.dataList.forEach((item)=>{
-              item.shopCar.selected = val;
-            });
-          }
         },
         methods:{
           warning(message){
@@ -153,15 +160,52 @@
               title: message,
             });
           },
-          less(item){
-            if(item.shopCar.purchaseQuantity>1){item.shopCar.purchaseQuantity--}
+          click_selected(item){
+            var target = !item.shopCar.selected;
+            this.$axios.get('/car/updSelectedByUserId',{
+              params:{
+                commodityId : item.shopCar.commodityId,
+                selected : target
+              }
+            }).then(res=>{
+              this.$store.getters.getResultDispose(res)
+            });
+            item.shopCar.selected =target;
+          },
+          click_all_selecked(){
+            var target_flag_all_selecked = !this.flag_all_selecked;
+            this.$axios.get('/car/updSelectedByUserId',{
+              params:{
+                selected : target_flag_all_selecked
+              }
+            }).then(res=>{
+              this.$store.getters.getResultDispose(res)
+            });
+            this.dataList.forEach((item)=>{
+              item.shopCar.selected = target_flag_all_selecked;
+            });
+          },
+          changePurchaseQuantity(item){
+            console.log(item)
+            this.$axios.get('/car/updChangePurchaseQuantityByUserId',{
+              params:{
+                commodityId : item.shopCar.commodityId,
+                purchaseQuantity : item.shopCar.purchaseQuantity
+              }
+            }).then(res=>{
+              this.$store.getters.getResultDispose(res)
+            });
+          },
+          click_changePurchaseQuantity(item, change){
+            var target = item.shopCar.purchaseQuantity + change;
+            item.shopCar.purchaseQuantity = target > 1 ? target : 1;
+            this.changePurchaseQuantity(item);
           },
           input(item){
             item.shopCar.purchaseQuantity=item.shopCar.purchaseQuantity.toString().replace(/[^\d]/g,'');
-
-            if (item.shopCar.purchaseQuantity=='' || item.shopCar.purchaseQuantity<1){
+            if (item.shopCar.purchaseQuantity=='' || item.shopCar.purchaseQuantity<1)
               item.shopCar.purchaseQuantity=1;
-            }
+            this.changePurchaseQuantity(item);
           },
           //  直接对 某一行 删除/移入收藏夹   需要对dataList更新
           updList_specific(item){
@@ -177,41 +221,41 @@
             });
           },
           delByShopCarId(item){
-              this.$axios.post('/car/delShopCarByUserId',[item.shopCar.shopCarId])
+              this.$axios.post('/car/delShopCarByUserId',[item.shopCar.commodityId])
                 .then(res=>{
+                  if (this.$store.getters.getResultDispose(res))
                 this.updList_specific(item);
               })
           },
           delByShopCarIdList(){
             var delShopCarIdList =[];
             for (var i=0;i<this.selectedList.length;i++)
-              delShopCarIdList.push(this.selectedList[i].shopCar.shopCarId)
+              delShopCarIdList.push(this.selectedList[i].shopCar.commodityId)
             if (delShopCarIdList.length ==0)
               return;
             this.$axios.post('/car/delShopCarByUserId',delShopCarIdList)
               .then(res=>{
+                if (this.$store.getters.getResultDispose(res))
                 this.updList_multi();
               })
           },
           shopCarToFavorite(item){
             this.$axios.post('/car/shopCarToFavoriteByUserId',{
-                shopCarIdList:[item.shopCar.shopCarId],
                 commodityIdList:[item.shopCar.commodityId]
             }).then(res=>{
+              if (this.$store.getters.getResultDispose(res))
                 this.updList_specific(item);
               })
           },
           shopCarListToFavorite(){
-            var shopCarIdList =[], commodityIdList =[];
+            var  commodityIdList =[];
             this.selectedList.forEach((item)=>{
-              shopCarIdList.push(item.shopCar.shopCarId);
               commodityIdList.push(item.shopCar.commodityId);
             });
 
-            if (shopCarIdList.length ==0)
+            if (commodityIdList.length ==0)
               return;
             this.$axios.post('/car/shopCarToFavoriteByUserId',{
-                shopCarIdList:shopCarIdList,
                 commodityIdList:commodityIdList
             }).then(res=>{
               this.updList_multi();
@@ -252,8 +296,7 @@
           this.$axios.post('/car/listShopCarCommodityVOByUserId')
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)){
-                this.dataList=res.data.data;
-                this.checkAllFlag = this.dataList.length == this.selectedList.length;
+                this.dataList=res.data;
               }
             });
         }
@@ -435,11 +478,44 @@
   }
 
 
-  input[type="checkbox"] {
-    zoom: 155%;
+
+  .checkbox{
+    width: 77.5px;
     position: relative;
-    top: 28px;
   }
+  .checkbox .myCkeck{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+   .myCkeck{
+     width: 20px;
+     height: 20px;
+     cursor: pointer;
+     border: 1px solid #d3d3d3;
+     line-height: 20px;
+   }
+   .myCkeck span{
+     position:relative;
+     bottom:1px;
+     right:1px;
+     color: white;
+     font-size: 21px;
+     font-weight: 500;
+     display: none;
+   }
+
+  .myCkeck_selecked{
+    background: #ff6700;
+    border: 1px solid #ff6700!important;
+  }
+  .myCkeck_selecked span{
+    display: inline-block!important;
+
+  }
+
+
 
   .operationBox{
     display: inline-block;

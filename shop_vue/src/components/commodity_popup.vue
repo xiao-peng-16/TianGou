@@ -251,7 +251,7 @@
               alert("propsd 的 commodityId 为空")
               return;
             }
-            this.$axios.get('/commodity/selCommodityByCommodityId',{
+            this.$axios.get('/commodity/getCommodityByCommodityId',{
               params:{
                 commodityId:this.commodityId
               }

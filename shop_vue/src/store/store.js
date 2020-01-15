@@ -25,8 +25,11 @@ export const store = new Vuex.Store({
       getResultDispose:function(state,getters){
         //返回匿名函数
         return function (res) {
+          // 当 res.data.success 不为空 并且为false 时 代表错误
+          if (undefined == res.data.success || res.data.success)
+            return true;
           state.status = res.data.status;
-          return res.data.success;
+          return false;
         }
       },
       getUserPhotoURL:function(state,getters){

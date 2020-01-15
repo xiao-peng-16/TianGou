@@ -55,7 +55,7 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public ResultBean updCommodity(Commodity commodity) {
 
-        CommodityPhotoVideo commodityPhotoVideo = commodityMapper.selCommodityPhotoVideo(commodity.getCommodityId());
+        CommodityPhotoVideo commodityPhotoVideo = commodityMapper.getCommodityPhotoVideo(commodity.getCommodityId());
 
         if (0 == commodityMapper.updCommodity(commodity))
             return COMMODITY_UPDATE_ERROR;
@@ -97,13 +97,19 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public Commodity selCommodityByCommodityID(int commodityId) {
+    public Commodity getCommodityPageByCommodityId(int commodityId) {
         //更新商品人气
         commodityMapper.updAddCPopularityByID(commodityId);
-        Commodity commodity = commodityMapper.selCommodityByCommodityID(commodityId);
-        commodity.setStore( storeFeignClient.selStoreByStoreId(commodity.getStoreId()));
+        Commodity commodity = commodityMapper.getCommodityByCommodityId(commodityId);
+        commodity.setStore( storeFeignClient.getStoreByStoreId(commodity.getStoreId()));
         return commodity;
     }
+
+    @Override
+    public Commodity getCommodityByCommodityId(int commodityId) {
+        return commodityMapper.getCommodityByCommodityId(commodityId);
+    }
+
 
 
     //********************************    搜索页  -开始**************************************
@@ -130,20 +136,20 @@ public class CommodityServiceImpl implements CommodityService {
     }
     //根据商品名字查询
     private SearchVO searchByCommodityName(SearchRequest searchPage_request) {
-        Integer commodityCount = commodityMapper.selSearchCountByCommodityName(searchPage_request);
+        int commodityCount = commodityMapper.countSearchByCommodityName(searchPage_request);
         if (0 == commodityCount)
             return null;
-        List<SearchCommodityVO> commoditySearchVOList = commodityMapper.selSearchCommodityVOByCommodityName(searchPage_request);
+        List<SearchCommodityVO> commoditySearchVOList = commodityMapper.listSearchCommodityVOByCommodityName(searchPage_request);
         addStore(commoditySearchVOList);
         SearchVO searchPage = new SearchVO(commodityCount, commoditySearchVOList);
         return searchPage;
     }
     //根据种类的名字查询
     private SearchVO searchBySortName(SearchRequest searchPage_request) {
-        Integer commodityCount = commodityMapper.selSearchCountBySortName(searchPage_request);
+        Integer commodityCount = commodityMapper.countSearchBySortName(searchPage_request);
         if (0 == commodityCount)
             return null;
-        List<SearchCommodityVO> commoditySearchVOList = commodityMapper.selSearchCommodityVOBySortName(searchPage_request);
+        List<SearchCommodityVO> commoditySearchVOList = commodityMapper.listSearchCommodityVOBySortName(searchPage_request);
         addStore(commoditySearchVOList);
         SearchVO searchPage = new SearchVO(commodityCount, commoditySearchVOList);
         return searchPage;
@@ -157,11 +163,11 @@ public class CommodityServiceImpl implements CommodityService {
             return null;
         List<Integer> storeIdList = storeId_storeToCommodityMap.entrySet().stream().map(e -> e.getKey()).collect(Collectors.toList());
 
-        int commodityCount = commodityMapper.selSearchCountByStoreId(storeIdList);
+        int commodityCount = commodityMapper.countSearchByStoreId(storeIdList);
         if (0 == commodityCount)
             return null;
 
-        List<SearchCommodityVO> commoditySearchVOList = commodityMapper.selSearchCommodityVOByStoreId(storeIdList, searchPage_request);
+        List<SearchCommodityVO> commoditySearchVOList = commodityMapper.listSearchCommodityVOByStoreId(storeIdList, searchPage_request);
         for (SearchCommodityVO commoditySearchVO : commoditySearchVOList)
             commoditySearchVO.setStoreToCommodity( storeId_storeToCommodityMap.get(commoditySearchVO.getStoreId()) );
 
@@ -170,7 +176,7 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public SearchVO selSearchVO(SearchRequest searchPage_request) {
+    public SearchVO getSearchVO(SearchRequest searchPage_request) {
         setPageStartLen(searchPage_request);
         SearchVO searchPage = null;
         if (searchPage_request.getSearchWord().contains("店")){
@@ -205,15 +211,18 @@ public class CommodityServiceImpl implements CommodityService {
 
     @Override
     public boolean isCommodityStoreEqualUser(int userId, int commodityId) {
-        return 0 != commodityMapper.selcommodityStoreEqualUser(userId, commodityId);
+        return 0 != commodityMapper.countCommodityStoreEqualUser(userId, commodityId);
+    }
+
+    @Override
+    public CommodityToOrder getCommodityToOrder(Integer userId, Integer commodityId) {
+        return commodityMapper.getCommodityToOrder(userId, commodityId);
     }
 
 
-
-
     @Override
-    public Map<Integer, CommodityToOrder> mapCommodityToOrder(List<Integer> commodityIdList){
-        return commodityMapper.mapCommodityToOrder(commodityIdList);
+    public Map<Integer, CommodityToOrder> mapCommodityToOrder(Integer userId, List<Integer> commodityIdList){
+        return commodityMapper.mapCommodityToOrder(userId, commodityIdList);
     }
 
     @Override
@@ -225,13 +234,9 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public List<StoreCommodityVO> selStoreCommodityVOByStoreId(int storeId) {
-        return commodityMapper.selStoreCommodityVOByStoreId(storeId);
+    public List<StoreCommodityVO> listStoreCommodityVOByStoreId(int storeId) {
+        return commodityMapper.listStoreCommodityVOByStoreId(storeId);
     }
 
-    @Override
-    public Commodity selCommodityByCommodityId(int commodityId) {
-        return commodityMapper.selCommodityByCommodityId(commodityId);
-    }
 
 }

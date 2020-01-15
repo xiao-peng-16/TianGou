@@ -1,7 +1,7 @@
 package com.cxp.shop_car.service.impl;
 
-import com.cxp.shop_api.dto.AddShopCar;
-import com.cxp.shop_api.dto.ShopCarToFavorite;
+import com.cxp.shop_api.dto.PurchaseDTO;
+import com.cxp.shop_api.dto.ShopCarPurchase;
 import com.cxp.shop_api.entity.ShopCar;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
@@ -37,25 +37,30 @@ public class ShopCarServiceImpl implements ShopCarService {
     static final ResultBean STORE_EQUAL_USER_ERROR = ResultFactory.createFailResult(ResultStatus.STORE_EQUAL_USER_ERROR);
 
     @Override
-    public ResultBean addShopCarByUserId(AddShopCar addShopCar) {
+    public ResultBean addShopCarByUserId(ShopCarPurchase shopCarPurchase) {
         //防止用户购买自己的商品
-        if (commodityFeignClient.isCommodityStoreEqualUser(addShopCar.getUserId(), addShopCar.getCommodityId()))
+        if (commodityFeignClient.isCommodityStoreEqualUser(shopCarPurchase.getUserId(), shopCarPurchase.getCommodityId()))
             return STORE_EQUAL_USER_ERROR;
-        if (0 == shopCarMapper.updShopCarNumberByCommodityId_UserId(addShopCar))//如果购物车已经有该商品，就只增加数量
-            shopCarMapper.insShop_Car(addShopCar);    //购物车没该商品 则添加
+
+        try {
+            shopCarMapper.insShop_Car(shopCarPurchase);
+        }catch (Exception e){
+            if(e.getCause() instanceof java.sql.SQLIntegrityConstraintViolationException)
+                shopCarMapper.updAddPurchaseQuantity(shopCarPurchase); //如果购物车已经有该商品，就只增加数量
+        }
         return successResult;
     }
 
     @Override
-    public int selShopCarCountByUserId(int userId) {
-        return shopCarMapper.selShopCarCountByUserId(userId);
+    public int countShopCarByUserId(int userId) {
+        return shopCarMapper.countShopCarByUserId(userId);
     }
 
 
     @Override
     public List<ShopCarCommodityVO> listShopCarCommodityVOByUserId(Integer userId) {
 
-        List<ShopCar> shopCarList = shopCarMapper.selShopCarByUserId(userId);
+        List<ShopCar> shopCarList = shopCarMapper.listShopCarByUserId(userId);
         if (0 == shopCarList.size()) return null;
         List<Integer> commodityIdList = shopCarList.stream().map(e -> e.getCommodityId()).collect(Collectors.toList());
         Map<Integer, ShopCarCommodityVO> shopCarCommodityVOMap = commodityFeignClient.mapShopCarCommodityVO(commodityIdList);
@@ -72,26 +77,38 @@ public class ShopCarServiceImpl implements ShopCarService {
         return shopCarCommodityVOList;
     }
 
+    @Override
+    public boolean updSelectedByUserId(Integer userId, Integer commodityId, Boolean selected) {
+        if (null == selected)
+            return false;
+        return 0 != shopCarMapper.updSelectedByUserId(userId, commodityId, selected);
+    }
+
+    @Override
+    public boolean updChangePurchaseQuantity(ShopCarPurchase shopCarPurchase) {
+        if (1 > shopCarPurchase.getPurchaseQuantity())
+            return false;
+        return 0 != shopCarMapper.updChangePurchaseQuantity(shopCarPurchase);
+    }
 
 
     @Override
-    public ResultBean ShopCarSubmitOrderByUserId(int userId, List<ShopCar> shopCarList){
-        ResultBean responseBean = orderFeignClient.submitOrderByUserId(userId, shopCarList);
-//        if (responseBean.isSuccess())
-            shopCarMapper.delShopCarByShopCar(userId, shopCarList);    //  删除购物车表信息
+    public ResultBean ShopCarSubmitOrderByUserId(int userId, List<PurchaseDTO> purchaseDTOList){
+        ResultBean responseBean = orderFeignClient.submitMultipleOrderByUserId(userId, purchaseDTOList);
+        shopCarMapper.delShopCarByPurchaseDTO(userId, purchaseDTOList);    //  删除购物车表信息
         return responseBean;
     }
 
     @Override
-    public ResultBean delShopCarByUserId(int userId,List<Integer> shopCarIdList){
-        shopCarMapper.delShopCarByShopCarId(userId,shopCarIdList);
+    public ResultBean delShopCarByCommodityId(int userId,List<Integer> commodityIdList){
+        shopCarMapper.delShopCarByCommodityId(userId,commodityIdList);
         return successResult;
     }
 
     @Override
-    public ResultBean shopCarToFavoriteByUserId(int userId, ShopCarToFavorite shopCarToFavorite) {
-         shopCarMapper.delShopCarByShopCarId(userId,shopCarToFavorite.getShopCarIdList());
-         return favoriteFeignClient.addFavoriteByUserId(userId, shopCarToFavorite.getCommodityIdList());
+    public ResultBean shopCarToFavoriteByUserId(int userId, List<Integer> commodityIdList) {
+         shopCarMapper.delShopCarByCommodityId(userId, commodityIdList);
+         return favoriteFeignClient.addFavoriteByUserId(userId, commodityIdList);
     }
 
 

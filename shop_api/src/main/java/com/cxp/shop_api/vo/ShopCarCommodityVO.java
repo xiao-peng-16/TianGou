@@ -12,6 +12,7 @@ public class ShopCarCommodityVO {
     String commodityName;       //商品名
     String commodityDescribe;   //商品描述
     double commodityPrice;      //价格
+    int commodityStock;         //库存
     Boolean baoYou;             //是否包邮
     String commodityPhoto;      //商品图片
 

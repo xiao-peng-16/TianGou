@@ -32,7 +32,7 @@
 
     <!--    查询购物车商品信息-->
     <select id="mapShopCarCommodityVO" resultType="com.cxp.shop_api.vo.ShopCarCommodityVO">
-        select commodity_id,commodity_name,commodity_describe,commodity_price,bao_you,commodity_photo
+        select commodity_id,commodity_name,commodity_describe,commodity_price,commodity_stock,bao_you,commodity_photo
         from commodity
         where commodity_id in
         <foreach collection="list" item="item" separator="," open="(" close=")">
@@ -62,10 +62,20 @@
     </select>
 
     <!--    查询商品信息用于形成订单-->
-    <select id="mapCommodityToOrder" resultType="com.cxp.shop_api.dto.CommodityToOrder">
+    <sql id="commodityToOrder">
         select commodity_id , store_id  , commodity_price , commodity_stock
         from commodity
-        where commodity_on_shelves = true and commodity_id in
+        where commodity_on_shelves = true and store_id != #{userId}
+    </sql>
+
+    <select id="getCommodityToOrder" resultType="com.cxp.shop_api.dto.CommodityToOrder">
+        <include refid="commodityToOrder"></include>
+        and commodity_id = #{commodityId}
+    </select>
+
+    <select id="mapCommodityToOrder" resultType="com.cxp.shop_api.dto.CommodityToOrder">
+        <include refid="commodityToOrder"></include>
+        and commodity_id in
         <foreach collection="list" item="item" separator="," open="(" close=")">
             #{item}
         </foreach>
@@ -84,13 +94,13 @@
 
 
     <!--    查询搜索页  根据商品名字-->
-    <select id="selSearchCountByCommodityName" resultType="Integer">
+    <select id="countSearchByCommodityName" resultType="Integer">
         select count(*) from commodity
         <bind name="searchWord" value="'%'+searchWord+'%'"/>
         where commodity_on_shelves = true and commodity_name like #{searchWord}
     </select>
 
-    <select id="selSearchCommodityVOByCommodityName" resultType="com.cxp.shop_api.vo.SearchCommodityVO">
+    <select id="listSearchCommodityVOByCommodityName" resultType="com.cxp.shop_api.vo.SearchCommodityVO">
         <include refid="selSearchCommodityVO"/>
         <bind name="searchWord" value="'%'+searchWord+'%'"/>
         where commodity_on_shelves = true and  commodity_name like #{searchWord}
@@ -101,14 +111,14 @@
 
 
     <!--    查询搜索页  根据种类的名字-->
-    <select id="selSearchCountBySortName" resultType="Integer">
+    <select id="countSearchBySortName" resultType="Integer">
         select count(*) from commodity
         inner join sort  on commodity.sort_id  = sort.sort_id
         <bind name="searchWord" value="'%'+searchWord+'%'"/>
         where commodity_on_shelves = true and sort_name like #{searchWord}
     </select>
 
-    <select id="selSearchCommodityVOBySortName" resultType="com.cxp.shop_api.vo.SearchCommodityVO">
+    <select id="listSearchCommodityVOBySortName" resultType="com.cxp.shop_api.vo.SearchCommodityVO">
         <include refid="selSearchCommodityVO"/>
         inner join sort  on commodity.sort_id  = sort.sort_id
         <bind name="searchWord" value="'%'+searchWord+'%'"/>
@@ -119,7 +129,7 @@
 
 
     <!--    查询搜索页  根据店铺id-->
-    <select id="selSearchCountByStoreId" resultType="Integer">
+    <select id="countSearchByStoreId" resultType="Integer">
         select count(*) from commodity
         where commodity_on_shelves = true and store_id in
         <foreach collection="list" item="item" separator="," open="(" close=")">
@@ -127,7 +137,7 @@
         </foreach>
     </select>
 
-    <select id="selSearchCommodityVOByStoreId" resultType="com.cxp.shop_api.vo.SearchCommodityVO">
+    <select id="listSearchCommodityVOByStoreId" resultType="com.cxp.shop_api.vo.SearchCommodityVO">
         <include refid="selSearchCommodityVO"/>
         where commodity_on_shelves = true and store_id in
         <foreach collection="list" item="item" separator="," open="(" close=")">
@@ -143,7 +153,7 @@
 
 
 
-    <select id="selStoreCommodityVOByStoreId" resultType="com.cxp.shop_api.vo.StoreCommodityVO">
+    <select id="listStoreCommodityVOByStoreId" resultType="com.cxp.shop_api.vo.StoreCommodityVO">
          select commodity_id,commodity_name,commodity_photo,commodity_price,commodity_sales,commodity_stock,commodity_on_shelves
          from commodity
          where store_id = #{storeID}

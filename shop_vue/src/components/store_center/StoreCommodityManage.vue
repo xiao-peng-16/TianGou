@@ -134,10 +134,10 @@
           alert("64334864346")
         },
         init(title){
-          this.$axios.get('/commodity/selStoreCommodityVOByStoreId')
+          this.$axios.get('/commodity/listStoreCommodityVOByStoreId')
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)) {
-                this.StoreCommodityList = res.data.data;
+                this.StoreCommodityList = res.data;
 
                 if (undefined != title){
                   this.refresh_popup_flag = -1;

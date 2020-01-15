@@ -17,6 +17,6 @@ public interface StoreFeignClient {
     public Map<Integer,String> mapStoreNameByStoreId(List<Integer> storeIdList);
 
     //查询店铺名 根据id
-    @RequestMapping(value = "/selStoreNameByStoreId", method = RequestMethod.GET)
-    public String  selStoreNameByStoreId(@RequestParam("storeId") Integer storeId);
+    @RequestMapping(value = "/getStoreNameByStoreId", method = RequestMethod.GET)
+    public String  getStoreNameByStoreId(@RequestParam("storeId") Integer storeId);
 }

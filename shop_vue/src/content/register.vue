@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bj"><img src="http://q2wh9mmyk.bkt.clouddn.com/vue/register_bj.jpgd"></div>
+    <div class="bj"><img src="http://q2wh9mmyk.bkt.clouddn.com/vue/register_bj.jpg"></div>
       <div class="fromBox">
 
         <div class="titleBox">
@@ -100,8 +100,8 @@
               userName : this.userName
             }
           }).then(res=>{
-            this.flag_userName = res.data.success;
-            if (res.data.success) {
+            this.flag_userName = res.data;
+            if (res.data) {
               this.flag_userName = true;
               this.hint_userName="";
             }else {

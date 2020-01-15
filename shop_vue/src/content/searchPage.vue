@@ -124,7 +124,7 @@
 
 
           sendSearch(){
-            this.$axios.get('/commodity/selSearchVO',{
+            this.$axios.get('/commodity/getSearchVO',{
               params:{
                 searchWord: this.$store.state.search_word,
                 pageNo : this.pageNo,

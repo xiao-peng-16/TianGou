@@ -4,7 +4,6 @@ import com.cxp.shop_api.dto.StoreToCommodity;
 import com.cxp.shop_api.dto.UserOpenStoreDTO;
 import com.cxp.shop_api.entity.Store;
 import com.cxp.shop_api.result.ResultBean;
-import com.cxp.shop_api.result.ResultFactory;
 import com.cxp.shop_store.service.impl.StoreServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,19 +42,11 @@ public class StoreController {
     }
 
 
-
     //前端接口
-    //返回店铺完整信息   用于组成店铺页的店铺信息
-    @RequestMapping("selStoreResultBeanByStoreId")
-    public ResultBean selStoreResultBeanByStoreId(Integer storeId){
-        return ResultFactory.createSuccessResult(storeService.selStoreByStoreId(storeId));
-    }
-
-
     //返回店铺完整信息   用于组成商品页的店铺信息
-    @RequestMapping("selStoreByStoreId")
-    public Store selStoreByStoreId(Integer storeId){
-        return storeService.selStoreByStoreId(storeId);
+    @RequestMapping("getStoreByStoreId")
+    public Store getStoreByStoreId(Integer storeId){
+        return storeService.getStoreByStoreId(storeId);
     }
 
 
@@ -78,9 +69,9 @@ public class StoreController {
     }
 
     //查询店铺名 根据id
-    @RequestMapping("/selStoreNameByStoreId")
-    public String  selStoreNameByStoreId(Integer storeId){
-        return storeService.selStoreNameByStoreId(storeId);
+    @RequestMapping("/getStoreNameByStoreId")
+    public String  getStoreNameByStoreId(Integer storeId){
+        return storeService.getStoreNameByStoreId(storeId);
     }
 
 

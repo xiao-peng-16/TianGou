@@ -10,6 +10,12 @@
 
 <!--        mybaits 插入数据 将自增id返回注入到 keyProperty    -->
     <insert id="insOrderParent" useGeneratedKeys="true" keyProperty="orderId">
+        insert order_parent(user_id,store_id,order_total_quantity,order_total_price)
+            values (#{userId},#{storeId},#{orderTotalQuantity},#{orderTotalPrice})
+    </insert>
+
+
+    <insert id="inOrderParentList" useGeneratedKeys="true" keyProperty="orderId">
         insert order_parent(user_id,store_id,order_time,order_total_quantity,order_total_price)
             values
             <foreach collection="list" item="item" separator=",">
@@ -20,8 +26,12 @@
 
 
     <insert id="insOrderSon">
-        insert ignore order_son
-            (order_id,commodity_id,purchase_quantity,commodity_price)
+        insert ignore order_son (order_id,commodity_id,purchase_quantity,commodity_price)
+        values (#{orderId},#{commodityId},#{purchaseQuantity},#{commodityPrice})
+    </insert>
+
+    <insert id="insOrderSonList">
+        insert ignore order_son (order_id,commodity_id,purchase_quantity,commodity_price)
         values
         <foreach collection="list" item="item" separator=",">
             (#{item.orderId},#{item.commodityId},#{item.purchaseQuantity},#{item.commodityPrice})
@@ -53,7 +63,7 @@
 
 
 
-    <select id="selChooseNumberByOrderId" resultType="com.cxp.shop_api.dto.CommodityNumberChange">
+    <select id="getPurchaseQuantityByOrderId" resultType="com.cxp.shop_api.dto.CommodityNumberChange">
         select commodity_id,purchase_quantity  from order_son
         inner join order_parent on order_son.order_id = order_parent.order_id
         where user_id = #{userId} and order_state = 1
@@ -65,13 +75,13 @@
 
 
 
-    <select id="selStoreSalesCurrentMonth" resultType="com.cxp.shop_api.vo.StoreStatusBeanVO">
+    <select id="getStoreSalesCurrentMonth" resultType="com.cxp.shop_api.vo.StoreStatusBeanVO">
         select sum(order_total_quantity) as SalesVolume, sum(order_total_price) as Earnings
         from order_parent
         where store_id = #{storeId} and order_state >0 and DATE_FORMAT(order_time,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
     </select>
 
-    <select id="selStoreSalesEarnings" resultType="com.cxp.shop_api.vo.StoreStatusBeanVO">
+    <select id="getStoreSalesEarnings" resultType="com.cxp.shop_api.vo.StoreStatusBeanVO">
         select sum(order_total_quantity) as SalesVolume, sum(order_total_price) as Earnings
         from order_parent
         where store_id = #{storeId} and order_state > 0
@@ -106,14 +116,14 @@
         </collection>
     </resultMap>
 
-    <select id="selStoreOrderParent" resultMap="OrderParentMap">
+    <select id="getStoreOrderParent" resultMap="OrderParentMap">
         select p.order_id ,user_id,store_id,order_time,order_total_quantity,order_total_price,order_state,
         commodity_id,purchase_quantity,commodity_price
         from order_parent p inner join order_son s on p.order_id = s.order_id
         where p.order_id = #{orderId}
     </select>
 
-    <select id="selUserOrderParent" resultMap="OrderParentMap">
+    <select id="getUserOrderParent" resultMap="OrderParentMap">
         select p.order_id ,user_id,store_id,order_time,order_total_quantity,order_total_price,order_state,
         commodity_id,purchase_quantity,commodity_price
         from order_parent p inner join order_son s on p.order_id = s.order_id

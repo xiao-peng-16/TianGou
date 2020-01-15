@@ -24,8 +24,8 @@ public interface StoreFeignClient {
 
 
     //返回店铺完整信息   用于组成店铺页 和 商品页的店铺信息
-    @RequestMapping(value = "selStoreByStoreId", method = RequestMethod.GET)
-    public Store selStoreByStoreId(@RequestParam("storeId") Integer storeId);
+    @RequestMapping(value = "getStoreByStoreId", method = RequestMethod.GET)
+    public Store getStoreByStoreId(@RequestParam("storeId") Integer storeId);
 
 
 }

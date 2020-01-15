@@ -125,14 +125,19 @@
               userPhoto:this.imgURL
             }
           }).then(res=>{
-            this.percentage = 100;
-            this.allow_change = true;
-            this.$store.state.user.userPhoto = this.imgURL;
-            this.imgFile = undefined;
-            this.$notify.success({
-              title:'头像更换成功',
-            });
-            this.show_percentage=false;
+            console.log(res)
+            if (this.$store.getters.getResultDispose(res)) {
+              if (res.data){
+                this.percentage = 100;
+                this.allow_change = true;
+                this.$store.state.user.userPhoto = this.imgURL;
+                this.imgFile = undefined;
+                this.$notify.success({
+                  title:'头像更换成功',
+                });
+                this.show_percentage=false;
+              }
+            }
           });
         },
         progress(event,file,filelist){

@@ -16,23 +16,23 @@ import java.util.Map;
 public interface UserService {
 
     //注册
-    public Boolean insUser(User user);
-    public Boolean is_usable_userName(String userName);
+    public ResultBean addUserAndGetToken(User user);
+    public boolean is_usable_userName(String userName);
 
     //登录
     public ResultBean getTokenByPassword(User user);
 
     // 根据id
-    public User selUserById(int userId);
+    public User getUserByUserId(int userId);
 
     //查询一组用户名 根据id
     public Map<Integer,String> mapUserNameByUserId(List<Integer> userIdList);
 
     //查询用户名 根据id
-    public String  selUserNameByUserId(Integer userId);
+    public String  getUserNameByUserId(Integer userId);
 
     //查询用户头像
-    public String  selUserPhotoByUserId(Integer userId);
+    public String  getUserPhotoByUserId(Integer userId);
 
     //修改密码
     public boolean changeUserPasswordByUserId(Integer userId, ChangeUserPassword changeUserPassword);

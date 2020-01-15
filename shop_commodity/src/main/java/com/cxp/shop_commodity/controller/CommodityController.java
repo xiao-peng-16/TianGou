@@ -6,11 +6,7 @@ import com.cxp.shop_api.entity.Commodity;
 import com.cxp.shop_api.entity.Sort;
 import com.cxp.shop_api.request.SearchRequest;
 import com.cxp.shop_api.result.ResultBean;
-import com.cxp.shop_api.result.ResultFactory;
-import com.cxp.shop_api.vo.FavoriteCommodityVO;
-import com.cxp.shop_api.vo.OrderCommodityVO;
-import com.cxp.shop_api.vo.SearchVO;
-import com.cxp.shop_api.vo.ShopCarCommodityVO;
+import com.cxp.shop_api.vo.*;
 import com.cxp.shop_commodity.service.impl.CommodityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -78,31 +74,30 @@ public class CommodityController {
 
     //前端接口
     //搜索页
-    @RequestMapping("/selSearchVO")
-    public SearchVO selSearchVO(SearchRequest searchPage_request) {
-//        if (null == searchPage_request.getSearchWord()) return null;
-        return commodityService.selSearchVO(searchPage_request);
+    @RequestMapping("/getSearchVO")
+    public SearchVO getSearchVO(SearchRequest searchPage_request) {
+        return commodityService.getSearchVO(searchPage_request);
     }
 
     //前端接口
     //商品页
-    @RequestMapping("/selCommodityByCommodityID")
-    public Commodity selCommodityByCommodityID(Integer commodityId){
-        return  commodityService.selCommodityByCommodityID(commodityId);
+    @RequestMapping("/getCommodityPageByCommodityId")
+    public Commodity getCommodityPageByCommodityId(Integer commodityId){
+        return  commodityService.getCommodityPageByCommodityId(commodityId);
     }
 
     //前端接口
     //卖家中心  销售的商品
-    @RequestMapping("/selStoreCommodityVOByStoreId")
-    public ResultBean selStoreCommodityVOByStoreId(Integer storeId){
-        return  ResultFactory.createSuccessResult(commodityService.selStoreCommodityVOByStoreId(storeId));
+    @RequestMapping("/listStoreCommodityVOByStoreId")
+    public List<StoreCommodityVO> listStoreCommodityVOByStoreId(Integer storeId){
+        return  commodityService.listStoreCommodityVOByStoreId(storeId);
     }
 
     //前端接口
     //查询商品 用于 店铺修改商品
-    @RequestMapping("/selCommodityByCommodityId")
-    public Commodity selCommodityByCommodityId(Integer commodityId){
-        return commodityService.selCommodityByCommodityId(commodityId);
+    @RequestMapping("/getCommodityByCommodityId")
+    public Commodity getCommodityByCommodityId(Integer commodityId){
+        return commodityService.getCommodityByCommodityId(commodityId);
     }
 
 
@@ -115,9 +110,14 @@ public class CommodityController {
     }
 
     //用于订单微服务 提交订单  需要的店铺id 单价  库存
+    @RequestMapping("/getCommodityToOrder")
+    public  CommodityToOrder getCommodityToOrder(Integer userId, Integer commodityId){
+        return commodityService.getCommodityToOrder(userId, commodityId);
+    }
+
     @RequestMapping("/mapCommodityToOrder")
-    public  Map<Integer, CommodityToOrder> mapCommodityToOrder(@RequestBody List<Integer> commodityIdList){
-        return commodityService.mapCommodityToOrder(commodityIdList);
+    public  Map<Integer, CommodityToOrder> mapCommodityToOrder(Integer userId, @RequestBody List<Integer> commodityIdList){
+        return commodityService.mapCommodityToOrder(userId, commodityIdList);
     }
 
     //修改商品 库存 销量

@@ -25,42 +25,43 @@ public interface CommodityMapper {
     public List<Sort> listSort();
 
     //添加商品
-    public Integer insCommodity(Commodity commodity);
+    public int insCommodity(Commodity commodity);
     //修改商品
-    public Integer updCommodity(Commodity commodity);
+    public int updCommodity(Commodity commodity);
     //查询商品图片 视频
     @Select("select commodity_photo, commodity_video from commodity where commodity_id = #{commodityId}")
-    public CommodityPhotoVideo selCommodityPhotoVideo(@Param("commodityId") Integer commodityId);
+    public CommodityPhotoVideo getCommodityPhotoVideo(@Param("commodityId") Integer commodityId);
     //修改商品上架状态
     @Update("update commodity set commodity_on_shelves = #{commodityOnShelves} where store_id = #{storeId} and commodity_id = #{commodityId}")
-    public Integer updCommodityOnShelves(@Param("storeId")Integer storeId, @Param("commodityId")Integer commodityId, @Param("commodityOnShelves")Boolean commodityOnShelves);
+    public int updCommodityOnShelves(@Param("storeId") Integer storeId, @Param("commodityId") Integer commodityId, @Param("commodityOnShelves") Boolean commodityOnShelves);
 
 
 //******搜索页   开始********
     //根据商品名字  查询搜索到的商品总数
-    public Integer selSearchCountByCommodityName(SearchRequest searchPage_request);
+    public int countSearchByCommodityName(SearchRequest searchPage_request);
     //根据商品名字  查询搜索页的商品信息
-    public List<SearchCommodityVO> selSearchCommodityVOByCommodityName(SearchRequest searchPage_request);
+    public List<SearchCommodityVO> listSearchCommodityVOByCommodityName(SearchRequest searchPage_request);
 
     //根据商品种类的名字  查询搜索到的商品总数
-    public Integer selSearchCountBySortName(SearchRequest searchPage_request);
+    public Integer countSearchBySortName(SearchRequest searchPage_request);
     //根据商品种类的名字  查询搜索页的商品信息
-    public List<SearchCommodityVO> selSearchCommodityVOBySortName(SearchRequest searchPage_request);
+    public List<SearchCommodityVO> listSearchCommodityVOBySortName(SearchRequest searchPage_request);
 
     //数据店铺名字拿到店铺id   现在根据店铺id查
     //根据店铺id查 查询搜索到的商品总数
-    public Integer selSearchCountByStoreId(List<Integer> storeIdList);
+    public Integer countSearchByStoreId(List<Integer> storeIdList);
     //根据店铺id查  查询搜索页的商品信息
-    public List<SearchCommodityVO> selSearchCommodityVOByStoreId(@Param("list")List<Integer> storeIdList,@Param("searchPage_request") SearchRequest searchPage_request);
+    public List<SearchCommodityVO> listSearchCommodityVOByStoreId(@Param("list") List<Integer> storeIdList, @Param("searchPage_request") SearchRequest searchPage_request);
 
 //******搜索页   结束********
 
 
 
 
-    //商品頁 根据商品id返回 一个商品完整数据
+
+    //查询一个商品完整数据 用于 商品頁 和 店铺修改商品
     @Select("select * from commodity where commodity_id = #{commodityId}")
-    public Commodity selCommodityByCommodityID(@Param("commodityId") int commodityId);
+    public Commodity getCommodityByCommodityId(@Param("commodityId") int commodityId);
 
     //根据商品id返回 商品简单信息  图片、名字
     public List<OrderCommodityVO> SelCommoditySimplePage(List<Integer> commodityIdList);
@@ -76,16 +77,16 @@ public interface CommodityMapper {
     @MapKey("commodityId")
     public Map<Integer, FavoriteCommodityVO> mapFavoriteCommodityVO(List<Integer> commodityIdList);
     //查询商品信息用于形成订单
-    @MapKey("commodityId")
-    public Map<Integer, CommodityToOrder> mapCommodityToOrder(List<Integer> commodityIdList);
+    public  CommodityToOrder getCommodityToOrder(@Param("userId") Integer userId, @Param("commodityId") Integer commodityId);
 
-    //查询商品 用于 店铺修改商品
-    @Select("select * from commodity where commodity_id = #{commodityId}  ")
-    public Commodity selCommodityByCommodityId(@Param("commodityId") int commodityId);
+    @MapKey("commodityId")
+    public Map<Integer, CommodityToOrder> mapCommodityToOrder(@Param("userId") Integer userId,@Param("list")  List<Integer> commodityIdList);
+
+
 
     //用于加入购物车11 返回数量判断是否用户购买自己的商品
-    @Select("select count(*) from commodity where store_id = #{userId} and commodity_id = #{commodityId}  ")
-    public int selcommodityStoreEqualUser(@Param("userId") int userId, @Param("commodityId") int commodityId);
+    @Select("select count(*) from commodity where store_id = #{userId} and commodity_id = #{commodityId}")
+    public int countCommodityStoreEqualUser(@Param("userId") int userId, @Param("commodityId") int commodityId);
 
     //浏览商品 人气+1
     @Update("update commodity set commodity_popularity=commodity_popularity +1 where commodity_id =#{commodityId}")
@@ -95,5 +96,5 @@ public interface CommodityMapper {
     public int updCommodityNumber(CommodityNumberChange commodityNumberChange);
 
     //查找 商家出售哪些商品
-    public List<StoreCommodityVO> selStoreCommodityVOByStoreId(@Param("storeID") int storeID);
+    public List<StoreCommodityVO> listStoreCommodityVOByStoreId(@Param("storeID") int storeID);
 }

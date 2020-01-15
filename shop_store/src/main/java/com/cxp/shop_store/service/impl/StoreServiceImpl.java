@@ -35,9 +35,15 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public ResultBean addStoreIdByUserId(UserOpenStoreDTO userOpenStoreDTO) {
-        if (!isUsableStoreName(userOpenStoreDTO.getStoreName()))
-            return STORE_NAME_DISABLED;
-        return 0 != storeMapper.addStoreIdByUserId(userOpenStoreDTO) ? successResult : STORE_REGISTER_ERROR;
+        try {
+            storeMapper.addStoreIdByUserId(userOpenStoreDTO);
+            return successResult;
+        }catch (Exception e){
+            if(e.getCause() instanceof java.sql.SQLIntegrityConstraintViolationException
+                && e.getCause().toString().contains("UK_store_name"))
+                return STORE_NAME_DISABLED;
+            return STORE_REGISTER_ERROR;
+        }
     }
 
     @Override
@@ -65,15 +71,15 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public String selStoreNameByStoreId(Integer storeId) {
-        return storeMapper.selStoreNameByStoreId(storeId);
+    public String getStoreNameByStoreId(Integer storeId) {
+        return storeMapper.getStoreNameByStoreId(storeId);
     }
 
 
 
 
     @Override
-    public Store selStoreByStoreId(Integer storeId) {
-        return storeMapper.selStoreByStoreId(storeId);
+    public Store getStoreByStoreId(Integer storeId) {
+        return storeMapper.getStoreByStoreId(storeId);
     }
 }

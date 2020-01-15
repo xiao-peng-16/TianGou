@@ -85,14 +85,14 @@
               return;
             }
 
-          this.$axios.get('/order/selStoreOrderParentByUserId',{
+          this.$axios.get('/order/getStoreOrderParentByUserId',{
             params:{
               orderId:orderId
             }
           }).then(res=>{
               if (this.$store.getters.getResultDispose(res)) {
-                this.orderParent = res.data.data;
-                this.cacheList_orderParent.push(res.data.data);
+                this.orderParent = res.data;
+                this.cacheList_orderParent.push(res.data);
                 this.refresh_popup_flag++;
               }
             });
@@ -107,7 +107,7 @@
         this.$axios.get('/order/listStoreOrderParentRoughByStoreId')
           .then(res=>{
             if (this.$store.getters.getResultDispose(res)) {
-              this.orderParentRoughList = res.data.data;
+              this.orderParentRoughList = res.data;
               for (let i in this.orderParentRoughList) {
                   if (this.orderParentRoughList[i].orderCommodityVOList.length == 4) {
                     var newStr = '. . . ' + "共" + this.orderParentRoughList[i].orderTotalQuantity + "件商品";

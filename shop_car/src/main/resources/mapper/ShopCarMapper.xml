@@ -6,19 +6,29 @@
 
 <mapper namespace="com.cxp.shop_car.mapper.ShopCarMapper">
 
-    <delete id="delShopCarByShopCarId">
+
+
+    <update id="updSelectedByUserId">
+        update shop_car set selected = #{selected}
+        where user_id = #{userId}
+        <if test="null != commodityId">
+            and commodity_id = #{commodityId}
+        </if>
+    </update>
+
+    <delete id="delShopCarByCommodityId">
         delete from shop_car
-        where user_id=#{userId} and shop_car_id in
+        where user_id=#{userId} and commodity_id in
         <foreach collection="list" item="item" separator="," open="(" close=")">
             #{item}
         </foreach>
     </delete>
 
-    <delete id="delShopCarByShopCar">
+    <delete id="delShopCarByPurchaseDTO">
         delete from shop_car
-        where user_id=#{userId} and shop_car_id in
+        where user_id=#{userId} and commodity_id in
         <foreach collection="list" item="item" separator="," open="(" close=")">
-            #{item.shopCarId}
+            #{item.commodityId}
         </foreach>
     </delete>
 

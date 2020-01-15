@@ -14,7 +14,7 @@ public interface FavoriteMapper {
 
 
     //查询收藏夹商品
-    @Select("select commodity_id from favorite where user_id=#{userId} order by favorite_time desc")
+    @Select("select commodity_id from favorite where user_id=#{userId} order by favorite_id desc")
     public List<Integer> listFavoriteCommodityVO(@Param("userId") int userId);
 
     //删除收藏夹商品

@@ -3,6 +3,8 @@ package com.cxp.shop_order.service.impl;
 import com.cxp.shop_api.dto.CommodityNumberChange;
 import com.cxp.shop_api.dto.CommodityToOrder;
 import com.cxp.shop_api.dto.MoneyChange;
+import com.cxp.shop_api.entity.AddMultipleOrderParent;
+import com.cxp.shop_api.entity.AddSingleOrderParent;
 import com.cxp.shop_api.entity.OrderParent;
 import com.cxp.shop_api.entity.OrderSon;
 import com.cxp.shop_api.result.ResultBean;
@@ -10,9 +12,8 @@ import com.cxp.shop_api.result.ResultFactory;
 import com.cxp.shop_api.result.ResultStatus;
 import com.cxp.shop_api.vo.OrderCommodityVO;
 import com.cxp.shop_api.vo.StoreStatusFullVO;
-import com.cxp.shop_order.eception.CommodityIdErrorException;
+import com.cxp.shop_order.eception.CommodityNotFound_exception;
 import com.cxp.shop_order.eception.CommodityStockInsufficientException;
-import com.cxp.shop_order.eception.StoreEqualUserErrorException;
 import com.cxp.shop_order.mapper.OrderIdKeyMapper;
 import com.cxp.shop_order.mapper.OrderMapper;
 import com.cxp.shop_order.service.FeignClient.CommodityFeignClient;
@@ -45,18 +46,10 @@ public class OrderServiceImpl implements OrderService {
 
     static final ResultBean successResult = ResultFactory.createSuccessResult();
     static final ResultBean ORDER_NOT_FIND =ResultFactory.createFailResult(ResultStatus.ORDER_NOT_FIND);
-    static final ResultBean ORDER_ID_USER_ID_MISMATCHING =ResultFactory.createFailResult(ResultStatus.ORDER_ID_USER_ID_MISMATCHING);
     static final ResultBean ORDER_SUBMIT_ERROR =ResultFactory.createFailResult(ResultStatus.ORDER_SUBMIT_ERROR);
 
-
-
-    static final CommodityIdErrorException COMMODITY_ID_ERROR_EXCEPTION = new CommodityIdErrorException();
+    static final CommodityNotFound_exception COMMODITY_NOT_FOUND_EXCEPTION = new CommodityNotFound_exception();
     static final CommodityStockInsufficientException COMMODITY_STOCK_INSUFFICIENT_EXCEPTION = new CommodityStockInsufficientException();
-    static final StoreEqualUserErrorException STORE_EQUAL_USER_ERROR_EXCEPTION = new StoreEqualUserErrorException();
-
-
-
-
 
 
 
@@ -64,53 +57,68 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public List<Integer> submitOrder(Integer userId, LinkedList<OrderSon> orderSonList) throws CommodityIdErrorException, CommodityStockInsufficientException, StoreEqualUserErrorException {
+    public int submitSingleOrder(Integer userId, OrderSon orderSon) throws CommodityNotFound_exception, CommodityStockInsufficientException {
 
+        CommodityToOrder commodityToOrder = commodityFeignClient.getCommodityToOrder(userId, orderSon.getCommodityId());
 
-        SubmitOrderUtils submitOrderUtils = new SubmitOrderUtils(userId);
-        List<Integer> commodityIdList = orderSonList.stream().map(e -> e.getCommodityId()).collect(Collectors.toList());
-        Map<Integer, CommodityToOrder> commodityIdToOrderMap = commodityFeignClient.mapCommodityToOrder(commodityIdList);
 
         //找不到任何商品信息 商品信息一个都找不到
-        if (0 ==commodityIdToOrderMap.size())   //购物车中
-            throw COMMODITY_ID_ERROR_EXCEPTION;
+        if (null == commodityToOrder)
+            throw COMMODITY_NOT_FOUND_EXCEPTION;
         //直接从商品页购买 或购物车只有一件商品
-        if (1 == orderSonList.size()){
-            OrderSon orderSon = orderSonList.get(0);
+        int purchaseQuantity = orderSon.getPurchaseQuantity();
+        double commodityPrice = commodityToOrder.getCommodityPrice();
+        if (commodityToOrder.getCommodityStock() < purchaseQuantity)
+            throw  COMMODITY_STOCK_INSUFFICIENT_EXCEPTION;
+
+        AddSingleOrderParent addSingleOrderParent = new AddSingleOrderParent(userId, commodityToOrder.getStoreId());
+        addSingleOrderParent.setOrderTotalQuantity(purchaseQuantity);
+        addSingleOrderParent.setOrderTotalPrice(purchaseQuantity * commodityPrice);
+
+        orderMapper.insOrderParent(addSingleOrderParent);
+        int orderId = addSingleOrderParent.getOrderId();
+
+        orderSon.setOrderId(orderId);
+        orderSon.setCommodityPrice(commodityPrice);
+        orderSon.setPurchaseQuantity(purchaseQuantity);
+        orderMapper.insOrderSon(orderSon);
+
+        return orderId;
+    }
+
+    @Override
+    public List<Integer> submitMultipleOrder(Integer userId, List<OrderSon> orderSonList) throws CommodityNotFound_exception, CommodityStockInsufficientException {
+
+        List<Integer> commodityIdList = orderSonList.stream().map(e -> e.getCommodityId()).collect(Collectors.toList());
+        Map<Integer, CommodityToOrder> commodityIdToOrderMap = commodityFeignClient.mapCommodityToOrder(userId, commodityIdList);
+
+        //找不到任何商品信息 商品信息一个都找不到
+        if (0 ==commodityIdToOrderMap.size())
+            throw COMMODITY_NOT_FOUND_EXCEPTION;
+
+        SubmitOrderUtils submitOrderUtils = new SubmitOrderUtils(userId);
+        for ( OrderSon orderSon : orderSonList) {
             CommodityToOrder commodityToOrder = commodityIdToOrderMap.get(orderSon.getCommodityId());
-            if (0 ==commodityIdToOrderMap.size())
-                throw COMMODITY_ID_ERROR_EXCEPTION;
-            if (userId == commodityToOrder.getStoreId())
-                throw STORE_EQUAL_USER_ERROR_EXCEPTION;
-            if (commodityToOrder.getCommodityStock() < orderSon.getPurchaseQuantity())
-                throw  COMMODITY_STOCK_INSUFFICIENT_EXCEPTION;
+            if (commodityToOrder == null)
+                orderSonList.remove(orderSon);  //商品信息都找不到 剔除该条
+            else if (commodityToOrder.getCommodityStock() < orderSon.getPurchaseQuantity())
+                orderSonList.remove(orderSon);  //商品库存不足 剔除该条
             submitOrderUtils.work(orderSon, commodityToOrder);
-
-        }else { //加入购物车的  都不存在用户购买自己商品的问题，有问题加入不了购物车
-            for ( OrderSon orderSon : orderSonList) {
-                CommodityToOrder commodityToOrder = commodityIdToOrderMap.get(orderSon.getCommodityId());
-                if (commodityToOrder == null)
-                    orderSonList.remove(orderSon);  //商品信息都找不到 剔除该条
-                else if (commodityToOrder.getCommodityStock() < orderSon.getPurchaseQuantity())
-                    orderSonList.remove(orderSon);  //商品库存不足 剔除该条
-                submitOrderUtils.work(orderSon, commodityToOrder);
-            }
-            if (0 ==orderSonList.size())          //购物车中 剩下 商品库存都不足
-                throw  COMMODITY_STOCK_INSUFFICIENT_EXCEPTION;
         }
+        if (0 ==orderSonList.size())          //购物车中 剩下 商品库存都不足
+            throw  COMMODITY_STOCK_INSUFFICIENT_EXCEPTION;
 
-        List<OrderParent> orderParentList = submitOrderUtils.popResult().entrySet().stream().map(e -> e.getValue()).collect(Collectors.toList());
+        List<AddMultipleOrderParent> addMultipleOrderParentList = submitOrderUtils.popResult().entrySet().stream().map(e -> e.getValue()).collect(Collectors.toList());
         //设置orderSon 的订单号
-        orderMapper.insOrderParent(orderParentList);
-        orderParentList.stream().forEach(e -> {
+        orderMapper.inOrderParentList(addMultipleOrderParentList);
+        addMultipleOrderParentList.stream().forEach(e -> {
             int orderId = e.getOrderId();
             e.getOrderSonList().stream().forEach(orderSon -> orderSon.setOrderId(orderId));
         });
-        orderMapper.insOrderSon(orderSonList);
+        orderMapper.insOrderSonList(orderSonList);
 
-        return orderParentList.stream().map(e -> e.getOrderId()).collect(Collectors.toList());
+        return addMultipleOrderParentList.stream().map(e -> e.getOrderId()).collect(Collectors.toList());
     }
-
 
 
 
@@ -137,7 +145,7 @@ public class OrderServiceImpl implements OrderService {
             if (0 == orderMapper.updOrderStateByuserIdOrderId(userId, orderIdList))   //刷新支付状态
                 return ORDER_SUBMIT_ERROR;
             //修改商品库存 销量
-            List<CommodityNumberChange> commodityNumberChangeList = orderMapper.selChooseNumberByOrderId(userId, orderIdList);
+            List<CommodityNumberChange> commodityNumberChangeList = orderMapper.getPurchaseQuantityByOrderId(userId, orderIdList);
             resultBean = commodityFeignClient.updCommodityNumber(commodityNumberChangeList);
         }
         return resultBean;
@@ -146,10 +154,10 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public StoreStatusFullVO selStoreStatusFullVO(Integer storeId) {
+    public StoreStatusFullVO getStoreStatusFullVO(Integer storeId) {
         StoreStatusFullVO fullStoreSales = new StoreStatusFullVO();
-        fullStoreSales.setCurrentMonth(orderMapper.selStoreSalesCurrentMonth(storeId));
-        fullStoreSales.setTotality(orderMapper.selStoreSalesEarnings(storeId));
+        fullStoreSales.setCurrentMonth(orderMapper.getStoreSalesCurrentMonth(storeId));
+        fullStoreSales.setTotality(orderMapper.getStoreSalesEarnings(storeId));
         return fullStoreSales;
     }
 
@@ -220,11 +228,11 @@ public class OrderServiceImpl implements OrderService {
     //详细订单
     private OrderParent selOrderParent(Integer orderId) {
 
-        OrderParent orderParent = orderMapper.selStoreOrderParent(orderId);
+        OrderParent orderParent = orderMapper.getStoreOrderParent(orderId);
         if(null == orderParent) return null;
         //设置 买家  卖家 名字
-        orderParent.setUserName(userFeignClient.selUserNameByUserId(orderParent.getUserId()));
-        orderParent.setStoreName(storeFeignClient.selStoreNameByStoreId(orderParent.getStoreId()));
+        orderParent.setUserName(userFeignClient.getUserNameByUserId(orderParent.getUserId()));
+        orderParent.setStoreName(storeFeignClient.getStoreNameByStoreId(orderParent.getStoreId()));
 
         List<Integer> commodityIdList = orderParent.getOrderSonList().stream().map(e -> e.getCommodityId()).collect(Collectors.toList());
         Map<Integer, OrderCommodityVO> commodityId_OrderCommodityVOMap = commodityFeignClient.mapOrderCommodityVO(commodityIdList);
@@ -234,7 +242,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderParent selStoreOrderParent(Integer storeId, Integer orderId) {
+    public OrderParent getStoreOrderParent(Integer storeId, Integer orderId) {
         OrderParent orderParent = selOrderParent(orderId);
         if (null == orderParent || storeId != orderParent.getStoreId())
             return null;
@@ -242,7 +250,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderParent selUserOrderParent(Integer userId, Integer orderId) {
+    public OrderParent getUserOrderParent(Integer userId, Integer orderId) {
         OrderParent orderParent = selOrderParent(orderId);
         if (null == orderParent || userId != orderParent.getUserId())
             return null;

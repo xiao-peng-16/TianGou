@@ -21,7 +21,7 @@ public interface StoreService {
     public boolean isUsableStoreName(String storeName);
 
     //返回店铺完整信息   用于组成店铺页的店铺信息
-    public Store selStoreByStoreId(Integer userId);
+    public Store getStoreByStoreId(Integer userId);
 
     //返回店铺大致信息：名字、地点 用于组成搜索页商品的店铺信息
     public Map<Integer,StoreToCommodity> mapStoreToCommodityByStoreId(List<Integer> storeIdList);
@@ -35,7 +35,7 @@ public interface StoreService {
     public Map<Integer,String> mapStoreNameByStoreId(List<Integer> storeIdList);
 
     //查询店铺名 根据id
-    public String  selStoreNameByStoreId(Integer storeId);
+    public String  getStoreNameByStoreId(Integer storeId);
 
 
 

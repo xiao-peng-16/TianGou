@@ -1,10 +1,10 @@
 package com.cxp.shop_car.controller;
 
-import com.cxp.shop_api.dto.AddShopCar;
-import com.cxp.shop_api.dto.ShopCarToFavorite;
+import com.cxp.shop_api.dto.PurchaseDTO;
+import com.cxp.shop_api.dto.ShopCarPurchase;
 import com.cxp.shop_api.entity.ShopCar;
 import com.cxp.shop_api.result.ResultBean;
-import com.cxp.shop_api.result.ResultFactory;
+import com.cxp.shop_api.vo.ShopCarCommodityVO;
 import com.cxp.shop_car.service.impl.ShopCarServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,42 +26,60 @@ public class ShopCarController {
     //前端接口
     // 添加购物车
     @RequestMapping("/addShopCarByUserId")
-    public ResultBean addShopCarByUserId(AddShopCar addShopCar){
-        return shopCarService.addShopCarByUserId(addShopCar);
+    public ResultBean addShopCarByUserId(ShopCarPurchase shopCarPurchase){
+        return shopCarService.addShopCarByUserId(shopCarPurchase);
     }
 
     //查看购物车数量
-    @RequestMapping("/selShopCarCountByUserId")
-    public int selShopCarCountByUserId(Integer userId) {
-        return shopCarService.selShopCarCountByUserId(userId);
+    @RequestMapping("/countShopCarByUserId")
+    public int countShopCarByUserId(Integer userId) {
+        return shopCarService.countShopCarByUserId(userId);
     }
 
     //前端接口
     //查看购物车商品
     @RequestMapping("/listShopCarCommodityVOByUserId")
-    public ResultBean listShopCarCommodityVOByUserId(Integer userId) {
-        return ResultFactory.createSuccessResult(shopCarService.listShopCarCommodityVOByUserId(userId));
+    public List<ShopCarCommodityVO> listShopCarCommodityVOByUserId(Integer userId) {
+        return shopCarService.listShopCarCommodityVOByUserId(userId);
     }
+
+
+    //前端接口
+    //更新购物车选中状态
+    @RequestMapping("/updSelectedByUserId")
+    public boolean updSelectedByUserId(Integer userId, Integer commodityId, Boolean selected){
+        return shopCarService.updSelectedByUserId(userId, commodityId, selected);
+    }
+
+    //前端接口
+    //更新 该条购物车的购买数量 根据 用户id 和 商品id
+    @RequestMapping("/updChangePurchaseQuantityByUserId")
+    public boolean updChangePurchaseQuantityByUserId(ShopCarPurchase shopCarPurchase){
+        return shopCarService.updChangePurchaseQuantity(shopCarPurchase);
+    }
+
+
 
     //前端接口
     //购物车页面购物
     @PostMapping("/ShopCarSubmitOrderByUserId")
-    public ResultBean ShopCarSubmitOrderByUserId(@RequestParam Integer userId, @RequestBody List<ShopCar> shopCarList){
-        return shopCarService.ShopCarSubmitOrderByUserId(userId, shopCarList);
+    public ResultBean ShopCarSubmitOrderByUserId(Integer userId, @RequestBody List<PurchaseDTO> purchaseDTOList){
+        return shopCarService.ShopCarSubmitOrderByUserId(userId, purchaseDTOList);
     }
 
     //前端接口
     //购物车删除商品
     @PostMapping("/delShopCarByUserId")
-    public ResultBean delShopCarByUserId(@RequestParam Integer userId,@RequestBody List<Integer> shopCarIdList){
-        return shopCarService.delShopCarByUserId(userId,shopCarIdList);
+    public ResultBean delShopCarByUserId(Integer userId,@RequestBody List<Integer> commodityIdList){
+        return shopCarService.delShopCarByCommodityId(userId,commodityIdList);
     }
 
 
     //前端接口
     //购物车移入收藏夹
     @PostMapping("/shopCarToFavoriteByUserId")
-    public ResultBean shopCarToFavoriteByUserId(@RequestParam Integer userId, @RequestBody ShopCarToFavorite shopCarToFavorite){
-        return  shopCarService.shopCarToFavoriteByUserId(userId, shopCarToFavorite);
+    public ResultBean shopCarToFavoriteByUserId(Integer userId, @RequestBody List<Integer> commodityIdList){
+        return  shopCarService.shopCarToFavoriteByUserId(userId, commodityIdList);
     }
+
 }
