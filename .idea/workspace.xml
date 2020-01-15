@@ -2,80 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba7746b0-eb01-4fa4-bb05-ac7b9d1c947e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/dto/PurchaseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/dto/ShopCarPurchase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/AddMultipleOrderParent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/AddSingleOrderParent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_order/hs_err_pid5916.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_order/hs_err_pid8984.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/eception/CommodityNotFound_exception.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_store/hs_err_pid10640.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/dto/AddShopCar.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/dto/ShopCarToFavorite.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/Favorite.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/Favorite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderParent.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderParent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/result/ResultStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/result/ResultStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/vo/ShopCarCommodityVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/vo/ShopCarCommodityVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/controller/ShopCarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/controller/ShopCarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/mapper/ShopCarMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/mapper/ShopCarMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/service/FeignClient/CommodityFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/service/FeignClient/CommodityFeignClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/service/FeignClient/OrderFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/service/FeignClient/OrderFeignClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/service/ShopCarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/service/ShopCarService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/service/impl/ShopCarServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_car/src/main/java/com/cxp/shop_car/service/impl/ShopCarServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_car/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_car/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_car/src/main/resources/mapper/ShopCarMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_car/src/main/resources/mapper/ShopCarMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/controller/CommodityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/controller/CommodityController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/mapper/CommodityMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/mapper/CommodityMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/CommodityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/CommodityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/FeignClient/StoreFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/FeignClient/StoreFeignClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/impl/CommodityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/impl/CommodityServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/resources/mapper/CommodityMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/resources/mapper/CommodityMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_favorite/src/main/java/com/cxp/shop_favorite/controller/FavoriteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_favorite/src/main/java/com/cxp/shop_favorite/controller/FavoriteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_favorite/src/main/java/com/cxp/shop_favorite/mapper/FavoriteMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_favorite/src/main/java/com/cxp/shop_favorite/mapper/FavoriteMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_favorite/src/main/java/com/cxp/shop_favorite/service/FavoriteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_favorite/src/main/java/com/cxp/shop_favorite/service/FavoriteService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_favorite/src/main/java/com/cxp/shop_favorite/service/impl/FavoriteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_favorite/src/main/java/com/cxp/shop_favorite/service/impl/FavoriteServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_favorite/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_favorite/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/eception/CommodityIdErrorException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/CommodityFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/CommodityFeignClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/StoreFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/StoreFeignClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/UserFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/UserFeignClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/impl/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/utils/SubmitOrderUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/utils/SubmitOrderUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/resources/mapper/OrderMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/resources/mapper/OrderMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/controller/StoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/controller/StoreController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/mapper/StoreMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/mapper/StoreMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/service/StoreService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/service/StoreService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/service/impl/StoreServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/service/impl/StoreServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_user/src/main/resources/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/commodity_popup.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/commodity_popup.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/global_variable.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/global_variable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/hint_popup.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/hint_popup.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/nav_right.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/nav_right.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/nav_top.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/nav_top.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreCommodityManage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreCommodityManage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreHome.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreHome.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreOrderManage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreOrderManage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/user_center/changeUserPhoto.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/user_center/changeUserPhoto.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/user_center/userOrderManage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/user_center/userOrderManage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/commodityPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/commodityPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/favorite.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/favorite.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/register.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/searchPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/searchPage.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shop_vue/src/content/shop_car.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/shop_car.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/store/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_zuul/src/main/java/com/cxp/shop_zuul/controller/TokenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_zuul/src/main/java/com/cxp/shop_zuul/controller/TokenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/数据库文件.sql" beforeDir="false" afterPath="$PROJECT_DIR$/数据库文件.sql" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -476,7 +403,7 @@
       <workItem from="1579018676306" duration="628000" />
       <workItem from="1579053240732" duration="4076000" />
       <workItem from="1579064104414" duration="97000" />
-      <workItem from="1579065612217" duration="1479000" />
+      <workItem from="1579065612217" duration="2142000" />
     </task>
     <task id="LOCAL-00001" summary="shop">
       <created>1575094500813</created>
@@ -800,11 +727,18 @@
       <option name="project" value="LOCAL" />
       <updated>1578844427047</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="cxp_shop">
+      <created>1579085476712</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1579085476712</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46876000" />
+    <option name="totallyTimeSpent" value="47539000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />

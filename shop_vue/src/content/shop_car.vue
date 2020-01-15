@@ -162,39 +162,56 @@
           },
           click_selected(item){
             var target = !item.shopCar.selected;
-            this.$axios.get('/car/updSelectedByUserId',{
-              params:{
-                commodityId : item.shopCar.commodityId,
-                selected : target
-              }
-            }).then(res=>{
-              this.$store.getters.getResultDispose(res)
-            });
             item.shopCar.selected =target;
+
+            let tempThis = this;
+            clearTimeout(item.timeout_selected);
+            item.timeout_selected = setTimeout(function () {
+              tempThis.$axios.get('/car/updSelectedByUserId',{
+                params:{
+                  commodityId : item.shopCar.commodityId,
+                  selected : target
+                }
+              }).then(res=>{
+                tempThis.$store.getters.getResultDispose(res)
+              });
+            }, 300);
+
           },
           click_all_selecked(){
             var target_flag_all_selecked = !this.flag_all_selecked;
-            this.$axios.get('/car/updSelectedByUserId',{
-              params:{
-                selected : target_flag_all_selecked
-              }
-            }).then(res=>{
-              this.$store.getters.getResultDispose(res)
-            });
             this.dataList.forEach((item)=>{
               item.shopCar.selected = target_flag_all_selecked;
             });
+
+            let tempThis = this;
+            clearTimeout(tempThis.timeout_all_selecked);
+            tempThis.timeout_all_selecked = setTimeout(function () {
+              tempThis.$axios.get('/car/updSelectedByUserId',{
+                params:{
+                  selected : target_flag_all_selecked
+                }
+              }).then(res=>{
+                tempThis.$store.getters.getResultDispose(res)
+              });
+            },300);
+
           },
           changePurchaseQuantity(item){
-            console.log(item)
-            this.$axios.get('/car/updChangePurchaseQuantityByUserId',{
-              params:{
-                commodityId : item.shopCar.commodityId,
-                purchaseQuantity : item.shopCar.purchaseQuantity
-              }
-            }).then(res=>{
-              this.$store.getters.getResultDispose(res)
-            });
+
+            let tempThis = this;
+            clearTimeout(item.timeout_purchaseQuantity);
+            item.timeout_purchaseQuantity = setTimeout(function () {
+              tempThis.$axios.get('/car/updChangePurchaseQuantityByUserId',{
+                params:{
+                  commodityId : item.shopCar.commodityId,
+                  purchaseQuantity : item.shopCar.purchaseQuantity
+                }
+              }).then(res=>{
+                tempThis.$store.getters.getResultDispose(res)
+              });
+            }, 300);
+
           },
           click_changePurchaseQuantity(item, change){
             var target = item.shopCar.purchaseQuantity + change;
