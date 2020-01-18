@@ -26,7 +26,7 @@
       <div class="notData">
         <img src="../assets/search_notdata.png">
         <span class="side">旺~旺~旺~</span>
-        <span class="maddle">你的收藏夹还没有商品哟，快去收藏添加吧~</span>
+        <span class="middle">你的收藏夹还没有商品哟，快去收藏添加吧~</span>
       </div>
     </div>
 
@@ -128,7 +128,7 @@
     height: 60px;
     margin: 15px;
   }
-  .maddle{
+  .middle{
     color: #790103;
     font-weight: bold;
   }

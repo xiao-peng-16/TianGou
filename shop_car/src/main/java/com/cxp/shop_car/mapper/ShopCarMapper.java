@@ -21,11 +21,11 @@ public interface ShopCarMapper {
     public int countShopCarByUserId(@Param("userId") int userId);
 
     //增加该条购物车的购买数量 根据 用户id 和 商品id
-    @Update("update shop_car set purchase_quantity = purchase_quantity+#{purchaseQuantity} where user_id=#{userId} and commodity_id=#{commodityId}")
+    @Update("update shop_car set purchase_quantity = purchase_quantity+#{purchaseQuantity} where commodity_id=#{commodityId} and user_id=#{userId}")
     public int updAddPurchaseQuantity(ShopCarPurchase shopCarPurchase);
 
     //修改该条购物车的购买数量 根据 用户id 和 商品id
-    @Update("update shop_car set purchase_quantity = #{purchaseQuantity} where user_id=#{userId} and commodity_id=#{commodityId}")
+    @Update("update shop_car set purchase_quantity = #{purchaseQuantity} where commodity_id=#{commodityId} and user_id=#{userId}")
     public int updChangePurchaseQuantity(ShopCarPurchase shopCarPurchase);
 
     //增加一条购物车

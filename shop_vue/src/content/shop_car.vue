@@ -108,7 +108,7 @@
       <div class="notData">
         <img src="../assets/search_notdata.png">
         <span class="side">旺~旺~旺~</span>
-        <span class="maddle">你的购物车还没有商品哟，还不给我去购物</span>
+        <span class="middle">你的购物车还没有商品哟，还不给我去购物</span>
       </div>
     </div>
 
@@ -257,9 +257,8 @@
               })
           },
           shopCarToFavorite(item){
-            this.$axios.post('/car/shopCarToFavoriteByUserId',{
-                commodityIdList:[item.shopCar.commodityId]
-            }).then(res=>{
+            this.$axios.post('/car/shopCarToFavoriteByUserId',[item.shopCar.commodityId])
+              .then(res=>{
               if (this.$store.getters.getResultDispose(res))
                 this.updList_specific(item);
               })
@@ -272,10 +271,9 @@
 
             if (commodityIdList.length ==0)
               return;
-            this.$axios.post('/car/shopCarToFavoriteByUserId',{
-                commodityIdList:commodityIdList
-            }).then(res=>{
-              this.updList_multi();
+            this.$axios.post('/car/shopCarToFavoriteByUserId',commodityIdList)
+              .then(res=>{
+                  this.updList_multi();
               })
           },
           shop(){
@@ -345,7 +343,7 @@
     height: 60px;
     margin: 15px;
   }
-  .maddle{
+  .middle{
     color: #790103;
     font-weight: bold;
   }

@@ -23,7 +23,7 @@
           <el-row><div class="split"></div></el-row>
 
 
-          <div v-show="flag_containData">
+          <div v-show="!flag_notData">
             <el-row>
               <div class="col-sm-1-3 col-md-1-4 col-lg-1-5 spc" v-for="itemData in commodityList">
                 <SearchPage_commodity  :props_CommodityMessage="itemData"/>
@@ -43,11 +43,11 @@
 
           </div>
 
-        <div class="notData" v-show="!flag_containData">
+        <div class="notData" v-show="flag_notData">
           <img src="../assets/search_notdata.png">
-          <span class="side">旺~没找到与</span>
-          <span class="maddle">“ {{search_word}} ”</span>
-          <span class="side">相关的商品哦。</span>
+          旺~没找到与
+          <span>“ {{search_word}} ”</span>
+          相关的商品哦。
         </div>
 
     </div>
@@ -69,7 +69,7 @@
       data(){
           return{
             flag_topFixed_serarch:false,
-            flag_containData:true,
+            flag_notData:false,
             commoditySum:0, //搜索到的商品总数
             commodityList:[],  //搜索到的商品列表 分页
 
@@ -133,7 +133,7 @@
             }).then(res=>{
               this.commoditySum = res.data.commoditySum;
               this.commodityList = res.data.searchCommodityVOList;
-              this.flag_containData=this.commoditySum>0;
+              this.flag_notData =  undefined == this.commoditySum  || this.commoditySum == 0;
 
               // 第一次 不
               if (this.flag_backTop){
@@ -230,13 +230,12 @@
     height: 60px;
     margin: 15px;
   }
-  .side{
-    color: #595959;
-  }
-  .maddle{
+  .notData span{
     color: #790103;
     font-weight: bold;
   }
+
+
   .pageBox{
     float: right;
     margin-top: 40px;

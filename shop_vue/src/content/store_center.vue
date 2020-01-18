@@ -215,7 +215,7 @@
   .right{
     width: 100%;
     position: absolute;
-    padding-left: 280px;
+    padding-left: 260px;
     padding-top: 110px;
     background: #F8F8F8;
     height: 100%;

@@ -32,7 +32,7 @@ public interface CommodityMapper {
     @Select("select commodity_photo, commodity_video from commodity where commodity_id = #{commodityId}")
     public CommodityPhotoVideo getCommodityPhotoVideo(@Param("commodityId") Integer commodityId);
     //修改商品上架状态
-    @Update("update commodity set commodity_on_shelves = #{commodityOnShelves} where store_id = #{storeId} and commodity_id = #{commodityId}")
+    @Update("update commodity set commodity_on_shelves = #{commodityOnShelves} where commodity_id = #{commodityId} and store_id = #{storeId}")
     public int updCommodityOnShelves(@Param("storeId") Integer storeId, @Param("commodityId") Integer commodityId, @Param("commodityOnShelves") Boolean commodityOnShelves);
 
 
@@ -85,7 +85,7 @@ public interface CommodityMapper {
 
 
     //用于加入购物车11 返回数量判断是否用户购买自己的商品
-    @Select("select count(*) from commodity where store_id = #{userId} and commodity_id = #{commodityId}")
+    @Select("select count(*) from commodity where  commodity_id = #{commodityId} and store_id = #{userId}")
     public int countCommodityStoreEqualUser(@Param("userId") int userId, @Param("commodityId") int commodityId);
 
     //浏览商品 人气+1

@@ -65,20 +65,21 @@
     <sql id="commodityToOrder">
         select commodity_id , store_id  , commodity_price , commodity_stock
         from commodity
-        where commodity_on_shelves = true and store_id != #{userId}
     </sql>
 
     <select id="getCommodityToOrder" resultType="com.cxp.shop_api.dto.CommodityToOrder">
         <include refid="commodityToOrder"></include>
-        and commodity_id = #{commodityId}
+        where commodity_id = #{commodityId}
+        and commodity_on_shelves = true and store_id != #{userId}
     </select>
 
     <select id="mapCommodityToOrder" resultType="com.cxp.shop_api.dto.CommodityToOrder">
         <include refid="commodityToOrder"></include>
-        and commodity_id in
+        where commodity_id in
         <foreach collection="list" item="item" separator="," open="(" close=")">
             #{item}
         </foreach>
+        and commodity_on_shelves = true and store_id != #{userId}
     </select>
 
 
@@ -97,13 +98,13 @@
     <select id="countSearchByCommodityName" resultType="Integer">
         select count(*) from commodity
         <bind name="searchWord" value="'%'+searchWord+'%'"/>
-        where commodity_on_shelves = true and commodity_name like #{searchWord}
+        where commodity_name like #{searchWord} and  commodity_on_shelves = true
     </select>
 
     <select id="listSearchCommodityVOByCommodityName" resultType="com.cxp.shop_api.vo.SearchCommodityVO">
         <include refid="selSearchCommodityVO"/>
         <bind name="searchWord" value="'%'+searchWord+'%'"/>
-        where commodity_on_shelves = true and  commodity_name like #{searchWord}
+        where commodity_name like #{searchWord} and  commodity_on_shelves = true
         limit #{pageStartLen} ,#{pageStepSize}
     </select>
 
@@ -113,16 +114,16 @@
     <!--    查询搜索页  根据种类的名字-->
     <select id="countSearchBySortName" resultType="Integer">
         select count(*) from commodity
-        inner join sort  on commodity.sort_id  = sort.sort_id
         <bind name="searchWord" value="'%'+searchWord+'%'"/>
-        where commodity_on_shelves = true and sort_name like #{searchWord}
+        where sort_id in (select sort_id from sort where sort_name like #{searchWord})
+        and commodity_on_shelves = true
     </select>
 
     <select id="listSearchCommodityVOBySortName" resultType="com.cxp.shop_api.vo.SearchCommodityVO">
         <include refid="selSearchCommodityVO"/>
-        inner join sort  on commodity.sort_id  = sort.sort_id
         <bind name="searchWord" value="'%'+searchWord+'%'"/>
-        where  commodity_on_shelves = true and sort_name like #{searchWord}
+        where sort_id in (select sort_id from sort where sort_name like #{searchWord})
+        and commodity_on_shelves = true
         limit #{pageStartLen} ,#{pageStepSize}
     </select>
 
@@ -131,19 +132,21 @@
     <!--    查询搜索页  根据店铺id-->
     <select id="countSearchByStoreId" resultType="Integer">
         select count(*) from commodity
-        where commodity_on_shelves = true and store_id in
+        where store_id in
         <foreach collection="list" item="item" separator="," open="(" close=")">
             #{item}
         </foreach>
+        and commodity_on_shelves = true
     </select>
 
     <select id="listSearchCommodityVOByStoreId" resultType="com.cxp.shop_api.vo.SearchCommodityVO">
         <include refid="selSearchCommodityVO"/>
-        where commodity_on_shelves = true and store_id in
+        where store_id in
         <foreach collection="list" item="item" separator="," open="(" close=")">
             #{item}
         </foreach>
-        limit #{searchPage_request.pageStartLen} ,#{searchPage_request.pageStepSize}
+        and commodity_on_shelves = true
+        limit #{searchPage_request.pageStartLen}, #{searchPage_request.pageStepSize}
     </select>
 
 

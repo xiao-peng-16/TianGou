@@ -1,5 +1,5 @@
 <template>
-  <div style="padding-top: 1px;width: 1080px">
+  <div style="padding-top: 1px;padding-left: 35px;width: 1080px;background: white">
 
     <div class="store_home_top">
       <img :src="show_userPhotoURL" style="padding-left: 13px;">
@@ -144,16 +144,17 @@
   }
 
 
+  .storeLable{
+    width: 100%;
+    height: 150px;
+    position: relative;
+  }
   .storeLable img{
     float: left;
   }
   .storeLable div{
-    display: inline-block;
-    width: 267.2px;
-    position: relative;
-    bottom: 98px;
-    padding-left: 45px;
-    float: left;
+    position: absolute;
+    top: 46px;
   }
 .storeLable span{
   bottom: 105px;
@@ -163,16 +164,20 @@
 
 
   .lable_1{
-      color: #FEFAEE;
+    color: #FEFAEE;
+    left: 45px;
   }
   .lable_2{
     color: #FEFDFC;
+    left: 312px;
   }
   .lable_3{
     color: #FCFBFE;
+    left: 580px;
   }
   .lable_4{
     color: #FFF6F8;
+    left: 852px;
   }
 
 

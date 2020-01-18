@@ -31,7 +31,7 @@
       </div>
 
 
-      <div class="right" :class="{flag_background:flag_background}">
+      <div class="right">
         <component :is="optionsComponents"/>
       </div>
     </div>
@@ -141,9 +141,6 @@
         return this.top_options == 0 ? this.options_list_list : this.account_list;
       },
 
-      flag_background(){
-        return this.top_options == 0;
-      }
     },
     watch:{
       query(){
@@ -231,9 +228,6 @@
 
 <style scoped>
 
-  .flag_background{
-    background: #F8F8F8;
-  }
   .top_box{
     position: relative;
     width: 100%;
@@ -279,7 +273,7 @@
   .right{
     width: 100%;
     position: absolute;
-    padding-left: 280px;
+    padding-left: 260px;
     padding-top: 110px;
     height: 100%;
   }

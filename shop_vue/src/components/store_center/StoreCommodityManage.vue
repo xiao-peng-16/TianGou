@@ -1,11 +1,11 @@
 <template>
-  <div  style="background: #F8F8F8">
+  <div  style="background: #F8F8F8;padding-left: 35px">
 
 
     <commodity_popup :refresh_popup_flag="refresh_popup_flag" :commodity-id="commodityId" @refresh_commodity_list="init" style="z-index: 9999999"/>
 
 
-    <div style="padding-left: 15px">
+    <div>
       <div style="z-index: 10;position: fixed;height: 30px;width: 1080px;background: #F8F8F8" >
         <span style="position: relative; left: 150px">商品信息</span>
         <span style="position: relative; left: 450px">单价</span>
@@ -67,10 +67,13 @@
     </div>
 
 
+
+    <div class="notData" v-show="flag_notData" style="width: 98%;margin-top: 30px">
+      <img src="../../assets/search_notdata.png">
+      店铺未出售商品
+    </div>
+
   </div>
-
-
-
 </template>
 
 <script>
@@ -83,7 +86,9 @@
           StoreCommodityList:[],
           refresh_popup_flag:0,
           commodityId:undefined,
-          dialog:true
+          dialog:true,
+
+          flag_notData:false
         }
       },
       computed:{
@@ -138,6 +143,7 @@
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)) {
                 this.StoreCommodityList = res.data;
+                this.flag_notData = 0 == this.StoreCommodityList.length;
 
                 if (undefined != title){
                   this.refresh_popup_flag = -1;
@@ -219,6 +225,19 @@
     position: absolute;
     left: 945px;
     top: 45px;
+  }
+
+
+  .notData{
+    background: #FFF8F6;
+    border: 1px solid #F7EAE7;
+    height: 90px;
+    letter-spacing: 1px;
+    padding-left: 30%;
+  }
+  .notData img{
+    height: 60px;
+    margin: 15px;
   }
 
 

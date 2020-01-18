@@ -31,7 +31,7 @@ public interface OrderMapper<CommodityNumberChange> {
 
 
     //刷新订单状态
-    public int updOrderStateByuserIdOrderId(@Param("userId")int userId, @Param("orderIdList") List<Integer> orderIdList);
+    public int updOrderStateByUserIdOrderId(@Param("userId")int userId, @Param("orderIdList") List<Integer> orderIdList);
 
 
     //获取订单中 商品id 和 数量

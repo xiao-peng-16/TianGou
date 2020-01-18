@@ -18,7 +18,7 @@
             <div style="position: absolute; left: 630px;width: 40px">小计</div>
           </div>
           <div style="height: 50px"></div>
-          <div class="orderSon_itemBox" v-for="item in orderParent.orderSonList">
+          <div class="orderSon_itemBox" v-for="(item,index) in orderParent.orderSonList">
             <img class="orderSon_img" :src="item.orderCommodityVO.commodityPhoto">
             <div  class="orderSon_CommodityName">
               <span>{{item.orderCommodityVO.commodityName}}</span>

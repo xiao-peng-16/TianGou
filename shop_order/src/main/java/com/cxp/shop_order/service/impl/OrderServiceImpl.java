@@ -142,7 +142,7 @@ public class OrderServiceImpl implements OrderService {
 
         //刷新支付状态
         if (resultBean.isSuccess()){
-            if (0 == orderMapper.updOrderStateByuserIdOrderId(userId, orderIdList))   //刷新支付状态
+            if (0 == orderMapper.updOrderStateByUserIdOrderId(userId, orderIdList))   //刷新支付状态
                 return ORDER_SUBMIT_ERROR;
             //修改商品库存 销量
             List<CommodityNumberChange> commodityNumberChangeList = orderMapper.getPurchaseQuantityByOrderId(userId, orderIdList);
@@ -166,8 +166,7 @@ public class OrderServiceImpl implements OrderService {
 
     //返回 订单id -> List<OrderCommodityVO>
     private   Map<Integer, List<OrderCommodityVO>> mapOrderId_OrderCommodityVOList(List<OrderParent> orderParentList){
-        //每条订单涉及的商品信息，每条订单商品信息不多于4个
-        // key => 订单id  value => 该订单前4个商品id 的list
+        //每条订单涉及的商品信息
         Map<Integer, List<Integer>> orderId_CommodityIdMap = orderIdKeyMapper.getOrderIdCommodityIdMap(orderParentList);
         List<Integer> commodityIdList = orderId_CommodityIdMap.entrySet().stream().map(e -> e.getValue())
                 .flatMap(List::stream).distinct().collect(Collectors.toList());
@@ -226,7 +225,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     //详细订单
-    private OrderParent selOrderParent(Integer orderId) {
+    private OrderParent getOrderParent(Integer orderId) {
 
         OrderParent orderParent = orderMapper.getStoreOrderParent(orderId);
         if(null == orderParent) return null;
@@ -243,7 +242,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderParent getStoreOrderParent(Integer storeId, Integer orderId) {
-        OrderParent orderParent = selOrderParent(orderId);
+        OrderParent orderParent = getOrderParent(orderId);
         if (null == orderParent || storeId != orderParent.getStoreId())
             return null;
         return orderParent;
@@ -251,7 +250,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderParent getUserOrderParent(Integer userId, Integer orderId) {
-        OrderParent orderParent = selOrderParent(orderId);
+        OrderParent orderParent = getOrderParent(orderId);
         if (null == orderParent || userId != orderParent.getUserId())
             return null;
         return orderParent;
