@@ -51,11 +51,11 @@
 
           <div >
             <ul class="right">
-              <router-link :to="{name:'shop_car'}" tag="li">
+              <router-link :to="{name:'cart'}" tag="li">
                   <span class="iconfont" style="font-size: 12px; color:#FF4400" >&#xe63a;</span>
                   <span>购物车</span>
                   <span style="color: #FF4400;font-weight: 700; color:#FF4400 ">
-                  {{shopCarNumber}}
+                  {{cartNumber}}
                 </span>
               </router-link>
 
@@ -140,10 +140,10 @@
           var userMoney = this.$store.state.user.userMoney;
           return undefined == userMoney ? '' : userMoney;
         },
-        shopCarNumber(){
-          var shopCarNumber = this.$store.state.user.shopCarNumber;
-          if (0<shopCarNumber)
-            return shopCarNumber;
+        cartNumber(){
+          var cartNumber = this.$store.state.user.cartNumber;
+          if (0<cartNumber)
+            return cartNumber;
           else return '';
         },
         innerWidth(){
@@ -182,15 +182,8 @@
             this.$router.push({name:'store_center',query:{l:store_center_left_options}});
           },
           outenter(){
-            this.$axios.post('/zuul/outLoginByToken')
-              .then(res=>{
-                  if (res.data.success){
-                    // this.user_Leave();
-                    this.$store.commit('user_Leave');
-                    this.$store.state.user.shopCarNumber =0;
-                    this.$router.push({name:'login'});
-                  }
-              })
+              this.$store.commit('user_Leave');
+              this.$router.push({name:'login'});
           },
         },
         created() {
@@ -204,9 +197,9 @@
                   this.$store.state.user.userPhoto = user.userPhoto;
                   this.$store.state.user.userMoney = user.userMoney;
 
-                  this.$axios.get('/car/countShopCarByUserId')
+                  this.$axios.get('/cart/countCartByUserId')
                     .then(res=>{
-                      this.$store.state.user.shopCarNumber=res.data;
+                      this.$store.state.user.cartNumber=res.data;
                     });
                 }
             });

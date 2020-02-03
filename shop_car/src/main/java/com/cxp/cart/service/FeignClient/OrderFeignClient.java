@@ -1,4 +1,4 @@
-package com.cxp.shop_car.service.FeignClient;
+package com.cxp.cart.service.FeignClient;
 
 
 import com.cxp.shop_api.dto.PurchaseDTO;

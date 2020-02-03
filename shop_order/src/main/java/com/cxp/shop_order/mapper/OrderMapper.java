@@ -2,11 +2,11 @@ package com.cxp.shop_order.mapper;
 
 
 import com.cxp.shop_api.dto.MoneyChange;
-import com.cxp.shop_api.entity.AddSingleOrderParent;
 import com.cxp.shop_api.entity.OrderParent;
-import com.cxp.shop_api.entity.OrderSon;
-import com.cxp.shop_api.entity.AddMultipleOrderParent;
 import com.cxp.shop_api.vo.StoreStatusBeanVO;
+import com.cxp.shop_order.pojo.AddMultipleOrderParentToTal;
+import com.cxp.shop_order.pojo.AddOrderSon;
+import com.cxp.shop_order.pojo.AddSingleOrderParent;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -17,16 +17,15 @@ import java.util.List;
 public interface OrderMapper<CommodityNumberChange> {
 
     //父表
-
     public int insOrderParent(AddSingleOrderParent addSingleOrderParent);
-    public int inOrderParentList(List<AddMultipleOrderParent> addMultipleOrderParentList);
+    public int inOrderParentList(AddMultipleOrderParentToTal addMultipleOrderParentToTal);
     //子表
-    public int insOrderSon(OrderSon orderSon);
-    public int insOrderSonList(List<OrderSon> orderSonList);
+    public int insOrderSon(AddOrderSon addOrderSon);
+    public int insOrderSonList(List<AddOrderSon> addOrderSonList);
 
 
     //拿 店铺id（收钱方）、转账金额，  用于user微服务转账
-    public LinkedList<MoneyChange> ListMoneyChangeByuserIdOrderId(@Param("userId")int userId, @Param("orderIdList") List<Integer> orderIdList);
+    public LinkedList<MoneyChange> ListMoneyChangeByUserIdOrderId(@Param("userId")int userId, @Param("orderIdList") List<Integer> orderIdList);
 
 
 
@@ -54,7 +53,7 @@ public interface OrderMapper<CommodityNumberChange> {
 
 
     //查询 某一订单 详细内容
-    public OrderParent getStoreOrderParent( @Param("orderId") int orderId);
+    public OrderParent getOrderParent( @Param("orderId") int orderId);
 
 
 }

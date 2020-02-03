@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bj"><img src="http://q2wh9mmyk.bkt.clouddn.com/vue/register_bj.jpg"></div>
+    <div class="bj"><img src="http://q4fx9in8d.bkt.clouddn.com/vue/register_bj.jpg"></div>
       <div class="fromBox">
 
         <div class="titleBox">
@@ -76,7 +76,7 @@
             userPassword : this.userPassword
           }).then(res=>{
             if (res.data.success){
-              this.user_Login(res.data.data);
+              localStorage.setItem("token",res.data.data);
               this.$router.go(-1);
               if (this.$router.options.routes)
               this.$router.push({name:'home'});//防止没上一级页面

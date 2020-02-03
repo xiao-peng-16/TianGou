@@ -42,7 +42,7 @@
             case this.GLOBAL.ResultStatus.COMMODITY_STOCK_INSUFFICIENT:
               return "亲，您选购的商品的库存不足";
             case this.GLOBAL.ResultStatus.COMMODITY_NOT_FOUND:
-              return "商品已下架 或 商品id不存在";
+              return "商品已下架 搜索不到商品";
             //this.$store.state.status 也可以是字符串
             default:
               return  this.pre_status;
@@ -68,6 +68,8 @@
             this.$router.push({name:'login'});
           else if (status == this.GLOBAL.ResultStatus.STORE_NOT_REGISTER){
             this.$store.state.flag_userOpenStore = true;
+          }else if (status == this.GLOBAL.ResultStatus.COMMODITY_NOT_FOUND){
+            this.$router.push({name:'searchPage'});
           }
         }
       },

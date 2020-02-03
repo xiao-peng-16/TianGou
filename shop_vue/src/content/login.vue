@@ -80,7 +80,7 @@
             userPassword : this.userPassword
           }).then(res=>{
             if (res.data.success){
-              this.user_Login(res.data.data)
+              localStorage.setItem("token",res.data.data);
               this.$router.go(-1);
               this.$router.push({name:'home'});//防止没上一级页面
             } else {
@@ -116,7 +116,7 @@
     background:#F94F02;
   }
   .content{
-    background-image: url("http://q2wh9mmyk.bkt.clouddn.com/vue/login_bj.jpg");
+    background-image: url("http://q4fx9in8d.bkt.clouddn.com/vue/login_bj.jpg");
     background-repeat:no-repeat ;
     background-size:100% 100%;
     height: 600px;

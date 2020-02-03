@@ -1,6 +1,7 @@
 package com.cxp.shop_commodity.service.impl;
 
 import com.cxp.shop_api.dto.CommodityNumberChange;
+import com.cxp.shop_api.dto.CommodityToCart;
 import com.cxp.shop_api.dto.CommodityToOrder;
 import com.cxp.shop_api.dto.StoreToCommodity;
 import com.cxp.shop_api.entity.Commodity;
@@ -61,14 +62,10 @@ public class CommodityServiceImpl implements CommodityService {
             return COMMODITY_UPDATE_ERROR;
 
         ArrayList<String> urlList = new ArrayList<>();
-        String oldCommodityPhoto = commodityPhotoVideo.getCommodityPhoto();
-        String newCommodityPhoto = commodity.getCommodityPhoto();
 
         String oldCommodityVideo = commodityPhotoVideo.getCommodityVideo();
         String newCommodityVideo = commodity.getCommodityVideo();
 
-        if (null != oldCommodityPhoto && !oldCommodityPhoto.equals(newCommodityPhoto))
-            urlList.add(oldCommodityPhoto);
         if (null != oldCommodityVideo && !oldCommodityVideo.equals(newCommodityVideo))
             urlList.add(oldCommodityVideo);
 
@@ -79,17 +76,17 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public ResultBean updCommodityOnShelves(Integer storeId, Integer commodityId, Boolean commodityOnShelves) {
+    public boolean updCommodityOnShelves(Integer storeId, Integer commodityId, Boolean commodityOnShelves) {
         if (null == commodityId || null == commodityOnShelves)
-            return COMMODITY_UPDATE_ERROR;
-        return 0 != commodityMapper.updCommodityOnShelves(storeId, commodityId, commodityOnShelves)
-                ? successResult : COMMODITY_UPDATE_ERROR;
+            return false;
+        return 0 != commodityMapper.updCommodityOnShelves(storeId, commodityId, commodityOnShelves);
     }
 
     @Override
-    public Map<Integer, OrderCommodityVO> mapOrderCommodityVO(List<Integer> commodityIdList) {
-        return commodityMapper.mapOrderCommodityVO(commodityIdList);
+    public boolean delCommodity(Integer storeId, Integer commodityId) {
+        return 0 != commodityMapper.delCommodity(storeId, commodityId);
     }
+
 
     @Override
     public Map<Integer, FavoriteCommodityVO> mapFavoriteCommodityVO(List<Integer> commodityIdList) {
@@ -101,6 +98,8 @@ public class CommodityServiceImpl implements CommodityService {
         //更新商品人气
         commodityMapper.updAddCPopularityByID(commodityId);
         Commodity commodity = commodityMapper.getCommodityByCommodityId(commodityId);
+        if (null == commodity)
+            return null;
         commodity.setStore( storeFeignClient.getStoreByStoreId(commodity.getStoreId()));
         return commodity;
     }
@@ -197,6 +196,11 @@ public class CommodityServiceImpl implements CommodityService {
         return searchPage;
     }
 
+    @Override
+    public CommodityToCart getCommodityToCart(Integer commodityId) {
+        return commodityMapper.getCommodityToCart(commodityId);
+    }
+
 
     //********************************    搜索页  -结束**************************************
 
@@ -204,8 +208,8 @@ public class CommodityServiceImpl implements CommodityService {
 
 
     @Override
-    public Map<Integer, ShopCarCommodityVO> mapShopCarCommodityVO(List<Integer> commodityIdList) {
-        return commodityMapper.mapShopCarCommodityVO(commodityIdList);
+    public Map<Integer, CartCommodityVO> mapCartCommodityVO(List<Integer> commodityIdList) {
+        return commodityMapper.mapCartCommodityVO(commodityIdList);
     }
 
 

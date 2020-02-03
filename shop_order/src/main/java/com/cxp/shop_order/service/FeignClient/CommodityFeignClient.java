@@ -3,7 +3,6 @@ package com.cxp.shop_order.service.FeignClient;
 import com.cxp.shop_api.dto.CommodityNumberChange;
 import com.cxp.shop_api.dto.CommodityToOrder;
 import com.cxp.shop_api.result.ResultBean;
-import com.cxp.shop_api.vo.OrderCommodityVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,7 +26,4 @@ public interface CommodityFeignClient {
     @RequestMapping(value = "updCommodityNumber", method = RequestMethod.POST)
     public ResultBean updCommodityNumber(List<CommodityNumberChange> commodityNumberChangeList);
 
-    //返回商品简单信息给 收藏夹 订单管理微服务 调用
-    @RequestMapping(value = "/mapOrderCommodityVO", method = RequestMethod.POST)
-    public Map<Integer, OrderCommodityVO> mapOrderCommodityVO(List<Integer> commodityIdList);
 }

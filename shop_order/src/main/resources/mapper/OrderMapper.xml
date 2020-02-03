@@ -9,38 +9,40 @@
 
 
 <!--        mybaits 插入数据 将自增id返回注入到 keyProperty    -->
-    <insert id="insOrderParent" useGeneratedKeys="true" keyProperty="orderId">
-        insert order_parent(user_id,store_id,order_total_quantity,order_total_price)
-            values (#{userId},#{storeId},#{orderTotalQuantity},#{orderTotalPrice})
+    <insert id="insOrderParent">
+        insert order_parent(order_id,user_id,user_name,store_id,store_name,order_time,order_total_quantity,order_total_price)
+            values (#{orderId},#{userId},#{userName},#{storeId},#{storeName},#{orderTime},#{orderTotalQuantity},#{orderTotalPrice})
     </insert>
 
 
-    <insert id="inOrderParentList" useGeneratedKeys="true" keyProperty="orderId">
-        insert order_parent(user_id,store_id,order_time,order_total_quantity,order_total_price)
+    <insert id="inOrderParentList">
+        insert order_parent(order_id,user_id,user_name,store_id,store_name,order_time,order_total_quantity,order_total_price)
             values
-            <foreach collection="list" item="item" separator=",">
-                (#{item.userId},#{item.storeId},#{item.orderTime},#{item.orderTotalQuantity},#{item.orderTotalPrice})
+            <foreach collection="addMultipleOrderParentList" item="item" separator=",">
+                (#{item.orderId},#{userId},#{userName},#{item.storeId},#{item.storeName},#{item.orderTime},#{item.orderTotalQuantity},#{item.orderTotalPrice})
             </foreach>
     </insert>
 
 
 
     <insert id="insOrderSon">
-        insert ignore order_son (order_id,commodity_id,purchase_quantity,commodity_price)
-        values (#{orderId},#{commodityId},#{purchaseQuantity},#{commodityPrice})
+        insert ignore order_son (order_id,commodity_id,purchase_quantity,commodity_price,commodity_name,commodity_photo)
+        values (#{orderId},#{commodityId},#{purchaseQuantity}
+                ,#{commodityToOrder.commodityPrice},#{commodityToOrder.commodityName},#{commodityToOrder.commodityPhoto})
     </insert>
 
     <insert id="insOrderSonList">
-        insert ignore order_son (order_id,commodity_id,purchase_quantity,commodity_price)
+        insert ignore order_son (order_id,commodity_id,purchase_quantity,commodity_price,commodity_name,commodity_photo)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.orderId},#{item.commodityId},#{item.purchaseQuantity},#{item.commodityPrice})
+            (#{item.orderId},#{item.commodityId},#{item.purchaseQuantity}
+                ,#{item.commodityToOrder.commodityPrice},#{item.commodityToOrder.commodityName},#{item.commodityToOrder.commodityPhoto})
         </foreach>
     </insert>
 
 
 
-    <select id="ListMoneyChangeByuserIdOrderId" resultType="com.cxp.shop_api.dto.MoneyChange">
+    <select id="ListMoneyChangeByUserIdOrderId" resultType="com.cxp.shop_api.dto.MoneyChange">
         select store_id user_id, order_total_price from order_parent
 --         下的的人是我  这个时间点下的单  改订单处于待付款
         where order_id in
@@ -90,43 +92,49 @@
 
 
 
-    <select id="listStoreOrderParent" resultType="com.cxp.shop_api.entity.OrderParent">
-        select  * from order_parent
-        where store_id = #{storeId} and order_state > 0
-        order by order_id desc
-    </select>
-
-    <select id="listUserOrderParent" resultType="com.cxp.shop_api.entity.OrderParent">
-        select  * from order_parent
-        where user_id = #{userId}
-        <if test="null != orderState">
-            and order_state = #{orderState}
-        </if>
-        order by order_id desc
-    </select>
 
 
 
 <!--    详细订单信息-->
 
-    <resultMap id="OrderParentMap" type="com.cxp.shop_api.entity.OrderParent" autoMapping="true">
+    <sql id="OrderParentSql">
+        select p.order_id ,user_id,user_name,store_id,store_name,order_time,order_total_quantity,order_total_price,order_state,
+        commodity_id,purchase_quantity,commodity_price,commodity_name,commodity_photo
+        from order_parent p inner join order_son s on p.order_id = s.order_id
+    </sql>
+
+    <resultMap id="OrderParentResult" type="com.cxp.shop_api.entity.OrderParent" autoMapping="true">
         <id column="order_id" property="orderId"/>
         <collection property="orderSonList" ofType="com.cxp.shop_api.entity.OrderSon" autoMapping="true">
             <id column="commodity_id" property="commodityId"/>
         </collection>
     </resultMap>
 
-    <select id="getStoreOrderParent" resultMap="OrderParentMap">
-        select p.order_id ,user_id,store_id,order_time,order_total_quantity,order_total_price,order_state,
-        commodity_id,purchase_quantity,commodity_price
-        from order_parent p inner join order_son s on p.order_id = s.order_id
+    <select id="getOrderParent" resultMap="OrderParentResult">
+        <include refid="OrderParentSql"></include>
         where p.order_id = #{orderId}
     </select>
 
-    <select id="getUserOrderParent" resultMap="OrderParentMap">
-        select p.order_id ,user_id,store_id,order_time,order_total_quantity,order_total_price,order_state,
-        commodity_id,purchase_quantity,commodity_price
-        from order_parent p inner join order_son s on p.order_id = s.order_id
+    <select id="getUserOrderParent" resultMap="OrderParentResult">
+        <include refid="OrderParentSql"></include>
         where p.order_id = #{orderId} and user_id = #{userId}
+    </select>
+
+
+
+
+    <select id="listStoreOrderParent" resultMap="OrderParentResult">
+        <include refid="OrderParentSql"></include>
+        where store_id = #{storeId} and order_state > 0
+        order by order_id desc
+    </select>
+
+    <select id="listUserOrderParent" resultMap="OrderParentResult">
+        <include refid="OrderParentSql"></include>
+        where user_id = #{userId}
+        <if test="null != orderState">
+            and order_state = #{orderState}
+        </if>
+        order by order_id desc
     </select>
 </mapper>

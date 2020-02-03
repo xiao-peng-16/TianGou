@@ -19,15 +19,16 @@
 <!--      购物车 、 收藏夹 列表-->
       <div class="itemBoxList" ref="itemBoxList">
         <div v-if="options == 1" >
-          <div class="itemBox" v-for="item in shopCarList">
+          <div class="itemBox" v-for="item in cartList">
             <div class="imgBox">
-              <img :src="item.commodityPhoto" @click="gotoCommodityPage(item.shopCar.commodityId)">
+              <img :src="item.commodityPhoto" @click="gotoCommodityPage(item.commodityId)">
             </div>
-            <div class="commodityNameBox"  @click="gotoCommodityPage(item.shopCar.commodityId)">
+            <div class="commodityNameBox"  @click="gotoCommodityPage(item.commodityId)">
               <span>{{item.commodityName}}</span>
             </div>
             <div class="commodityPriceBox" >
-              <span>￥{{item.commodityPrice.toFixed(2)}}</span>×{{item.shopCar.purchaseQuantity}}
+                <div v-if="hint_commodity(item)" style="color:red;">{{hint_commodity(item)}}</div>
+                <div v-else><span>￥{{item.cartCommodityVO ? item.cartCommodityVO.commodityPrice.toFixed(2) : undefined}}</span>×{{item.purchaseQuantity}}</div>
             </div>
           </div>
         </div>
@@ -55,10 +56,10 @@
       
       <div class="bottomBox" v-if="options == 1">
         <div class="bottomMsgBox">
-            <div><span>{{shopCarNumber}}</span>件商品</div>
+            <div><span>{{cartNumber}}</span>件商品</div>
             <div>共计: <span>￥{{sumPrice.toFixed(2)}}</span></div>
         </div>
-        <div class="bottom_goto" @click="toShopCar">
+        <div class="bottom_goto" @click="toCart">
             去购物车结算
         </div>
       </div>
@@ -80,11 +81,11 @@
 
 
     <ul class="right_navTitleBox">
-      <li @click="click_shop_car" @mouseenter="mouseenter($refs.shop_car)" @mouseleave="mouseleave($refs.shop_car)">
-        <div class="right_navTitleMsg" ref="shop_car"> 购物车 </div>
+      <li @click="click_cart" @mouseenter="mouseenter($refs.cart)" @mouseleave="mouseleave($refs.cart)">
+        <div class="right_navTitleMsg" ref="cart"> 购物车 </div>
         <div class="right_navTitleImg">
           <span class="iconfont">&#xe657;</span>
-          <div class="shopCarNumberBox">{{shopCarNumber}}</div>
+          <div class="cartNumberBox">{{cartNumber}}</div>
         </div>
       </li>
 
@@ -111,29 +112,37 @@
         name: "nav_right",
       data(){
         return{
-          shopCarList:[],
+          cartList:[],
           favoriteList:[],
           options:0
         }
       },
       computed:{
-        shopCarNumber(){
-          var shopCarNumber = this.$store.state.user.shopCarNumber;
-          if (0<shopCarNumber)
-            return shopCarNumber;
+        cartNumber(){
+          var cartNumber = this.$store.state.user.cartNumber;
+          if (0<cartNumber)
+            return cartNumber;
           else return 0;
         },
         sumPrice(){
           var sunPrice=0;
-          if (undefined == this.shopCarList)
+          if (!this.cartList)
             return 0;
-          for (var i=0;i<this.shopCarList.length;i++) {
-            sunPrice+=this.shopCarList[i].shopCar.purchaseQuantity*this.shopCarList[i].commodityPrice;
-          }
+          this.cartList.forEach((item)=>{
+            if (item.cartCommodityVO)
+              sunPrice += item.purchaseQuantity * item.cartCommodityVO.commodityPrice;
+          });
           return sunPrice;
         }
       },
       methods:{
+        hint_commodity(item){
+          if (undefined == item.cartCommodityVO)
+            return '该商品已永久下架';
+          if (!item.cartCommodityVO.commodityOnShelves)
+            return '该商品已下架';
+          return undefined;
+        },
         gotoCommodityPage(commodityId){
           const {href} = this.$router.resolve({
             name:'commodityPage',
@@ -141,8 +150,8 @@
           });
           window.open(href,'_blank');
         },
-        toShopCar(){
-          this.$router.push({name:'shop_car'})
+        toCart(){
+          this.$router.push({name:'cart'})
         },
         toFavorite(){
           this.$router.push({name:'favorite'})
@@ -157,12 +166,12 @@
           this.$refs.right_navBox.style.transform = "translate(0px)"
 
         },
-        click_shop_car(){
+        click_cart(){
           this.options = 1;
-          this.$axios.post('/car/listShopCarCommodityVOByUserId')
+          this.$axios.post('/cart/listCartCommodityVOByUserId')
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)){
-                this.shopCarList = undefined == res.data ? [] : res.data;
+                this.cartList = undefined == res.data ? [] : res.data;
               }
             });
           this.$refs.right_navBox.style.transform = "translate(-280px)"
@@ -333,7 +342,7 @@
     color: white;
     font-size: 25px;
   }
-  .shopCarNumberBox{
+  .cartNumberBox{
     position: absolute;
     top: -5px;
     right: 4px;
@@ -347,7 +356,7 @@
     font: 11px/11px verdana;
 
   }
-  .right_navTitleBox li:hover .shopCarNumberBox{
+  .right_navTitleBox li:hover .cartNumberBox{
     background: white;
     border: 1.5px solid #C81623;
     color: #C81623;

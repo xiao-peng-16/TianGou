@@ -1,12 +1,16 @@
 package com.cxp.shop_commodity.service;
 
 import com.cxp.shop_api.dto.CommodityNumberChange;
+import com.cxp.shop_api.dto.CommodityToCart;
 import com.cxp.shop_api.dto.CommodityToOrder;
 import com.cxp.shop_api.entity.Commodity;
 import com.cxp.shop_api.entity.Sort;
 import com.cxp.shop_api.request.SearchRequest;
 import com.cxp.shop_api.result.ResultBean;
-import com.cxp.shop_api.vo.*;
+import com.cxp.shop_api.vo.CartCommodityVO;
+import com.cxp.shop_api.vo.FavoriteCommodityVO;
+import com.cxp.shop_api.vo.SearchVO;
+import com.cxp.shop_api.vo.StoreCommodityVO;
 
 import java.util.List;
 import java.util.Map;
@@ -22,10 +26,10 @@ public interface CommodityService {
     //修改商品
     public ResultBean updCommodity(Commodity commodity);
     //修改商品上架状态
-    public ResultBean updCommodityOnShelves(Integer storeId, Integer commodityId, Boolean commodityOnShelves);
+    public boolean updCommodityOnShelves(Integer storeId, Integer commodityId, Boolean commodityOnShelves);
+    //删除商品 永久下架
+    public boolean delCommodity(Integer storeId, Integer commodityId);
 
-    //根据商品id返回商品简单信息给 订单管理微服务 调用
-    public Map<Integer, OrderCommodityVO> mapOrderCommodityVO(List<Integer> commodityIdList);
     //根据商品id返回商品简单信息给 收藏夹微服务 调用
     public Map<Integer, FavoriteCommodityVO> mapFavoriteCommodityVO(List<Integer> commodityIdList);
 
@@ -34,8 +38,11 @@ public interface CommodityService {
     public Commodity getCommodityPageByCommodityId(int commodityId);
     //返回搜索页 商品信息
     public SearchVO getSearchVO(SearchRequest searchPage_request);
+
+    //搜索商品用于生成购物车
+    public CommodityToCart getCommodityToCart(Integer commodityId);
     //返回购物车 商品信息
-    public Map<Integer, ShopCarCommodityVO> mapShopCarCommodityVO(List<Integer> commodityIdList);
+    public Map<Integer, CartCommodityVO> mapCartCommodityVO(List<Integer> commodityIdList);
     //返回  店铺所销售的商品信息
     public List<StoreCommodityVO> listStoreCommodityVOByStoreId(int storeId);
 

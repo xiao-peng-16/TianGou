@@ -9,5 +9,6 @@ public class CommodityToOrder{
     int storeId;                //店铺id
     double commodityPrice;      //价格
     int commodityStock;         //库存
-
+    String commodityName;       //商品名
+    String commodityPhoto;      //商品图片
 }

@@ -45,7 +45,7 @@
       methods:{
           click_name(){
             var date = - (-new Date());
-            window.open("http://q2wh9mmyk.bkt.clouddn.com/vue/cxp.pdf?date=" + date,"_blank");
+            window.open("http://q4fx9in8d.bkt.clouddn.com/vue/cxp.pdf?date=" + date,"_blank");
           }
       },
       mounted() {

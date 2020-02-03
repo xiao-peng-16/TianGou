@@ -127,7 +127,7 @@
         }
 
         if(this.flag_notAddShop_car){
-          this.$axios.get('/car/addShopCarByUserId',{
+          this.$axios.get('/cart/addCartByUserId',{
             params:{
               commodityId:this.commodity.commodityId,
               purchaseQuantity:this.purchaseQuantity
@@ -136,9 +136,9 @@
             if (this.$store.getters.getResultDispose(res)){
               this.flag_notAddShop_car=false;
               this.msg_addShopcar="已添加至购物车";
-              this.$axios.get('/car/countShopCarByUserId')
+              this.$axios.get('/cart/countCartByUserId')
                 .then(res=>{
-                  this.$store.state.user.shopCarNumber=res.data;
+                  this.$store.state.user.cartNumber=res.data;
                 });
               this.$message({
                 message: '购物车添加成功',
@@ -185,8 +185,12 @@
         }
       }).then(res=>{
         this.commodity = res.data;
-        this.resource.poster = this.commodity.commodityPhoto;
-        this.resource.src = this.commodity.commodityVideo;
+        if (this.commodity){
+          this.resource.poster = this.commodity.commodityPhoto;
+          this.resource.src = this.commodity.commodityVideo;
+        } else {
+          this.$store.state.status = this.GLOBAL.ResultStatus.COMMODITY_NOT_FOUND;
+        }
       })
     },
     watch:{

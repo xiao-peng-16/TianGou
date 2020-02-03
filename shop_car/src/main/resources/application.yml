@@ -1,6 +1,6 @@
 spring:
   application:
-    name: car
+    name: cart
   profiles:
     active: dev
 

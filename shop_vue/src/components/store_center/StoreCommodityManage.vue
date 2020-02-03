@@ -43,6 +43,11 @@
                     下架
                   </div>
                 </el-dropdown-item>
+                <el-dropdown-item>
+                  <div class="my_true_OnShelves_item_box" @click="delCommodity(item)">
+                    删除
+                  </div>
+                </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </div>
@@ -53,6 +58,11 @@
                 <el-dropdown-item>
                   <div class="my_false_OnShelves_item_box" @click="update_commodity(item.commodityId)">
                     修改
+                  </div>
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <div class="my_true_OnShelves_item_box" @click="delCommodity(item)">
+                    删除
                   </div>
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -126,17 +136,40 @@
               }
             }).then(res=>{
               if (this.$store.getters.getResultDispose(res)) {
-                commodity.commodityOnShelves = commodityOnShelves;
-                this.$notify.success({
-                  title:'商品'+msg+'成功',
-                });
+                if (res.data){
+                  commodity.commodityOnShelves = commodityOnShelves;
+                  this.$notify.success({
+                    title:'商品'+msg+'成功',
+                  });
+                }
               }
             });
 
-          })
+          });
         },
-        xxxx(){
-          alert("64334864346")
+        delCommodity(commodity){
+          this.$confirm('此商品将永久删除, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+
+            this.$axios.get('/commodity/delCommodityByStoreId',{
+              params:{
+                commodityId: commodity.commodityId,
+              }
+            }).then(res=>{
+              if (this.$store.getters.getResultDispose(res)) {
+                if (res.data){
+                  this.init();
+                  this.$notify.success({
+                    title:'商品永久删除',
+                  });
+                }
+              }
+            });
+
+          });
         },
         init(title){
           this.$axios.get('/commodity/listStoreCommodityVOByStoreId')

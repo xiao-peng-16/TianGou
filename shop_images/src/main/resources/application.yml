@@ -14,5 +14,5 @@ eureka:
 accessKey: Y9mOOnlwXSocxJtntYqQIR6k7Dwf_n3Icsn5Ep8e    #访问秘钥
 secretKey: 6GQLTIErXis_YicJ3h7gHBp1OGqoawQpRk7ZKikB    #授权秘钥
 bucket: cxp                                            #存储空间名称
-domain: http://q2wh9mmyk.bkt.clouddn.com/              #外链域名
+domain: http://q4fx9in8d.bkt.clouddn.com/              #外链域名
 

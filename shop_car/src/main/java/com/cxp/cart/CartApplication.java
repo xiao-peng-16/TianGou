@@ -1,4 +1,4 @@
-package com.cxp.shop_car;
+package com.cxp.cart;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -11,12 +11,12 @@ import org.springframework.web.client.RestTemplate;
 
 @EnableFeignClients
 @EnableDiscoveryClient
-@MapperScan("com.cxp.shop_car.mapper")
+@MapperScan("com.cxp.cart.mapper")
 @SpringBootApplication
-public class ShopCarApplication {
+public class CartApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ShopCarApplication.class, args);
+        SpringApplication.run(CartApplication.class, args);
     }
 
 }

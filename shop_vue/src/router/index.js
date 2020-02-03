@@ -25,9 +25,9 @@ export default new Router({
       component: resolve => require(['../content/register'], resolve)
     },
     {
-      path:'/shop_car',
-      name:'shop_car',
-      component: resolve => require(['../content/shop_car'], resolve)
+      path:'/cart',
+      name:'cart',
+      component: resolve => require(['../content/cart'], resolve)
     },
     {
       path:'/favorite',

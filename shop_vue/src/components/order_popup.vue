@@ -17,11 +17,11 @@
             <div style="position: absolute; left: 490px;width: 40px">单价</div>
             <div style="position: absolute; left: 630px;width: 40px">小计</div>
           </div>
-          <div style="height: 50px"></div>
+          <div style="height: 60px"></div>
           <div class="orderSon_itemBox" v-for="(item,index) in orderParent.orderSonList">
-            <img class="orderSon_img" :src="item.orderCommodityVO.commodityPhoto">
+            <img class="orderSon_img" :src="item.commodityPhoto">
             <div  class="orderSon_CommodityName">
-              <span>{{item.orderCommodityVO.commodityName}}</span>
+              <span>{{item.commodityName}}</span>
             </div>
             <span class="orderSon_ChooseNumber">  {{item.purchaseQuantity}} 件</span>
             <span class="orderSon_CommodityPrice">￥{{item.commodityPrice.toFixed(2)}}</span>
@@ -122,7 +122,7 @@
 
   }
   .orderSon_title div{
-    margin-top: 15px;
+    margin-top: 30px;
   }
 
 

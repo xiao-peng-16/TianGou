@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.cxp.cart.mapper.CartMapper">
+
+
+    <insert id="insCart">
+        insert cart(user_id,commodity_id,purchase_quantity
+            ,commodity_name ,commodity_describe,commodity_old_price,commodity_photo)
+        values(#{userId},#{commodityId},#{purchaseQuantity}
+            ,#{commodityToCart.commodityName},#{commodityToCart.commodityDescribe}
+            ,#{commodityToCart.commodityPrice},#{commodityToCart.commodityPhoto})
+    </insert>
+
+    <delete id="delCartByCommodityId">
+        delete from cart
+        where  commodity_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        and user_id=#{userId}
+    </delete>
+
+    <delete id="delCartByPurchaseDTO">
+        delete from cart
+        where commodity_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item.commodityId}
+        </foreach>
+        and user_id=#{userId}
+    </delete>
+
+
+</mapper>

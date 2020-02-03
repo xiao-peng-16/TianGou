@@ -1,16 +1,17 @@
 package com.cxp.shop_commodity.mapper;
 
 import com.cxp.shop_api.dto.CommodityNumberChange;
+import com.cxp.shop_api.dto.CommodityToCart;
 import com.cxp.shop_api.dto.CommodityToOrder;
 import com.cxp.shop_api.entity.Commodity;
 import com.cxp.shop_api.entity.Sort;
 import com.cxp.shop_api.request.SearchRequest;
-import com.cxp.shop_api.vo.*;
+import com.cxp.shop_api.vo.CartCommodityVO;
+import com.cxp.shop_api.vo.FavoriteCommodityVO;
+import com.cxp.shop_api.vo.SearchCommodityVO;
+import com.cxp.shop_api.vo.StoreCommodityVO;
 import com.cxp.shop_commodity.pojo.CommodityPhotoVideo;
-import org.apache.ibatis.annotations.MapKey;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -34,7 +35,9 @@ public interface CommodityMapper {
     //修改商品上架状态
     @Update("update commodity set commodity_on_shelves = #{commodityOnShelves} where commodity_id = #{commodityId} and store_id = #{storeId}")
     public int updCommodityOnShelves(@Param("storeId") Integer storeId, @Param("commodityId") Integer commodityId, @Param("commodityOnShelves") Boolean commodityOnShelves);
-
+    //删除商品 永久下架
+    @Delete("delete from commodity where commodity_id = #{commodityId} and store_id = #{storeId}")
+    public int delCommodity(Integer storeId, Integer commodityId);
 
 //******搜索页   开始********
     //根据商品名字  查询搜索到的商品总数
@@ -63,16 +66,13 @@ public interface CommodityMapper {
     @Select("select * from commodity where commodity_id = #{commodityId}")
     public Commodity getCommodityByCommodityId(@Param("commodityId") int commodityId);
 
-    //根据商品id返回 商品简单信息  图片、名字
-    public List<OrderCommodityVO> SelCommoditySimplePage(List<Integer> commodityIdList);
 
-
+    //搜索商品用于生成购物车
+    public CommodityToCart getCommodityToCart(@Param("commodityId") int commodityId);
     //查询购物车商品信息
     @MapKey("commodityId")
-    public Map<Integer, ShopCarCommodityVO> mapShopCarCommodityVO(List<Integer> commodityIdList);
-    //查询商品简单信息  用于  订单
-    @MapKey("commodityId")
-    public Map<Integer, OrderCommodityVO> mapOrderCommodityVO(List<Integer> commodityIdList);
+    public Map<Integer, CartCommodityVO> mapCartCommodityVO(List<Integer> commodityIdList);
+
     //查询商品简单信息  用于 收藏夹
     @MapKey("commodityId")
     public Map<Integer, FavoriteCommodityVO> mapFavoriteCommodityVO(List<Integer> commodityIdList);

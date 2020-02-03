@@ -15,7 +15,7 @@ export const store = new Vuex.Store({
         userName: undefined,
         userPhoto: undefined,
         userMoney: undefined,
-        shopCarNumber: undefined
+        cartNumber: undefined
       },
       flag_userOpenStore:false,
       flag_userOpenStore_success:false
@@ -51,7 +51,7 @@ export const store = new Vuex.Store({
           userName: undefined,
           userPhoto: undefined,
           userMoney: undefined,
-          shopCarNumber: undefined
+          cartNumber: undefined
       },
       sessionStorage.clear();
       localStorage.clear();

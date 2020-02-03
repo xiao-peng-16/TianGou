@@ -1,12 +1,16 @@
 package com.cxp.shop_commodity.controller;
 
 import com.cxp.shop_api.dto.CommodityNumberChange;
+import com.cxp.shop_api.dto.CommodityToCart;
 import com.cxp.shop_api.dto.CommodityToOrder;
 import com.cxp.shop_api.entity.Commodity;
 import com.cxp.shop_api.entity.Sort;
 import com.cxp.shop_api.request.SearchRequest;
 import com.cxp.shop_api.result.ResultBean;
-import com.cxp.shop_api.vo.*;
+import com.cxp.shop_api.vo.CartCommodityVO;
+import com.cxp.shop_api.vo.FavoriteCommodityVO;
+import com.cxp.shop_api.vo.SearchVO;
+import com.cxp.shop_api.vo.StoreCommodityVO;
 import com.cxp.shop_commodity.service.impl.CommodityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,8 +46,15 @@ public class CommodityController {
     //前端接口
     //修改商品上架状态
     @RequestMapping("/updCommodityOnShelvesByStoreId")
-    public ResultBean updCommodityOnShelvesByStoreId(Integer storeId, Integer commodityId, Boolean commodityOnShelves){
+    public boolean updCommodityOnShelvesByStoreId(Integer storeId, Integer commodityId, Boolean commodityOnShelves){
         return commodityService.updCommodityOnShelves(storeId, commodityId, commodityOnShelves);
+    }
+
+    //前端接口
+    //删除商品 永久下架
+    @RequestMapping("/delCommodityByStoreId")
+    public boolean delCommodityByStoreId(Integer storeId, Integer commodityId){
+        return commodityService.delCommodity(storeId, commodityId);
     }
 
     //前端接口
@@ -60,17 +71,19 @@ public class CommodityController {
         return commodityService.mapFavoriteCommodityVO(commodityIdList);
     }
 
-    //购物车 微服务
-    @RequestMapping("/mapShopCarCommodityVO")
-    public Map<Integer, ShopCarCommodityVO> mapShopCarCommodityVO(@RequestBody  List<Integer> commodityIdList){
-        return  commodityService.mapShopCarCommodityVO(commodityIdList);
+    //搜索商品用于生成购物车
+    @RequestMapping("/getCommodityToCart")
+    public CommodityToCart getCommodityToCart(Integer commodityId){
+        return  commodityService.getCommodityToCart(commodityId);
     }
 
-    //订单管理 微服务
-    @PostMapping("/mapOrderCommodityVO")
-    public Map<Integer, OrderCommodityVO> mapOrderCommodityVO(@RequestBody List<Integer> commodityIdList){
-        return commodityService.mapOrderCommodityVO(commodityIdList);
+    //购物车 微服务 商品信息
+    @RequestMapping("/mapCartCommodityVO")
+    public Map<Integer, CartCommodityVO> mapCartCommodityVO(@RequestBody  List<Integer> commodityIdList){
+        return  commodityService.mapCartCommodityVO(commodityIdList);
     }
+
+
 
     //前端接口
     //搜索页

@@ -107,7 +107,7 @@
 
           {
             title:'我的购物车',
-            route:{name:'shop_car'}
+            route:{name:'cart'}
           },
           {
             title:'我的收藏夹',

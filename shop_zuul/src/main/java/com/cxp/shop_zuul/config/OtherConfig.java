@@ -3,6 +3,8 @@ package com.cxp.shop_zuul.config;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
 import com.cxp.shop_api.result.ResultStatus;
+import com.cxp.shop_zuul.service.RedisTokenServiceImpl;
+import com.cxp.shop_zuul.service.TokenService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;

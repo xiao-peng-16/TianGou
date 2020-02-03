@@ -1,10 +1,10 @@
-package com.cxp.shop_car;
+package com.cxp.cart;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ShopCarApplicationTests {
+class CartApplicationTests {
 
     @Test
     void contextLoads() {

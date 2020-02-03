@@ -5,7 +5,7 @@
 
     <div style="position: fixed;width: 100%;height: 75px;padding-top: 35px; background: white;z-index: 250">
       <img id="tiangou" src="../assets/tmall.jpg">
-      <span id="shop_car">购物车</span>
+      <span id="cart">购物车</span>
     </div>
     <div style="height: 50px;"></div>
 
@@ -32,42 +32,50 @@
         <el-row>
           <div class="itemBox row" v-for="item in dataList">
             <div class="checkbox">
-               <label @click="click_selected(item)" class="myCkeck" :class="{myCkeck_selecked:item.shopCar.selected}">
+               <label @click="click_selected(item)" class="myCkeck" :class="{myCkeck_selecked:item.selected}">
                  <span class="iconfont">&#xed1d;</span>
                </label>
             </div>
 
             <el-col :span="2">
-              <img :src="item.commodityPhoto" @click="gotoCommodityPage(item.shopCar.commodityId)" style="cursor: pointer;">
+              <img :src="item.commodityPhoto" @click="gotoCommodityPage(item.commodityId)" style="cursor: pointer;">
             </el-col>
             <el-col :span="7">
-              <div class=" cNameBox"  @click="gotoCommodityPage(item.shopCar.commodityId)">
+              <div class=" cNameBox"  @click="gotoCommodityPage(item.commodityId)">
                 <span>{{item.commodityName}}</span>
-                <div style=""><span>{{item.commodityDescribe}}</span></div>
+                <div><span style="color: #7E7E7E">{{item.commodityDescribe}}</span></div>
+                <div style="position: absolute;bottom: 0px;color: red;font-size: 17.5px">{{hint_commodity(item)}}</div>
               </div>
             </el-col>
+
             <el-col :span="3">
-              <div class="commodityPrice  center down" style="padding-left: 40px">
-                <span>￥{{item.commodityPrice.toFixed(2)}}</span>
+              <div class="center down" style="padding-left: 40px">
+                <div v-if="undefined ==item.cartCommodityVO || item.commodityOldPrice != item.cartCommodityVO.commodityPrice">
+                  <span style="text-decoration:line-through;color: #9E9E9E">
+                    ￥{{item.commodityOldPrice.toFixed(2)}}
+                  </span>
+                </div>
+                <div><span>{{getCommodityPrice(item)}}</span></div>
               </div>
             </el-col>
 
             <el-col :span="4">
               <div class="center down" >
                 <button type="button" class="btn btn-info" @click="click_changePurchaseQuantity(item,-1)"><span>-</span></button>
-                <input v-model.number="item.shopCar.purchaseQuantity" @input="input(item)">
+                <input v-model.number="item.purchaseQuantity" @input="input(item)">
                 <button type="button" class="btn btn-info" @click="click_changePurchaseQuantity(item,1)"><span>+</span></button>
               </div>
+              <div style="color: red">{{hint_commodityStock(item)}}</div>
             </el-col>
             <el-col :span="3">
               <div class="price col-1 center down">
-                <span>￥{{(item.commodityPrice*item.shopCar.purchaseQuantity).toFixed(2)}}</span>
+                <span>{{getSumCommodityPrice(item)}}</span>
               </div>
             </el-col>
             <el-col :span="3">
               <div class="price col-1 center " style="margin-top: 25px;margin-left: 15px">
-                <div style="padding-left: 20px;width: 200px"><span class="operationSpan" @click="delByShopCarId(item)" >删除</span></div>
-                <div style="width: 200px"><span class="operationSpan" @click="shopCarToFavorite(item)" >移入收藏夹</span></div>
+                <div style="padding-left: 20px;width: 200px"><span class="operationSpan" @click="delByCartId(item)" >删除</span></div>
+                <div style="width: 200px"><span class="operationSpan" @click="cartToFavorite(item)" >移入收藏夹</span></div>
               </div>
             </el-col>
           </div>
@@ -91,8 +99,8 @@
             </label>
           </div>
           <span class="operationSpan" @click="click_all_selecked">全选</span>
-          <span class="operationSpan" @click="delByShopCarIdList" >删除</span>
-          <span class="operationSpan" @click="shopCarListToFavorite" >移入收藏夹</span>
+          <span class="operationSpan" @click="delByCartIdList" >删除</span>
+          <span class="operationSpan" @click="cartListToFavorite" >移入收藏夹</span>
         </div>
 
         <div class="shop" @click="shop"><span>结 算</span></div>
@@ -119,18 +127,18 @@
     import Nav_top from "@/components/nav_top";
     import Hint_popup from "@/components/hint_popup";
     export default {
-        name: "shop_car",
+        name: "cart",
       components: {Hint_popup, Nav_top},
       data(){
           return{
             dataList:[],
-
+            flag_show:true,
             flag_notSubmitOrder:true,
           }
         },
         computed:{
           selectedList(){
-            return this.dataList.filter(item=>item.shopCar.selected);
+            return this.dataList.filter(item=>item.selected);
           },
           flag_all_selecked(){
             return  this.dataList.length == this.selectedList.length;
@@ -138,20 +146,42 @@
           sumPrice(){
             var sunPrice=0;
             this.selectedList.forEach((item)=>{
-              sunPrice += item.shopCar.purchaseQuantity * item.commodityPrice;
+              if (undefined != item.cartCommodityVO)
+                sunPrice += item.purchaseQuantity * item.cartCommodityVO.commodityPrice;
             });
             return sunPrice;
-          },
-          flag_show(){
-            return this.dataList.length>0;
-          },
+          }
         },
         watch:{
           dataList(){
-            this.$store.state.user.shopCarNumber = this.dataList.length;
+            this.$store.state.user.cartNumber = this.dataList.length;
           },
         },
         methods:{
+          getCommodityPrice(item){
+            if (undefined != item.cartCommodityVO)
+              return '￥' + item.cartCommodityVO.commodityPrice.toFixed(2);
+          },
+          getSumCommodityPrice(item){
+            if (undefined != item.cartCommodityVO)
+              return '￥' + (item.cartCommodityVO.commodityPrice * item.purchaseQuantity).toFixed(2);
+          },
+          hint_commodity(item){
+            if (undefined == item.cartCommodityVO)
+              return '该商品已永久下架';
+            if (!item.cartCommodityVO.commodityOnShelves)
+              return '该商品已下架';
+            return undefined;
+          },
+          hint_commodityStock(item){
+            var hint_commodity = this.hint_commodity(item);
+            if (undefined != hint_commodity)
+              return hint_commodity;
+            if (0 == item.cartCommodityVO.commodityStock)
+              return '商品暂时无货'
+            if (item.purchaseQuantity >= item.cartCommodityVO.commodityStock)
+              return '商品库存为' + item.cartCommodityVO.commodityStock + '件';
+          },
           warning(message){
             this.$message.warning({
               message: message,
@@ -161,15 +191,15 @@
             });
           },
           click_selected(item){
-            var target = !item.shopCar.selected;
-            item.shopCar.selected =target;
+            var target = !item.selected;
+            item.selected =target;
 
             let tempThis = this;
             clearTimeout(item.timeout_selected);
             item.timeout_selected = setTimeout(function () {
-              tempThis.$axios.get('/car/updSelectedByUserId',{
+              tempThis.axios.get('/cart/updSelectedByUserId',{
                 params:{
-                  commodityId : item.shopCar.commodityId,
+                  commodityId : item.commodityId,
                   selected : target
                 }
               }).then(res=>{
@@ -181,13 +211,13 @@
           click_all_selecked(){
             var target_flag_all_selecked = !this.flag_all_selecked;
             this.dataList.forEach((item)=>{
-              item.shopCar.selected = target_flag_all_selecked;
+              item.selected = target_flag_all_selecked;
             });
 
             let tempThis = this;
             clearTimeout(tempThis.timeout_all_selecked);
             tempThis.timeout_all_selecked = setTimeout(function () {
-              tempThis.$axios.get('/car/updSelectedByUserId',{
+              tempThis.axios.get('/cart/updAllSelectedByUserId',{
                 params:{
                   selected : target_flag_all_selecked
                 }
@@ -202,10 +232,10 @@
             let tempThis = this;
             clearTimeout(item.timeout_purchaseQuantity);
             item.timeout_purchaseQuantity = setTimeout(function () {
-              tempThis.$axios.get('/car/updChangePurchaseQuantityByUserId',{
+              tempThis.axios.get('/cart/updChangePurchaseQuantityByUserId',{
                 params:{
-                  commodityId : item.shopCar.commodityId,
-                  purchaseQuantity : item.shopCar.purchaseQuantity
+                  commodityId : item.commodityId,
+                  purchaseQuantity : item.purchaseQuantity
                 }
               }).then(res=>{
                 tempThis.$store.getters.getResultDispose(res)
@@ -214,14 +244,26 @@
 
           },
           click_changePurchaseQuantity(item, change){
-            var target = item.shopCar.purchaseQuantity + change;
-            item.shopCar.purchaseQuantity = target > 1 ? target : 1;
+            if (undefined == item.cartCommodityVO){
+              item.purchaseQuantity = 0;
+              return;
+            }
+            var target = item.purchaseQuantity + change;
+            target = target > 1 ? target : 1;
+            target = target > item.cartCommodityVO.commodityStock ? item.cartCommodityVO.commodityStock : target;
+            item.purchaseQuantity = target;
             this.changePurchaseQuantity(item);
           },
           input(item){
-            item.shopCar.purchaseQuantity=item.shopCar.purchaseQuantity.toString().replace(/[^\d]/g,'');
-            if (item.shopCar.purchaseQuantity=='' || item.shopCar.purchaseQuantity<1)
-              item.shopCar.purchaseQuantity=1;
+            if (undefined == item.cartCommodityVO){
+              item.purchaseQuantity = 0;
+              return;
+            }
+            var target = parseInt(item.purchaseQuantity.toString().replace(/[^\d]/g,''));
+            if (isNaN(target) || target<1)
+                target = 1;
+            target = target > item.cartCommodityVO.commodityStock ? item.cartCommodityVO.commodityStock : target;
+            item.purchaseQuantity = target;
             this.changePurchaseQuantity(item);
           },
           //  直接对 某一行 删除/移入收藏夹   需要对dataList更新
@@ -237,41 +279,41 @@
               this.dataList.splice(index,1);
             });
           },
-          delByShopCarId(item){
-              this.$axios.post('/car/delShopCarByUserId',[item.shopCar.commodityId])
+          delByCartId(item){
+              this.$axios.post('/cart/delCartByUserId',[item.commodityId])
                 .then(res=>{
                   if (this.$store.getters.getResultDispose(res))
                 this.updList_specific(item);
               })
           },
-          delByShopCarIdList(){
-            var delShopCarIdList =[];
+          delByCartIdList(){
+            var delCartIdList =[];
             for (var i=0;i<this.selectedList.length;i++)
-              delShopCarIdList.push(this.selectedList[i].shopCar.commodityId)
-            if (delShopCarIdList.length ==0)
+              delCartIdList.push(this.selectedList[i].commodityId)
+            if (delCartIdList.length ==0)
               return;
-            this.$axios.post('/car/delShopCarByUserId',delShopCarIdList)
+            this.$axios.post('/cart/delCartByUserId',delCartIdList)
               .then(res=>{
                 if (this.$store.getters.getResultDispose(res))
                 this.updList_multi();
               })
           },
-          shopCarToFavorite(item){
-            this.$axios.post('/car/shopCarToFavoriteByUserId',[item.shopCar.commodityId])
+          cartToFavorite(item){
+            this.$axios.post('/cart/cartToFavoriteByUserId',[item.commodityId])
               .then(res=>{
               if (this.$store.getters.getResultDispose(res))
                 this.updList_specific(item);
               })
           },
-          shopCarListToFavorite(){
+          cartListToFavorite(){
             var  commodityIdList =[];
             this.selectedList.forEach((item)=>{
-              commodityIdList.push(item.shopCar.commodityId);
+              commodityIdList.push(item.commodityId);
             });
 
             if (commodityIdList.length ==0)
               return;
-            this.$axios.post('/car/shopCarToFavoriteByUserId',commodityIdList)
+            this.$axios.post('/cart/cartToFavoriteByUserId',commodityIdList)
               .then(res=>{
                   this.updList_multi();
               })
@@ -284,15 +326,15 @@
               return;
             }
 
-            var shopCarList =[];
+            var cartList =[];
             this.selectedList.forEach((item)=>{
-              shopCarList.push(item.shopCar)
+              cartList.push({commodityId:item.commodityId, purchaseQuantity:item.purchaseQuantity});
             });
-
-            if (shopCarList.length ==0){
+            console.log(cartList  )
+            if (cartList.length ==0){
               return;
             }
-            this.$axios.post('/car/ShopCarSubmitOrderByUserId',shopCarList)
+            this.$axios.post('/cart/CartSubmitOrderByUserId',cartList)
               .then(res=>{
                 if (this.$store.getters.getResultDispose(res)){
                   this.$router.push({name:'shop_success'});
@@ -308,10 +350,11 @@
           },
         },
         created() {
-          this.$axios.post('/car/listShopCarCommodityVOByUserId')
+          this.$axios.post('/cart/listCartCommodityVOByUserId')
             .then(res=>{
               if (this.$store.getters.getResultDispose(res)){
                 this.dataList=res.data;
+                this.flag_show = this.dataList.length>0;
               }
             });
         }
@@ -354,7 +397,7 @@
     position: relative;
     bottom: 5px;
   }
-  #shop_car{
+  #cart{
     font-weight: 600;
     font-size: 28px;
   }
@@ -386,6 +429,8 @@
     text-align: center;
   }
   .cNameBox{
+    position: relative;
+    height: 98px;
     margin-left: 20px;
     margin-top: 15px;
     cursor: pointer;
@@ -482,7 +527,7 @@
     width: 1800px;
     height:100px;
 
-    background-image: url("../assets/shop_car_bj.jpg");
+    background-image: url("../assets/cart_bj.jpg");
     background-repeat:repeat;
   }
   .bottom_bj img{

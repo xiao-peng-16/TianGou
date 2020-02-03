@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.cxp</groupId>
-    <artifactId>shop_car</artifactId>
+    <artifactId>cart</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>shop_car</name>
+    <name>cart</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
