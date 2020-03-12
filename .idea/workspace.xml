@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba7746b0-eb01-4fa4-bb05-ac7b9d1c947e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/shop_vue/src/components/city_code.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/StoreBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/StoreBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_images/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_images/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/searchPage_commodity.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/searchPage_commodity.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreHome.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreHome.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/about.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/about.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/home_data.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/home_data.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/register.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/数据库文件.sql" beforeDir="false" afterPath="$PROJECT_DIR$/数据库文件.sql" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/数据库文件.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="135" column="47" lean-forward="true" selection-end-line="311" />
+            <state relative-caret-position="57">
+              <caret line="117" column="7" lean-forward="true" selection-start-line="117" selection-start-column="7" selection-end-line="117" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -162,7 +152,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -250,6 +239,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -381,13 +371,7 @@
       <workItem from="1584017064935" duration="1864000" />
       <workItem from="1584024481414" duration="88000" />
       <workItem from="1584025506750" duration="414000" />
-    </task>
-    <task id="LOCAL-00003" summary="shop">
-      <created>1575095156548</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1575095156548</updated>
+      <workItem from="1584030645148" duration="161000" />
     </task>
     <task id="LOCAL-00004" summary="cxp_shop">
       <created>1575095303757</created>
@@ -725,17 +709,23 @@
       <option name="project" value="LOCAL" />
       <updated>1583991630258</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="cxp_shop">
+      <created>1584030734076</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1584030734077</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83108000" />
+    <option name="totallyTimeSpent" value="83269000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16778524" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16979866" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -877,8 +867,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/数据库文件.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="135" column="47" lean-forward="true" selection-end-line="311" />
+        <state relative-caret-position="57">
+          <caret line="117" column="7" lean-forward="true" selection-start-line="117" selection-start-column="7" selection-end-line="117" selection-end-column="7" />
         </state>
       </provider>
     </entry>
