@@ -80,28 +80,30 @@
 
 
 
-    <ul class="right_navTitleBox">
-      <li @click="click_cart" @mouseenter="mouseenter($refs.cart)" @mouseleave="mouseleave($refs.cart)">
-        <div class="right_navTitleMsg" ref="cart"> 购物车 </div>
-        <div class="right_navTitleImg">
-          <span class="iconfont">&#xe657;</span>
-          <div class="cartNumberBox">{{cartNumber}}</div>
-        </div>
-      </li>
+    <div class="right_navTitleBox_box">
+      <ul class="right_navTitleBox">
+        <li @click="click_cart" @mouseenter="mouseenter($refs.cart)" @mouseleave="mouseleave($refs.cart)">
+          <div class="right_navTitleMsg" ref="cart"> 购物车 </div>
+          <div class="right_navTitleImg">
+            <span class="iconfont">&#xe657;</span>
+            <div class="cartNumberBox">{{cartNumber}}</div>
+          </div>
+        </li>
 
-      <li @click="click_favorite" @mouseenter="mouseenter($refs.favorite)" @mouseleave="mouseleave($refs.favorite)">
-        <div class="right_navTitleMsg"  ref="favorite"> 收藏夹 </div>
-        <div class="right_navTitleImg">
-          <span class="iconfont">&#xeca1;</span>
-        </div>
-      </li>
+        <li @click="click_favorite" @mouseenter="mouseenter($refs.favorite)" @mouseleave="mouseleave($refs.favorite)">
+          <div class="right_navTitleMsg"  ref="favorite"> 收藏夹 </div>
+          <div class="right_navTitleImg">
+            <span class="iconfont">&#xeca1;</span>
+          </div>
+        </li>
 
-      <li @click="backTop"  @mouseenter="mouseenter($refs.backTop)" @mouseleave="mouseleave($refs.backTop)">
-        <div class="right_navTitleMsg" ref="backTop" style="padding-left: 15px;"> 回到顶部 </div>
-        <div class="right_navTitleImg" ><span class="iconfont">&#xe76c;</span>
-        </div>
-      </li>
-    </ul>
+        <li @click="backTop"  @mouseenter="mouseenter($refs.backTop)" @mouseleave="mouseleave($refs.backTop)">
+          <div class="right_navTitleMsg" ref="backTop" style="padding-left: 15px;"> 回到顶部 </div>
+          <div class="right_navTitleImg" ><span class="iconfont">&#xe76c;</span>
+          </div>
+        </li>
+      </ul>
+    </div>
 
 
   </div>
@@ -230,7 +232,12 @@
 </script>
 
 <style scoped>
-
+  span{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  }
+  div{
+    box-sizing: border-box;
+  }
   .right_navBox{
     position: fixed;
     right: 0px;
@@ -286,11 +293,15 @@
   }
 
 
-
-  .right_navTitleBox{
+  .right_navTitleBox_box{
     position: relative;
+    height: 100%;
+    background: red;
+  }
+  .right_navTitleBox{
+    position: absolute;
     left: -40px;
-    top: 40%;
+    bottom: 40.8%;
     padding: 0px;
     list-style: none;
     width: 50px;
@@ -318,7 +329,8 @@
 
     color: white;
     padding-left: 20px;
-    line-height: 35px;
+    /*font-size: 17px;*/
+    line-height: 39px;
   }
 
 
@@ -330,8 +342,8 @@
     border-radius: 4px;
     width: 42px;
     height: 40px;
-    padding-top: 3px;
     padding-left: 7px;
+    line-height: 44px;
   }
 
   .right_navTitleBox li:hover .right_navTitleImg{

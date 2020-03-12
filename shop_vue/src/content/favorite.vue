@@ -1,10 +1,15 @@
 <template>
   <div>
     <nav_top :flag_fixed="true"/>
-    <div style="position: fixed;width: 100%;height: 60px; background: white;z-index: 100;padding-top: 35px">
-      <img id="tiangou" src="../assets/tmall.jpg">
-      <span id="favorite">收藏夹</span>
+    <div class="cart_top_box">
+      <el-row>
+        <div class="cart_top">
+          <img id="tiangou" src="../assets/tmall.jpg">
+          <span id="cart">收藏夹</span>
+        </div>
+      </el-row>
     </div>
+
     <div style="height: 50px;"></div>
 
 
@@ -22,12 +27,8 @@
       </div>
 
     </div>
-    <div v-else>
-      <div class="notData">
-        <img src="../assets/search_notdata.png">
-        <span class="side">旺~旺~旺~</span>
-        <span class="middle">你的收藏夹还没有商品哟，快去收藏添加吧~</span>
-      </div>
+    <div v-else style="margin-top: 40px">
+      <not-data left="旺~旺~旺~" middle="你的收藏夹还没有商品哟，快去收藏添加吧~"/>
     </div>
 
 
@@ -38,9 +39,10 @@
 <script>
   import Nav_top from "@/components/nav_top";
   import Hint_popup from "@/components/hint_popup";
+  import NotData from "@/components/notData";
   export default {
     name: "favorite",
-    components: {Hint_popup, Nav_top},
+    components: {NotData, Hint_popup, Nav_top},
     data(){
       return{
         favoriteList:[]
@@ -104,32 +106,38 @@
  }
 
 
-  #tiangou{
-    margin-left: 70px;
-    height: 35px;
+  .cart_top_box .el-row{
+    max-width: 1380px;
+    margin: 0px auto;
+  }
+
+  .cart_top_box{
+    box-sizing: border-box;
+    padding-top: 10px;
+    position: fixed;
+    width: 100%;
+    height: 50px;
+    background: white;
+    z-index: 250;
+  }
+
+  .cart_top{
     position: relative;
-    bottom: 5px;
+    height: 35px;
   }
-  #favorite{
+
+  #tiangou{
+    height: 100%;
+    
+  }
+  #cart{
     font-weight: 600;
-    font-size: 25px;
+    font-size: 28px;
+    line-height: 38px;
+    position: absolute;
+    bottom: 0px;
   }
 
 
 
-  .notData{
-    margin-top: 50px;
-    background: #FFF8F6;
-    border: 1px solid #F7EAE7;
-    height: 90px;
-    padding-left: 250px;
-  }
-  .notData img{
-    height: 60px;
-    margin: 15px;
-  }
-  .middle{
-    color: #790103;
-    font-weight: bold;
-  }
 </style>

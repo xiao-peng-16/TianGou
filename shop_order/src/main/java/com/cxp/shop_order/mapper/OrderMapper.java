@@ -1,16 +1,16 @@
 package com.cxp.shop_order.mapper;
 
 
-import com.cxp.shop_api.dto.MoneyChange;
+import com.cxp.shop_api.dto.PurchaseDTO;
 import com.cxp.shop_api.entity.OrderParent;
 import com.cxp.shop_api.vo.StoreStatusBeanVO;
 import com.cxp.shop_order.pojo.AddMultipleOrderParentToTal;
 import com.cxp.shop_order.pojo.AddOrderSon;
 import com.cxp.shop_order.pojo.AddSingleOrderParent;
+import com.cxp.shop_order.pojo.OrderPayPO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @Repository
@@ -25,17 +25,19 @@ public interface OrderMapper<CommodityNumberChange> {
 
 
     //拿 店铺id（收钱方）、转账金额，  用于user微服务转账
-    public LinkedList<MoneyChange> ListMoneyChangeByUserIdOrderId(@Param("userId")int userId, @Param("orderIdList") List<Integer> orderIdList);
-
-
+    public List<OrderPayPO> listOrderPayPO(@Param("userId")int userId, @Param("orderIdList") List<Integer> orderIdList);
 
     //刷新订单状态
     public int updOrderStateByUserIdOrderId(@Param("userId")int userId, @Param("orderIdList") List<Integer> orderIdList);
 
 
-    //获取订单中 商品id 和 数量
-    public List<CommodityNumberChange> getPurchaseQuantityByOrderId(@Param("userId")int userId, @Param("orderIdList") List<Integer> orderIdList);
+    //用于商品回滚库存预占 获取订单中 商品id 和 数量
+    public PurchaseDTO getRollbackQuantityByOrderId(@Param("orderId") Long orderId);
+    public List<PurchaseDTO> listRollbackQuantityByOrderId(@Param("orderIdList") List<Long> orderIdList);
 
+    //修改订单 库存预占状态
+    public int uptStockLockState(@Param("orderId") Long orderId);
+    public int uptStockLockStateList(@Param("orderIdList") List<Long> orderIdList);
 
 
     //卖家单月 出售情况

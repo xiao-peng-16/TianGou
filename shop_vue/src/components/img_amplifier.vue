@@ -74,7 +74,7 @@
     height: 200px;
     display: none;
     cursor: move;
-
+    box-sizing: content-box;
   }
   .smallImgBox{
     float: left;

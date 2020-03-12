@@ -11,6 +11,8 @@ public class AddSingleOrderParent {
     //数据库字段
     long orderId;                 //订单的id
     String orderTime;            //'时间'
+    long stockLockExpiration;    //'提示过期时间'
+
     int userId;                  //用户id
     String userName;             //买家用户名
     int storeId;                 //店铺id

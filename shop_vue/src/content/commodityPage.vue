@@ -171,10 +171,18 @@
           commodityId:this.commodity.commodityId,
           purchaseQuantity:this.purchaseQuantity
         }).then(res=>{
+
           if (this.$store.getters.getResultDispose(res)){
-            this.$router.push({name:'shop_success'});
+            this.$axios.post('/order/payOrderByUserId',[res.data.data])
+              .then(res=>{
+                if (this.$store.getters.getResultDispose(res)){
+                  this.$router.push({name:'shop_success'});
+                }
+              });
           }
-        })
+
+
+        });
       },
 
     },
@@ -297,6 +305,14 @@
   .numBox{
     display: inline-block;
   }
+  .numBox span{
+    -moz-user-select:none;/*火狐*/
+    -webkit-user-select:none;/*webkit浏览器*/
+    -ms-user-select:none;/*IE10*/
+    -khtml-user-select:none;/*早期浏览器*/
+    user-select:none;
+  }
+
   input[type=text]{
     width: 50px;
     padding-left: 15px;

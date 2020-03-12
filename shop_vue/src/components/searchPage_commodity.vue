@@ -1,51 +1,55 @@
 <template>
-    <div class="commodity_box"  @click="gotoCommodityPage">
-        <div class="box_top">
-          <img :src="props_CommodityMessage.commodityPhoto">
-        </div>
-        <div class="bottom">
-            <div class="bottomBox">
-              <span id="prifix_price">￥</span>
-              <span id="price">{{props_CommodityMessage.commodityPrice.toFixed(2)}}</span>
-              <span v-show="props_CommodityMessage.baoYou" id="baoYou">包邮</span>
-              <div class="commoditySalesBox"><span>{{props_CommodityMessage.commoditySales}}人付款</span></div>
-              <div class="msgBox"><span>{{props_CommodityMessage.commodityName}}</span></div>
-              <div class="storeBox">
-                <div class="storeBox_left"><span>{{props_CommodityMessage.storeToCommodity.storeName}}</span></div>
-                <div class="storeBox_right">
-                    <span>{{props_CommodityMessage.storeToCommodity.storeProvince}}</span>
-                    <span>{{props_CommodityMessage.storeToCommodity.storeCity}}</span  >
-                </div>
-              </div>
-            </div>
-        </div>
+  <div class="commodity_box"  @click="gotoCommodityPage">
+    <div class="box_top">
+      <img :src="props_CommodityMessage.commodityPhoto">
     </div>
+    <div class="bottom">
+      <div class="bottomBox">
+        <span id="prifix_price">￥</span>
+        <span id="price">{{props_CommodityMessage.commodityPrice.toFixed(2)}}</span>
+        <span v-show="props_CommodityMessage.baoYou" id="baoYou">包邮</span>
+        <div class="commoditySalesBox"><span>{{props_CommodityMessage.commoditySales}}人付款</span></div>
+        <div class="msgBox"><span>{{props_CommodityMessage.commodityName}}</span></div>
+        <div class="storeBox">
+          <div class="storeBox_left"><span>{{props_CommodityMessage.storeToCommodity.storeName}}</span></div>
+          <div class="storeBox_right">
+            <span>{{props_CommodityMessage.storeToCommodity.storeProvince}}</span>
+            <span>{{props_CommodityMessage.storeToCommodity.storeCity}}</span  >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-    export default {
+  export default {
 
-        name: "searchPage_commodity",
-        props:['props_CommodityMessage'],
-        methods:{
-          gotoCommodityPage(){
+    name: "searchPage_commodity",
+    props:['props_CommodityMessage'],
+    methods:{
+      gotoCommodityPage(){
 
-            const {href} = this.$router.resolve({
-              name:'commodityPage',
-              query:{
-                //新页面 参数通过url 参数 不能直接json
-                // CommodityMessage:this.$qs.stringify(this.props_CommodityMessage),
-                commodityId:this.props_CommodityMessage.commodityId
-              }
-            });
-            window.open(href,'_blank');
+        const {href} = this.$router.resolve({
+          name:'commodityPage',
+          query:{
+            //新页面 参数通过url 参数 不能直接json
+            // CommodityMessage:this.$qs.stringify(this.props_CommodityMessage),
+            commodityId:this.props_CommodityMessage.commodityId
           }
-        }
+        });
+        window.open(href,'_blank');
+      }
     }
+  }
 </script>
 
 <style scoped>
+  span{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  }
   .commodity_box{
+    box-sizing: border-box;
     width: 250px;
     height: 380px;
     cursor: pointer;
@@ -60,7 +64,6 @@
     width: 100%;
     height: 239px;
     margin-top: 11px;
-    /*padding: 0 auto;*/
     text-align: center;
   }
   .box_top img{
@@ -73,6 +76,7 @@
   .bottom{
     width: 100%;
     height: 130px;
+    box-sizing: border-box;
     padding: 10px;
     position: relative;
   }
@@ -89,28 +93,36 @@
     color: #F85300;
     font-weight: bold;
     font-size: 20px;
+    line-height: 30px;
   }
   #baoYou{
     background: #F85300;
     color: white;
   }
   .commoditySalesBox{
-      float: right;
-      margin-top: 2px;
+    float: right;
+    margin-top: 2px;
   }
   .commoditySalesBox span{
+    line-height: 25px;
     font-size: 12.5px;
     color: #888888;
   }
 
+  .msgBox{
+    width: 226px;
+  }
 
   .msgBox span{
     font-size: 13px;
+    line-height: 24px;
   }
-  
+
   .storeBox{
     position: absolute;
     bottom: 13px;
+    line-height: 23px;
+
   }
   .storeBox span{
     font-size: 12.5px;

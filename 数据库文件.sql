@@ -3,8 +3,8 @@ use cxpshop;
 /* 用户表*/
 create table user(
 		user_id int primary key auto_increment,
-		user_name char(10) comment '用户名',
-		user_password char(15) comment '密码',
+		user_name char(10) not null comment '用户名',
+		user_password char(15) not null comment '密码',
 		user_money  decimal(10,2) default 0.00 comment '余额',
 		user_photo varchar(200) comment '用户头像',
 		UNIQUE KEY `UK_user` (user_name)
@@ -15,9 +15,8 @@ create table user(
 create table store(
 		store_id int primary key auto_increment,
 		user_id int comment '用户id',
-		store_name char(10) comment '店铺名',
-		store_province char(10) comment '**省',
-		store_city char(5) comment '**市',
+		store_name char(10) not null comment '店铺名',
+		city_code int comment '省市区代码',
 		store_describe float(6,5) default 4.82345 comment '如实描述',
 		store_attitude float(6,5) default 4.84892 comment '服务态度',
 		store_delivery_speed float(6,5) default 4.82483 comment '发货速度',
@@ -28,16 +27,16 @@ create table store(
 /*商品种类*/
 create table sort(
 	sort_id int primary key auto_increment,
-	sort_name varchar(20) comment '种类名称'
+	sort_name varchar(20) not null comment '种类名称'
 );
 
 
 /*商品表*/
 create table commodity(
 		commodity_id int primary key auto_increment,
-		store_id int comment '店铺id',
-		sort_id int comment '种类id',
-		commodity_name varchar(40) comment '商品名',
+		store_id int not null comment '店铺id',
+		sort_id int not null comment '种类id',
+		commodity_name varchar(40) not null comment '商品名',
 		commodity_describe varchar(50) comment '商品描述',
 		bao_you bool default false  comment '是否包邮',
 		commodity_price decimal(10,2) comment '商品价格',
@@ -54,22 +53,24 @@ create table commodity(
 /*这个2个表不要分库*/
 create table order_parent(
 	order_id bigint primary key auto_increment,
-	user_id	int comment '用户id',
-	user_name char(10) comment '用户名',
-	store_id int comment '店铺id',
-	store_name char(10) comment '店铺名',
+	user_id	int not null comment '用户id',
+	user_name char(10) not null comment '用户名',
+	store_id int not null comment '店铺id',
+	store_name char(10) not null comment '店铺名',
 	order_time datetime default NOW() comment '下单时间',
-	order_total_quantity int comment '订单总数量',
-	order_total_price decimal(10,2) comment '订单总金额',
-	order_state int default 0  comment '订单状态：0待付款 1待发货 2待评价'
+	order_total_quantity int not null comment '订单总数量',
+	order_total_price decimal(10,2) not null comment '订单总金额',
+	order_state int default 0  comment '订单状态：0待付款 1待发货 2待评价',
+	stock_lock_state bool default true comment '是否进行库存预占了，预占了才能支付',
+	stock_lock_expiration bigint comment '用于前端，提示过期时间'
 );
 create table order_son(
-	order_id bigint comment '订单id',
-	commodity_id int comment '商品id',
-	commodity_price decimal(10,2) comment '商品单价',
-	purchase_quantity int comment '选购数量',
-	commodity_name varchar(40) comment '商品名',
-	commodity_photo varchar(150) comment '商品图片',
+	order_id bigint not null comment '订单id',
+	commodity_id int not null comment '商品id',
+	commodity_price decimal(10,2) not null comment '商品单价',
+	purchase_quantity int not null comment '选购数量',
+	commodity_name varchar(40) not null comment '商品名',
+	commodity_photo varchar(150) not null comment '商品图片',
 	PRIMARY KEY(order_id,commodity_id)
 );
 
@@ -77,13 +78,13 @@ create table order_son(
 /*购物车 中商品*/
 create table cart(
 		cart_id int primary key auto_increment,
-		user_id	int,
-		commodity_id int comment '商品id',
-		purchase_quantity int comment '数量',
+		user_id	int not null,
+		commodity_id int not null comment '商品id',
+		purchase_quantity int not null comment '数量',
 		selected bool default true comment '是否选中',
-		commodity_name varchar(40) comment '商品名',
-		commodity_describe varchar(50) comment '商品描述',
-		commodity_old_price decimal(10,2) comment '商品加入购物车时的价格',
+		commodity_name varchar(40) not null comment '商品名',
+		commodity_describe varchar(50) not null comment '商品描述',
+		commodity_old_price decimal(10,2) not null comment '商品加入购物车时的价格',
 		commodity_photo varchar(150) comment '商品图片',
 		UNIQUE Key `UK_cart` (user_id,commodity_id)
 );
@@ -91,8 +92,8 @@ create table cart(
 /* 收藏夹*/
 create table favorite(
     favorite_id int primary key auto_increment,
-	user_id	int,
-	commodity_id int comment '商品id',
+	user_id	int not null,
+	commodity_id int not null comment '商品id',
 	UNIQUE Key `UK_favorite` (user_id,commodity_id)
 );
 
@@ -115,18 +116,18 @@ insert user(user_id,user_name,user_password,user_money) values(12,'小赵','1234
 
 
 /*店铺表*/
+insert store(store_id,user_id,store_name,city_code) values(1,1,'百货店铺',430300);
+insert store(store_id,user_id,store_name,city_code) values(2,2,'史塔克工业',440300);
+insert store(store_id,user_id,store_name,city_code) values(3,3,'珠宝店',310000);
+insert store(store_id,user_id,store_name,city_code) values(4,4,'水果店',460100);
+insert store(store_id,user_id,store_name,city_code) values(5,5,'宠物店',110000);
+insert store(store_id,user_id,store_name,city_code) values(6,6,'运动健身店',330100);
+insert store(store_id,user_id,store_name,city_code) values(7,7,'服装店',440100);
+insert store(store_id,user_id,store_name,city_code) values(9,9,'手机店',440300);
+insert store(store_id,user_id,store_name,city_code) values(10,10,'美食店',330100);
+insert store(store_id,user_id,store_name,city_code) values(11,11,'家具店',620100);
+insert store(store_id,user_id,store_name,city_code) values(12,12,'图书店',210200);
 
-insert store(store_id,user_id,store_name,store_province,store_city) values(1,1,'百货店铺','广东','深圳');
-insert store(store_id,user_id,store_name,store_province,store_city) values(2,2,'史塔克工业','美国','纽约');
-insert store(store_id,user_id,store_name,store_province,store_city) values(3,3,'珠宝店','','上海');
-insert store(store_id,user_id,store_name,store_province,store_city) values(4,4,'水果店','海南','海口');
-insert store(store_id,user_id,store_name,store_province,store_city) values(5,5,'宠物店','','北京');
-insert store(store_id,user_id,store_name,store_province,store_city) values(6,6,'运动健身店','浙江','杭州');
-insert store(store_id,user_id,store_name,store_province,store_city) values(7,7,'服装店','广东','广州 ');
-insert store(store_id,user_id,store_name,store_province,store_city) values(9,9,'手机店','浙江','杭州');
-insert store(store_id,user_id,store_name,store_province,store_city) values(10,10,'美食店','广东','深圳');
-insert store(store_id,user_id,store_name,store_province,store_city) values(11,11,'家具店','甘肃','兰州');
-insert store(store_id,user_id,store_name,store_province,store_city) values(12,12,'图书店','辽宁','大连');
 
 /*商品种类*/
 insert sort(sort_id,sort_name) values (1,'装饰品');
@@ -307,12 +308,4 @@ iNSERT iNTO `favorite`(`user_id`, `commodity_id`) VALUES (10, 18);
 
 
 -- 购物车数据 可删除
-INSERT INTO `cart`(`cart_id`, `user_id`, `commodity_id`, `purchase_quantity`, `selected`) VALUES (1, 10, 19, 3, 1);
-INSERT INTO `cart`(`cart_id`, `user_id`, `commodity_id`, `purchase_quantity`, `selected`) VALUES (2, 10, 24, 10, 1);
-INSERT INTO `cart`(`cart_id`, `user_id`, `commodity_id`, `purchase_quantity`, `selected`) VALUES (5, 10, 36, 1, 1);
-INSERT INTO `cart`(`cart_id`, `user_id`, `commodity_id`, `purchase_quantity`, `selected`) VALUES (6, 10, 16, 1, 1);
-INSERT INTO `cart`(`cart_id`, `user_id`, `commodity_id`, `purchase_quantity`, `selected`) VALUES (7, 10, 18, 3, 1);
-
-
-
 

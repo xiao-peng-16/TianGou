@@ -10,16 +10,18 @@
 
 <!--        mybaits 插入数据 将自增id返回注入到 keyProperty    -->
     <insert id="insOrderParent">
-        insert order_parent(order_id,user_id,user_name,store_id,store_name,order_time,order_total_quantity,order_total_price)
-            values (#{orderId},#{userId},#{userName},#{storeId},#{storeName},#{orderTime},#{orderTotalQuantity},#{orderTotalPrice})
+        insert order_parent(order_id,user_id,user_name,order_time,stock_lock_expiration,store_id,store_name,order_total_quantity,order_total_price)
+            values (#{orderId},#{userId},#{userName},#{orderTime},#{stockLockExpiration},
+            #{storeId},#{storeName},#{orderTotalQuantity},#{orderTotalPrice})
     </insert>
 
 
     <insert id="inOrderParentList">
-        insert order_parent(order_id,user_id,user_name,store_id,store_name,order_time,order_total_quantity,order_total_price)
+        insert order_parent(order_id,user_id,user_name,order_time,stock_lock_expiration,store_id,store_name,order_total_quantity,order_total_price)
             values
             <foreach collection="addMultipleOrderParentList" item="item" separator=",">
-                (#{item.orderId},#{userId},#{userName},#{item.storeId},#{item.storeName},#{item.orderTime},#{item.orderTotalQuantity},#{item.orderTotalPrice})
+                (#{item.orderId},#{userId},#{userName},#{orderTime},#{stockLockExpiration}
+                ,#{item.storeId},#{item.storeName},#{item.orderTotalQuantity},#{item.orderTotalPrice})
             </foreach>
     </insert>
 
@@ -28,7 +30,7 @@
     <insert id="insOrderSon">
         insert ignore order_son (order_id,commodity_id,purchase_quantity,commodity_price,commodity_name,commodity_photo)
         values (#{orderId},#{commodityId},#{purchaseQuantity}
-                ,#{commodityToOrder.commodityPrice},#{commodityToOrder.commodityName},#{commodityToOrder.commodityPhoto})
+                ,#{commodityPrice},#{commodityName},#{commodityPhoto})
     </insert>
 
     <insert id="insOrderSonList">
@@ -36,14 +38,16 @@
         values
         <foreach collection="list" item="item" separator=",">
             (#{item.orderId},#{item.commodityId},#{item.purchaseQuantity}
-                ,#{item.commodityToOrder.commodityPrice},#{item.commodityToOrder.commodityName},#{item.commodityToOrder.commodityPhoto})
+                ,#{item.commodityPrice},#{item.commodityName},#{item.commodityPhoto})
         </foreach>
     </insert>
 
 
 
-    <select id="ListMoneyChangeByUserIdOrderId" resultType="com.cxp.shop_api.dto.MoneyChange">
-        select store_id user_id, order_total_price from order_parent
+    <select id="listOrderPayPO" resultType="com.cxp.shop_order.pojo.OrderPayPO">
+        select store_id
+        , order_total_price `moneyChange` , stock_lock_state
+        from order_parent
 --         下的的人是我  这个时间点下的单  改订单处于待付款
         where order_id in
         <foreach collection="orderIdList" open="(" close=")" item="item" separator=",">
@@ -64,16 +68,46 @@
     </update>
 
 
+<!--    用于商品回滚库存预占 获取订单中 商品id 和 数量-->
 
-    <select id="getPurchaseQuantityByOrderId" resultType="com.cxp.shop_api.dto.CommodityNumberChange">
-        select commodity_id,purchase_quantity  from order_son
-        inner join order_parent on order_son.order_id = order_parent.order_id
-        where order_parent.order_id in
+    <select id="getRollbackQuantityByOrderId" resultType="com.cxp.shop_api.dto.PurchaseDTO">
+        select commodity_id,purchase_quantity
+        from order_parent p inner join order_son s on p.order_id = s.order_id
+        where s.order_id = #{orderId}
+        and order_state = 0 and stock_lock_state = true
+    </select>
+
+    <select id="listRollbackQuantityByOrderId" resultType="com.cxp.shop_api.dto.PurchaseDTO">
+        select commodity_id,purchase_quantity
+        from order_parent p inner join order_son s on p.order_id = s.order_id
+        where s.order_id in
         <foreach collection="orderIdList" open="(" close=")" item="item" separator=",">
             #{item}
         </foreach>
-        and user_id = #{userId} and order_state = 1
+        and order_state = 0 and stock_lock_state = true
     </select>
+
+
+<!--    修改订单 库存预占状态-->
+
+    <update id="uptStockLockState">
+        update order_parent
+        set stock_lock_state = false
+        where order_id = #{orderId}
+        and order_state = 0
+    </update>
+
+    <update id="uptStockLockStateList">
+        update order_parent
+        set stock_lock_state = false
+        where order_id in
+        <foreach collection="orderIdList" open="(" close=")" item="item" separator=",">
+            #{item}
+        </foreach>
+        and order_state = 0
+    </update>
+
+
 
 
 

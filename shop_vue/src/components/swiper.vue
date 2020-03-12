@@ -229,6 +229,7 @@
   }
   .imgList{
     padding: 0px;
+    margin: 0px;
     position: absolute;
     /*width: 9900%;*/   /*写 mounted（）里面了*/
     list-style: none;

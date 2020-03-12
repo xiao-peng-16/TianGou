@@ -12,6 +12,8 @@ public class AddMultipleOrderParentToTal {
 
     int userId;                  //用户id
     String userName;             //买家用户名
+    String orderTime;            //'时间'
+    long stockLockExpiration;    //'提示过期时间'
 
     List<AddMultipleOrderParent> addMultipleOrderParentList;
 }

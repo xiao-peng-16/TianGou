@@ -4,7 +4,8 @@
         <div  :class="{flagHome:flag_home,flagSearch:!flag_home}">
           <div class="search_form">
               <input type="text" v-my-focus v-model="search_word" @keyup.enter="event_click_search" :placeholder="msg" :class="{red_hint:flag_red_hint}">
-              <input @click="event_click_search" type="button" value="搜 索">
+<!--              <input @click="event_click_search" type="button" value="搜 索">-->
+              <div class="search_btn" @click="event_click_search" >搜 索</div>
           </div>
         </div>
         <ul class="words_list" v-if="flag_bottom_work">
@@ -76,12 +77,16 @@
     font-weight: 700;
   }
 
+  span{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  }
   *{
     padding: 0;
     margin: 0;
   }
   body{
     font-family: "微软雅黑";
+
   }
   .searchBox{
     display: inline-block;
@@ -135,7 +140,7 @@
     background: white;
 
   }
-  .search_form input[type=button]{
+  .search_form .search_btn{
     font-size: 18px;
     border: none;
     cursor: pointer;
@@ -149,11 +154,13 @@
   .flagHome{
     height: 40px;
     width: 625px;
+    box-sizing: border-box;
     border: 2px solid #FF5000;
   }
   .flagSearch{
     height: 35px;
     width: 850px;
+    box-sizing: border-box;
     border: 3px solid #FF0036;
 
   }
@@ -168,7 +175,7 @@
     font-size: 16px;
     width: 100%;
   }
-  .flagHome input[type=button]{
+  .flagHome .search_btn{
     background: #FF5000;
     width: 167px;
     height: 38px;
@@ -186,16 +193,13 @@
     font-size: 16px;
     width: 100%;
   }
-  .flagSearch input[type=button]{
+  .flagSearch .search_btn{
     background: #FF0036;
 
-
-    height: 35px;
-    line-height: 40px;
+    height: 32px;
+    line-height: 31px;
     font-weight:900;
     width: 132px;
-    position: relative;
-    bottom: 5px;
   }
   .Home_hot_wordBox{
     font-size: 13.8px;

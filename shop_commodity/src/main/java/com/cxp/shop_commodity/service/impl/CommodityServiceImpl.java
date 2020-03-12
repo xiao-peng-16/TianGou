@@ -1,11 +1,11 @@
 package com.cxp.shop_commodity.service.impl;
 
-import com.cxp.shop_api.dto.CommodityNumberChange;
 import com.cxp.shop_api.dto.CommodityToCart;
 import com.cxp.shop_api.dto.CommodityToOrder;
-import com.cxp.shop_api.dto.StoreToCommodity;
+import com.cxp.shop_api.dto.PurchaseDTO;
 import com.cxp.shop_api.entity.Commodity;
 import com.cxp.shop_api.entity.Sort;
+import com.cxp.shop_api.entity.StoreBase;
 import com.cxp.shop_api.request.SearchRequest;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
@@ -40,6 +40,9 @@ public class CommodityServiceImpl implements CommodityService {
     static final ResultBean successResult = ResultFactory.createSuccessResult();
     static final ResultBean COMMODITY_INSERT_ERROR = ResultFactory.createFailResult(ResultStatus.COMMODITY_INSERT_ERROR);
     static final ResultBean COMMODITY_UPDATE_ERROR = ResultFactory.createFailResult(ResultStatus.COMMODITY_UPDATE_ERROR);
+    static final ResultBean COMMODITY_STOCK_INSUFFICIENT = ResultFactory.createFailResult(ResultStatus.COMMODITY_STOCK_INSUFFICIENT);
+    static final ResultBean COMMODITY_NOT_FOUND = ResultFactory.createFailResult(ResultStatus.COMMODITY_NOT_FOUND);
+    static final ResultBean STORE_EQUAL_USER_ERROR = ResultFactory.createFailResult(ResultStatus.STORE_EQUAL_USER_ERROR);
 
 
 
@@ -129,9 +132,9 @@ public class CommodityServiceImpl implements CommodityService {
     //给根据商品名字 和 种类名字  查询商品到的商品信息 添加店铺信息
     private void addStore(List<SearchCommodityVO> commoditySearchVOList){
         List<Integer> storeIdList = commoditySearchVOList.stream().map(e -> e.getStoreId()).collect(Collectors.toList());
-        Map<Integer, StoreToCommodity> storeId_storeToCommodityMap = storeFeignClient.mapStoreToCommodityByStoreId(storeIdList);
+        Map<Integer, StoreBase> storeId_StoreBaseMap = storeFeignClient.mapStoreBaseByStoreId(storeIdList);
         for (SearchCommodityVO commoditySearchVO : commoditySearchVOList)
-            commoditySearchVO.setStoreToCommodity( storeId_storeToCommodityMap.get(commoditySearchVO.getStoreId()) );
+            commoditySearchVO.setStoreBase( storeId_StoreBaseMap.get(commoditySearchVO.getStoreId()) );
     }
     //根据商品名字查询
     private SearchVO searchByCommodityName(SearchRequest searchPage_request) {
@@ -157,10 +160,10 @@ public class CommodityServiceImpl implements CommodityService {
     //根据店铺名字查询
     private SearchVO searchByStoreName(SearchRequest searchPage_request) {
 
-        Map<Integer, StoreToCommodity> storeId_storeToCommodityMap = storeFeignClient.selStoreToCommodityMapByStoreName(searchPage_request.getSearchWord());
-        if (0 == storeId_storeToCommodityMap.size())
+        Map<Integer, StoreBase> storeId_StoreBaseMap = storeFeignClient.selStoreBaseMapByStoreName(searchPage_request.getSearchWord());
+        if (0 == storeId_StoreBaseMap.size())
             return null;
-        List<Integer> storeIdList = storeId_storeToCommodityMap.entrySet().stream().map(e -> e.getKey()).collect(Collectors.toList());
+        List<Integer> storeIdList = storeId_StoreBaseMap.entrySet().stream().map(e -> e.getKey()).collect(Collectors.toList());
 
         int commodityCount = commodityMapper.countSearchByStoreId(storeIdList);
         if (0 == commodityCount)
@@ -168,7 +171,7 @@ public class CommodityServiceImpl implements CommodityService {
 
         List<SearchCommodityVO> commoditySearchVOList = commodityMapper.listSearchCommodityVOByStoreId(storeIdList, searchPage_request);
         for (SearchCommodityVO commoditySearchVO : commoditySearchVOList)
-            commoditySearchVO.setStoreToCommodity( storeId_storeToCommodityMap.get(commoditySearchVO.getStoreId()) );
+            commoditySearchVO.setStoreBase( storeId_StoreBaseMap.get(commoditySearchVO.getStoreId()) );
 
         SearchVO searchPage = new SearchVO(commodityCount, commoditySearchVOList);
         return searchPage;
@@ -219,22 +222,70 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public CommodityToOrder getCommodityToOrder(Integer userId, Integer commodityId) {
-        return commodityMapper.getCommodityToOrder(userId, commodityId);
+    public ResultBean getCommodityToOrder(Integer userId, PurchaseDTO purchaseDTO) {
+        CommodityToOrder commodityToOrder = commodityMapper.getCommodityToOrder(purchaseDTO.getCommodityId());
+
+        if (commodityToOrder == null)
+            return COMMODITY_NOT_FOUND;     //商品信息都找不到
+        if (commodityToOrder.getCommodityStock() < purchaseDTO.getPurchaseQuantity())
+            return COMMODITY_STOCK_INSUFFICIENT;  //商品库存不足
+        if (commodityToOrder.getStoreId() == userId)
+            return STORE_EQUAL_USER_ERROR;  //买家购买自己店铺的商品
+
+        commodityMapper.subCommodityQuantity(purchaseDTO);
+        commodityToOrder.setPurchaseQuantity(purchaseDTO.getPurchaseQuantity());
+
+        return ResultFactory.createSuccessResult(commodityToOrder);
+    }
+
+    @Override
+    public ResultBean listCommodityToOrder(Integer userId, List<PurchaseDTO> purchaseDTOList) {
+        Map<Integer, CommodityToOrder> commodityId_commodityToOrder_map = commodityMapper.mapCommodityToOrder(purchaseDTOList);
+
+        if (commodityId_commodityToOrder_map.size() != purchaseDTOList.size())
+            return COMMODITY_NOT_FOUND;     //商品信息都找不到
+
+        for (PurchaseDTO purchaseDTO : purchaseDTOList){
+            CommodityToOrder commodityToOrder = commodityId_commodityToOrder_map.get(purchaseDTO.getCommodityId());
+
+            if (commodityToOrder.getCommodityStock() < purchaseDTO.getPurchaseQuantity())
+                return COMMODITY_STOCK_INSUFFICIENT;  //商品库存不足
+            if (commodityToOrder.getStoreId() == userId)
+                return STORE_EQUAL_USER_ERROR;  //买家购买自己店铺的商品
+
+            commodityToOrder.setPurchaseQuantity(purchaseDTO.getPurchaseQuantity());
+        }
+
+        for (PurchaseDTO purchaseDTO :purchaseDTOList){
+            commodityMapper.subCommodityQuantity(purchaseDTO);
+        }
+
+        List<CommodityToOrder> commodityToOrderList = commodityId_commodityToOrder_map.entrySet().stream().map(e -> e.getValue()).collect(Collectors.toList());
+
+        return ResultFactory.createSuccessResult(commodityToOrderList);
     }
 
 
-    @Override
-    public Map<Integer, CommodityToOrder> mapCommodityToOrder(Integer userId, List<Integer> commodityIdList){
-        return commodityMapper.mapCommodityToOrder(userId, commodityIdList);
-    }
+
 
     @Override
-    public ResultBean updCommodityNumber(List<CommodityNumberChange> commodityNumberChangeList) {
-        for (CommodityNumberChange commodityNumberChange :commodityNumberChangeList){
-            commodityMapper.updCommodityNumber(commodityNumberChange);
+    public ResultBean subCommodityNumber(List<PurchaseDTO> purchaseDTOList) {
+        for (PurchaseDTO purchaseDTO :purchaseDTOList){
+            commodityMapper.subCommodityQuantity(purchaseDTO);
         }
         return successResult;
+    }
+
+    @Override
+    public void addCommodityQuantity(PurchaseDTO purchaseDTO) {
+        commodityMapper.addCommodityQuantity(purchaseDTO);
+    }
+
+    @Override
+    public void addCommodityQuantityList(List<PurchaseDTO> purchaseDTOList) {
+        for (PurchaseDTO purchaseDTO : purchaseDTOList){
+            commodityMapper.addCommodityQuantity(purchaseDTO);
+        }
     }
 
     @Override

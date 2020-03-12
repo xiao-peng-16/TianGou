@@ -1,8 +1,8 @@
 package com.cxp.shop_commodity.mapper;
 
-import com.cxp.shop_api.dto.CommodityNumberChange;
 import com.cxp.shop_api.dto.CommodityToCart;
 import com.cxp.shop_api.dto.CommodityToOrder;
+import com.cxp.shop_api.dto.PurchaseDTO;
 import com.cxp.shop_api.entity.Commodity;
 import com.cxp.shop_api.entity.Sort;
 import com.cxp.shop_api.request.SearchRequest;
@@ -77,10 +77,10 @@ public interface CommodityMapper {
     @MapKey("commodityId")
     public Map<Integer, FavoriteCommodityVO> mapFavoriteCommodityVO(List<Integer> commodityIdList);
     //查询商品信息用于形成订单
-    public  CommodityToOrder getCommodityToOrder(@Param("userId") Integer userId, @Param("commodityId") Integer commodityId);
+    public CommodityToOrder getCommodityToOrder(@Param("commodityId") Integer commodityId);
 
     @MapKey("commodityId")
-    public Map<Integer, CommodityToOrder> mapCommodityToOrder(@Param("userId") Integer userId,@Param("list")  List<Integer> commodityIdList);
+    public Map<Integer, CommodityToOrder> mapCommodityToOrder(@Param("list")  List<PurchaseDTO> purchaseDTOList);
 
 
 
@@ -93,7 +93,10 @@ public interface CommodityMapper {
     public int updAddCPopularityByID(@Param("commodityId") int commodityId);
     //交易后更改商品表 商品数量
     @Update("update commodity set commodity_stock=commodity_stock - #{purchaseQuantity},commodity_sales=commodity_sales + #{purchaseQuantity} where commodity_id =#{commodityId}")
-    public int updCommodityNumber(CommodityNumberChange commodityNumberChange);
+    public int subCommodityQuantity(PurchaseDTO purchaseDTO);
+    //交易过期 回滚商品表 商品数量
+    @Update("update commodity set commodity_stock=commodity_stock + #{purchaseQuantity},commodity_sales=commodity_sales + #{purchaseQuantity} where commodity_id =#{commodityId}")
+    public int addCommodityQuantity(PurchaseDTO purchaseDTO);
 
     //查找 商家出售哪些商品
     public List<StoreCommodityVO> listStoreCommodityVOByStoreId(@Param("storeID") int storeID);

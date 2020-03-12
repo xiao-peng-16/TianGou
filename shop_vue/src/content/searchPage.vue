@@ -12,7 +12,7 @@
 
       <el-row>
         <div class=" second">
-          <img src="../assets/tmall.jpg" style="display: inline-block;position: relative;bottom: 33px">
+          <img src="../assets/tmall.jpg" style="display: inline-block;position: relative;bottom: 17px">
           <div class="serarch" style="display: inline-block;">
             <serarch  @event_click_search_hotWord="event_click_search_hotWord" :flag_bottom_work="true" :flag_home="false"/>
           </div>
@@ -43,11 +43,9 @@
 
           </div>
 
-        <div class="notData" v-show="flag_notData">
-          <img src="../assets/search_notdata.png">
-          旺~没找到与
-          <span>“ {{search_word}} ”</span>
-          相关的商品哦。
+
+        <div  v-show="flag_notData" style="margin-top: 30px">
+          <not-data left="旺~没找到与" :middle="'“ '+search_word+' ”'" right="相关的商品哦。"/>
         </div>
 
     </div>
@@ -56,9 +54,11 @@
 <script>
     import Nav_top from "@/components/nav_top";
     import serarch from "@/components/serarch";
+    import NotData from "@/components/notData";
     export default {
         name: "searchPage",
-      components: {serarch, Nav_top,
+      components: {
+        NotData, serarch, Nav_top,
         SearchPage_commodity:resolve => {
           require(['../components/SearchPage_commodity'],resolve)
         },
@@ -199,6 +199,7 @@
 
 
   .second{
+    box-sizing: border-box;
     padding-top: 15px;
     padding-left: 10px;
     padding-bottom: 1px;
@@ -220,20 +221,7 @@
     background: #E5E5E5;
 
   }
-  .notData{
-    background: #FFF8F6;
-    border: 1px solid #F7EAE7;
-    height: 90px;
-    padding-left: 25%;
-  }
-  .notData img{
-    height: 60px;
-    margin: 15px;
-  }
-  .notData span{
-    color: #790103;
-    font-weight: bold;
-  }
+
 
 
   .pageBox{

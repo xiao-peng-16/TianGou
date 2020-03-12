@@ -31,7 +31,7 @@
               <span class="hint_msg">{{this.hint_sureUserPassword}}</span>
             </div>
           </div>
-          <br/><button id="login" @click="changeUserPassword">修改密码</button>
+          <br/><button id="login" @click="changeUserPassword"><span>修改密码</span></button>
 
         </div>
 
@@ -97,7 +97,13 @@
             newUserPassword : this.newUserPassword
           }).then(res=>{
             if (res.data.success){
-              this.$store.state.status = "亲，您的密码修改成功"
+              this.$notify.success({
+                title:'密码修改成功'
+              });
+              this.$message({
+                message: '密码修改成功',
+                type: 'success'
+              });
               this.init();
             } else {
               this.$store.getters.getResultDispose(res);
@@ -158,6 +164,7 @@
 <style scoped>
   span{
     font-weight: bold;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   }
   .fromBox{
     width: 550px;
@@ -180,12 +187,13 @@
     height: 50px;
     line-height: 50px;
     font-size: 20px;
-    /*margin-top: 20px;*/
+    box-sizing: border-box;
     border-radius: 4px;
     padding: 0 20px;
     width: 480px;
   }
   #login{
+    font-size: 16px;
     width: 480px;
     height: 60px;
     line-height: 42px;
@@ -193,6 +201,8 @@
     color: white;
     border: none;
     border-radius:5px;
+    letter-spacing: 1px;
+    cursor: pointer;
   }
   .hint_icon{
     margin: 0px 5px 0px 10px;

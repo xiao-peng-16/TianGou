@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav_top :flag_fixed="true" :flag_scroll="true" />
-    <div style="position: fixed;width: 100%;height: 110px;padding-top: 50px; background: white;z-index: 100;border-bottom: 1px solid #DADADA">
+    <div style="position: fixed;width: 100%;height: 75px;box-sizing: border-box;padding-top: 15px; background: white;z-index: 100;border-bottom: 1px solid #DADADA">
       <img  src="../assets/tmall.jpg" style="float: left;width: 243px;height: 45px">
       <div class="top_box">
         <span id="title">— 用户中心 —</span>
@@ -272,14 +272,15 @@
 
   .right{
     width: 100%;
-    position: absolute;
+    box-sizing: border-box;
     padding-left: 260px;
-    padding-top: 110px;
+    padding-top: 75px;
     height: 100%;
+    position: absolute;
   }
 
   .left{
-    padding-top: 112px;
+    padding-top: 77px;
 
     width: 260px;
     height: 100%;
@@ -297,7 +298,9 @@
 
   }
   .left_itemBox{
-    padding: 10px 0px 10px 70px;
+    padding: 12px 0px 10px 70px;
+    box-sizing: border-box;
+    height: 44px;
     color: #FAFAFA;
     letter-spacing:2px;
     font-weight: 400;
@@ -315,7 +318,9 @@
     -o-transition:transform 0.3s; /* Opera */
   }
   .left_itemBox_son{
-    padding: 10px 0px 10px 105px;
+    padding: 12px 0px 10px 105px;
+    box-sizing: border-box;
+    height: 44px;
     color: #FAFAFA;
     letter-spacing:2px;
     font-weight: 400;

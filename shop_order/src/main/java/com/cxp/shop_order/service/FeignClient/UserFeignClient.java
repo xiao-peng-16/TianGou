@@ -1,8 +1,8 @@
 package com.cxp.shop_order.service.FeignClient;
 
 
-import com.cxp.shop_api.dto.MoneyChange;
 import com.cxp.shop_api.result.ResultBean;
+import com.cxp.shop_order.pojo.OrderPayPO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,5 +24,5 @@ public interface UserFeignClient {
 
     //转账
     @RequestMapping(value = "shopTransferByUserId", method = RequestMethod.POST)
-    public ResultBean shopTransferByUserId(List<MoneyChange> moneyChangeLinkedList);
+    public ResultBean shopTransferByUserId(@RequestParam Integer userId, List<OrderPayPO> orderPayPOList);
 }

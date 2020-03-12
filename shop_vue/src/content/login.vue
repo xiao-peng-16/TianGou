@@ -2,7 +2,7 @@
   <div>
 
 
-    <el-row>
+    <el-row style="height: 83px">
       <img src="../assets/tmall.jpg" height="38">
     </el-row>
 
@@ -14,15 +14,13 @@
               <span id="hint_icon" class="iconfont">&#xeb65;</span>
               <span id="hint_msg">{{this.hint}}</span>
             </div>
-            <span v-else style="font-weight: bold">密码登录</span>
+            <span v-else style="font-weight: bold;color: #212529;">密码登录</span>
             <div class="from">
-              <br/>
               <div class="inputBox">
                 <div class="iconfontBox"><span class="iconfont">&#xe7ae;</span></div>
                 <input v-my-focus v-model="userName" @keyup.enter="focusPassword"  type="text" placeholder=" 用户名/邮箱/手机号">
               </div>
 
-              <br/>
               <div class="inputBox">
                 <div class="iconfontBox"><span class="iconfont">&#xe7c9;</span></div>
                 <input v-model="userPassword" @keyup.enter="getTokenByPassword" ref="el_userPassword" type="password" placeholder="密码">
@@ -106,6 +104,7 @@
 
   .el-row{
     max-width: 1200px;
+    box-sizing: border-box; 
     margin: 0px auto;
     padding: 0px;
   }
@@ -114,25 +113,32 @@
   }
   .body{
     background:#F94F02;
+    font-size: 16px;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+
   }
   .content{
     background-image: url("http://q4fx9in8d.bkt.clouddn.com/vue/login_bj.jpg");
     background-repeat:no-repeat ;
     background-size:100% 100%;
     height: 600px;
+    box-sizing: border-box;
     padding-top: 90px;
   }
   .fromBox{
     background: white;
     width: 354px;
     height: 400px;
+    box-sizing: border-box;
     padding: 25px 26px 20px;
     margin-left: 75px;
+
   }
   .hintBox{
     display: inline-block;
   }
   .iconfont {
+    line-height: 25px;
     font-family: "iconfont" !important;
     font-size: 25px;
     font-style: normal;
@@ -140,32 +146,38 @@
     -moz-osx-font-smoothing: grayscale;
     font-weight: bold;
   }
-  input[type=text],input[type=password]{
+  .iconfontBox{
     height: 38px;
-    line-height: 25px;
+    width: 40px;
+    box-sizing: border-box;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    display: inline-block;
+    float: left;
+  }
+  input[type=text],input[type=password]{
+    font-family: inherit;
+    height: 38px;
+    line-height: 27px;
     font-size: 16px;
-    width: 258px;
+    width: 256px;
     float: right;
     outline:none;
     border: none;
+    box-sizing: border-box;
     padding-left: 10px;
+
   }
   .inputBox{
-    width: 300px;
-    height: 40px;
+    margin-top: 25px;
     background: #DDDDDD;
+
+    width: 299px;
+    height: 38px;
     overflow: hidden;
     border: 1px solid #DDDDDD;
   }
-  #enter{
-    width: 300px;
-    height: 42px;
-    line-height: 42px;
-    background-color: #ff0036;
-    color: white;
-    border: none;
-    border-radius:5px
-  }
+
   .buttom{
     float: right;
     color: #6C6C6C;
@@ -173,10 +185,7 @@
     text-decoration: none;
     margin-left: 10px;
   }
-  .iconfontBox{
-    margin-top: 2.5px;
-    display: inline-block;
-  }
+
   .inputBox span{
     margin-left: 7px;
   }
@@ -193,5 +202,19 @@
   #hint_msg{
     font-size: 13px;
     color: #6C6C6C;
+  }
+
+  #enter{
+    width: 300px;
+    height: 42px;
+    line-height: 42px;
+    cursor: pointer;
+    background-color: #ff0036;
+    color: white;
+    border: none;
+    border-radius:5px;
+    font-size: 16px;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+
   }
 </style>

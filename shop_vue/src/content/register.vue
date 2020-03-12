@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="bj"><img src="http://q4fx9in8d.bkt.clouddn.com/vue/register_bj.jpg"></div>
+    <div class="register_bj"><img src="http://q4fx9in8d.bkt.clouddn.com/vue/register_bj.jpg"></div>
+<!--    <div class="register_bj"><div style="background: #138496">sdsdd</div></div>-->
       <div class="fromBox">
 
         <div class="titleBox">
@@ -35,7 +36,7 @@
           </div>
         </div>
 
-        <br/><button id="login" @click="addUser">注册</button>
+        <br/><button id="login" @click="addUser"><span>注册</span></button>
 
 
       </div>
@@ -152,12 +153,18 @@
 <style scoped>
   span{
     font-weight: bold;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   }
-  .bj{
+  .register_bj{
     float: left;
-    background-repeat:no-repeat ;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    overflow: hidden;
+    background: red;
   }
-  .bj img{
+  .register_bj img{
     width: 425px;
   }
 
@@ -198,10 +205,12 @@
     font-size: 20px;
     /*margin-top: 20px;*/
     border-radius: 4px;
+    box-sizing: border-box;
     padding: 0 20px;
     width: 480px;
   }
   #login{
+    font-size: 18px;
     width: 480px;
     height: 60px;
     line-height: 42px;
@@ -209,6 +218,8 @@
     color: white;
     border: none;
     border-radius:5px;
+    letter-spacing: 3px;
+    cursor: pointer;
   }
   .hint_icon{
     margin: 0px 5px 0px 10px;

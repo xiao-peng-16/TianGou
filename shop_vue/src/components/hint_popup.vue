@@ -3,8 +3,8 @@
       <!-- 遮盖层 -->
       <div  class="background" @click="aa()"></div>
       <div  class="pupop">
-        <div class="pupop-title">{{hint_popup_msg}}</div>
-        <div class="pupop-button" @click="close"><span>好哒 我知道了</span></div>
+        <div class="pupop_title"><span>{{hint_popup_msg}}</span></div>
+        <div class="pupop_button" @click="close"><span>好哒 我知道了</span></div>
       </div>
     </div>
 </template>
@@ -21,7 +21,11 @@
           return this.$store.state.status;
         },
         hint_popup_flag(){
-          return this.pre_status != 0;
+          if (this.pre_status == 0)
+            return false;
+          if (this.pre_status == this.GLOBAL.ResultStatus.USER_PASSWORD_CHANGE_ERROR)
+            return false;
+          return true;
         },
         hint_popup_msg(){
           switch (this.pre_status) {
@@ -78,6 +82,9 @@
 
 <style scoped>
 
+  span{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  }
   .background {
     width: 100%;
     height: 100%;
@@ -102,15 +109,22 @@
     transform: translate(-50%, -50%);
   }
 
-  .pupop-title {
+  .pupop_title {
     width: 100%;
     margin: 20px 0px 0px 0px;
     text-align: center;
-    line-height: 40px;
     height: 40px;
-    font-size: 20px;
   }
-  .pupop-button {
+
+  .pupop_title span {
+    font-size: 20px;
+    line-height: 40px;
+    background: #ffffff;
+    width: 40px;
+    height: 40px;
+  }
+
+  .pupop_button {
     width: 50%;
     margin: 30px auto 0px auto;
     line-height: 40px;
@@ -124,14 +138,7 @@
 
 
 
-  .pupop-title span {
-    font-size: 12px;
-    background: #ffffff;
-    border: #ebebeb solid 1px;
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-  }
+
 
 
 </style>

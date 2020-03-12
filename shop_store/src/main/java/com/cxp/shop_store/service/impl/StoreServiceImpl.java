@@ -1,13 +1,13 @@
 package com.cxp.shop_store.service.impl;
 
-import com.cxp.shop_api.dto.StoreToCommodity;
-import com.cxp.shop_api.dto.UserOpenStoreDTO;
 import com.cxp.shop_api.entity.Store;
+import com.cxp.shop_api.entity.StoreBase;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
 import com.cxp.shop_api.result.ResultStatus;
 import com.cxp.shop_store.mapper.StoreMapper;
 import com.cxp.shop_store.pojo.StoreIdStoreName;
+import com.cxp.shop_store.pojo.StoreIdUserId;
 import com.cxp.shop_store.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,9 +34,9 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public ResultBean addStoreIdByUserId(UserOpenStoreDTO userOpenStoreDTO) {
+    public ResultBean addStoreIdByUserId(StoreBase storeBase) {
         try {
-            storeMapper.addStoreIdByUserId(userOpenStoreDTO);
+            storeMapper.addStoreIdByUserId(storeBase);
             return successResult;
         }catch (Exception e){
             if(e.getCause() instanceof java.sql.SQLIntegrityConstraintViolationException
@@ -52,21 +52,30 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public Map<Integer,StoreToCommodity> mapStoreToCommodityByStoreId(List<Integer> storeIdList) {
-        return storeMapper.mapStoreToCommodityByStoreId(storeIdList);
+    public Map<Integer,StoreBase> mapStoreBaseByStoreId(List<Integer> storeIdList) {
+        return storeMapper.mapStoreBaseByStoreId(storeIdList);
     }
 
     @Override
-    public Map<Integer, StoreToCommodity> selStoreToCommodityMapByStoreName(String searchWord) {
-        return searchWord == null? null: storeMapper.selStoreToCommodityMapByStoreName(searchWord);
+    public Map<Integer, StoreBase> selStoreBaseMapByStoreName(String searchWord) {
+        return searchWord == null? null: storeMapper.selStoreBaseMapByStoreName(searchWord);
     }
 
     @Override
     public Map<Integer, String> mapStoreNameByStoreId(List<Integer> storeIdList) {
-        List<StoreIdStoreName> storeIdStoreNameList = storeMapper.mapStoreNameByStoreId(storeIdList);
+        List<StoreIdStoreName> storeIdStoreNameList = storeMapper.listStoreNameByStoreId(storeIdList);
         HashMap<Integer, String> map = new HashMap<>();
         for (StoreIdStoreName storeIdStoreName : storeIdStoreNameList)
             map.put(storeIdStoreName.getStoreId(),storeIdStoreName.getStoreName());
+        return map;
+    }
+
+    @Override
+    public Map<Integer, Integer> mapUserIdByStoreId(List<Integer> storeIdList) {
+        List<StoreIdUserId> storeIdUserIdList = storeMapper.listUserIdByStoreId(storeIdList);
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (StoreIdUserId storeIdUserId : storeIdUserIdList)
+            map.put(storeIdUserId.getStoreId(),storeIdUserId.getUserId());
         return map;
     }
 

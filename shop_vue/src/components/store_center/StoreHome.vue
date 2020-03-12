@@ -1,5 +1,5 @@
 <template>
-  <div style="padding-top: 1px;padding-left: 35px;width: 1080px;background: white">
+  <div style="box-sizing:border-box;padding-top: 1px;padding-left: 35px;width: 100%;height: 100%;background: white">
 
     <div class="store_home_top">
       <img :src="show_userPhotoURL" style="padding-left: 13px;">
@@ -116,6 +116,7 @@
   .store_home_top{
     padding: 20px;
     height: 230px;
+    width: 1040px;
     box-shadow: 0px 63px 30px -50px #E1ECF5 inset;
   }
   

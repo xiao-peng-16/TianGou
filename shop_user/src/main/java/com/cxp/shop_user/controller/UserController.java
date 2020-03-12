@@ -1,6 +1,6 @@
 package com.cxp.shop_user.controller;
 
-import com.cxp.shop_api.dto.MoneyChange;
+import com.cxp.shop_api.dto.UserMoneyChange;
 import com.cxp.shop_api.entity.User;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
@@ -12,6 +12,7 @@ import com.cxp.shop_user.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -88,9 +89,9 @@ public class UserController {
 
     // 购物转账  第一个是付钱方  剩下的都是收钱方
     @PostMapping("/shopTransferByUserId")
-    public ResultBean shopTransferByUserId(@RequestBody List<MoneyChange> moneyChangeList){
+    public ResultBean shopTransferByUserId(Integer userId, @RequestBody LinkedList<UserMoneyChange> userMoneyChangeList){
         try {
-            userService.shopTransferByUserId(moneyChangeList);
+            userService.shopTransferByUserId(userId, userMoneyChangeList);
         } catch (MoneyInsufficientException e) {
             return USER_MONEY_INSUFFICIENT;
         } catch (TransactionalException e) {

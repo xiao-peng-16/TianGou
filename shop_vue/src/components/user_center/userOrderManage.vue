@@ -30,10 +30,11 @@
           </div>
 
           <div class="cNameBox" v-if=" undefined != item.orderSonList">
-            <div class="cNameboxItem" v-for="orderCommodityVO in item.orderSonList">
-              <span>{{orderCommodityVO.commodityName}}</span><br>
+            <div class="cNameboxItem" v-for="(orderCommodityVO,index) in item.orderSonList">
+              <span>{{getCommodityName(orderCommodityVO.commodityName, index, item.orderSonList.length)}}</span><br>
             </div>
           </div>
+
           <div class="userName">
             <span>{{item.storeName}}</span>
           </div>
@@ -55,19 +56,20 @@
 
 
 
-    <div class="notData" v-show="flag_notData" style="width: 98%;margin-top: 30px">
-      <img src="../../assets/search_notdata.png">
-      没有对应的订单
+    <div v-show="flag_notData" style="margin-top: 30px;margin-left: -30px">
+      <not-data middle="没有对应的订单"/>
     </div>
+
 
   </div>
 </template>
 
 <script>
   import Order_popup from "@/components/order_popup";
+  import NotData from "@/components/notData";
   export default {
     name: "userOrderWaitPayment",
-    components: {Order_popup},
+    components: {NotData, Order_popup},
     data(){
       return{
         orderParentList : [],
@@ -90,6 +92,13 @@
     },
 
     methods:{
+      getCommodityName(commodityName, index, length){
+        if (index <3){
+          return commodityName;
+        }else if (index === 3){
+          return '......共'+length+'件商品';
+        }
+      },
       return_userOrderStateByStore(){
         switch (this.user_center_left_son_options) {
           case 0: return undefined;
@@ -155,6 +164,7 @@
   .itemBox{
     background: #FCFCFC;
     border: 1px solid #CCCCCC;
+    box-sizing: border-box;
     padding:  10px 10px 10px 10px;
     width:1080px;
     height: 140px;
@@ -171,6 +181,7 @@
 
   .only_imgBox{
     width: 130px;
+    box-sizing: border-box;
     padding-top: 3px;
   }
   .only_imgBox img{
@@ -235,19 +246,6 @@
     top: 50px;
   }
 
-
-
-  .notData{
-    background: #FFF8F6;
-    border: 1px solid #F7EAE7;
-    height: 90px;
-    letter-spacing: 1px;
-    padding-left: 30%;
-  }
-  .notData img{
-    height: 60px;
-    margin: 15px;
-  }
 
 
 </style>

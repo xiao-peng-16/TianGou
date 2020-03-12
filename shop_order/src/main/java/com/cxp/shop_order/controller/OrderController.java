@@ -1,19 +1,16 @@
 package com.cxp.shop_order.controller;
 
 
+import com.cxp.shop_api.dto.PurchaseDTO;
 import com.cxp.shop_api.entity.OrderParent;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
 import com.cxp.shop_api.result.ResultStatus;
 import com.cxp.shop_api.vo.StoreStatusFullVO;
-import com.cxp.shop_order.eception.CommodityNotFound_exception;
-import com.cxp.shop_order.eception.CommodityStockInsufficientException;
-import com.cxp.shop_order.pojo.AddOrderSon;
 import com.cxp.shop_order.service.impl.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,30 +32,13 @@ public class OrderController {
     // 前端接口
     //提交订单
     @RequestMapping("/submitSingleOrderByUserId")
-    public  ResultBean submitSingleOrderByUserId(Integer userId, @RequestBody AddOrderSon addOrderSon){
-        try {
-            long orderId = orderService.submitSingleOrder(userId, addOrderSon);
-
-            List<Long> orderIdList = new ArrayList<>();
-            orderIdList.add(orderId);
-            return payOrderByUserId(userId, orderIdList);
-        } catch (CommodityStockInsufficientException e) {
-            return COMMODITY_STOCK_INSUFFICIENT;
-        } catch (CommodityNotFound_exception e) {
-            return COMMODITY_NOT_FOUND;
-        }
+    public  ResultBean submitSingleOrderByUserId(Integer userId, @RequestBody PurchaseDTO purchaseDTO){
+        return orderService.submitSingleOrder(userId, purchaseDTO);
     }
 
     @RequestMapping("/submitMultipleOrderByUserId")
-    public  ResultBean submitMultipleOrderByUserId(Integer userId, @RequestBody List<AddOrderSon> addOrderSonList){
-        try {
-            List<Long> orderIdList = orderService.submitMultipleOrder(userId, addOrderSonList);
-            return payOrderByUserId(userId, orderIdList);
-        } catch (CommodityStockInsufficientException e) {
-            return COMMODITY_STOCK_INSUFFICIENT;
-        } catch (CommodityNotFound_exception e) {
-            return COMMODITY_NOT_FOUND;
-        }
+    public  ResultBean submitMultipleOrderByUserId(Integer userId, @RequestBody List<PurchaseDTO> purchaseDTOList){
+        return orderService.submitMultipleOrder(userId, purchaseDTOList);
     }
 
     // 前端接口

@@ -78,9 +78,8 @@
 
 
 
-    <div class="notData" v-show="flag_notData" style="width: 98%;margin-top: 30px">
-      <img src="../../assets/search_notdata.png">
-      店铺未出售商品
+    <div v-show="flag_notData" style="margin-top: 30px;margin-left: -30px ">
+      <not-data middle="店铺未出售商品"/>
     </div>
 
   </div>
@@ -88,9 +87,10 @@
 
 <script>
     import Commodity_popup from "@/components/commodity_popup";
+    import NotData from "@/components/notData";
     export default {
         name: "StoreCommodityManage",
-      components: {Commodity_popup},
+      components: {NotData, Commodity_popup},
       data(){
         return{
           StoreCommodityList:[],
@@ -122,7 +122,7 @@
         },
         updCommodityOnShelves(commodity,commodityOnShelves){
 
-          var msg = commodityOnShelves? '重新上架' : '下架'
+          var msg = commodityOnShelves? '重新上架' : '下架';
           this.$confirm('此商品将'+msg+', 是否继续?', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
@@ -261,17 +261,8 @@
   }
 
 
-  .notData{
-    background: #FFF8F6;
-    border: 1px solid #F7EAE7;
-    height: 90px;
-    letter-spacing: 1px;
-    padding-left: 30%;
-  }
-  .notData img{
-    height: 60px;
-    margin: 15px;
-  }
+
+
 
 
 

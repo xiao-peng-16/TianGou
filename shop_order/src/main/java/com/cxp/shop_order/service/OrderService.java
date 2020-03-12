@@ -1,12 +1,10 @@
 package com.cxp.shop_order.service;
 
 
+import com.cxp.shop_api.dto.PurchaseDTO;
 import com.cxp.shop_api.entity.OrderParent;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.vo.StoreStatusFullVO;
-import com.cxp.shop_order.eception.CommodityNotFound_exception;
-import com.cxp.shop_order.eception.CommodityStockInsufficientException;
-import com.cxp.shop_order.pojo.AddOrderSon;
 
 import java.util.List;
 
@@ -14,8 +12,8 @@ public interface OrderService {
 
 
     //添加订单
-    public long submitSingleOrder(Integer userId, AddOrderSon addOrderSon) throws CommodityNotFound_exception, CommodityStockInsufficientException;
-    public List<Long> submitMultipleOrder(Integer userId, List<AddOrderSon> addOrderSonList) throws CommodityNotFound_exception, CommodityStockInsufficientException;
+    public ResultBean submitSingleOrder(Integer userId, PurchaseDTO purchaseDTO);
+    public ResultBean submitMultipleOrder(Integer userId, List<PurchaseDTO> purchaseDTOList);
     //支付订单
     public ResultBean payOrderByUserId(int userId, List<Long> orderIdList);
 

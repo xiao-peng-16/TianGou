@@ -72,16 +72,17 @@
     <select id="getCommodityToOrder" resultType="com.cxp.shop_api.dto.CommodityToOrder">
         <include refid="commodityToOrder"></include>
         where commodity_id = #{commodityId}
-        and commodity_on_shelves = true and store_id != #{userId}
+        and commodity_on_shelves = true
     </select>
+
 
     <select id="mapCommodityToOrder" resultType="com.cxp.shop_api.dto.CommodityToOrder">
         <include refid="commodityToOrder"></include>
         where commodity_id in
         <foreach collection="list" item="item" separator="," open="(" close=")">
-            #{item}
+            #{item.commodityId}
         </foreach>
-        and commodity_on_shelves = true and store_id != #{userId}
+        and commodity_on_shelves = true
     </select>
 
 

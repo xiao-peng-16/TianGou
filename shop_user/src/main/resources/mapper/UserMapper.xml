@@ -29,7 +29,7 @@
         set user_money=
         <foreach collection="list" item="item" index="index"
                  separator=" " open="case user_id" close="end">
-            when #{item.userId} then user_money +#{item.userMoneyChange}
+            when #{item.userId} then user_money +#{item.moneyChange}
         </foreach>
         where user_id in
         <foreach collection="list" item="item" separator="," open="(" close=")">

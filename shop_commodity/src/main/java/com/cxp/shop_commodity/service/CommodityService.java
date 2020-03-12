@@ -1,8 +1,7 @@
 package com.cxp.shop_commodity.service;
 
-import com.cxp.shop_api.dto.CommodityNumberChange;
 import com.cxp.shop_api.dto.CommodityToCart;
-import com.cxp.shop_api.dto.CommodityToOrder;
+import com.cxp.shop_api.dto.PurchaseDTO;
 import com.cxp.shop_api.entity.Commodity;
 import com.cxp.shop_api.entity.Sort;
 import com.cxp.shop_api.request.SearchRequest;
@@ -54,9 +53,11 @@ public interface CommodityService {
     public boolean isCommodityStoreEqualUser(int userId, int commodityId);
 
     //用于订单微服务 提交订单  需要的店铺id 单价  库存
-    public  CommodityToOrder getCommodityToOrder(Integer userId, Integer commodityId);
-    public  Map<Integer, CommodityToOrder> mapCommodityToOrder(Integer userId, List<Integer> commodityIdList);
+    public  ResultBean getCommodityToOrder(Integer userId, PurchaseDTO purchaseDTO);
+    public  ResultBean listCommodityToOrder(Integer userId, List<PurchaseDTO> purchaseDTOList);
     //修改商品 库存 销量
-    public ResultBean updCommodityNumber(List<CommodityNumberChange> commodityNumberChangeList);
-
+    public ResultBean subCommodityNumber(List<PurchaseDTO> purchaseDTOList);
+    //交易过期 回滚商品表 商品数量
+    public void addCommodityQuantity(PurchaseDTO purchaseDTO);
+    public void addCommodityQuantityList(List<PurchaseDTO> purchaseDTOList);
 }

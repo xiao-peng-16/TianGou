@@ -21,8 +21,8 @@
             <div>作者 : <span id="my_name" @click="click_name">蔡晓鹏</span></div>
             <div>GitHub : <a target="_blank" href="https://github.com/cxp-Git/TianGou">https://github.com/cxp-Git/TianGou</a></div>
 
-            <div>前端 ：Vue + Element</div>
-            <div>后台 : SpringCloud + Maven + Mybatis + Redis</div>
+            <div>前端 : Vue + Element</div>
+            <div>后台 : SpringCloud + Maven + Mybatis + Rabbit</div>
           </div>
         </transition>
 
@@ -96,6 +96,7 @@
 
   a{
     text-decoration: none;
+    color: #007BFF;
   }
 
 

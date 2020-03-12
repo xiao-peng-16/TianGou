@@ -1,6 +1,6 @@
 package com.cxp.shop_user.service.impl;
 
-import com.cxp.shop_api.dto.MoneyChange;
+import com.cxp.shop_api.dto.UserMoneyChange;
 import com.cxp.shop_api.entity.User;
 import com.cxp.shop_api.result.ResultBean;
 import com.cxp.shop_api.result.ResultFactory;
@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -108,16 +109,16 @@ public class UserServiceImpl implements UserService {
     // 转账  第一个是付钱方  剩下的都是收钱方  ，付钱方要判断余额是否足够付款
     @Transactional(rollbackFor = {MoneyInsufficientException.class,TransactionalException.class})
     @Override
-    public void shopTransferByUserId(List<MoneyChange> moneyChangeList) throws MoneyInsufficientException, TransactionalException {
+    public void shopTransferByUserId(Integer userId, LinkedList<UserMoneyChange> userMoneyChangeList) throws MoneyInsufficientException, TransactionalException {
 
-//        System.out.println(moneyChangeList);
-        MoneyChange firstItem = moneyChangeList.get(0); //付钱方
+        double sumMoneyChange = userMoneyChangeList.stream().mapToDouble(e -> e.getMoneyChange()).sum();
+        userMoneyChangeList.addFirst(new UserMoneyChange(userId, -sumMoneyChange));
 
         //如果付钱方余额 和 变化（负数） 相加 小于0
-        if (userMapper.getMoneyByUserId(firstItem.getUserId()) + firstItem.getUserMoneyChange()<0)
+        if (userMapper.getMoneyByUserId(userId) < sumMoneyChange)
             throw moneyInsufficientException;
 
-        if (moneyChangeList.size() != userMapper.addMoneyByUserId(moneyChangeList))
+        if (userMoneyChangeList.size() != userMapper.addMoneyByUserId(userMoneyChangeList))
             throw  TRANSACTIONAL_EXCEPTION;
     }
 

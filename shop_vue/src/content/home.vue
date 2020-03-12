@@ -11,7 +11,7 @@
           <div style="background: white;position: relative;height: 120px">
             <div style="position: absolute;bottom: 0px;width: 100%">
               <el-row>
-                <el-col :span="4"  >
+                <el-col :span="4" style="height: 88px" >
                   <div ref="gifBox" style=""><img src="../assets/gif.gif"></div>
                 </el-col>
                 <el-col :span="20">
@@ -73,26 +73,37 @@
                   </div>
                 </div>
 
-                <div style="height: 26px;background: #ffe4dd;color: #f40;font-size: 12px;padding-left: 80px;padding-top: 3px">
+                <div style="height: 26px;background: #ffe4dd;color: #f40;font-size: 12px;box-sizing:border-box;padding-left: 80px;padding-top: 3px">
                   网上有害信息举报专区 <span class="iconfont" style="margin-left: 20px;font-size: 13px;">&#xf034f;</span>
                 </div>
                 <ul class="rrrrrr" >
-                  <li v-for="(item,index) in bbbbbbbbb_title">
-                    <div @mouseenter="bbbbbbbbb_index=index " :class="{choose:bbbbbbbbb_index == index}">{{item}}</div>
+                  <li v-for="(item,index) in bbbbb_title">
+                    <div @mouseenter="bbbbb_index=index " :class="{choose:bbbbb_index == index}">{{item}}</div>
                   </li>
                 </ul>
-                <div class="bbbbbbbbb">
-                  <div>{{bbbbbbbbb_list[bbbbbbbbb_index][0]}}</div>
-                  <div>{{bbbbbbbbb_list[bbbbbbbbb_index][1]}}</div>
-                  <div>{{bbbbbbbbb_list[bbbbbbbbb_index][2]}}</div>
-                  <div>{{bbbbbbbbb_list[bbbbbbbbb_index][3]}}</div>
+                <div class="bbbbb">
+                    <div class="bbbbb_item">{{bbbbb_list[bbbbb_index][0]}}</div>
+                    <div class="bbbbb_item">{{bbbbb_list[bbbbb_index][1]}}</div>
+                    <div class="bbbbb_item">{{bbbbb_list[bbbbb_index][2]}}</div>
+                    <div class="bbbbb_item">{{bbbbb_list[bbbbb_index][3]}}</div>
                 </div>
 
                 <div class="icoList">
-                  <div class="icoItem" v-for="item in icoList">
-                    <div><img src="../assets/ico.png" :style="{top:item.top}"></div>
-                    <p style="text-align: center;">{{item.name}}</p>
-                  </div>
+<!--                  <el-col :span="6" v-for="item in icoList">-->
+<!--                    <div class="icoItem">-->
+<!--                      <div><img src="../assets/ico.png" :style="{top:item.top}"></div>-->
+<!--                      <p style="text-align: center;">{{item.name}}</p>-->
+<!--                    </div>-->
+<!--                  </el-col>-->
+
+
+                  <el-col :span="6" class="icoItemBox" v-for="item in icoList">
+                    <div class="icoItem">
+                      <div><img src="../assets/ico.png" :style="{top:item.top}"></div>
+                      <p style="text-align: center;">{{item.name}}</p>
+                    </div>
+                  </el-col>
+
                 </div>
               </el-col>
             </el-row>
@@ -144,9 +155,9 @@
           sortList:home_data.sortList,
 
 
-          bbbbbbbbb_index:0,
-          bbbbbbbbb_title:["公告","规则","论坛","安全","公益"],
-          bbbbbbbbb_list:[
+          bbbbb_index:0,
+          bbbbb_title:["公告","规则","论坛","安全","公益"],
+          bbbbb_list:[
             ["20余家服务商受邀造访上交所",'阿里巴巴推出“联盟级标准”',"淘宝造物节之城市秘密","聚划算88红包省钱卡"],
             ["新增《淘宝网汽配行业管理规范》公示通知","《淘宝网区域零售服务说明》变更公示通知","《淘宝网票务行业管理规范》变更公示通知","《淘宝网数字娱乐市场须提供官方授权的商品目录》变更公示通知"],
             ["淘宝1212大促招商","在线职业培训招商","在线职业培训招商","运营神器年中大促"],
@@ -335,7 +346,6 @@
   .rrrrrr{
     background: white;
     height: 32px;
-    padding-top: 10px;    
     padding-left: 16px;
   }
   .rrrrrr li{
@@ -344,7 +354,7 @@
   }
   .rrrrrr li div{
     cursor: pointer;
-    width: 28px;
+    margin-top: 10px;
     width: 28px;
   }
 
@@ -354,14 +364,15 @@
   }
 
 
-  .bbbbbbbbb{
+  .bbbbb{
     background: white;
     height: 60px;
-    width:100%;
+    box-sizing: border-box;
     padding-top: 6px;
     padding-left: 5px;
+
   }
-  .bbbbbbbbb div{
+  .bbbbb_item{
     margin-top: 3px;
     margin-left: 5px;
     float: left;
@@ -371,24 +382,28 @@
   }
 
 
-
+  .icoItemBox{
+    height: 74px;
+    padding: 0px;
+    margin: 0px;
+  }
 
 
   .icoItem{
+    margin: 0px;
     background: white;
-    float: left;
-    width: 25%;
+    /*float: left;*/
+    width: 100%;
     height: 74px;
 
-    border-right: 1px solid #F4F4F4;
-    border-bottom: 1px solid #F4F4F4;
+    border: 1px  solid #F4F4F4;;
+    border-right:none;
+    border-bottom: none;
   }
-  .icoItem:nth-child(4n){
+  .icoItemBox:nth-child(1) .icoItem,.icoItemBox:nth-child(5) .icoItem{
     border-left:none;
   }
-  .icoItem:nth-child(1),.icoItem:nth-child(2),.icoItem:nth-child(3),.icoItem:nth-child(4){
-    border-top: 1px solid #F4F4F4;;
-  }
+
   .icoItem div{
     margin: 0px auto;
     position: relative;
@@ -396,7 +411,7 @@
     overflow: hidden;
     width: 24px;
     height: 24px;
-    margin-top: 11px;
+    margin-top: 18px;
   }
   .icoList img{
     position: absolute;

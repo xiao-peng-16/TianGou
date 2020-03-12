@@ -1,8 +1,7 @@
 package com.cxp.shop_commodity.controller;
 
-import com.cxp.shop_api.dto.CommodityNumberChange;
 import com.cxp.shop_api.dto.CommodityToCart;
-import com.cxp.shop_api.dto.CommodityToOrder;
+import com.cxp.shop_api.dto.PurchaseDTO;
 import com.cxp.shop_api.entity.Commodity;
 import com.cxp.shop_api.entity.Sort;
 import com.cxp.shop_api.request.SearchRequest;
@@ -124,20 +123,29 @@ public class CommodityController {
 
     //用于订单微服务 提交订单  需要的店铺id 单价  库存
     @RequestMapping("/getCommodityToOrder")
-    public  CommodityToOrder getCommodityToOrder(Integer userId, Integer commodityId){
-        return commodityService.getCommodityToOrder(userId, commodityId);
+    public  ResultBean getCommodityToOrder(Integer userId, @RequestBody PurchaseDTO purchaseDTO){
+        return commodityService.getCommodityToOrder(userId, purchaseDTO);
     }
 
-    @RequestMapping("/mapCommodityToOrder")
-    public  Map<Integer, CommodityToOrder> mapCommodityToOrder(Integer userId, @RequestBody List<Integer> commodityIdList){
-        return commodityService.mapCommodityToOrder(userId, commodityIdList);
+    @RequestMapping("/listCommodityToOrder")
+    public ResultBean listCommodityToOrder(Integer userId, @RequestBody List<PurchaseDTO> purchaseDTOList){
+        return commodityService.listCommodityToOrder(userId, purchaseDTOList);
     }
 
     //修改商品 库存 销量
-    @PostMapping("/updCommodityNumber")
-    public ResultBean updCommodityNumber(@RequestBody List<CommodityNumberChange> commodityNumberChangeList){
-        return commodityService.updCommodityNumber(commodityNumberChangeList);
+    @PostMapping("/subCommodityNumber")
+    public ResultBean subCommodityNumber(@RequestBody List<PurchaseDTO> purchaseDTOList){
+        return commodityService.subCommodityNumber(purchaseDTOList);
     }
 
+    //交易过期 回滚商品表 商品数量
+    @PostMapping("/addCommodityQuantity")
+    public void addCommodityQuantity(@RequestBody PurchaseDTO purchaseDTOList){
+        commodityService.addCommodityQuantity(purchaseDTOList);
+    }
 
+    @PostMapping("/addCommodityQuantityList")
+    public void addCommodityQuantityList(@RequestBody List<PurchaseDTO> purchaseDTOList){
+        commodityService.addCommodityQuantityList(purchaseDTOList);
+    }
 }

@@ -5,8 +5,8 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class MoneyChange {
+public class UserMoneyChange {
     int userId;
-    double userMoneyChange;
+    double moneyChange;
 
 }

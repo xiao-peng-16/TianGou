@@ -142,16 +142,19 @@
   }
 
   .orderSon_CommodityName{
-    overflow: hidden;
     text-overflow:ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
     width:210px;
-    height: 50px;
+    height: 45px;
     position: absolute;
     left: 120px;
-    top: 3px;
+    top: 5px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   .orderSon_ChooseNumber{

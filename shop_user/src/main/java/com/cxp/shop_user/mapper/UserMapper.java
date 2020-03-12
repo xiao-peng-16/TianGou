@@ -1,6 +1,6 @@
 package com.cxp.shop_user.mapper;
 
-import com.cxp.shop_api.dto.MoneyChange;
+import com.cxp.shop_api.dto.UserMoneyChange;
 import com.cxp.shop_api.entity.User;
 import com.cxp.shop_user.pojo.ChangeUserPassword;
 import com.cxp.shop_user.pojo.UserIdName;
@@ -56,5 +56,5 @@ public interface UserMapper {
     public int changeUserPhotoByUserId(@Param("userId") Integer userId, @Param("userPhoto") String userPhoto);
 
     // 增加余额   负数代表扣钱
-    public int addMoneyByUserId(List<MoneyChange> moneyChangeList);
+    public int addMoneyByUserId(List<UserMoneyChange> userMoneyChangeList);
 }

@@ -4,25 +4,25 @@
           <img :src="show_userPhotoURL">
           <el-progress v-show="show_percentage"  type="circle" :percentage="percentage" :width="200"  class="submit_percent"></el-progress>
 
-          <div style="margin-top: 5px;width: 175px;transform: translate(50%);position: absolute;right: 50%">
-            <span class="btn btn-info fileinput-button" @click="click_browse">
-              <span>浏览</span>
-              <el-upload
-                action="http://upload-z2.qiniu.com"
-                :data="postData"
-                :auto-upload="false"
-                :show-file-list="false"
-                :on-success="success_submit"
-                :on-change="change"
-                :on-progress="progress"
-                accept=".jpg,.jpeg,.png"
-                ref="submit">
-                <div ref="upload"></div>
-              </el-upload>
+          <div style="width: 180px;transform: translate(50%);position: absolute;right: 50%">
+            <div class="fileinput-button browse_btn" @click="click_browse">浏览</div>
+            <div class="fileinput-button submit_btn" @click="click_submit">提交</div>
+
+            <el-upload
+              action="http://upload-z2.qiniu.com"
+              :data="postData"
+              :auto-upload="false"
+              :show-file-list="false"
+              :on-success="success_submit"
+              :on-change="change"
+              :on-progress="progress"
+              accept=".jpg,.jpeg,.png"
+              ref="submit">
+              <div ref="upload"></div>
+            </el-upload>
 
 
-            </span>
-            <span class="btn btn-success fileinput-button" @click="click_submit">提交</span>
+
           </div>
 
         </div>
@@ -149,6 +149,9 @@
 </script>
 
 <style scoped>
+  span{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  }
   .box{
 
     margin-left: 28%;
@@ -173,16 +176,31 @@
   }
 
   .fileinput-button{
+    margin: 0px 2px;
+    float: left;
     font-size: 18px;
     color: white;
     cursor: pointer;
     border-radius: 4px;
     width: 85px;
     height: 40px;
+    text-align: center;
+    line-height: 40px;
   }
-  .fileinput-button input{
-    display: none;
+  .browse_btn{
+    background: #17A2B8;
   }
+  .browse_btn:hover{
+    background: #138496;
+  }
+  .submit_btn{
+    background: #28A745;
+  }
+  .submit_btn:hover{
+    background: #218838;
+  }
+
+
   span{
     font-size: 18px;
   }

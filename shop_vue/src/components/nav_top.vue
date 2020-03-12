@@ -1,6 +1,8 @@
 <template>
-    <div class="nav_top_box"  :class="{flag_fixed:flag_fixed,flag_not_fixed:!flag_fixed}">
-      <div class="nav_top" ref="nav_top">
+    <div class="nav_top_box"  :class="{flag_not_fixed:!flag_fixed}">
+<!--      fixed不占高度会影响布局-->
+      <div class="nav_top_height" v-if="flag_fixed"></div>
+      <div class="nav_top_height nav_top" ref="nav_top" :class="{flag_not_fixed:!flag_fixed,flag_fixed:flag_fixed}">
 
 
 
@@ -225,6 +227,8 @@
   .flag_fixed{
     position: fixed;
     z-index: 998;
+    top: 0px;
+    left: 0px;
   }
   .flag_not_fixed{
     position: relative;
@@ -239,9 +243,11 @@
     font: 12px/1.5 tahoma,arial,'Hiragino Sans GB','\5b8b\4f53',sans-serif;
   }
 
+  .nav_top_height{
+    height: 35px;
+  }
   .nav_top{
     width: 100%;
-    height: 35px;
     background:#f5f5f5;
 
     border-bottom: 1px solid #eee;
@@ -343,6 +349,7 @@
   .options_list li{
     width: 100%;
     padding: 0px 10px;
+    box-sizing: border-box;
     margin: 0px;
     line-height: 28px;
   }

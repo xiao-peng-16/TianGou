@@ -34,6 +34,7 @@ public class ResultStatus {
     public final static int ORDER_NOT_FIND = 503;               //订单找不到
     public final static int ORDER_ID_USER_ID_MISMATCHING = 504; //订单id 和 买家id不匹配
     public final static int ORDER_SUBMIT_ERROR = 505;           //订单支付错误
+    public final static int ORDER_STOCK_LOCK_EXPIRATION = 506;  //订单支付错误
 
 
     //购物车  6xx

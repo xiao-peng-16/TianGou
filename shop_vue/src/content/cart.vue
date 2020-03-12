@@ -3,11 +3,15 @@
     <nav_top :flag_fixed="true"/>
 
 
-    <div style="position: fixed;width: 100%;height: 75px;padding-top: 35px; background: white;z-index: 250">
-      <img id="tiangou" src="../assets/tmall.jpg">
-      <span id="cart">购物车</span>
+    <div class="cart_top_box">
+      <el-row>
+        <div class="cart_top">
+          <img id="tiangou" src="../assets/tmall.jpg">
+          <span id="cart">购物车</span>
+        </div>
+      </el-row>
     </div>
-    <div style="height: 50px;"></div>
+    <div style="height: 45px;"></div>
 
 
 
@@ -16,31 +20,34 @@
         <div class="title">
 
           <el-row>
-            <el-col :span="7" offset="2"><div><span>商品信息</span></div></el-col>
-            <el-col :span="3"><div  style="padding-left: 40px"><span>单价</span></div></el-col>
-            <el-col :span="4"><div style="margin-left: 16px"><span>数量</span></div></el-col>
-            <el-col :span="3"><span>金额</span></el-col>
-            <el-col :span="3"><div style="margin-left: 28px"><span>操作</span></div></el-col>
+            <el-col :span="8" offset="4"><div style="padding-left: 20px;box-sizing: border-box"><span>商品信息</span></div></el-col>
+            <el-col :span="3"><div style="padding-left: 15px;box-sizing: border-box"><span>单价</span></div></el-col>
+            <el-col :span="3"><div style="margin-left: 15px;box-sizing: border-box"><span>数量</span></div></el-col>
+            <el-col :span="3"><div  style="margin-left: 20px;box-sizing: border-box"><span>金额</span></div></el-col>
+            <el-col :span="3"><div style="margin-left: 35px;box-sizing: border-box"><span>操作</span></div></el-col>
           </el-row>
 
 
 
         </div>
 
-      <div style="height: 55px;"></div>
+      <div style="height: 40px;"></div>
 
         <el-row>
           <div class="itemBox row" v-for="item in dataList">
-            <div class="checkbox">
-               <label @click="click_selected(item)" class="myCkeck" :class="{myCkeck_selecked:item.selected}">
-                 <span class="iconfont">&#xed1d;</span>
-               </label>
-            </div>
+            <el-col :span="2">
+              <div class="checkbox">
+                <label @click="click_selected(item)" class="myCkeck" :class="{myCkeck_selecked:item.selected}">
+                  <span class="iconfont">&#xed1d;</span>
+                </label>
+              </div>
+            </el-col>
+
 
             <el-col :span="2">
               <img :src="item.commodityPhoto" @click="gotoCommodityPage(item.commodityId)" style="cursor: pointer;">
             </el-col>
-            <el-col :span="7">
+            <el-col :span="8">
               <div class=" cNameBox"  @click="gotoCommodityPage(item.commodityId)">
                 <span>{{item.commodityName}}</span>
                 <div><span style="color: #7E7E7E">{{item.commodityDescribe}}</span></div>
@@ -49,7 +56,7 @@
             </el-col>
 
             <el-col :span="3">
-              <div class="center down" style="padding-left: 40px">
+              <div class=" down">
                 <div v-if="undefined ==item.cartCommodityVO || item.commodityOldPrice != item.cartCommodityVO.commodityPrice">
                   <span style="text-decoration:line-through;color: #9E9E9E">
                     ￥{{item.commodityOldPrice.toFixed(2)}}
@@ -59,21 +66,21 @@
               </div>
             </el-col>
 
-            <el-col :span="4">
-              <div class="center down" >
-                <button type="button" class="btn btn-info" @click="click_changePurchaseQuantity(item,-1)"><span>-</span></button>
-                <input v-model.number="item.purchaseQuantity" @input="input(item)">
-                <button type="button" class="btn btn-info" @click="click_changePurchaseQuantity(item,1)"><span>+</span></button>
+            <el-col :span="3">
+              <div class=" down" style="width: 150%;margin-left: -25px">
+                <div class="quantity_btn_box"><div class="quantity_btn" @click="click_changePurchaseQuantity($event,item,-1)"  @mouseout="quantity_btn_leave($event)"><span style="padding-left: 4px;">-</span></div></div>
+                <input v-model.number="item.purchaseQuantity" @input="input(item)" class="quantity_input">
+                <div class="quantity_btn_box"><div class="quantity_btn" @click="click_changePurchaseQuantity($event,item,1)"  @mouseout="quantity_btn_leave($event)"><span>+</span></div></div>
               </div>
               <div style="color: red">{{hint_commodityStock(item)}}</div>
             </el-col>
             <el-col :span="3">
-              <div class="price col-1 center down">
+              <div class="price col-1  down">
                 <span>{{getSumCommodityPrice(item)}}</span>
               </div>
             </el-col>
-            <el-col :span="3">
-              <div class="price col-1 center " style="margin-top: 25px;margin-left: 15px">
+            <el-col :span="2">
+              <div class="price col-1  " style="margin-top: 25px;margin-left: 15px">
                 <div style="padding-left: 20px;width: 200px"><span class="operationSpan" @click="delByCartId(item)" >删除</span></div>
                 <div style="width: 200px"><span class="operationSpan" @click="cartToFavorite(item)" >移入收藏夹</span></div>
               </div>
@@ -112,12 +119,9 @@
 
 
     </div>
-    <div v-else>
-      <div class="notData">
-        <img src="../assets/search_notdata.png">
-        <span class="side">旺~旺~旺~</span>
-        <span class="middle">你的购物车还没有商品哟，还不给我去购物</span>
-      </div>
+
+    <div v-else style="margin-top: 40px">
+      <not-data left="旺~旺~旺~" middle="你的购物车还没有商品哟，快去添加吧"/>
     </div>
 
   </div>
@@ -126,9 +130,10 @@
 <script>
     import Nav_top from "@/components/nav_top";
     import Hint_popup from "@/components/hint_popup";
+    import NotData from "@/components/notData";
     export default {
         name: "cart",
-      components: {Hint_popup, Nav_top},
+      components: {NotData, Hint_popup, Nav_top},
       data(){
           return{
             dataList:[],
@@ -197,7 +202,7 @@
             let tempThis = this;
             clearTimeout(item.timeout_selected);
             item.timeout_selected = setTimeout(function () {
-              tempThis.axios.get('/cart/updSelectedByUserId',{
+              tempThis.$axios.get('/cart/updSelectedByUserId',{
                 params:{
                   commodityId : item.commodityId,
                   selected : target
@@ -217,7 +222,7 @@
             let tempThis = this;
             clearTimeout(tempThis.timeout_all_selecked);
             tempThis.timeout_all_selecked = setTimeout(function () {
-              tempThis.axios.get('/cart/updAllSelectedByUserId',{
+              tempThis.$axios.get('/cart/updAllSelectedByUserId',{
                 params:{
                   selected : target_flag_all_selecked
                 }
@@ -232,7 +237,7 @@
             let tempThis = this;
             clearTimeout(item.timeout_purchaseQuantity);
             item.timeout_purchaseQuantity = setTimeout(function () {
-              tempThis.axios.get('/cart/updChangePurchaseQuantityByUserId',{
+              tempThis.$axios.get('/cart/updChangePurchaseQuantityByUserId',{
                 params:{
                   commodityId : item.commodityId,
                   purchaseQuantity : item.purchaseQuantity
@@ -243,7 +248,11 @@
             }, 300);
 
           },
-          click_changePurchaseQuantity(item, change){
+          quantity_btn_leave($event){
+            $event.currentTarget.parentNode.classList.remove("quantity_btn_box_active");
+          },
+          click_changePurchaseQuantity($event,item, change){
+            $event.currentTarget.parentNode.classList.add("quantity_btn_box_active");
             if (undefined == item.cartCommodityVO){
               item.purchaseQuantity = 0;
               return;
@@ -336,9 +345,17 @@
             }
             this.$axios.post('/cart/CartSubmitOrderByUserId',cartList)
               .then(res=>{
+
                 if (this.$store.getters.getResultDispose(res)){
-                  this.$router.push({name:'shop_success'});
+                  this.$axios.post('/order/payOrderByUserId',res.data.data)
+                    .then(res=>{
+                      if (this.$store.getters.getResultDispose(res)){
+                        this.$router.push({name:'shop_success'});
+                      }
+                    });
                 }
+
+
               });
           },
           gotoCommodityPage(commodityId){
@@ -366,7 +383,7 @@
 
 
   .el-row{
-    max-width: 1280px;
+    max-width: 1300px;
     margin: 0px auto;
     padding: 0px;
   }
@@ -375,31 +392,35 @@
   *{
     padding: 0px;
   }
-  .notData{
-    margin-top: 55px;
-    background: #FFF8F6;
-    border: 1px solid #F7EAE7;
-    height: 90px;
-    padding-left: 250px;
+
+  .cart_top_box .el-row{
+    max-width: 1350px;
   }
-  .notData img{
-    height: 60px;
-    margin: 15px;
+
+  .cart_top_box{
+    box-sizing: border-box;
+    padding-top: 10px;
+    position: fixed;
+    width: 100%;
+    height: 50px;
+    background: white;
+    z-index: 250;
   }
-  .middle{
-    color: #790103;
-    font-weight: bold;
+
+  .cart_top{
+    position: relative;
+    height: 35px;
   }
 
   #tiangou{
-    margin-left: 70px;
-    height: 35px;
-    position: relative;
-    bottom: 5px;
+    height: 100%;
   }
   #cart{
     font-weight: 600;
     font-size: 28px;
+    line-height: 38px;
+    position: absolute;
+    bottom: 0px;
   }
 
 
@@ -410,8 +431,7 @@
     width: 100%;
     height: 25px;
     background: white;
-    margin-top: 25px;
-    margin-left: 90px;
+    margin-top: 5px;
   }
 
   .itemBox{
@@ -419,17 +439,17 @@
     background: #FCFCFC;
     border: 1px solid #CCCCCC;
     padding: 10px 0px;
+    box-sizing: border-box;
   }
   .itemBox img{
     height: 110px;
     max-width: 115px;
   }
 
-  . center{
-    text-align: center;
-  }
+
   .cNameBox{
     position: relative;
+    max-width: 363px;
     height: 98px;
     margin-left: 20px;
     margin-top: 15px;
@@ -441,27 +461,11 @@
   }
   .itemBox input{
     width: 50px;
+    box-sizing: border-box;
     padding-left:8px;
     margin: 0px;
   }
-  .btn{
-    position: relative;
-    bottom: 2px;
-    padding-left: 10px;
-    padding-right: 10px;
-    width: 28px;
-    height: 28px;
-  }
 
-  .btn span{
-    color: #FCFCFC;
-    font-size: 30px;
-    line-height: 20px;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-  }
   .down{
     margin-top: 30px;
   }
@@ -508,6 +512,7 @@
     height: 50px;
     /*border: 1px solid red;*/
     border-radius:5px;
+    box-sizing: border-box;
     padding-left: 30px;
     background: #E5E5E5;
     z-index: 150;
@@ -540,15 +545,13 @@
 
 
   .checkbox{
-    width: 77.5px;
+    height: 100px;
+    /*width: 100%;*/
+    height: 100%;
     position: relative;
+    margin-top: 35%;
+    margin-left: 40%;
   }
-  .checkbox .myCkeck{
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,-50%);
-    }
    .myCkeck{
      width: 20px;
      height: 20px;
@@ -579,6 +582,7 @@
 
   .operationBox{
     display: inline-block;
+    box-sizing: border-box;
     padding-top: 8px;
   }
   .operationSpan{
@@ -588,5 +592,53 @@
   .operationSpan:hover{
     color: #FF4400;
     text-decoration:underline;
+  }
+
+
+
+
+  .quantity_btn_box{
+    cursor: pointer;
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: .5rem;
+    border: 3px solid rgba(155,214,224,0);
+  }
+  .quantity_btn_box_active{
+    border: 3px solid rgba(155,214,224,.5);
+    background: #9BD6E0;
+  }
+  .quantity_btn_box:hover .quantity_btn{
+    background: #138496;
+  }
+  .quantity_btn{
+    width: 28px;
+    height: 28px;
+    border-radius: .25rem;
+
+    background: #17A2B8;
+    box-sizing: border-box;
+    padding-left: 4px;
+  }
+  .quantity_btn_box span{
+    line-height: 25px;
+    font-size: 27px;
+    font-weight: 400;
+    color: white;
+
+    -moz-user-select:none;/*火狐*/
+    -webkit-user-select:none;/*webkit浏览器*/
+    -ms-user-select:none;/*IE10*/
+    -khtml-user-select:none;/*早期浏览器*/
+    user-select:none;
+  }
+
+
+  .quantity_input{
+    width: 50px;
+    height: 28px;
+    position: relative;
+    bottom: 5px;
   }
 </style>

@@ -2,7 +2,7 @@
 仿天猫 分布式电商项目
 ====  
 
-使用技术： Vue + Element + SpringCloud + Maven + Mybatis + Redis 
+使用技术： Vue + Element + SpringCloud + Maven + Mybatis + RabbitMQ
 --
 
 ### 项目描述:
@@ -115,10 +115,9 @@
 * 建立shop_api  Maven项目编写公共实体类，通过其他项目聚合以保证一致性
 * 用户身份验证： 
  1、vue axios设置拦截器请求头添加token 信息                  
-2、zuul 网关设置过滤器对指定uri进行token验证，并添加userId参数   
-3、redis 保存 Key=> token ， Value=> userId 键值对 
-* 购物：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191207163910118.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTQyMzM3OA==,size_16,color_FFFFFF,t_70)
+2、zuul 网关设置过滤器对指定uri进行token验证，并添加userId,storeId进请求头参数   
+
+
 * 后台统一返回一定格式数据
 
 ```java
