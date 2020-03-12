@@ -10,15 +10,15 @@ export default {
 
   imgList:[
     {
-      imgURI:'http://q4fx9in8d.bkt.clouddn.com/vue/home_lv_dou_gao.jpg',
+      imgURI:'http://q72z15qf5.bkt.clouddn.com/home_lv_dou_gao.jpg',
       commodityId:40
     },
     {
-      imgURI:'http://q4fx9in8d.bkt.clouddn.com/vue/home_mk_44.jpg',
+      imgURI:'http://q72z15qf5.bkt.clouddn.com/home_mk_44.jpg',
       commodityId:16
     },
     {
-      imgURI:'http://q4fx9in8d.bkt.clouddn.com/vue/home_cxk.jpg',
+      imgURI:'http://q72z15qf5.bkt.clouddn.com/home_cxk.jpg',
       commodityId:35
     },
   ],

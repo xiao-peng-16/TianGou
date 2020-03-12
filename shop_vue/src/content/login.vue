@@ -118,7 +118,7 @@
 
   }
   .content{
-    background-image: url("http://q4fx9in8d.bkt.clouddn.com/vue/login_bj.jpg");
+    background-image: url("http://q72z15qf5.bkt.clouddn.com/login_bj.jpg");
     background-repeat:no-repeat ;
     background-size:100% 100%;
     height: 600px;

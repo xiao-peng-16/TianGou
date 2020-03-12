@@ -44,8 +44,8 @@
       },
       methods:{
           click_name(){
-            var date = - (-new Date());
-            window.open("http://q4fx9in8d.bkt.clouddn.com/vue/cxp.pdf?date=" + date,"_blank");
+            // var date = - (-new Date());
+            // window.open("http://q72z15qf5.bkt.clouddn.com/vue/cxp.pdf?date=" + date,"_blank");
           }
       },
       mounted() {

@@ -11,10 +11,10 @@
         <div class="commoditySalesBox"><span>{{props_CommodityMessage.commoditySales}}人付款</span></div>
         <div class="msgBox"><span>{{props_CommodityMessage.commodityName}}</span></div>
         <div class="storeBox">
-          <div class="storeBox_left"><span>{{props_CommodityMessage.storeToCommodity.storeName}}</span></div>
+          <div class="storeBox_left"><span>{{props_CommodityMessage.storeBase.storeName}}</span></div>
           <div class="storeBox_right">
-            <span>{{props_CommodityMessage.storeToCommodity.storeProvince}}</span>
-            <span>{{props_CommodityMessage.storeToCommodity.storeCity}}</span  >
+            <span>{{address.province}}</span>
+            <span>{{address.city}}</span  >
           </div>
         </div>
       </div>
@@ -23,10 +23,17 @@
 </template>
 
 <script>
+  import city_code from '@/components/city_code'
   export default {
 
     name: "searchPage_commodity",
     props:['props_CommodityMessage'],
+    computed:{
+      address(){
+        var cityCode = this.props_CommodityMessage.storeBase.cityCode;
+        return city_code.getAddress(cityCode);
+      }
+    },
     methods:{
       gotoCommodityPage(){
 
@@ -40,6 +47,8 @@
         });
         window.open(href,'_blank');
       }
+    },
+    created() {
     }
   }
 </script>

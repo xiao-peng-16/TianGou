@@ -40,10 +40,10 @@
             placeholder="省级地区"
             style="width:120px;position: absolute; left: 180px;top: 120px;">
           <el-option
-            v-for="item in provinceList"
-            :key="item"
-            :label="item"
-            :value="item">
+            v-for="item in province_list"
+            :key="item.name"
+            :label="item.name"
+            :value="item.code">
           </el-option>
           </el-select>
 
@@ -52,10 +52,10 @@
             placeholder="市级地区"
             style="width:120px;position: absolute; left: 310px;top: 120px;">
             <el-option
-              v-for="item in cityList"
-              :key="item"
-              :label="item"
-              :value="item">
+              v-for="item in city_list"
+              :key="item.name"
+              :label="item.name"
+              :value="item.code">
             </el-option>
           </el-select>
 
@@ -77,6 +77,7 @@
 </template>
 
 <script>
+  import city_code from '@/components/city_code'
     export default {
         name: "userOpenStore_popup",
       data(){
@@ -87,8 +88,33 @@
 
 
           storeName:'',
+
           storeProvince:undefined,
           storeCity:undefined,
+          cityCode:undefined,
+
+
+          province_list:city_code.province_list,
+          city_list:[],
+        }
+      },
+      watch:{
+        storeProvince(val){
+          this.cityCode = val;
+          this.storeCity = undefined;
+          var thisTemp = this;
+          for(let i in this.province_list) {
+            if (this.province_list[i].code == val){
+              var flag = this.province_list[i].city.length != 1 || this.province_list[i].city[0].name != '市辖区';
+              thisTemp.city_list = flag ? this.province_list[i].city : [];
+              return;
+            }
+          }
+
+        },
+        storeCity(val){
+          if (val != undefined)
+            this.cityCode = val;
 
         }
       },
@@ -101,11 +127,8 @@
           return this.$store.state.flag_userOpenStore;
         },
       },
-      watch:{
-        storeProvince(){
-          this.storeCity = undefined;
-        }
-      },
+
+
       methods:{
         leverOrderParent(){
           this.$store.state.flag_userOpenStore = false;
@@ -114,11 +137,8 @@
           if (0 == this.storeName.length){
             this.$message.error('店铺名字未填写');
             return;
-          }else if (undefined == this.storeProvince){
-            this.$message.error('省级地区未填写');
-            return;
-          } else if (undefined == this.storeCity){
-            this.$message.error('市级地区未填写');
+          } else if (undefined == this.cityCode){
+            this.$message.error('地区未填写');
             return;
           }
 
@@ -131,8 +151,7 @@
               this.$axios.get('/store/addStoreIdByUserId',{
                 params:{
                   storeName:this.storeName,
-                  storeProvince:this.storeProvince,
-                  storeCity:this.storeCity,
+                  cityCode:this.cityCode,
                 }
               }).then(res=>{
                   this.$store.state.flag_userOpenStore = false;

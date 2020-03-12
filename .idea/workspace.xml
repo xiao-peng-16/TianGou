@@ -2,79 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba7746b0-eb01-4fa4-bb05-ac7b9d1c947e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/pojo/AddOrderListSonResultBean.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/pojo/AddOrderSonResultBean.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/pojo/OrderPayPO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/rabbit/RabbitConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/rabbit/RabbitConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/pojo/StoreIdUserId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_vue/src/components/notData.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_zuul/src/main/java/com/cxp/shop_zuul/pojo/JwtClaimsData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shop_vue/src/components/city_code.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/dto/CommodityToOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/dto/CommodityToOrder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/dto/MoneyChange.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/dto/UserMoneyChange.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/dto/StoreToCommodity.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/StoreBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/dto/UserOpenStoreDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/Store.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/result/ResultStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/result/ResultStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/vo/SearchCommodityVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/vo/SearchCommodityVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/controller/CommodityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/controller/CommodityController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/mapper/CommodityMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/mapper/CommodityMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/CommodityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/CommodityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/FeignClient/StoreFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/FeignClient/StoreFeignClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/impl/CommodityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/impl/CommodityServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_commodity/src/main/resources/mapper/CommodityMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_commodity/src/main/resources/mapper/CommodityMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/pojo/AddMultipleOrderParent.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/pojo/AddMultipleOrderParent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/pojo/AddMultipleOrderParentToTal.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/pojo/AddMultipleOrderParentToTal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/pojo/AddOrderSon.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/pojo/AddOrderSon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/pojo/AddSingleOrderParent.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/pojo/AddSingleOrderParent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/CommodityFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/CommodityFeignClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/StoreFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/StoreFeignClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/UserFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/FeignClient/UserFeignClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/service/impl/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_order/src/main/resources/mapper/OrderMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_order/src/main/resources/mapper/OrderMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/controller/StoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/controller/StoreController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/mapper/StoreMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/mapper/StoreMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/service/StoreService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/service/StoreService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/service/impl/StoreServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/service/impl/StoreServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_store/src/main/resources/mapper/StoreMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_store/src/main/resources/mapper/StoreMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_user/src/main/resources/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_user/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/build/webpack.base.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/build/webpack.base.conf.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/hint_popup.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/hint_popup.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/img_amplifier.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/img_amplifier.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/nav_right.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/nav_right.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/nav_top.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/nav_top.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/order_popup.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/order_popup.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/StoreBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/StoreBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_images/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/shop_images/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shop_vue/src/components/searchPage_commodity.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/searchPage_commodity.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/serarch.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/serarch.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreCommodityManage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreCommodityManage.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreHome.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreHome.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreOrderManage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreOrderManage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/swiper.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/swiper.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/user_center/changeUserPassword.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/user_center/changeUserPassword.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/user_center/changeUserPhoto.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/user_center/changeUserPhoto.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/components/user_center/userOrderManage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/components/user_center/userOrderManage.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shop_vue/src/content/about.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/about.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/cart.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/cart.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/commodityPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/commodityPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/favorite.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/favorite.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/home_data.js" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/home_data.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shop_vue/src/content/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/login.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shop_vue/src/content/register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/register.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/searchPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/searchPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/store_center.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/store_center.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_vue/src/content/user_center.vue" beforeDir="false" afterPath="$PROJECT_DIR$/shop_vue/src/content/user_center.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shop_zuul/src/main/java/com/cxp/shop_zuul/service/TokenServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shop_zuul/src/main/java/com/cxp/shop_zuul/service/TokenServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/数据库文件.sql" beforeDir="false" afterPath="$PROJECT_DIR$/数据库文件.sql" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -91,8 +28,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/数据库文件.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+            <state relative-caret-position="399">
+              <caret line="135" column="47" lean-forward="true" selection-end-line="311" />
             </state>
           </provider>
         </entry>
@@ -110,8 +47,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="612">
-                <caret line="54" column="23" selection-start-line="54" selection-start-column="23" selection-end-line="54" selection-end-column="23" />
+              <first_editor relative-caret-position="2033">
+                <caret line="107" column="10" selection-start-line="107" selection-start-column="10" selection-end-line="107" selection-end-column="10" />
               </first_editor>
               <second_editor />
             </state>
@@ -122,10 +59,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>selStoreOrderParent</find>
-      <find>selUserNameByUserId</find>
-      <find>selUserPhotoByUserId</find>
-      <find>selStoreNameByStoreId</find>
       <find>getUserByUserId</find>
       <find>selUserByUserId</find>
       <find>selUserById</find>
@@ -152,11 +85,12 @@
       <find>mapCommodityToOrder</find>
       <find>userMoneyChange</find>
       <find>store_province,store_city</find>
+      <find>q4fx9in8d.bkt.clouddn.com</find>
+      <find>/vue/</find>
+      <find>com/vue</find>
+      <find>/commodity</find>
     </findStrings>
     <replaceStrings>
-      <replace>order_total_price</replace>
-      <replace>order_total_quantity</replace>
-      <replace>purchaseQuantity</replace>
       <replace>orderTotalQuantity</replace>
       <replace>orderTotalPrice</replace>
       <replace>getPurchaseQuantity</replace>
@@ -184,6 +118,9 @@
       <replace>not null</replace>
       <replace>moneyChange</replace>
       <replace>city_code</replace>
+      <replace>q72z15qf5.bkt.clouddn.com</replace>
+      <replace>/</replace>
+      <replace>com</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -192,7 +129,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/ShopCar.java" />
         <option value="$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/entity/OrderParent.java" />
         <option value="$PROJECT_DIR$/shop_vue/src/components/store_center/StoreHome.vue" />
@@ -201,6 +137,8 @@
         <option value="$PROJECT_DIR$/shop_store/src/main/java/com/cxp/shop_store/controller/StoreController.java" />
         <option value="$PROJECT_DIR$/shop_user/src/main/java/com/cxp/shop_user/controller/UserController.java" />
         <option value="$PROJECT_DIR$/shop_commodity/src/main/java/com/cxp/shop_commodity/service/impl/CommodityServiceImpl.java" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/shop_vue/src/content/about.vue" />
         <option value="$PROJECT_DIR$/数据库文件.sql" />
       </list>
     </option>
@@ -223,6 +161,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -310,8 +250,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -439,14 +377,10 @@
       <workItem from="1583935760403" duration="1563000" />
       <workItem from="1583938186534" duration="193000" />
       <workItem from="1583939565696" duration="26000" />
-      <workItem from="1583991137969" duration="282000" />
-    </task>
-    <task id="LOCAL-00002" summary="shop">
-      <created>1575094724208</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1575094724208</updated>
+      <workItem from="1583991137969" duration="1098000" />
+      <workItem from="1584017064935" duration="1864000" />
+      <workItem from="1584024481414" duration="88000" />
+      <workItem from="1584025506750" duration="414000" />
     </task>
     <task id="LOCAL-00003" summary="shop">
       <created>1575095156548</created>
@@ -784,17 +718,24 @@
       <option name="project" value="LOCAL" />
       <updated>1580742426020</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="cxp_shop">
+      <created>1583991630257</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1583991630258</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79926000" />
+    <option name="totallyTimeSpent" value="83108000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19664429" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16778524" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -927,6 +868,20 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shop_api/src/main/java/com/cxp/shop_api/vo/OrderPageVO.java" />
+    <entry file="file://$PROJECT_DIR$/shop_vue/src/content/about.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="48" column="11" lean-forward="true" selection-start-line="48" selection-start-column="11" selection-end-line="48" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/数据库文件.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="135" column="47" lean-forward="true" selection-end-line="311" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/shop_order/src/main/java/com/cxp/shop_order/mapper/OrderMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
@@ -937,17 +892,10 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="612">
-            <caret line="54" column="23" selection-start-line="54" selection-start-column="23" selection-end-line="54" selection-end-column="23" />
+          <first_editor relative-caret-position="2033">
+            <caret line="107" column="10" selection-start-line="107" selection-start-column="10" selection-end-line="107" selection-end-column="10" />
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/数据库文件.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
         </state>
       </provider>
     </entry>

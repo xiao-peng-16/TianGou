@@ -1,5 +1,6 @@
 package com.cxp.shop_store.service;
 
+import com.cxp.shop_api.dto.UserOpenStore;
 import com.cxp.shop_api.entity.Store;
 import com.cxp.shop_api.entity.StoreBase;
 import com.cxp.shop_api.result.ResultBean;
@@ -13,7 +14,7 @@ public interface StoreService {
     public Integer selStoreIdByUserId(Integer userId);
 
     //用户 开通店铺功能
-    public ResultBean addStoreIdByUserId(StoreBase storeBase);
+    public ResultBean addStoreIdByUserId(UserOpenStore userOpenStore);
 
     //判断用户名是否可以注册 (防止已经有人注册过了)
     public boolean isUsableStoreName(String storeName);

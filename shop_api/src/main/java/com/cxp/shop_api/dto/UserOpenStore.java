@@ -1,11 +1,11 @@
-package com.cxp.shop_api.entity;
+package com.cxp.shop_api.dto;
 
 import lombok.Data;
 
 @Data
-public class StoreBase {
+public class UserOpenStore {
 
-    int storeId;
+    int userId;
     String storeName;
     String cityCode; //省市区代码
 

@@ -1,5 +1,6 @@
 package com.cxp.shop_store.controller;
 
+import com.cxp.shop_api.dto.UserOpenStore;
 import com.cxp.shop_api.entity.Store;
 import com.cxp.shop_api.entity.StoreBase;
 import com.cxp.shop_api.result.ResultBean;
@@ -30,8 +31,8 @@ public class StoreController {
     //前端接口
     //用户 开通店铺功能
     @RequestMapping("addStoreIdByUserId")
-    public ResultBean addStoreIdByUserId(StoreBase storeBase){
-        return storeService.addStoreIdByUserId(storeBase);
+    public ResultBean addStoreIdByUserId(UserOpenStore userOpenStore){
+        return storeService.addStoreIdByUserId(userOpenStore);
     }
 
     //判断用户名是否可以注册 (防止已经有人注册过了)

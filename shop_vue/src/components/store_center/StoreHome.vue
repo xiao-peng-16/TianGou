@@ -11,7 +11,7 @@
         </div>
         <div style="margin-top: 15px">
           <span>店铺地址 : </span>
-          <span style="padding-left: 8px">{{store.storeProvince}}  {{store.storeCity}}</span>
+          <span style="padding-left: 8px">{{address.province}}  {{address.city}}</span>
         </div>
       </div>
       <div class="right_message">
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+  import city_code from '@/components/city_code'
   export default {
         name: "StoreHome",
       data(){
@@ -76,6 +77,10 @@
         flag_userOpenStore(){
           return this.$store.state.flag_userOpenStore;
         },
+        address(){
+          var cityCode = this.store.cityCode;
+          return city_code.getAddress(cityCode);
+        }
       },
       watch:{
         flag_userOpenStore(val){

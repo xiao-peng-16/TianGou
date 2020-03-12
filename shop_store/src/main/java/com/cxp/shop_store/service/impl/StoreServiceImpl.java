@@ -1,5 +1,6 @@
 package com.cxp.shop_store.service.impl;
 
+import com.cxp.shop_api.dto.UserOpenStore;
 import com.cxp.shop_api.entity.Store;
 import com.cxp.shop_api.entity.StoreBase;
 import com.cxp.shop_api.result.ResultBean;
@@ -34,11 +35,12 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public ResultBean addStoreIdByUserId(StoreBase storeBase) {
+    public ResultBean addStoreIdByUserId(UserOpenStore userOpenStore) {
         try {
-            storeMapper.addStoreIdByUserId(storeBase);
+            storeMapper.addStoreIdByUserId(userOpenStore);
             return successResult;
         }catch (Exception e){
+            e.printStackTrace();
             if(e.getCause() instanceof java.sql.SQLIntegrityConstraintViolationException
                 && e.getCause().toString().contains("UK_store_name"))
                 return STORE_NAME_DISABLED;

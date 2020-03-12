@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="register_bj"><img src="http://q4fx9in8d.bkt.clouddn.com/vue/register_bj.jpg"></div>
+    <div class="register_bj"><img src="http://q72z15qf5.bkt.clouddn.com/register_bj.jpg"></div>
 <!--    <div class="register_bj"><div style="background: #138496">sdsdd</div></div>-->
       <div class="fromBox">
 
